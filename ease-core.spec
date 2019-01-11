@@ -9,7 +9,7 @@
 %global github_commit    8f2b2c8e9aa536cecf6e1efdbe4c6d6293362e81
 
 %global composer_vendor  vitexsoftware
-%global composer_project ease-framework
+%global composer_project ease-core
 
 # "php": "^5.6|^7.0"
 %global php_min_ver 5.6

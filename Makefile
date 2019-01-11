@@ -1,6 +1,6 @@
-#DESTDIR ?= debian/ease-framework/DEBIAN
+#DESTDIR ?= debian/ease-core/DEBIAN
 #libdir  ?= /usr/share/php/Ease
-#docdir  ?= /doc/ease-framework/html
+#docdir  ?= /doc/ease-core/html
 
 all: build install
 
@@ -23,8 +23,8 @@ fresh:
 
 clean:
 	rm -rf vendor composer.lock
-	rm -rf debian/ease-framework
-	rm -rf debian/ease-framework-doc
+	rm -rf debian/ease-core
+	rm -rf debian/ease-core-doc
 	rm -rf debian/*.log debian/tmp
 	rm -rf docs/*
 
@@ -44,8 +44,8 @@ deb:
 	debuild -i -us -uc -b
 
 rpm:
-	rpmdev-bumpspec --comment="`git log -1 --pretty=%B`" --userstring="Vítězslav Dvořák <info@vitexsoftware.cz>" ease-framework.spec
-	rpmbuild -ba ease-framework.spec
+	rpmdev-bumpspec --comment="`git log -1 --pretty=%B`" --userstring="Vítězslav Dvořák <info@vitexsoftware.cz>" ease-core.spec
+	rpmbuild -ba ease-core.spec
 
 docker: dimage
 

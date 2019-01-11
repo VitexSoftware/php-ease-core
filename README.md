@@ -9,9 +9,9 @@ Object oriented PHP Framework for easy&fast writing small/middle sized apps.
 [![Latest Version](https://img.shields.io/github/release/VitexSoftware/ease-core.svg?style=flat-square)](https://github.com/VitexSoftware/ease-core/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](https://github.com/VitexSoftware/ease-core/blob/master/LICENSE)
 [![Build Status](https://img.shields.io/travis/VitexSoftware/ease-core/master.svg?style=flat-square)](https://travis-ci.org/VitexSoftware/ease-core)
-[![Total Downloads](https://img.shields.io/packagist/dt/vitexsoftware/ease-framework.svg?style=flat-square)](https://packagist.org/packages/vitexsoftware/ease-framework)
-[![Docker pulls](https://img.shields.io/docker/pulls/vitexsoftware/ease-framework.svg)](https://hub.docker.com/r/vitexsoftware/ease-framework/)
-[![Latest stable](https://img.shields.io/packagist/v/vitexsoftware/ease-framework.svg?style=flat-square)](https://packagist.org/packages/vitexsoftware/ease-framework)
+[![Total Downloads](https://img.shields.io/packagist/dt/vitexsoftware/ease-core.svg?style=flat-square)](https://packagist.org/packages/vitexsoftware/ease-core)
+[![Docker pulls](https://img.shields.io/docker/pulls/vitexsoftware/ease-core.svg)](https://hub.docker.com/r/vitexsoftware/ease-core/)
+[![Latest stable](https://img.shields.io/packagist/v/vitexsoftware/ease-core.svg?style=flat-square)](https://packagist.org/packages/vitexsoftware/ease-core)
 
 ---
 

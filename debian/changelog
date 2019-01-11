@@ -1,4 +1,10 @@
-ease-framework (0.1) EXPERIMENTAL; urgency=medium
+ease-core (0.2) UNRELEASED; urgency=medium
+
+  * Sensiolabs Icon removed
+
+ -- Vítězslav Dvořák <info@vitexsoftware.cz>  Sat, 12 Jan 2019 00:02:58 +0100
+
+ease-core (0.1) EXPERIMENTAL; urgency=medium
 
   * Package build fixed
 
