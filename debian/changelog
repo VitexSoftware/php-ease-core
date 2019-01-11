@@ -1,8 +1,9 @@
-ease-core (0.2) UNRELEASED; urgency=medium
+ease-core (0.3) UNRELEASED; urgency=medium
 
   * Sensiolabs Icon removed
+  * global rename ease-framework to ease-core
 
- -- Vítězslav Dvořák <info@vitexsoftware.cz>  Sat, 12 Jan 2019 00:02:58 +0100
+ -- Vítězslav Dvořák <info@vitexsoftware.cz>  Sat, 12 Jan 2019 00:07:20 +0100
 
 ease-core (0.1) EXPERIMENTAL; urgency=medium
 
