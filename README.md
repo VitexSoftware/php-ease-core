@@ -13,7 +13,7 @@ Object oriented PHP Framework for easy&fast writing small/middle sized apps.
 [![Docker pulls](https://img.shields.io/docker/pulls/vitexsoftware/ease-framework.svg)](https://hub.docker.com/r/vitexsoftware/ease-framework/)
 [![Latest stable](https://img.shields.io/packagist/v/vitexsoftware/ease-framework.svg?style=flat-square)](https://packagist.org/packages/vitexsoftware/ease-framework)
 
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/4900ce8c-8619-4007-b2d6-0ac830064963/big.png)](https://insight.sensiolabs.com/projects/4900ce8c-8619-4007-b2d6-0ac830064963)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/1429c138-cc4b-4b23-9ffa-b8f90478cca0/big.png)](https://insight.sensiolabs.com/projects/4900ce8c-8619-4007-b2d6-0ac830064963)
 
 
 ---
