@@ -1,0 +1,17 @@
+/nbproject/private/
+/debian/ease-framework.sh
+/tests/build/
+/vendor/
+composer.lock
+/build/
+/debian/ease-framework/
+/debian/nbproject/private/
+/docs/
+/debian/ease-framework-doc/
+/debian/ease-framework-doc.debhelper.log
+/debian/ease-framework-doc.substvars
+/debian/ease-framework.debhelper.log
+/debian/ease-framework.substvars
+/.vagrant/
+/debian/tmp/
+/clover.log

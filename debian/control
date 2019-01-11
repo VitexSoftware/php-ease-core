@@ -1,0 +1,17 @@
+Source: ease-core
+Build-Depends: debhelper (>= 7.0.50~)
+Section: web
+Standards-Version: 3.9.8
+Maintainer: Vítězslav Dvořák <info@vitexsoftware.cz>
+Uploaders: Vitex <vitex@hippy.cz>
+Priority: optional
+Homepage: https://github.com/VitexSoftware/ease-core
+
+Package: ease-core
+Depends: ${misc:Depends},libjs-jquery (>= 1.4), libjs-jquery-ui, php-mail, php-mail-mime, libjs-bootstrap, php-mdb2-driver-mysql
+Architecture: all
+Suggests: composer
+Section: web
+Priority: optional
+Description: EasePHP Framework
+ common classes foe Ease Framework. 

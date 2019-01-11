@@ -1,0 +1,37 @@
+filter:
+    excluded_paths:
+        - 'tests/*'
+        - 'vendor/*'
+        - 'Examples/*'
+tools:
+    php_code_sniffer:
+        config:
+            standard: "PSR2"
+
+checks:
+    php:
+        code_rating: true
+        duplication: true
+        
+build:
+    nodes:
+        analysis:
+            project_setup:
+                override: true
+            tests:
+                override: php-scrutinizer-run
+    environment:
+        php:
+            version: 7.1.0
+        postgresql: true
+    dependencies:
+        before:
+            - composer self-update
+            - composer install --no-interaction
+    tests:
+        override: 
+            -
+                command: './vendor/bin/phpunit --coverage-clover=clover.log'
+                coverage:
+                    file: 'clover.log'
+                    format: 'clover'

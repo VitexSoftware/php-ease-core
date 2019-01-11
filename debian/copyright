@@ -1,0 +1,14 @@
+Format-Specification: http://wiki.debian.org/Proposals/CopyrightFormat?action=recall&rev=143
+Upstream-Name: ease-core
+Upstream-Source: http://v.s.cz/download/Ease.tar.bz2
+
+Files: *
+Homepage: http://v.s.cz/ease.php
+Copyright:
+  (c) 2013 Vítězslav Dvořák (v.s.cz)
+License: MIT 
+
+License: MIT
+ On Debian systems the full text of the GNU General Public License can be found
+ in the `/usr/share/common-licenses/MIT' file.
+
