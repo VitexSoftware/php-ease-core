@@ -10,6 +10,7 @@
  * 
  * PHP 7
  */
+
 namespace Ease\Logger;
 
 /**
@@ -44,7 +45,12 @@ class Message
     public $when;
 
     /**
-     * @param string $caller
+     * Basic Message class
+     * 
+     * @param string     $message
+     * @param string     info|notice|debug|error
+     * @param \Ease\Atom $caller
+     * @param int        $when
      */
     public function __construct($message, $type = 'info', $caller = null,
                                 $when = null)

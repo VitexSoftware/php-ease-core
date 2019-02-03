@@ -5,12 +5,14 @@ EasePHP Framework Core
 
 Object oriented PHP Framework for easy&fast writing small/middle sized apps.
 
-[![Source Code](http://img.shields.io/badge/source-VitexSoftware/ease-core-blue.svg?style=flat-square)](https://github.com/VitexSoftware/ease-core)
 [![Latest Version](https://img.shields.io/github/release/VitexSoftware/ease-core.svg?style=flat-square)](https://github.com/VitexSoftware/ease-core/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](https://github.com/VitexSoftware/ease-core/blob/master/LICENSE)
+[![Code Coverage](https://scrutinizer-ci.com/g/VitexSoftware/ease-core/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/VitexSoftware/ease-core/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/VitexSoftware/ease-core/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/VitexSoftware/ease-core/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/VitexSoftware/ease-core/badges/build.png?b=master)](https://scrutinizer-ci.com/g/VitexSoftware/ease-core/build-status/master)
+[![Code Intelligence Status](https://scrutinizer-ci.com/g/VitexSoftware/ease-core/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
 [![Build Status](https://img.shields.io/travis/VitexSoftware/ease-core/master.svg?style=flat-square)](https://travis-ci.org/VitexSoftware/ease-core)
 [![Total Downloads](https://img.shields.io/packagist/dt/vitexsoftware/ease-core.svg?style=flat-square)](https://packagist.org/packages/vitexsoftware/ease-core)
-[![Docker pulls](https://img.shields.io/docker/pulls/vitexsoftware/ease-core.svg)](https://hub.docker.com/r/vitexsoftware/ease-core/)
 [![Latest stable](https://img.shields.io/packagist/v/vitexsoftware/ease-core.svg?style=flat-square)](https://packagist.org/packages/vitexsoftware/ease-core)
 
 ---
