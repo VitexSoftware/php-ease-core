@@ -150,6 +150,18 @@ class Atom
     }
 
     /**
+     * Add Info about used PHP and EasePHP Library
+     *
+     * @param string $prefix banner prefix text
+     * @param string $suffix banner suffix text
+     */
+    public function logBanner($prefix = null, $suffix = null)
+    {
+        $this->addStatusMessage(trim($prefix.' PHP v'.phpversion().' EasePHP Framework v'.self::$frameworkVersion.' '.$suffix),
+            'debug');
+    }
+
+    /**
      * Returns PATH modified for current operating system.
      *
      * @param string $path
