@@ -33,7 +33,7 @@ class ToEmail extends ToMemory
     /**
      * Odkaz na vlastnící objekt.
      *
-     * @var Sand
+     * @var \Ease\Sand
      */
     public $parentObject = null;
 
@@ -133,7 +133,7 @@ class ToEmail extends ToMemory
      *
      * @return null|boolean byl report zapsán ?
      */
-    public function addToLog($caller, $message, $type = 'message')
+    public function addToLog($caller, $message, $type = 'notice')
     {
 
         if (!is_object($this->mailer)) {
@@ -150,11 +150,6 @@ class ToEmail extends ToMemory
         }
 
         $this->statusMessages[$type][$this->messageID] = $message;
-
-
-        if (!isset($this->logStyles[$type])) {
-            $type = 'notice';
-        }
 
         $logLine = strftime("%D %T").' `'.$caller.'`: '.$message;
 

@@ -185,7 +185,7 @@ class ToFile extends ToMemory
             $type = 'notice';
         }
         if ($this->logType == 'console' || $this->logType == 'both') {
-            if ($this->runType == 'cgi') {
+            if (php_sapi_name() == 'cli') {
                 echo $logLine;
             } else {
                 echo '<div style="'.$this->logStyles[$type].'">'.$logLine."</div>\n";

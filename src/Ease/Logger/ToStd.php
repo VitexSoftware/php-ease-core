@@ -73,7 +73,7 @@ class ToStd extends ToMemory
     /**
      * Log Name
      *
-     * @var resource
+     * @var string
      */
     public $logName = null;
 
