@@ -26,7 +26,7 @@ class Atom
      *
      * @var string
      */
-    static public $frameworkVersion = '0.3';
+    static public $frameworkVersion = '0.4';
 
     /**
      * Udržuje v sobě jméno objektu.
