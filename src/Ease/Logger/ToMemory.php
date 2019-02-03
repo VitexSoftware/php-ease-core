@@ -50,7 +50,7 @@ class ToMemory extends \Ease\Atom
     /**
      * Odkaz na vlastnící objekt.
      *
-     * @var EaseSand ||
+     * @var \Ease\Sand
      */
     public $parentObject = null;
 

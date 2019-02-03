@@ -660,7 +660,7 @@ class Locale
      * 
      * @return string lang code 
      */
-    static public function autodetected()
+    public static function autodetected()
     {
         return array_key_exists('HTTP_ACCEPT_LANGUAGE', $_SERVER) && function_exists('\locale_accept_from_http')
                 ? \locale_accept_from_http($_SERVER['HTTP_ACCEPT_LANGUAGE']) : null;

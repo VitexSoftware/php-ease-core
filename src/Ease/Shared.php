@@ -105,7 +105,7 @@ class Shared extends Atom
      * Logger live here
      * @var Logger\ToFile|Logger\ToMemory|Logger\ToSyslog
      */
-    static public $log = null;
+    public static $log = null;
 
     /**
      * Array of Status Messages

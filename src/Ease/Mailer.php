@@ -31,13 +31,6 @@ class Mailer extends Sand
     public $finalized       = false;
 
     /**
-     * Již vzrendrované HTML.
-     *
-     * @var string
-     */
-    public $htmlBodyRendered = null;
-
-    /**
      * Adresa odesilatele zprávy.
      *
      * @var string
@@ -65,20 +58,6 @@ class Mailer extends Sand
      * @var bool
      */
     public $sendResult = false;
-
-    /**
-     * Objekt stránky pro rendrování do mailu.
-     *
-     * @var Html\HtmlTag
-     */
-    public $htmlDocument = null;
-
-    /**
-     * Ukazatel na BODY html dokumentu.
-     *
-     * @var Html\BodyTag
-     */
-    public $htmlBody = null;
 
     /**
      * Parametry odchozí pošty.

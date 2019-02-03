@@ -7,7 +7,7 @@
  * 
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2019 Vitex@hippy.cz (G)
- * @license http://URL GPL-2
+ * @license https://opensource.org/licenses/MIT GPL-2
  * 
  * PHP 7
  */
@@ -26,7 +26,7 @@ class Atom
      *
      * @var string
      */
-    static public $frameworkVersion = '0.4';
+    public static $frameworkVersion = '0.4';
 
     /**
      * Udržuje v sobě jméno objektu.
@@ -72,11 +72,14 @@ class Atom
      *
      * @param string $message text zpravy
      * @param string $type    fronta
+     * 
+     * @return int Number of stored message
      */
     public function addStatusMessage($message, $type = 'info')
     {
         ++$this->messageCount;
         $this->statusMessages[$type][$this->messageCount] = $message;
+        return $this->messageCount;
     }
 
     /**

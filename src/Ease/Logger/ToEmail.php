@@ -33,7 +33,7 @@ class ToEmail extends ToMemory
     /**
      * Odkaz na vlastnící objekt.
      *
-     * @var Sand ||
+     * @var Sand
      */
     public $parentObject = null;
 
@@ -54,7 +54,7 @@ class ToEmail extends ToMemory
     /**
      * Obecné konfigurace frameworku.
      *
-     * @var Shared
+     * @var \Ease\Shared
      */
     public $easeShared = null;
 
@@ -90,14 +90,15 @@ class ToEmail extends ToMemory
     public $subject = null;
 
     /**
-     * Logovací třída.
+     * Logger to mail Class
      *
-     * @param string $
+     * @param string $recipient
+     * @param string $subject of message
      */
     public function __construct($recipient = null, $subject = null)
     {
         $this->recipient = $recipient;
-        $this->subject   = empty($subject) ? \Ease\Page::phpSelf() : $subject;
+        $this->subject   = empty($subject) ? $_SERVER['PHP_SELF'] : $subject;
     }
 
     /**
@@ -155,8 +156,7 @@ class ToEmail extends ToMemory
             $type = 'notice';
         }
 
-        $logLine = new \Ease\Html\DivTag(strftime("%D %T").' `'.$caller.'`: '.$message,
-            ['style' => $this->logStyles[$type]]);
+        $logLine = strftime("%D %T").' `'.$caller.'`: '.$message;
 
         $this->mailer->addItem(\Ease\Shared::linkify($logLine));
 

@@ -22,7 +22,12 @@ class Molecule extends Atom
      * @var Shared 
      */
     public $easeShared = null;
-
+    
+    /**
+     *
+     * @var Logger\Regent 
+     */
+    private $logger;
 
     /**
      * Molecule Can Log and Use Shared
@@ -108,7 +113,7 @@ class Molecule extends Atom
      * @param string $message  Text zprávy
      * @param string $type     Fronta zpráv (warning|info|error|success)
      *
-     * @return
+     * @return 
      */
     public function addStatusMessage($message, $type = 'info')
     {
@@ -132,31 +137,4 @@ class Molecule extends Atom
         return $messages;
     }
 
-    /**
-     * Pro serializaci připraví vše.
-     *
-     * @return array
-     */
-    public function __sleep()
-    {
-        $objectVarsRaw = get_object_vars($this);
-        $objectVars    = array_combine(array_keys($objectVarsRaw),
-            array_keys($objectVarsRaw));
-        $parent        = get_parent_class(__CLASS__);
-        if (method_exists($parent, '__sleep')) {
-            $parentObjectVars = parent::__sleep();
-            if (is_array($parentObjectVars)) {
-                $objectVars = array_merge($objectVars, $parentObjectVars);
-            }
-        }
-        return $objectVars;
-    }
-
-    /**
-     * Akce po probuzení ze serializace.
-     */
-    public function __wakeup()
-    {
-        $this->setObjectName();
-    }
 }

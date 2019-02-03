@@ -55,7 +55,7 @@ class ToFile extends ToMemory
     /**
      * Odkaz na vlastnící objekt.
      *
-     * @var EaseSand ||
+     * @var \Ease\Sand
      */
     public $parentObject = null;
 
@@ -83,7 +83,7 @@ class ToFile extends ToMemory
     /**
      * Obecné konfigurace frameworku.
      *
-     * @var Shared
+     * @var \Ease\Shared
      */
     public $easeShared = null;
 
@@ -233,31 +233,6 @@ class ToFile extends ToMemory
             return realpath($newLogFileName);
         } else {
             return realpath($this->logFileName);
-        }
-    }
-
-    /**
-     * Detekuje a nastaví zdali je objekt suštěn jako script (cgi) nebo jako page (web).
-     *
-     * @param string $runType force type
-     *
-     * @return string type
-     */
-    public function setRunType($runType = null)
-    {
-        if (!$runType) {
-            if (isset($_SERVER['HTTP_HOST'])) {
-                $this->runType = 'web';
-            } else {
-                $this->runType = 'cgi';
-            }
-
-            return $this->runType;
-        }
-        if (($runType != 'web') || ($runType != 'cgi')) {
-            return;
-        } else {
-            return $this->runType;
         }
     }
 
