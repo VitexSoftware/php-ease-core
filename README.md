@@ -11,7 +11,6 @@ Object oriented PHP Framework for easy&fast writing small/middle sized apps.
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/VitexSoftware/ease-core/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/VitexSoftware/ease-core/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/VitexSoftware/ease-core/badges/build.png?b=master)](https://scrutinizer-ci.com/g/VitexSoftware/ease-core/build-status/master)
 [![Code Intelligence Status](https://scrutinizer-ci.com/g/VitexSoftware/ease-core/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
-[![Build Status](https://img.shields.io/travis/VitexSoftware/ease-core/master.svg?style=flat-square)](https://travis-ci.org/VitexSoftware/ease-core)
 [![Total Downloads](https://img.shields.io/packagist/dt/vitexsoftware/ease-core.svg?style=flat-square)](https://packagist.org/packages/vitexsoftware/ease-core)
 [![Latest stable](https://img.shields.io/packagist/v/vitexsoftware/ease-core.svg?style=flat-square)](https://packagist.org/packages/vitexsoftware/ease-core)
 
