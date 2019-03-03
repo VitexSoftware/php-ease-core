@@ -11,14 +11,16 @@
     "autoload": {
         "psr-4": {
             "Ease\\": "src/Ease/",
-            "Ease\\Logger\\": "src/Ease/Logger"
+            "Ease\\Logger\\": "src/Ease/Logger/"
         }
     },
     "autoload-dev": {
         "psr-4": {
             "Test\\Ease\\Local\\": "tests",
             "Test\\Ease\\": "tests/src/Ease",
-            "Test\\Ease\\Logger\\": "tests/src/Ease/Logger"
+            "Test\\Ease\\Logger\\": "tests/src/Ease/Logger",
+            "Example\\Ease\\": "Examples",
+            "Example\\Ease\\Logger\\": "Examples/Logger"
         }
     },
     "minimum-stability": "dev",

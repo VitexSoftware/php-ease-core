@@ -15,3 +15,5 @@ composer.lock
 /.vagrant/
 /debian/tmp/
 /clover.log
+/debian/debhelper-build-stamp
+/debian/files
