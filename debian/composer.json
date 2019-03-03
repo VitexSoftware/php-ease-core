@@ -1,6 +1,6 @@
 {
-    "name": "ease-core",
-    "description": "An PHP Framework for Ease of writing Applications (debianized)",
+    "name": "vitexsoftware/ease-core",
+    "description": "An Core of PHP Framework for Ease of writing Applications (debianized)",
     "version": "0.1",
     "authors": [
         {
