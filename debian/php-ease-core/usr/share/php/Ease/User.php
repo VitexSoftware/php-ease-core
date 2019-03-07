@@ -88,6 +88,13 @@ class User extends Anonym
     public $slaveUsers = null;
 
     /**
+     * Pole uživatelských nastavení.
+     *
+     * @var array
+     */
+    public $settings = [];
+
+    /**
      * Sloupeček s loginem.
      *
      * @var string
@@ -488,6 +495,17 @@ class User extends Anonym
     }
 
     /**
+     * Nastaví položku nastavení.
+     *
+     * @param string $settingName  klíčové slovo pro nastavení
+     * @param mixed  $settingValue hodnota nastavení
+     */
+    public function setSettingValue($settingName, $settingValue)
+    {
+        $this->settings[$settingName] = $settingValue;
+    }
+
+    /**
      * Načte oprávnění.
      *
      * @return mixed
@@ -505,6 +523,47 @@ class User extends Anonym
     public function getName()
     {
         return $this->getObjectName();
+    }
+
+    /**
+     * Uloží pole dat a serializovaná nastavení do SQL.
+     * Pokud je $SearchForID 0 updatuje pokud ze nastaven  keyColumn.
+     *
+     * @param array $data        asociativní pole dat
+     * @param bool  $searchForID Zjistit zdali updatovat nebo insertovat
+     *
+     * @return int ID záznamu nebo null v případě neůspěchu
+     */
+    public function saveToSQL($data = null, $searchForID = false)
+    {
+        if (is_null($data)) {
+            $data = $this->getData();
+        }
+        if (!is_null($this->settingsColumn)) {
+            $data[$this->settingsColumn] = serialize($this->settings);
+        }
+
+        return parent::saveToSQL($data, $searchForID);
+    }
+
+    /**
+     * Načte z SQL data k aktuálnímu $ItemID a případně aplikuje
+     * nastavení.
+     *
+     * @param int  $itemID     id záznamu k načtení
+     * @param bool $multiplete nevarovat v případě vícenásobného
+     *                         výsledku
+     *
+     * @return null|integer Results
+     */
+    public function loadFromSQL($itemID = null, $multiplete = false)
+    {
+        $result = parent::loadFromSQL($itemID, $multiplete);
+        if (!is_null($this->settingsColumn) && !is_null($result)) {
+            $this->loadSettings();
+        }
+
+        return $result;
     }
 
     /**

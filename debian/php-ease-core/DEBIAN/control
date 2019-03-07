@@ -1,0 +1,12 @@
+Package: php-ease-core
+Source: ease-core
+Version: 0.5
+Architecture: all
+Maintainer: Vítězslav Dvořák <info@vitexsoftware.cz>
+Installed-Size: 151
+Depends: libjs-jquery (>= 1.4), php-mail, php-mail-mime, composer
+Section: web
+Priority: optional
+Homepage: https://github.com/VitexSoftware/ease-core
+Description: EasePHP Framework
+ common classes foe Ease Framework.

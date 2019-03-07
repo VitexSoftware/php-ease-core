@@ -17,3 +17,4 @@ composer.lock
 /clover.log
 /debian/debhelper-build-stamp
 /debian/files
+/debian/php-ease-core.debhelper.log

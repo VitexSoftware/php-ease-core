@@ -12,5 +12,5 @@ override_dh_auto_test:
 override_dh_install:
 	dh_install
 	./debian/fixversion.sh
-	echo "require_once 'Mail.php';"  >> debian/ease-core/usr/share/php/Ease/Mailer.php
-	echo "require_once 'Mail/mime.php';" >> debian/ease-core/usr/share/php/Ease/Mailer.php
+	echo "require_once 'Mail.php';"  >> debian/php-ease-core/usr/share/php/Ease/Mailer.php
+	echo "require_once 'Mail/mime.php';" >> debian/php-ease-core/usr/share/php/Ease/Mailer.php
