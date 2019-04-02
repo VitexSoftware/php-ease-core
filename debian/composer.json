@@ -1,5 +1,5 @@
 {
-    "name": "vitexsoftware/ease-core",
+    "name": "deb/ease-core",
     "description": "An Core of PHP Framework for Ease of writing Applications (debianized)",
     "version": "0.5",
     "authors": [
@@ -17,7 +17,7 @@
     },
     "minimum-stability": "dev",
     "require": {
-        "php": ">=7",
+        "php": ">=7.1",
         "ext-curl": "*",
         "ext-pdo": "*"
     },
