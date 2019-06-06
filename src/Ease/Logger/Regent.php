@@ -70,7 +70,7 @@ class Regent extends \Ease\Atom
                 case 'eventlog':
                     $this->loggers[$logger] = ToEventlog::singleton();
                     break;
-                default :
+                default:
                     if (class_exists($logger) && method_exists($logger,
                             'singleton')) {
                         $this->loggers[$logger] = $logger::singleton();
@@ -106,7 +106,7 @@ class Regent extends \Ease\Atom
      * @param \Ease\Logger\Message $message
      * @param string $type
      * 
-     * @return type
+     * @return int number of stored message
      */
     public function addStatusObject(Message $message, $type = 'info')
     {

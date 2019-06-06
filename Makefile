@@ -1,4 +1,4 @@
-#DESTDIR ?= debian/ease-core/DEBIAN
+#DESTDIR ?= debian/php-ease-core/DEBIAN
 #libdir  ?= /usr/share/php/Ease
 #docdir  ?= /doc/ease-core/html
 
@@ -23,8 +23,8 @@ fresh:
 
 clean:
 	rm -rf vendor composer.lock
-	rm -rf debian/ease-core
-	rm -rf debian/ease-core-doc
+	rm -rf debian/php-ease-core
+	rm -rf debian/php-ease-core-doc
 	rm -rf debian/*.log debian/tmp
 	rm -rf docs/*
 
@@ -50,7 +50,7 @@ rpm:
 docker: dimage
 
 dimage:
-	docker build -t vitexsoftware/easephpframework .
+	docker build -t vitexsoftware/php-ease-core .
 
 
 release: fresh deb docker

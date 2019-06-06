@@ -15,3 +15,7 @@ composer.lock
 /.vagrant/
 /debian/tmp/
 /clover.log
+/debian/debhelper-build-stamp
+/debian/files
+/debian/php-ease-core.debhelper.log
+/debian/php-ease-core/

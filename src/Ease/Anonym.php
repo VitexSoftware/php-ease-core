@@ -3,7 +3,7 @@
  * Objekt Anonymního uživatele.
  *
  * @author    Vítězslav Dvořák <vitex@hippy.cz>
- * @copyright 2009-2016 Vitex@hippy.cz (G)
+ * @copyright 2009-2019 Vitex@hippy.cz (G)
  * 
  * @category User Classes
  * @package EasePHP
@@ -34,18 +34,18 @@ class Anonym extends Brick
     public $userID = null;
 
     /**
-     * Jazyk anonyma.
-     *
-     * @var string
-     */
-    public $language = 'en';
-
-    /**
      * Indikátor přihlášení.
      *
      * @var bool
      */
     public $logged = false;
+
+    /**
+     * User Settings array
+     *
+     * @var array
+     */
+    public $settings = [];
 
     /**
      * Nastavení jména objektu uživatele.
@@ -125,6 +125,19 @@ class Anonym extends Brick
         return;
     }
 
+    /**
+     * Nastaví položku nastavení.
+     *
+     * @param string $settingName  klíčové slovo pro nastavení
+     * @param mixed  $settingValue hodnota nastavení
+     */
+    public function setSettingValue($settingName, $settingValue)
+    {
+        $this->settings[$settingName] = $settingValue;
+    }
+
+    
+    
     /**
      * Anonym nemá mail.
      */

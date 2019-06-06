@@ -3,7 +3,7 @@
  * Třída pro logování.
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2016 Vitex@hippy.cz (G)
+ * @copyright 2009-2019 Vitex@hippy.cz (G)
  */
 
 namespace Ease\Logger;
@@ -29,21 +29,14 @@ class ToSyslog extends ToStd implements Loggingable
     private static $_instance = null;
 
     /**
-     * Handle to logger.
-     *
-     * @var resource
-     */
-    public $logger = null;
-
-    /**
      * Logovací třída.
      *
-     * @param string $
+     * @param string $logName syslog log source identifier
      */
     public function __construct($logName = null)
     {
-        if (!is_null($logName)) {
-            $this->logger = openlog($logName, LOG_NDELAY, LOG_USER);
+        if (!empty($logName)) {
+            openlog($logName, constant('LOG_NDELAY'), constant('LOG_USER'));
         }
     }
 
@@ -68,8 +61,7 @@ class ToSyslog extends ToStd implements Loggingable
 
         return self::$_instance;
     }
-    
-    
+
     /**
      * Output logline to syslog/messages by its type
      *
@@ -93,8 +85,6 @@ class ToSyslog extends ToStd implements Loggingable
      */
     public function __destruct()
     {
-        if ($this->logger) {
-            closelog();
-        }
+        closelog();
     }
 }

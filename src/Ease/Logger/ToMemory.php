@@ -50,7 +50,7 @@ class ToMemory extends \Ease\Atom
     /**
      * Odkaz na vlastnící objekt.
      *
-     * @var EaseSand ||
+     * @var \Ease\Sand
      */
     public $parentObject = null;
 
@@ -127,7 +127,7 @@ class ToMemory extends \Ease\Atom
             $type = 'notice';
         }
         if ($this->logType == 'console' || $this->logType == 'both') {
-            if ($this->runType == 'cgi') {
+            if (php_sapi_name() == 'cli') {
                 echo $logLine;
             } else {
                 echo '<div style="'.$this->logStyles[$type].'">'.$logLine."</div>\n";

@@ -33,7 +33,7 @@ class ToStd extends ToMemory
     /**
      * Odkaz na vlastnící objekt.
      *
-     * @var Sand ||
+     * @var \Ease\Sand
      */
     public $parentObject = null;
 
@@ -73,14 +73,14 @@ class ToStd extends ToMemory
     /**
      * Log Name
      *
-     * @var resource
+     * @var string
      */
     public $logName = null;
 
     /**
      * Logovací třída.
      *
-     * @param string $
+     * @param string $logName symbolic name for log
      */
     public function __construct($logName = null)
     {

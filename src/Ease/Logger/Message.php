@@ -1,8 +1,14 @@
 <?php
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Message Classs
+ * 
+ * @category Logging
+ * 
+ * @author    Vitex <vitex@hippy.cz>
+ * @copyright 2019 Vitex@hippy.cz (G)
+ * @license https://opensource.org/licenses/MIT MIT
+ * 
+ * PHP 7
  */
 
 namespace Ease\Logger;
@@ -39,7 +45,12 @@ class Message
     public $when;
 
     /**
-     * @param string $caller
+     * Basic Message class
+     * 
+     * @param string     $message
+     * @param string     info|notice|debug|error
+     * @param \Ease\Atom $caller
+     * @param int        $when
      */
     public function __construct($message, $type = 'info', $caller = null,
                                 $when = null)
@@ -60,7 +71,7 @@ class Message
      * @param string $type
      * @return string
      */
-    static public function getTypeUnicodeSymbol($type)
+    public static function getTypeUnicodeSymbol($type)
     {
         switch ($type) {
             case 'mail':                       // Envelope

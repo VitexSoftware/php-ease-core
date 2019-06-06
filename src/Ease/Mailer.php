@@ -14,7 +14,7 @@ namespace Ease;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class Mailer extends Page
+class Mailer extends Sand
 {
     /**
      * Objekt pro odesílání pošty.
@@ -29,13 +29,6 @@ class Mailer extends Page
     public $crLf            = "\n";
     public $mailBody        = null;
     public $finalized       = false;
-
-    /**
-     * Již vzrendrované HTML.
-     *
-     * @var string
-     */
-    public $htmlBodyRendered = null;
 
     /**
      * Adresa odesilatele zprávy.
@@ -65,20 +58,6 @@ class Mailer extends Page
      * @var bool
      */
     public $sendResult = false;
-
-    /**
-     * Objekt stránky pro rendrování do mailu.
-     *
-     * @var Html\HtmlTag
-     */
-    public $htmlDocument = null;
-
-    /**
-     * Ukazatel na BODY html dokumentu.
-     *
-     * @var Html\BodyTag
-     */
-    public $htmlBody = null;
 
     /**
      * Parametry odchozí pošty.
