@@ -142,8 +142,6 @@ class Sand extends Molecule
     public function cleanMessages()
     {
         parent::cleanMessages();
-        $this->logger->cleanMessages();
-
         return Shared::instanced()->cleanMessages();
     }
 

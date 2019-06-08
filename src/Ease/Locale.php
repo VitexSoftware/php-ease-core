@@ -667,6 +667,27 @@ class Locale
     }
 
     /**
+     * obtain ISO 639-1 language code
+     * 
+     * @return string
+     */
+    public function get2Code()
+    {
+        $localeUsed = $this->getLocaleUsed();
+        return strstr($localeUsed, '_') ? current(explode('_', $localeUsed)) : $localeUsed;
+    }
+
+    /**
+     * get Current Used locale code
+     * 
+     * @return string
+     */
+    public function getLocaleUsed()
+    {
+        return isset(self::$_instance) ? self::$_instance->getLocaleUsed() : self::$localeUsed;
+    }
+
+    /**
      * Common instance of Locale class
      * 
      * @return \Ease\Locale
