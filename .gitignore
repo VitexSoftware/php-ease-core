@@ -19,3 +19,4 @@ composer.lock
 /debian/files
 /debian/php-ease-core.debhelper.log
 /debian/php-ease-core/
+/.phpunit.result.cache
