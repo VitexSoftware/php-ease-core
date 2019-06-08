@@ -1,4 +1,4 @@
-ease-core (0.5) UNRELEASED; urgency=medium
+ease-core (0.9) UNRELEASED; urgency=medium
 
   * Sensiolabs Icon removed
   * global rename ease-framework to ease-core
@@ -8,7 +8,7 @@ ease-core (0.5) UNRELEASED; urgency=medium
   * Update deb package schema for current composer Upgrade all using
     apps by composer-global-update in postinst
 
- -- Vítězslav Dvořák <info@vitexsoftware.cz>  Mon, 04 Mar 2019 00:01:29 +0100
+ -- Vítězslav Dvořák <vitex@develoid.jinonice.czf>  Thu, 06 Jun 2019 15:53:14 +0200
 
 ease-core (0.1) EXPERIMENTAL; urgency=medium
 
