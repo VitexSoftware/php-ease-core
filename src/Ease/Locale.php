@@ -684,7 +684,7 @@ class Locale
      */
     public function getLocaleUsed()
     {
-        return isset(self::$_instance) ? self::$_instance->getLocaleUsed() : self::$localeUsed;
+        return isset(self::$localeUsed) ? self::$localeUsed : self::$_instance->getLocaleUsed() ;
     }
 
     /**
