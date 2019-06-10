@@ -8,6 +8,9 @@
             "homepage": "http://v.s.cz/"
         }
     ],
+    "replace": {
+        "vitexsoftware/ease-framework": "*"
+    },
     "autoload": {
         "psr-4": {
             "Ease\\": "src/Ease/",

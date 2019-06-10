@@ -720,4 +720,19 @@ class Sand extends Molecule
         }
         return false;
     }
+    
+    /**
+     * Get Classname without namespace prefix
+     * 
+     * @param object $object
+     * 
+     * @return string
+     */
+    static public function baseClassName($object)
+    {
+        return basename(str_replace('\\', '/', get_class($object)));
+    }
+    
+    
+    
 }
