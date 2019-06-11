@@ -730,7 +730,7 @@ class Sand extends Molecule
      */
     static public function baseClassName($object)
     {
-        return basename(str_replace('\\', '/', get_class($object)));
+        return is_object($object) ? basename(str_replace('\\', '/', get_class($object))) : null;
     }
     
     
