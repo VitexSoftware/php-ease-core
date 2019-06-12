@@ -25,7 +25,7 @@ class Mailer extends Sand
     public $mimer           = null;
     public $textBody        = null;
     public $mailHeaders     = [];
-    public $mailHeadersDone = null;
+    public $mailHeadersDone = [];
     public $crLf            = "\n";
     public $mailBody        = null;
     public $finalized       = false;
