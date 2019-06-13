@@ -23,6 +23,9 @@
             "Example\\Ease\\Logger\\": "Examples/Logger"
         }
     },
+    "conflict": {
+        "vitexsoftware/ease-framework": "*"
+    },
     "minimum-stability": "dev",
     "require": {
         "php": ">=7",
