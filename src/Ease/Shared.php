@@ -121,7 +121,7 @@ class Shared extends Atom
         $cgiMessages = [];
         $webMessages = [];
         $prefix      = defined('EASE_APPNAME') ? constant('EASE_APPNAME') : '';
-        $msgFile     = sys_get_temp_dir().'/'.$prefix.'EaseStatusMessages.ser';
+        $msgFile     = sys_get_temp_dir().'/'.$prefix.'EaseStatusMessages'.posix_getuid().'.ser';
         if (file_exists($msgFile) && is_readable($msgFile) && filesize($msgFile)
             && is_writable($msgFile)) {
             $cgiMessages = unserialize(file_get_contents($msgFile));
@@ -341,7 +341,7 @@ class Shared extends Atom
     {
         if (self::isCli()) {
             $prefix       = defined('EASE_APPNAME') ? constant('EASE_APPNAME') : '';
-            $messagesFile = sys_get_temp_dir().'/'.$prefix.'EaseStatusMessages.ser';
+            $messagesFile = sys_get_temp_dir().'/'.$prefix.'EaseStatusMessages'.posix_getuid().'.ser';
             file_put_contents($messagesFile, serialize($this->statusMessages));
         } else {
             if (defined('EASE_APPNAME')) {
@@ -364,7 +364,7 @@ class Shared extends Atom
     {
         if (!file_exists($configFile)) {
             throw new Exception('Config file '.(realpath($configFile) ? realpath($configFile)
-                    : $configFile).' does not exist');
+                        : $configFile).' does not exist');
         }
         $configuration = json_decode(file_get_contents($configFile), true);
         if (empty($configuration)) {
@@ -405,7 +405,7 @@ class Shared extends Atom
                                              $i18n = '../i18n')
     {
         return self::instanced()->locale(new Locale($defaultLocale, $i18n,
-                $appname));
+                    $appname));
     }
 
     /**
