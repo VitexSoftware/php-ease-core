@@ -501,7 +501,6 @@ class Locale
                 $textDomain = self::$textDomain;
             }
         }
-        self::$i18n = $i18n;
         self::initializeGetText($textDomain, $setLocale, $i18n);
     }
 
@@ -605,6 +604,7 @@ class Locale
     public static function initializeGetText($appname, $defaultLocale = 'en_US',
                                              $i18n = '../i18n')
     {
+        self::$i18n = $i18n;
         self::setTextDomain($appname);
         return self::useLocale($defaultLocale);
     }
