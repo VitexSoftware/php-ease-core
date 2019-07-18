@@ -645,10 +645,12 @@ class Locale
         \setlocale(LC_ALL, $localeCode);
         \bind_textdomain_codeset(self::$textDomain, 'UTF-8');
         \putenv("LC_ALL=$localeCode");
-        if (file_exists(self::$i18n)) {
-            \bindtextdomain(self::$textDomain, self::$i18n);
+        if (!empty(self::$textDomain)) {
+            if (file_exists(self::$i18n)) {
+                \bindtextdomain(self::$textDomain, self::$i18n);
+            }
+            \textdomain(self::$textDomain);
         }
-        \textdomain(self::$textDomain);
         if (isset($_SESSION)) {
             $_SESSION['locale'] = $localeCode;
         }
@@ -684,7 +686,7 @@ class Locale
      */
     public function getLocaleUsed()
     {
-        return isset(self::$localeUsed) ? self::$localeUsed : self::$_instance->getLocaleUsed() ;
+        return isset(self::$localeUsed) ? self::$localeUsed : self::$_instance->getLocaleUsed();
     }
 
     /**
