@@ -24,12 +24,14 @@ class ExceptionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @expectedException \Ease\Exception
-     * @expectedExceptionMessage test
+     * @covers Ease\Exception::__construct
      */
     public function testConstructor()
     {
         $classname = get_class($this->object);
+
+        $this->expectException('\Ease\Exception');
+        $this->expectExceptionMessage('test');
 
         // Get mock, without the constructor being called
         $mock = $this->getMockBuilder($classname)

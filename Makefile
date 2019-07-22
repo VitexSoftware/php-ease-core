@@ -17,6 +17,9 @@ fresh:
 #	cp -r debian/composer.json $(DESTDIR)$(libdir)
 #	mkdir -p $(DESTDIR)$(docdir)
 #	cp -r docs $(DESTDIR)$(docdir)
+
+test:
+	./vendor/bin/phpunit --bootstrap tests/Bootstrap.php 
 	
 #build: doc
 #	echo build;	

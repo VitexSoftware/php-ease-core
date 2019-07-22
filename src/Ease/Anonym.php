@@ -1,6 +1,6 @@
 <?php
 /**
- * Objekt Anonymního uživatele.
+ * Anonymous user class.
  *
  * @author    Vítězslav Dvořák <vitex@hippy.cz>
  * @copyright 2009-2019 Vitex@hippy.cz (G)
