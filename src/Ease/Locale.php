@@ -684,7 +684,7 @@ class Locale
      * 
      * @return string
      */
-    public function getLocaleUsed()
+    public static function getLocaleUsed()
     {
         return isset(self::$localeUsed) ? self::$localeUsed : self::$_instance->getLocaleUsed();
     }

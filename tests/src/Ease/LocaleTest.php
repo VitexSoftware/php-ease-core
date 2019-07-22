@@ -20,7 +20,7 @@ class LocaleTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp(): void
     {
-        $this->object = new Locale();
+        $this->object = new Locale('cs_CZ', './i18n', 'ease-framework');
     }
 
     /**
@@ -33,11 +33,108 @@ class LocaleTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @covers Ease\Locale::getPreferedLocale
+     */
+    public function testGetPreferedLocale()
+    {
+        $this->assertEquals('cs_CZ', Locale::getPreferedLocale());
+    }
+
+    /**
+     * @covers Ease\Locale::requestLocale
+     */
+    public function testRequestLocale()
+    {
+        $this->assertEquals(null, Locale::requestLocale());
+        $_REQUEST['locale'] = 'en_US';
+        $this->assertEquals('en_US', Locale::requestLocale());
+    }
+    
+    /**
+     * @covers Ease\Locale::sessionLocale
+     */
+    public function testSessionLocale()
+    {
+        $this->assertEquals('cs_CZ', Locale::sessionLocale());
+    }
+    
+    /**
+     * @covers Ease\Locale::browserLocale
+     */
+    public function testBrowserLocale()
+    {
+        $this->assertEquals('C', Locale::browserLocale());
+    }
+
+    /**
+     * @covers Ease\Locale::availble
+     */
+    public function testAvalilble()
+    {
+        $this->assertEquals([
+            'en_US' => 'English (United States)',
+            'cs_CZ' => 'Czech (Czech Republic)'
+            ], $this->object->availble());
+    }
+
+    /**
+     * @covers Ease\Locale::setTextDomain
+     */
+    public function testSetTextDomain()
+    {
+        Locale::setTextDomain('some');
+        $this->assertEquals('some', Locale::$textDomain);
+    }
+
+    /**
      * @covers Ease\Locale::initializeGetText
      */
     public function testInitializeGetText()
     {
         Locale::initializeGetText('EaseTest', 'en_US', '../i18n');
-        $this->assertEquals( Locale::$i18n, '../i18n' );
+        $this->assertEquals(Locale::$i18n, '../i18n');
     }
+
+    /**
+     * @covers Ease\Locale::langToLocale
+     */
+    public function testLangToLocal()
+    {
+        $this->assertEquals('cs_CZ', Locale::langToLocale('cs'));
+    }
+    
+    /**
+     * @covers Ease\Locale::useLocale
+     */
+    public function testUseLocale()
+    {
+        Locale::useLocale('en_US');
+        $this->assertEquals('en_US', Locale::getLocaleUsed());
+    }
+    
+    /**
+     * @covers Ease\Locale::autodetected
+     */
+    public function testAutodetected()
+    {
+        $this->assertEquals(null, Locale::autodetected());
+    }
+    
+    /**
+     * @covers Ease\Locale::get2code
+     */
+    public function testGet2code()
+    {
+        $this->assertEquals('cs', $this->object->get2Code());
+    }
+    
+    /**
+     * @covers Ease\Locale::getLocaleUsed
+     */
+    public function testGetLocaleUsed()
+    {
+        $this->assertEquals('cs_CZ', $this->object->getLocaleUsed());
+    }
+    
+    
 }
