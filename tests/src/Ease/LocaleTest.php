@@ -32,12 +32,35 @@ class LocaleTest extends \PHPUnit\Framework\TestCase
         
     }
 
+
+    /**
+     * Test Constructor
+     *
+     * @covers Ease\Locale::__construct
+     */
+    public function testConstructor()
+    {
+        $classname = get_class($this->object);
+
+        // Get mock, without the constructor being called
+        $mock = $this->getMockBuilder($classname)
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+        
+        $mock->__construct();
+
+        $mock->__construct('cs_CZ', './i18n', 'ease-framework');
+        $this->assertEquals('cs_CZ', $mock->getLocaleUsed() );
+    }
+    
     /**
      * @covers Ease\Locale::getPreferedLocale
      */
     public function testGetPreferedLocale()
     {
-        $this->assertEquals('cs_CZ', Locale::getPreferedLocale());
+        $_SESSION['locale'] = 'en_US';
+        $this->assertEquals('en_US', Locale::getPreferedLocale(false));
+        $this->assertEquals('cs_CZ', Locale::getPreferedLocale(true));
     }
 
     /**
@@ -49,7 +72,7 @@ class LocaleTest extends \PHPUnit\Framework\TestCase
         $_REQUEST['locale'] = 'en_US';
         $this->assertEquals('en_US', Locale::requestLocale());
     }
-    
+
     /**
      * @covers Ease\Locale::sessionLocale
      */
@@ -57,7 +80,7 @@ class LocaleTest extends \PHPUnit\Framework\TestCase
     {
         $this->assertEquals('cs_CZ', Locale::sessionLocale());
     }
-    
+
     /**
      * @covers Ease\Locale::browserLocale
      */
@@ -102,7 +125,7 @@ class LocaleTest extends \PHPUnit\Framework\TestCase
     {
         $this->assertEquals('cs_CZ', Locale::langToLocale('cs'));
     }
-    
+
     /**
      * @covers Ease\Locale::useLocale
      */
@@ -111,7 +134,7 @@ class LocaleTest extends \PHPUnit\Framework\TestCase
         Locale::useLocale('en_US');
         $this->assertEquals('en_US', Locale::getLocaleUsed());
     }
-    
+
     /**
      * @covers Ease\Locale::autodetected
      */
@@ -119,7 +142,7 @@ class LocaleTest extends \PHPUnit\Framework\TestCase
     {
         $this->assertEquals(null, Locale::autodetected());
     }
-    
+
     /**
      * @covers Ease\Locale::get2code
      */
@@ -127,7 +150,7 @@ class LocaleTest extends \PHPUnit\Framework\TestCase
     {
         $this->assertEquals('cs', $this->object->get2Code());
     }
-    
+
     /**
      * @covers Ease\Locale::getLocaleUsed
      */
@@ -135,6 +158,4 @@ class LocaleTest extends \PHPUnit\Framework\TestCase
     {
         $this->assertEquals('cs_CZ', $this->object->getLocaleUsed());
     }
-    
-    
 }

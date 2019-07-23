@@ -508,12 +508,14 @@ class Locale
      * Prefered Locale Code - 1) Requested 2) Session 3) Browser for WebPage or
      *                        getenv('LC_ALL') for CLI
      * 
+     * @param $allowCli allow use in cli mode (set false for testing)
+     * 
      * @return string locale code 
      */
-    public static function getPreferedLocale()
+    public static function getPreferedLocale($allowCli = true)
     {
 //        $locale = Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']); 
-        if (php_sapi_name() == 'cli') {
+        if (php_sapi_name() == 'cli' && $allowCli) {
             $locale = getenv('LC_ALL');
         } else {
             $reqLocale = self::requestLocale();
