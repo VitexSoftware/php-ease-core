@@ -113,15 +113,6 @@ class SandTest extends AtomTest
     }
 
     /**
-     * @covers Ease\Sans::isAssoc
-     */
-    public function testIsAssoc()
-    {
-        $this->assertTrue(\Ease\JQuery\Part::isAssoc(['a' => 'b']));
-        $this->assertFalse(\Ease\JQuery\Part::isAssoc(['a', 'b']));
-    }
-
-    /**
      * @covers Ease\Sand::getMyKey
      */
     public function testGetMyKey()
@@ -327,16 +318,6 @@ class SandTest extends AtomTest
     }
 
     /**
-     * @covers Ease\Sand::__sleep
-     *
-     * @todo   Implement test__sleep().
-     */
-    public function test__sleep()
-    {
-        $this->object->__sleep();
-    }
-
-    /**
      * @covers Ease\Sand::humanFilesize
      *
      * @todo   Implement testHumanFilesize().
@@ -398,15 +379,6 @@ class SandTest extends AtomTest
             $this->object->baseClassName(new \Ease\Logger\ToMemory()));
     }
 
-    /**
-     * @covers Ease\Sand::__wakeup
-     *
-     * @todo   Implement test__wakeup().
-     */
-    public function test__wakeup()
-    {
-        $this->object->__wakeup();
-    }
 }
 
 // @codeCoverageIgnoreEnd

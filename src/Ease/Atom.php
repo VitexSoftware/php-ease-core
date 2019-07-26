@@ -193,8 +193,6 @@ class Atom
      */
     public function draw()
     {
-        if (method_exists($this, '__toString')) {
-            return $this->__toString();
-        }
+        return method_exists($this, '__toString') ? $this->__toString() : null;
     }
 }

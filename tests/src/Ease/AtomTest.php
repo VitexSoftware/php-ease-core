@@ -3,7 +3,7 @@
  * Základní objekty systému.
  *
  * @author     Vitex <vitex@hippy.cz>
- * @copyright  2009-2016 Vitex@hippy.cz (G)
+ * @copyright  2009-2019 Vitex@hippy.cz (G)
  */
 // @codingStandardsIgnoreFile
 // @codeCoverageIgnoreStart
@@ -21,7 +21,7 @@ use Ease\Atom;
  * @author     Vitex <vitex@hippy.cz>
  * @copyright  2009-2018 Vitex@hippy.cz (G)
  */
-class AtomTest extends \PHPUnit\Framework\TestSuite
+class AtomTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Atom
@@ -44,6 +44,17 @@ class AtomTest extends \PHPUnit\Framework\TestSuite
     protected function tearDown(): void
     {
         
+    }
+
+    /**
+     * @covers Ease\Atom::logBanner
+     */
+    public function testLogBanner()
+    {
+//          $this->object->cleanStatusMessages();
+        $this->object->logBanner();
+        $statuses = $this->object->getStatusMessages();
+        $this->assertStringContainsString( 'EasePHP Framework', end($statuses['debug']) );
     }
 
     /**
@@ -132,7 +143,7 @@ class AtomTest extends \PHPUnit\Framework\TestSuite
                 _('Windows Files conversion')
             );
         } else {
-            $this->assertContains(
+            $this->assertStringContainsString(
                 '/', $this->object->sysFilename('\\\\'),
                 _('Unix File Conversion')
             );

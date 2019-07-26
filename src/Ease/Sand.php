@@ -47,6 +47,8 @@ class Sand extends Molecule
 
     /**
      * Tyto sloupecky jsou uchovavany pri operacich s identitou objektu.
+     * 
+     * @deprecated since version 2.0
      *
      * @var array
      */
@@ -125,9 +127,8 @@ class Sand extends Molecule
      */
     public function getStatusMessages($clean = false)
     {
-        $messages = array_merge($this->statusMessages,
-            $this->logger->statusMessages,
-            Shared::logger()->getStatusMessages(),
+        $messages = array_merge(property_exists($this, 'statusMessages') ? $this->statusMessages : [],
+        property_exists($this->logger, 'statusMessages') ? $this->logger->statusMessages : [] , Shared::logger()->getStatusMessages(),
             Shared::instanced()->getStatusMessages());
         if ($clean) {
             $this->cleanMessages();

@@ -8,5 +8,8 @@
 
 namespace Test\Ease;
 
+if (!defined('EASE_LOGGER')) {
+    define('EASE_LOGGER', 'memory');
+}
 require_once __DIR__.'/../vendor/autoload.php';
 

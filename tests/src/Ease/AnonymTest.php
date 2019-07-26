@@ -21,7 +21,6 @@ class AnonymTest extends BrickTest
     protected function setUp(): void
     {
         $this->object = new Anonym();
-        $this->object->takemyTable('test');
     }
 
     /**
@@ -54,6 +53,7 @@ class AnonymTest extends BrickTest
      */
     public function testRemoteToIdentity()
     {
+        $_SERVER['REMOTE_USER'] = null;
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $this->assertEquals('127.0.0.1', $this->object->remoteToIdentity());
         $_SERVER['REMOTE_USER'] = 'tester';
