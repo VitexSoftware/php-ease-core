@@ -37,7 +37,7 @@
         "apigen/apigen": "*",
         "robmorgan/phinx": "*",
         "phpunit/php-token-stream": "*",
-        "phpunit/phpunit": "*",
+        "phpunit/phpunit": "^8",
         "phpunit/phpunit-skeleton-generator": "*",
         "mockery/mockery": "*",
         "squizlabs/php_codesniffer": "*",

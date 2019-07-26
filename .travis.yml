@@ -10,6 +10,7 @@ sudo: false
  
 script:
   - mkdir -p build
+  - composer require --dev jakub-onderka/php-parallel-lint
   - ./vendor/bin/parallel-lint src tests
   - cd tests
   - ../vendor/bin/phpunit -c configuration.xml --bootstrap Bootstrap.php src
