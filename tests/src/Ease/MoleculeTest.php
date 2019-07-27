@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Test\Ease;
 
@@ -19,8 +19,6 @@ class MoleculeTest extends AtomTest
     protected $object;
 
     /**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
      */
     protected function setUp(): void
     {
@@ -34,6 +32,24 @@ class MoleculeTest extends AtomTest
     protected function tearDown(): void
     {
         
+    }
+
+    /**
+     * Test Constructor
+     *
+     * @covers Ease\Molecule::__construct
+     */
+    public function testConstructor()
+    {
+        $classname = get_class($this->object);
+        // Get mock, without the constructor being called
+        $mock      = $this->getMockBuilder($classname)
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+        $mock->__construct(1, ['debug' => false]);
+
+        $this->assertInstanceOf('Ease\Logger\Regent', $this->object->logger);
+        $this->assertInstanceOf('Ease\Shared', $this->object->easeShared);
     }
 
     /**
@@ -86,7 +102,9 @@ class MoleculeTest extends AtomTest
      */
     public function testAddToLog()
     {
-        $this->object->addToLog('Message');
+        $this->logger = null;
+        $this->assertTrue($this->object->addToLog('Message 1'));
+        $this->assertTrue($this->object->addToLog('Message 2'));
     }
 
     /**
@@ -96,6 +114,15 @@ class MoleculeTest extends AtomTest
     {
         $this->object->addStatusMessage('Message1');
         $this->assertNotEmpty($this->object->getStatusMessages());
+    }
+
+    /**
+     * @covers Ease\Molecule::getStatusMessages
+     */
+    public function testGetStatusMessage()
+    {
+        $this->object->addStatusMessage('Message1');
+        $this->assertNotEmpty($this->object->getStatusMessages(true));
     }
 }
 

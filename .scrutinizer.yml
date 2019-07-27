@@ -1,8 +1,6 @@
 build:
   nodes:
-    pureosc:
-        services:
-            mariadb: latest          
+    ease-core:
         dependencies:
             before:
                 - composer self-update

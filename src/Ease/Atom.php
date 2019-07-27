@@ -15,7 +15,7 @@
 namespace Ease;
 
 /**
- * Basic Class of EasePHP
+ * Basic Class of EasePHP0
  * 
  * @author Vítězslav Dvořák <info@vitexsoftware.cz>
  */
@@ -27,13 +27,6 @@ class Atom
      * @var string
      */
     public static $frameworkVersion = '0.4';
-
-    /**
-     * Udržuje v sobě jméno objektu.
-     *
-     * @var string
-     */
-    public $objectName = 'EaseSand';
 
     /**
      * Flag debugovacího režimu.
@@ -48,13 +41,6 @@ class Atom
      * @var array
      */
     public $statusMessages = [];
-
-    /**
-     * Pocet uchovavanych zprav.
-     *
-     * @var int
-     */
-    public $messageCount = 0;
 
     /**
      * Vrací jméno objektu.
@@ -72,14 +58,10 @@ class Atom
      *
      * @param string $message text zpravy
      * @param string $type    fronta
-     * 
-     * @return int Number of stored message
      */
     public function addStatusMessage($message, $type = 'info')
     {
-        ++$this->messageCount;
-        $this->statusMessages[$type][$this->messageCount] = $message;
-        return $this->messageCount;
+        $this->statusMessages[$type][] = $message;
     }
 
     /**
@@ -115,7 +97,6 @@ class Atom
      */
     public function cleanMessages()
     {
-        $this->messageCount   = 0;
         $this->statusMessages = [];
     }
 

@@ -92,12 +92,16 @@ class Regent extends \Ease\Atom
      * @param string $caller  message provider
      * @param string $message message to log
      * @param string $type    info|succes|warning|error|email|...
+     * 
+     * @return boolean At least one logger takes message
      */
     public function addToLog($caller, $message, $type = 'info')
     {
+        $logged = false;
         foreach ($this->loggers as $logger) {
-            $logger->addToLog($caller, $message, $type);
+            $logged = $logger->addToLog($caller, $message, $type);
         }
+        return $logged;
     }
 
     /**

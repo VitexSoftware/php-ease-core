@@ -15,19 +15,25 @@ namespace Ease;
  */
 class Molecule extends Atom
 {
-
     /**
      * Here Live Shared Object
      * 
      * @var Shared 
      */
     public $easeShared = null;
-    
+
+    /**
+     * Udržuje v sobě jméno objektu.
+     *
+     * @var string
+     */
+    public $objectName = 'EaseSand';
+
     /**
      *
      * @var Logger\Regent 
      */
-    private $logger;
+    public $logger;
 
     /**
      * Molecule Can Log and Use Shared
@@ -36,8 +42,6 @@ class Molecule extends Atom
     {
         $this->easeShared = Shared::singleton();
         $this->logger     = $this->easeShared->logger();
-
-        $this->setObjectName();
     }
 
     /**
@@ -98,7 +102,8 @@ class Molecule extends Atom
     {
         $logged = false;
         if (isset($this->logger) && is_object($this->logger)) {
-            $this->logger->addToLog($this->getObjectName(), $message, $type);
+            $logged = $this->logger->addToLog($this->getObjectName(), $message,
+                $type);
         } else {
             $logged = Shared::logger()->addToLog($this->getObjectName(),
                 $message, $type);
@@ -136,5 +141,4 @@ class Molecule extends Atom
         }
         return $messages;
     }
-
 }
