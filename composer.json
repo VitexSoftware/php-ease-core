@@ -34,12 +34,7 @@
         "pear/mail_mime": "~1.10"
     },
     "require-dev": {
-        "apigen/apigen": "*",
-        "robmorgan/phinx": "*",
-        "phpunit/php-token-stream": "*",
-        "phpunit/phpunit": "^8",
-        "phpunit/phpunit-skeleton-generator": "*",
-        "mockery/mockery": "*",
+        "phpunit/phpunit": "*",
         "squizlabs/php_codesniffer": "*",
         "php-coveralls/php-coveralls": "*",
         "jakub-onderka/php-parallel-lint": "*",
