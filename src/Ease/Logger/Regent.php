@@ -42,6 +42,10 @@ class Regent extends \Ease\Atom
         'info' => 'color: blue;',
     ];
 
+    /**
+     * 
+     * @param string $logger class name
+     */
     public function __construct($logger = null)
     {
         if (is_null($logger) && defined('EASE_LOGGER')) {
@@ -50,7 +54,7 @@ class Regent extends \Ease\Atom
             $loggers = empty($logger) ? ['syslog'] : [$logger];
         }
 
-        foreach ($loggers as $logger)
+        foreach ($loggers as $logger) {
             switch ($logger) {
                 case 'console':
                     $this->loggers[$logger] = ToConsole::singleton();
@@ -71,14 +75,14 @@ class Regent extends \Ease\Atom
                     $this->loggers[$logger] = ToEventlog::singleton();
                     break;
                 default:
-                    if (class_exists($logger) && method_exists($logger,
-                            'singleton')) {
+                    if (class_exists($logger) && method_exists($logger,'singleton')) {
                         $this->loggers[$logger] = $logger::singleton();
                     } else {
                         $this->loggers[$logger] = ToFile::singleton($logger);
                     }
                     break;
             }
+        }
     }
 
     public function takeMessage()

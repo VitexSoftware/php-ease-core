@@ -29,7 +29,7 @@ class RegentTest extends \Test\Ease\AtomTest
      */
     protected function tearDown(): void
     {
-
+        
     }
 
     public function testConstructor()
@@ -40,56 +40,54 @@ class RegentTest extends \Test\Ease\AtomTest
         $mock = $this->getMockBuilder($classname)
             ->disableOriginalConstructor()
             ->getMockForAbstractClass();
-        $mock->__construct('test');
-        $mock->__construct('test', 'test', 'test', 'now');
-        $this->assertEquals('test', isset($mock->body) ? $mock->body : null);
+        $mock->__construct();
+        $mock->__construct('syslog');
+        $mock->__construct('console');
+        $mock->__construct('file');
+        $mock->__construct('std');
+        $mock->__construct('email');
+        $mock->__construct('eventlog');
+        $mock->__construct('\Ease\Logger\ToFile');
+        
+        $this->assertEquals(['memory','syslog', 'console', 'file', 'std', 'email', 'eventlog', '\Ease\Logger\ToFile'],
+            array_keys($mock->loggers));
     }
 
     /**
      * @covers Ease\Logger\Regent::takeMessage
-     * @todo   Implement testTakeMessage().
      */
     public function testTakeMessage()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertEmpty($this->object->takeMessage());
     }
 
     /**
      * @covers Ease\Logger\Regent::addToLog
-     * @todo   Implement testAddToLog().
      */
     public function testAddToLog()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->object->addToLog(get_class($this), 'Unit Test');
+        $this->object->addToLog(get_class($this), 'Code Coverage', 'debug');
+        $this->assertEquals([], $this->object->getStatusMessages(true));
     }
 
     /**
      * @covers Ease\Logger\Regent::addStatusObject
-     * @todo   Implement testAddStatusObject().
      */
     public function testAddStatusObject()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $message = 'Regent::addStatusObject Unit Test';
+        $this->object->addStatusObject(new \Ease\Logger\Message($message),
+            'info');
+        $this->assertEquals(['info' => [$message]],
+            $this->object->getStatusMessages(true));
     }
 
     /**
      * @covers Ease\Logger\Regent::singleton
-     * @todo   Implement testSingleton().
      */
     public function testSingleton()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertInstanceOf('Ease\Logger\Regent', Regent::singleton());
     }
 }
