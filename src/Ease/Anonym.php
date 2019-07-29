@@ -8,7 +8,6 @@
  * @category User Classes
  * @package EasePHP
  * 
- * PHP 5
  * PHP 7
  */
 

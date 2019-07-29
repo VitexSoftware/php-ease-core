@@ -21,6 +21,7 @@ class BrickTest extends SandTest
     protected function setUp(): void
     {
         $this->object = new Local\BrickTester();
+        $this->object = new Brick();
     }
 
     /**
@@ -74,27 +75,10 @@ class BrickTest extends SandTest
     }
 
     /**
-     * @covers Ease\Brick::takeToData
-     */
-    public function testTakeToData()
-    {
-        $this->object->takeToData(['a' => 1, 'b' => 2],'b', false, 'name');
-        $this->object->takeToData(['c' => 3, 'd' => null],'b', true, 'code');
-    }
-
-    /**
      * @covers Ease\Brick::lettersOnly
      */
     public function testLettersOnly()
     {
         $this->assertEquals('1a2b3', $this->object->lettersOnly('1a2b_3'));
-    }
-
-    /**
-     * @covers Ease\Brick::searchColumns
-     */
-    public function testSearchColumns()
-    {
-        $this->object->searchColumns('test', ['name']);
     }
 }

@@ -33,7 +33,9 @@ class SandTest extends AtomTest
     {
         
     }
-
+    /**
+     * @covers Ease\Sand::__construct
+     */
     public function testConstructor()
     {
         $classname = get_class($this->object);
@@ -43,6 +45,12 @@ class SandTest extends AtomTest
             ->disableOriginalConstructor()
             ->getMockForAbstractClass();
         $mock->__construct();
+        
+        $this->assertEquals('Ease\Shared', get_class($this->object->easeShared));
+        $this->assertEquals('Ease\Logger\Regent',
+            get_class($this->object->logger));
+        $this->assertEquals('EaseSand', $this->object->getObjectName());
+        $this->assertEquals(['keyColumn' => 'id'], $this->object->initialIdentity);
     }
 
     /**
@@ -69,6 +77,7 @@ class SandTest extends AtomTest
     public function testSetObjectIdentity()
     {
         $this->object->setObjectIdentity(['keyColumn' => 'index_key']);
+        $this->assertEquals(['keyColumn' => 'id'], $this->object->identity);
     }
 
     /**
@@ -77,26 +86,25 @@ class SandTest extends AtomTest
     public function testSaveObjectIdentity()
     {
         $this->object->saveObjectIdentity();
+        $this->assertEquals(['keyColumn' => 'id'], $this->object->identity);
     }
 
     /**
      * @covers Ease\Sand::restoreObjectIdentity
-     *
-     * @todo   Implement testRestoreObjectIdentity().
      */
     public function testRestoreObjectIdentity()
     {
-        $this->object->resetObjectIdentity();
+        $this->object->restoreObjectIdentity();
+        $this->assertEquals($this->object->initialIdentity, $this->object->identity);
     }
 
     /**
      * @covers Ease\Sand::resetObjectIdentity
-     *
-     * @todo   Implement testResetObjectIdentity().
      */
     public function testResetObjectIdentity()
     {
         $this->object->resetObjectIdentity();
+        $this->assertEquals(['keyColumn'=>'id'], $this->object->identity);
     }
 
     /**
@@ -110,6 +118,15 @@ class SandTest extends AtomTest
         $this->assertEquals([2 => 'b'], $destinationArray);
         $this->assertFalse($this->object->divDataArray($sourceArray,
                 $destinationArray, 'none'));
+    }
+
+    /**
+     * @covers Ease\Sans::isAssoc
+     */
+    public function testIsAssoc()
+    {
+        $this->assertTrue(\Ease\Sand::isAssoc(['a' => 'b']));
+        $this->assertFalse(\Ease\Sand::isAssoc(['a', 'b']));
     }
 
     /**
@@ -351,7 +368,12 @@ class SandTest extends AtomTest
         ];
 
         $this->assertEquals($c, $this->object->reindexArrayBy($a, 'name'));
+        
+        $this->expectException('\Exception');
+        
+        $this->object->reindexArrayBy($a, 'Xname');
     }
+    
 
     /**
      * @covers Ease\Sand::draw
@@ -366,8 +388,10 @@ class SandTest extends AtomTest
      */
     public function testIsSerialized()
     {
-        \Ease\Brick::isSerialized('a:6:{s:1:"a";s:6:"string";s:1:"b";i:1;s:1:"c";d:2.4;s:1:"d";i:2222222222222;s:1:"e";O:8:"stdClass":0:{}s:1:"f";b:1;}');
-        \Ease\Brick::isSerialized('a:1:{s:4:"test";b:1;');
+        \Ease\Sand::isSerialized(serialize($this));
+        \Ease\Sand::isSerialized('a:6:{s:1:"a";s:6:"string";s:1:"b";i:1;s:1:"c";d:2.4;s:1:"d";i:2222222222222;s:1:"e";O:8:"stdClass":0:{}s:1:"f";b:1;}');
+        $this->assertTrue(\Ease\Sand::isSerialized('a:1:{s:4:"test";b:1;'));
+        $this->assertFalse(\Ease\Sand::isSerialized('XXXX'));
     }
 
     /**
@@ -378,7 +402,6 @@ class SandTest extends AtomTest
         $this->assertEquals('ToMemory',
             $this->object->baseClassName(new \Ease\Logger\ToMemory()));
     }
-
 }
 
 // @codeCoverageIgnoreEnd

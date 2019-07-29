@@ -43,7 +43,7 @@ class Sand extends Molecule
      *
      * @var array
      */
-    public $initialIdenty = [];
+    public $initialIdentity = [];
 
     /**
      * Tyto sloupecky jsou uchovavany pri operacich s identitou objektu.
@@ -115,7 +115,7 @@ class Sand extends Molecule
     public function __construct()
     {
         parent::__construct();
-        $this->initialIdenty = $this->saveObjectIdentity();
+        $this->initialIdentity = $this->saveObjectIdentity();
     }
 
     /**
@@ -208,7 +208,7 @@ class Sand extends Molecule
      */
     public function resetObjectIdentity()
     {
-        $this->identity = $this->initialIdenty;
+        $this->identity = $this->initialIdentity;
         $this->restoreObjectIdentity();
     }
 
