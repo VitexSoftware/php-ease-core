@@ -30,6 +30,9 @@ class MailerTest extends SandTest
         
     }
 
+    /**
+     * @covers Ease\Mailer::__construct
+     */
     public function testConstructor()
     {
         $classname = get_class($this->object);
@@ -41,6 +44,8 @@ class MailerTest extends SandTest
         $mock->__construct('info@vitexsoftware.cz', 'Unit Test');
 
         $mock->__construct('vitex@hippy.cz', 'Hallo', 'PHPUnit works well!');
+        
+        $this->assertEquals('PHPUnit works well!', $mock->mimer->getTXTBody());
     }
 
     /**
@@ -65,11 +70,11 @@ class MailerTest extends SandTest
     }
 
     /**
-     * @covers Ease\Mailer::addItem
+     * @covers Ease\Mailer::setMailBody
      */
-    public function testAddItem()
+    public function testSetMailBody()
     {
-        $this->object->addItem(new \Ease\Html\H1Tag());
+        $this->assertTrue($this->object->setMailBody('mail body'));
     }
 
     /**
@@ -77,23 +82,7 @@ class MailerTest extends SandTest
      */
     public function testAddFile()
     {
-        $this->object->addFile('README.md', 'text/markdown');
-    }
-
-    /**
-     * @covers Ease\Mailer::finalize
-     */
-    public function testFinalize()
-    {
-        $this->object->finalize();
-    }
-
-    /**
-     * @covers Ease\Mailer::getRendered
-     */
-    public function testGetRendered()
-    {
-        $this->assertEmpty($this->object->getRendered());
+        $this->assertTrue($this->object->addFile('README.md', 'text/markdown'));
     }
 
     /**
@@ -109,7 +98,7 @@ class MailerTest extends SandTest
      */
     public function testSend()
     {
-        $this->object->send();
+        $this->assertTrue($this->object->send());
     }
 
     /**
@@ -117,73 +106,9 @@ class MailerTest extends SandTest
      */
     public function testSetUserNotification()
     {
-        $this->object->setUserNotification('true');
+        $this->object->setUserNotification(true);
+        $this->assertTrue($this->object->notify);
+        $this->object->setUserNotification(false);
+        $this->assertFalse($this->object->notify);
     }
-
-    /**
-     * @covers Ease\Mailer::getItemsCount
-     */
-    public function testGetItemsCount()
-    {
-        $this->object->emptyContents();
-        $this->assertEquals(0, $this->object->getItemsCount());
-        $this->object->addItem('@');
-        $this->assertEquals(0, $this->object->getItemsCount());
-        $this->assertEquals(2,
-            $this->object->getItemsCount(new \Ease\Html\DivTag(['a', 'b'])));
-    }
-
-    /**
-     * @covers Ease\Mailer::isEmpty
-     */
-    public function testIsEmpty()
-    {
-        $this->object->emptyContents();
-        $this->assertTrue($this->object->isEmpty());
-        $this->object->addItem('@');
-        $this->assertTrue($this->object->isEmpty($this->object));
-    }
-
-    /**
-     * @covers Ease\Mailer::addItemCustom
-     */
-    public function testAddItemCustom()
-    {
-        $context = new \Ease\Html\DivTag();
-        \Ease\Container::addItemCustom('*', $context);
-        $this->assertEquals("\n<div>*</div>", $context->getRendered());
-
-        $context = new \Ease\Html\DivTag();
-        \Ease\Container::addItemCustom(new \Ease\Html\ImgTag(null), $context);
-        $this->object->addItem([new \Ease\Html\ATag('#', 'TEST'), new \Ease\Html\ATag('#',
-                'TEST')]);
-    }
-
-    /**
-     * @covers Ease\Mailer::getFirstPart
-     */
-    public function testGetFirstPart()
-    {
-        $this->object->emptyContents();
-        $this->object->addItem(new \Ease\Html\DivTag());
-        $this->object->addItem(new \Ease\Html\ATag('', ''));
-        $this->object->addItem(new \Ease\Html\PTag());
-        $controlDiv               = new \Ease\Html\DivTag();
-        $controlDiv->parentObject = $this->object;
-    }
-    
-    /**
-     * @covers Ease\Mailer::addAsFirst
-     *
-     * @todo   Implement testAddAsFirst().
-     */
-    public function testAddAsFirst()
-    {
-        $this->object->emptyContents();
-        $this->object->addItem(new \Ease\Html\DivTag());
-        $this->object->addAsFirst(new \Ease\Html\SpanTag());
-    }
-   
-    
-    
 }

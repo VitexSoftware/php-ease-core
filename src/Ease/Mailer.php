@@ -22,12 +22,47 @@ class Mailer extends Sand
      * @var
      */
     public $mailer          = null;
+
+    /**
+     * MIME Helper
+     * @var \Mail_mime 
+     */
     public $mimer           = null;
+
+    /**
+     *
+     * @var string 
+     */
     public $textBody        = null;
+
+    /**
+     * Mail Headers
+     * @var array 
+     */
     public $mailHeaders     = [];
+
+    /**
+     * Processed Headers
+     * @var array
+     */
     public $mailHeadersDone = [];
+
+    /**
+     * Line divider
+     * @var string
+     */
     public $crLf            = "\n";
+
+    /**
+     *
+     * @var array 
+     */
     public $mailBody        = null;
+
+    /**
+     * 
+     * @var boolean 
+     */
     public $finalized       = false;
 
     /**
@@ -36,6 +71,11 @@ class Mailer extends Sand
      * @var string
      */
     public $emailAddress = 'postmaster@localhost';
+
+    /**
+     * Email subject holder
+     * @var string 
+     */
     public $emailSubject = null;
 
     /**
@@ -115,24 +155,24 @@ class Mailer extends Sand
      * Set mail text body
      * 
      * @param string $text
+     * 
+     * @return boolean|\Pear_Err
      */
     public function setMailBody($text)
     {
-        $this->mimer->setTXTBody($text);
+      return  $this->mimer->setTXTBody($text);
     }
 
     /**
-     * Vrací obsah poštovní hlavičky.
+     * Obtain mail header content
      *
-     * @param string $headername název hlavičky
+     * @param string $headername requested header name
      *
-     * @return string
+     * @return string|null requested header value
      */
     public function getMailHeader($headername)
     {
-        if (isset($this->mailHeaders[$headername])) {
-            return $this->mailHeaders[$headername];
-        }
+            return array_key_exists($headername, $this->mailHeaders) ?  $this->mailHeaders[$headername] : null;
     }
 
     /**
@@ -144,11 +184,7 @@ class Mailer extends Sand
      */
     public function setMailHeaders(array $mailHeaders)
     {
-        if (is_array($this->mailHeaders)) {
-            $this->mailHeaders = array_merge($this->mailHeaders, $mailHeaders);
-        } else {
-            $this->mailHeaders = $mailHeaders;
-        }
+        $this->mailHeaders = array_merge($this->mailHeaders, $mailHeaders);
         if (isset($this->mailHeaders['To'])) {
             $this->emailAddress = $this->mailHeaders['To'];
         }
@@ -171,10 +207,12 @@ class Mailer extends Sand
      *
      * @param string $filename cesta/název souboru k přiložení
      * @param string $mimeType MIME typ přílohy
+     * 
+     * @return boolean|\PEAR_Error
      */
     public function addFile($filename, $mimeType = 'text/plain')
     {
-        $this->mimer->addAttachment($filename, $mimeType);
+        return $this->mimer->addAttachment($filename, $mimeType);
     }
 
     /**
@@ -211,8 +249,8 @@ class Mailer extends Sand
      *
      * @param bool $notify požadovaný stav notifikace
      */
-    public function setUserNotification($notify)
+    public function setUserNotification(bool $notify)
     {
-        $this->notify = (bool) $notify;
+        $this->notify = $notify;
     }
 }

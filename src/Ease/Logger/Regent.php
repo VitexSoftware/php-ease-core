@@ -3,7 +3,7 @@
  * Class to Rule message loggers.
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2016 Vitex@hippy.cz (G)
+ * @copyright 2016-2019 Vitex@hippy.cz (G)
  */
 
 namespace Ease\Logger;
@@ -43,6 +43,7 @@ class Regent extends \Ease\Atom
     ];
 
     /**
+     * Allow to write logs to multiplete logging destinations
      * 
      * @param string $logger class name
      */
@@ -75,7 +76,7 @@ class Regent extends \Ease\Atom
                     $this->loggers[$logger] = ToEventlog::singleton();
                     break;
                 default:
-                    if (class_exists($logger) && method_exists($logger,'singleton')) {
+                    if (\class_exists($logger) && \method_exists($logger,'singleton')) {
                         $this->loggers[$logger] = $logger::singleton();
                     } else {
                         $this->loggers[$logger] = ToFile::singleton($logger);
