@@ -134,7 +134,7 @@ class ToFile extends ToMemory  implements Loggingable
 
         if (!empty($baseLogDir)) {
             $this->logPrefix = \Ease\Functions::sysFilename($baseLogDir);
-            if ($this->TestDirectory($this->logPrefix)) {
+            if ($this->testDirectory($this->logPrefix)) {
                 $this->logFileName  = $this->logPrefix.$this->logFileName;
                 $this->reportFile   = $this->logPrefix.$this->reportFile;
                 $this->errorLogFile = $this->logPrefix.$this->errorLogFile;
