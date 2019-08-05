@@ -13,7 +13,7 @@ namespace Ease\Logger;
  *
  * @author vitex
  */
-class ToConsole extends ToMemory
+class ToConsole extends ToMemory implements Loggingable
 {
     /**
      * Saves obejct instace (singleton...).

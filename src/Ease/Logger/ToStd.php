@@ -12,9 +12,9 @@ namespace Ease\Logger;
  * Log to syslog.
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2012 Vitex@hippy.cz (G)
+ * @copyright 2009-2019 Vitex@hippy.cz (G)
  */
-class ToStd extends ToMemory
+class ToStd extends ToMemory implements Loggingable
 {
     /**
      * Předvolená metoda logování.
@@ -109,7 +109,6 @@ class ToStd extends ToMemory
         return self::$_instance;
     }
 
-    
     /**
      * Zapise zapravu do logu.
      *
@@ -134,14 +133,14 @@ class ToStd extends ToMemory
         $message = htmlspecialchars_decode(strip_tags(stripslashes($message)));
 
         $user = \Ease\Shared::user();
-        if( get_class($user) !== 'Ease\\Anonym' ) {
-            if( method_exists($user, 'getUserName')){
-                $person =  $user->getUserName();
+        if (get_class($user) !== 'Ease\\Anonym') {
+            if (method_exists($user, 'getUserName')) {
+                $person = $user->getUserName();
             } else {
                 $person = $user->getObjectName();
             }
             $caller = $person.' '.$caller;
-        } 
+        }
 
         $logLine = ' `'.$caller.'` '.str_replace(['notice', 'message', 'debug', 'report',
                 'error', 'warning', 'success', 'info', 'mail',],

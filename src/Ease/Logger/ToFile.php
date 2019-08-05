@@ -8,7 +8,7 @@
 
 namespace Ease\Logger;
 
-class ToFile extends ToMemory
+class ToFile extends ToMemory  implements Loggingable
 {
     /**
      * Předvolená metoda logování.

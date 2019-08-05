@@ -8,10 +8,10 @@
 namespace Ease\Logger;
 
 /**
- *
+ * @codeCoverageIgnore
  * @author Vítězslav Dvořák <info@vitexsoftware.cz>
  */
 interface Loggingable
 {
-    //put your code here
+    public function addToLog($caller, $message, $type = 'message');
 }

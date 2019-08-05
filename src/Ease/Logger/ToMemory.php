@@ -8,7 +8,7 @@
 
 namespace Ease\Logger;
 
-class ToMemory extends \Ease\Atom
+class ToMemory extends \Ease\Atom  implements Loggingable
 {
     /**
      * Předvolená metoda logování.

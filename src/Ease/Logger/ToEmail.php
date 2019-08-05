@@ -14,7 +14,7 @@ namespace Ease\Logger;
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@hippy.cz (G)
  */
-class ToEmail extends ToMemory
+class ToEmail extends ToMemory implements Loggingable
 {
     /**
      * Předvolená metoda logování.

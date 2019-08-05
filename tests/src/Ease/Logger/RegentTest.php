@@ -63,6 +63,7 @@ class RegentTest extends \Test\Ease\AtomTest
 
     /**
      * @covers Ease\Logger\Regent::addToLog
+     * @covers Ease\Logger\Loggingable::addToLog
      */
     public function testAddToLog()
     {

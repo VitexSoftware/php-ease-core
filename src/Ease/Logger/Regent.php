@@ -13,7 +13,7 @@ namespace Ease\Logger;
  *
  * @author vitex
  */
-class Regent extends \Ease\Atom
+class Regent extends \Ease\Atom implements Loggingable
 {
     /**
      * Saves obejct instace (singleton...).
@@ -76,7 +76,8 @@ class Regent extends \Ease\Atom
                     $this->loggers[$logger] = ToEventlog::singleton();
                     break;
                 default:
-                    if (\class_exists($logger) && \method_exists($logger,'singleton')) {
+                    if (\class_exists($logger) && \method_exists($logger,
+                            'singleton')) {
                         $this->loggers[$logger] = $logger::singleton();
                     } else {
                         $this->loggers[$logger] = ToFile::singleton($logger);
