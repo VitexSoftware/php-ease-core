@@ -250,7 +250,7 @@ class Sand extends Molecule
     }
 
     /**
-     * Vrací celé pole dat objektu.
+     * Obtain data holded by object
      *
      * @return array
      */
@@ -286,7 +286,7 @@ class Sand extends Molecule
     }
 
     /**
-     * Nastaví hodnotu poli objektu.
+     * Set data filed value
      *
      * @param string $columnName název datové kolonky
      * @param mixed  $value      hodnota dat

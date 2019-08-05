@@ -221,14 +221,17 @@ class Shared extends Atom
 
     /**
      * Take message to print / log
+     * 
      * @param Logger\Message $message
+     * 
+     * @return boolean message accepted
      */
     public function takeMessage($message)
     {
         $this->messages[] = $message;
-        $this->addStatusMessage($message->body, $message->type);
         $this->logger()->addToLog($message->caller, $message->body,
             $message->type);
+        return $this->addStatusMessage($message->body, $message->type);
     }
 
     /**

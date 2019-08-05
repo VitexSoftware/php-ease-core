@@ -99,23 +99,20 @@ class ToFile extends ToMemory  implements Loggingable
      */
     public function __construct($baseLogDir = null)
     {
-        $this->easeShared = \Ease\Shared::singleton();
         $this->setupLogFiles($baseLogDir);
     }
 
     /**
-     * Pri vytvareni objektu pomoci funkce singleton (ma stejne parametry, jako
-     * konstruktor) se bude v ramci behu programu pouzivat pouze jedna jeho
-     * instance (ta prvni).
-     *
-     * @link http://docs.php.net/en/language.oop5.patterns.html Dokumentace a
-     * priklad
+     * Get instanece of File Logger
+     * 
+     * @param string $logdir
+     * 
+     * @return ToFile
      */
-    public static function singleton()
+    public static function singleton($logdir = null)
     {
         if (!isset(self::$_instance)) {
-            $Class           = __CLASS__;
-            self::$_instance = new $Class();
+            self::$_instance = new self($logdir);
         }
 
         return self::$_instance;
@@ -136,7 +133,7 @@ class ToFile extends ToMemory  implements Loggingable
         }
 
         if (!empty($baseLogDir)) {
-            $this->logPrefix = \Ease\Brick::sysFilename($baseLogDir);
+            $this->logPrefix = \Ease\Functions::sysFilename($baseLogDir);
             if ($this->TestDirectory($this->logPrefix)) {
                 $this->logFileName  = $this->logPrefix.$this->logFileName;
                 $this->reportFile   = $this->logPrefix.$this->reportFile;

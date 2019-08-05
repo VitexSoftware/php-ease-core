@@ -381,7 +381,7 @@ class Functions
      * @param string $key
      * @param mixed  $encodings
      */
-    public static function arrayIconv(&$val, $key, $encodings)
+    public static function arrayIconv(&$val, /** @scrutinizer ignore-unused */ $key, $encodings)
     {
         $val = iconv($encodings[0], $encodings[1], $val);
     }

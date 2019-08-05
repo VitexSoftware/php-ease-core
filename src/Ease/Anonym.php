@@ -121,7 +121,7 @@ class Anonym extends Brick
      *
      * @param string $settingName jméno klíče nastavení
      */
-    public function getSettingValue($settingName = null)
+    public function getSettingValue(/** @scrutinizer ignore-unused */ $settingName = null)
     {
         return;
     }

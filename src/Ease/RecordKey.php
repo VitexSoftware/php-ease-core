@@ -26,6 +26,23 @@ trait RecordKey
     public $keyColumn = 'id';
 
     /**
+     * Obtain data holded by object
+     *
+     * @return array
+     */
+    public abstract function getData();
+
+    /**
+     * Set data filed value
+     *
+     * @param string $columnName název datové kolonky
+     * @param mixed  $value      hodnota dat
+     *
+     * @return bool Success
+     */
+    public abstract function setDataValue($columnName, $value);
+
+    /**
      * Gives you value of KEY Column
      *
      * @param array $data data z nichž se vrací hodnota klíče
