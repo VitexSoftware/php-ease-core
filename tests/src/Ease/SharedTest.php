@@ -59,14 +59,6 @@ class SharedTest extends AtomTest
     }
 
     /**
-     * @covers Ease\Shared::db
-     */
-    public function testDb()
-    {
-        $this->assertInstanceOf('\Ease\SQL\PDO', \Ease\Shared::db());
-    }
-
-    /**
      * @covers Ease\Shared::logger
      */
     public function testLogger()
@@ -75,63 +67,17 @@ class SharedTest extends AtomTest
     }
 
     /**
-     * @covers Ease\Shared::webPage
-     */
-    public function testWebPage()
-    {
-        $this->assertInstanceOf('\Ease\WebPage', \Ease\Shared::webPage());
-    }
-
-    /**
-     * @covers Ease\Shared::user
-     */
-    public function testUser()
-    {
-        $this->assertInstanceOf('\Ease\Anonym', \Ease\Shared::user());
-        $this->assertInstanceOf('\Ease\User',
-            \Ease\Shared::user(new \Ease\User()));
-        $this->assertInstanceOf('\Ease\User', \Ease\Shared::user());
-    }
-
-    /**
      * @covers Ease\Shared::loadConfig
-     * @expectedException Ease\Exception
      */
     public function testLoadConfig()
     {
-        $this->object->loadConfig('src/configtest.json');
+        $this->object->loadConfig('tests/configtest.json',true);
         $this->assertArrayHasKey('opt', $this->object->configuration);
         $this->assertTrue(defined('KEY'));
+        $this->expectException('Ease\Exception');
         $this->object->loadConfig('unexistent.json');
         $this->assertEquals('optvalue', $this->object->getConfigValue('opt'));
         $this->assertEquals('keyvalue', $this->object->getConfigValue('KEY'));
     }
 
-    /**
-     * @covers Ease\Shared::isCli
-     */
-    public function testIsCli()
-    {
-        $this->assertTrue($this->object->isCli());
-    }
-
-    /**
-     * @covers Ease\Shared::registerItem
-     */
-    public function testRegisterItem()
-    {
-        $item = new \Ease\Html\ATag('#');
-        Shared::registerItem($item);
-        $this->assertInstanceOf(get_class($item), end($this->object->allItems));
-    }
-
-    /**
-     * @covers Ease\Shared::addUrlParams
-     */
-    public function testAddUrlParams()
-    {
-        $this->assertEquals('http://vitexsoftware.cz/path?a=b&id=1',
-            Shared::addUrlParams('http://vitexsoftware.cz/path?a=b',
-                ['id' => 1], TRUE));
-    }
 }

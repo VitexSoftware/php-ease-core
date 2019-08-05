@@ -11,6 +11,8 @@ namespace Ease;
 class Brick extends Sand
 {
 
+    use RecordKey;
+    
     /**
      * Nastavuje jméno objektu
      * Je li známý, doplní jméno objektu hodnotu klíče např User#vitex

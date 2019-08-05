@@ -54,7 +54,8 @@ class AtomTest extends \PHPUnit\Framework\TestCase
 //          $this->object->cleanStatusMessages();
         $this->object->logBanner();
         $statuses = $this->object->getStatusMessages();
-        $this->assertStringContainsString( 'EasePHP Framework', end($statuses['debug']) );
+        $this->assertStringContainsString('EasePHP Framework',
+            end($statuses['debug']));
     }
 
     /**
@@ -93,9 +94,9 @@ class AtomTest extends \PHPUnit\Framework\TestCase
     public function testcleanMessages()
     {
         $this->object->addStatusMessage('Clean Test');
-        $this->object->CleanMessages();
-        $this->assertEmpty($this->object->statusMessages,
-            _('Stavové zprávy jsou mazány'));
+        $this->object->cleanMessages();
+        $this->assertEmpty($this->object->getStatusMessages(),
+            'Status messages cleaning');
     }
 
     /**
@@ -112,42 +113,6 @@ class AtomTest extends \PHPUnit\Framework\TestCase
         $this->assertArrayHasKey('error', $messages);
         $this->assertArrayHasKey('debug', $messages);
         $this->assertArrayHasKey('info', $messages);
-
-        $this->object->getStatusMessages(true);
-        $messages = $this->object->getstatusMessages();
-        $this->assertEquals(0, count($messages));
-    }
-
-    /**
-     * @covers Ease\Atom::takeStatusMessages
-     */
-    public function testtakestatusMessages()
-    {
-        $msgSrc = new \Ease\Atom();
-        $this->object->cleanMessages();
-        $msgSrc->addStatusMessage('testing info message', 'info');
-        $msgSrc->addStatusMessage('testing success message', 'success');
-        $this->object->takestatusMessages($msgSrc);
-        $this->object->takestatusMessages($msgSrc->statusMessages);
-        $this->assertArrayHasKey('info', $this->object->getStatusMessages());
-    }
-
-    /**
-     * @covers Ease\Atom::sysFilename
-     */
-    public function testsysFilename()
-    {
-        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
-            $this->assertContains(
-                '\\\\', $this->object->sysFilename('/'),
-                _('Windows Files conversion')
-            );
-        } else {
-            $this->assertStringContainsString(
-                '/', $this->object->sysFilename('\\\\'),
-                _('Unix File Conversion')
-            );
-        }
     }
 
     /**

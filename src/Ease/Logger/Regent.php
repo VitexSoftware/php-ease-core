@@ -18,7 +18,7 @@ class Regent extends \Ease\Atom
     /**
      * Saves obejct instace (singleton...).
      */
-    private static $_instance = null;
+    private static $instance = null;
 
     /**
      * Here to reach logger objects
@@ -126,20 +126,13 @@ class Regent extends \Ease\Atom
     }
 
     /**
-     * Pri vytvareni objektu pomoci funkce singleton (ma stejne parametry, jako
-     * konstruktor) se bude v ramci behu programu pouzivat pouze jedna jeho
-     * instance (ta prvni).
-     *
-     * @link http://docs.php.net/en/language.oop5.patterns.html Dokumentace a
-     * priklad
+     * Get The Regent
      */
     public static function singleton()
     {
-        if (!isset(self::$_instance)) {
-            $class           = __CLASS__;
-            self::$_instance = new $class();
+        if (!isset(self::$instance)) {
+            self::$instance = new self();
         }
-
-        return self::$_instance;
+        return self::$instance;
     }
 }

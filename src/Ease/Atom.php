@@ -26,7 +26,7 @@ class Atom
      *
      * @var string
      */
-    public static $frameworkVersion = '0.4';
+    public static $frameworkVersion = '0.5';
 
     /**
      * Flag debugovacího režimu.
@@ -80,12 +80,10 @@ class Atom
                     $allMessages[$mesgID][$quee] = $message;
                 }
             }
-            ksort($allMessages);
             foreach ($allMessages as $message) {
                 $quee = key($message);
                 $this->addStatusMessage(reset($message), $quee);
             }
-
             return count($statusMessages);
         }
 
@@ -101,36 +99,13 @@ class Atom
     }
 
     /**
-     * Předá zprávy.
-     *
-     * @param bool $clean smazat originalni data ?
+     * Obtain status messages
      *
      * @return array
      */
-    public function getStatusMessages($clean = false)
+    public function getStatusMessages()
     {
-        if ($clean) {
-            $statusMessages = $this->statusMessages;
-            $this->cleanMessages();
-
-            return $statusMessages;
-        } else {
             return $this->statusMessages;
-        }
-    }
-
-    /**
-     * Prevezme si zpravy z vnějšího zdroje.
-     *
-     * @param array $statusMessages pole zpráv např. $OUser->StatusMessages
-     */
-    public function takeStatusMessages($statusMessages)
-    {
-        if (is_object($statusMessages) && isset($statusMessages->statusMessages)) {
-            return $this->addStatusMessages($statusMessages->statusMessages);
-        } else {
-            return $this->addStatusMessages($statusMessages);
-        }
     }
 
     /**
@@ -143,18 +118,6 @@ class Atom
     {
         $this->addStatusMessage(trim($prefix.' PHP v'.phpversion().' EasePHP Framework v'.self::$frameworkVersion.' '.$suffix),
             'debug');
-    }
-
-    /**
-     * Returns PATH modified for current operating system.
-     *
-     * @param string $path
-     *
-     * @return string
-     */
-    public static function sysFilename($path)
-    {
-        return str_replace(['\\', '/'], constant('DIRECTORY_SEPARATOR'), $path);
     }
 
     /**

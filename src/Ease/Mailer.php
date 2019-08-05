@@ -145,7 +145,6 @@ class Mailer extends Sand
 
         $this->mimer = new \Mail_mime($mimer_params);
 
-        parent::__construct();
         if (isset($emailContents)) {
             $this->setMailBody($emailContents);
         }

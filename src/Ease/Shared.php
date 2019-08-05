@@ -85,14 +85,7 @@ class Shared extends Atom
      *
      * @var Shared
      */
-    private static $_instance = null;
-
-    /**
-     * Pole odkazů na všechny vložené objekty.
-     *
-     * @var array pole odkazů
-     */
-    public $allItems = [];
+    private static $instance = null;
 
     /**
      * Název položky session s objektem uživatele.
@@ -153,16 +146,12 @@ class Shared extends Atom
      *
      * @return \Ease\Shared
      */
-    public static function singleton($class = null)
+    public static function singleton()
     {
-        if (!isset(self::$_instance)) {
-            if (is_null($class)) {
-                $class = __CLASS__;
-            }
-            self::$_instance = new $class();
+        if (!isset(self::$instance)) {
+            self::$instance = new self();
         }
-
-        return self::$_instance;
+        return self::$instance;
     }
 
     /**
@@ -202,25 +191,6 @@ class Shared extends Atom
     }
 
     /**
-     * Returns database object instance.
-     *
-     * @return SQL\PDO
-     */
-    public static function &db($pdo = null)
-    {
-        $shared = self::instanced();
-        if (is_object($pdo)) {
-            $shared->dbLink = &$pdo;
-        }
-        if (!is_object($shared->dbLink)) {
-            $shared->dbLink = self::db(SQL\PDO::singleton(is_array($pdo) ? $pdo : [
-                ]));
-        }
-
-        return $shared->dbLink;
-    }
-
-    /**
      * Vrací instanci objektu logování.
      *
      * @return Logger
@@ -228,25 +198,6 @@ class Shared extends Atom
     public static function logger()
     {
         return Logger\Regent::singleton();
-    }
-
-    /**
-     * Vrací nebo registruje instanci webové stránky.
-     *
-     * @param WebPage $oPage objekt webstránky k zaregistrování
-     *
-     * @return WebPage
-     */
-    public static function &webPage($oPage = null)
-    {
-        $shared = self::instanced();
-        if (is_object($oPage)) {
-            $shared->webPage = &$oPage;
-        }
-        if (!is_object($shared->webPage)) {
-            $shared->webPage = WebPage::singleton();
-        }
-        return $shared->webPage;
     }
 
     /**
@@ -269,60 +220,6 @@ class Shared extends Atom
     }
 
     /**
-     * Vrací, případně i založí objekt uživatele.
-     *
-     * @param User|Anonym|string $user objekt nového uživatele nebo
-     *                                 název třídy
-     *
-     * @return User
-     */
-    public static function &user($user = null, $userSessionName = 'User')
-    {
-        $efprefix = defined('EASE_APPNAME') ? constant('EASE_APPNAME') : 'EaseFramework';
-
-        if (is_null($user) && isset($_SESSION[$efprefix][self::$userSessionName])
-            && is_object($_SESSION[$efprefix][self::$userSessionName])) {
-            return $_SESSION[$efprefix][self::$userSessionName];
-        }
-
-        if (!is_null($userSessionName)) {
-            self::$userSessionName = $userSessionName;
-        }
-        if (is_object($user)) {
-            $_SESSION[$efprefix][self::$userSessionName] = clone $user;
-        } else {
-            if (class_exists($user)) {
-                $_SESSION[$efprefix][self::$userSessionName] = new $user();
-            } elseif (!isset($_SESSION[$efprefix][self::$userSessionName]) || !is_object($_SESSION[$efprefix][self::$userSessionName])) {
-                $_SESSION[$efprefix][self::$userSessionName] = new Anonym();
-            }
-        }
-
-        return $_SESSION[$efprefix][self::$userSessionName];
-    }
-
-    /**
-     * Běží php v příkazovém řádku ?
-     *
-     * @return bool
-     */
-    public static function isCli()
-    {
-        return PHP_SAPI == 'cli' && empty($_SERVER['REMOTE_ADDR']);
-    }
-
-    /**
-     * Zaregistruje položku k finalizaci.
-     *
-     * @param mixed $itemPointer
-     */
-    public static function registerItem(&$itemPointer)
-    {
-        $easeShared             = self::singleton();
-        $easeShared->allItems[] = $itemPointer;
-    }
-
-    /**
      * Take message to print / log
      * @param Logger\Message $message
      */
@@ -339,7 +236,7 @@ class Shared extends Atom
      */
     public function __destruct()
     {
-        if (self::isCli()) {
+        if (php_sapi_name() == 'cli') {
             $prefix       = defined('EASE_APPNAME') ? constant('EASE_APPNAME') : '';
             $messagesFile = sys_get_temp_dir().'/'.$prefix.'EaseStatusMessages'.posix_getuid().'.ser';
             file_put_contents($messagesFile, serialize($this->statusMessages));
@@ -367,18 +264,13 @@ class Shared extends Atom
                         : $configFile).' does not exist');
         }
         $configuration = json_decode(file_get_contents($configFile), true);
-        if (empty($configuration)) {
-            $this->addStatusMessage('Empty Config File '.realpath($configFile) ? realpath($configFile)
-                        : $configFile, 'debug');
-        } else {
-            foreach ($configuration as $configKey => $configValue) {
-                if ($defineConstants && (strtoupper($configKey) == $configKey) && (!defined($configKey))) {
-                    define($configKey, $configValue);
-                } else {
-                    $this->setConfigValue($configKey, $configValue);
-                }
-                $this->configuration[$configKey] = $configValue;
+        foreach ($configuration as $configKey => $configValue) {
+            if ($defineConstants && (strtoupper($configKey) == $configKey) && (!defined($configKey))) {
+                define($configKey, $configValue);
+            } else {
+                $this->setConfigValue($configKey, $configValue);
             }
+            $this->configuration[$configKey] = $configValue;
         }
 
         if (array_key_exists('debug', $this->configuration)) {
@@ -386,137 +278,5 @@ class Shared extends Atom
         }
 
         return $this->configuration;
-    }
-
-    /**
-     * Initialise Gettext
-     *
-     * $i18n/$defaultLocale/LC_MESSAGES/$appname.mo
-     *
-     * @deprecated since version 1.5 - Moved to EaseBricks
-     * 
-     * @param string $appname        name for binddomain
-     * @param string $defaultLocale  locale of source code localstring
-     * @param string $i18n           directory base localisation directory
-     *
-     * @return
-     */
-    public static function initializeGetText($appname, $defaultLocale = 'en_US',
-                                             $i18n = '../i18n')
-    {
-        return self::instanced()->locale(new Locale($defaultLocale, $i18n,
-                    $appname));
-    }
-
-    /**
-     * Add params to url
-     *
-     * @param string  $url      originall url
-     * @param array   $addParams   value to add
-     * @param boolean $override replace already existing values ?
-     * 
-     * @return string url with parameters added
-     */
-    public static function addUrlParams($url, $addParams, $override = false)
-    {
-        $urlParts = parse_url($url);
-        $urlFinal = '';
-        if (array_key_exists('scheme', $urlParts)) {
-            $urlFinal .= $urlParts['scheme'].'://'.$urlParts['host'];
-        }
-        if (array_key_exists('port', $urlParts)) {
-            $urlFinal .= ':'.$urlParts['port'];
-        }
-        if (array_key_exists('path', $urlParts)) {
-            $urlFinal .= $urlParts['path'];
-        }
-        if (array_key_exists('query', $urlParts)) {
-            parse_str($urlParts['query'], $queryUrlParams);
-            $urlParams = $override ? array_merge($queryUrlParams, $addParams) : array_merge($addParams,
-                    $queryUrlParams);
-        } else {
-            $urlParams = $addParams;
-        }
-
-        if (!empty($urlParams)) {
-            $urlFinal .= '?';
-            if (is_array($urlParams)) {
-                $urlFinal .= http_build_query($urlParams);
-            } else {
-                $urlFinal .= $urlParams;
-            }
-        }
-        return $urlFinal;
-    }
-
-    /**
-     * Turn all URLs in clickable links.
-     * 
-     * @author Arnold Daniels <arnold@jasny.net>
-     * 
-     * @param string $value
-     * @param array  $protocols  http/https, ftp, mail, twitter
-     * @param array  $attributes
-     * @param string $mode       normal or all
-     * 
-     * @return string
-     */
-    public static function linkify($value, $protocols = array('http', 'mail'),
-                                   array $attributes = array())
-    {
-        // Link attributes
-        $attr = '';
-        foreach ($attributes as $key => $val) {
-            $attr = ' '.$key.'="'.htmlentities($val).'"';
-        }
-
-        $links = array();
-
-        // Extract existing links and tags
-        $value = preg_replace_callback('~(<a .*?>.*?</a>|<.*?>)~i',
-            function ($match) use (&$links) {
-            return '<'.array_push($links, $match[1]).'>';
-        }, $value);
-
-        // Extract text links for each protocol
-        foreach ((array) $protocols as $protocol) {
-            switch ($protocol) {
-                case 'http':
-                case 'https': $value = preg_replace_callback('~(?:(https?)://([^\s<]+)|(www\.[^\s<]+?\.[^\s<]+))(?<![\.,:])~i',
-                        function ($match) use ($protocol, &$links, $attr) {
-                        if ($match[1]) $protocol = $match[1];
-                        $link     = $match[2] ?: $match[3];
-                        return '<'.array_push($links,
-                                "<a $attr href=\"$protocol://$link\">$link</a>").'>';
-                    }, $value);
-                    break;
-                case 'mail': $value = preg_replace_callback('~([^\s<]+?@[^\s<]+?\.[^\s<]+)(?<![\.,:])~',
-                        function ($match) use (&$links, $attr) {
-                        return '<'.array_push($links,
-                                "<a $attr href=\"mailto:{$match[1]}\">{$match[1]}</a>").'>';
-                    }, $value);
-                    break;
-                case 'twitter': $value = preg_replace_callback('~(?<!\w)[@#](\w++)~',
-                        function ($match) use (&$links, $attr) {
-                        return '<'.array_push($links,
-                                "<a $attr href=\"https://twitter.com/".($match[0][0]
-                                == '@' ? '' : 'search/%23').$match[1]."\">{$match[0]}</a>").'>';
-                    }, $value);
-                    break;
-                default: $value = preg_replace_callback('~'.preg_quote($protocol,
-                            '~').'://([^\s<]+?)(?<![\.,:])~i',
-                        function ($match) use ($protocol, &$links, $attr) {
-                        return '<'.array_push($links,
-                                "<a $attr href=\"$protocol://{$match[1]}\">{$match[1]}</a>").'>';
-                    }, $value);
-                    break;
-            }
-        }
-
-        // Insert all link
-        return preg_replace_callback('/<(\d+)>/',
-            function ($match) use (&$links) {
-            return $links[$match[1] - 1];
-        }, $value);
     }
 }

@@ -74,11 +74,4 @@ class BrickTest extends SandTest
         $this->assertEquals($messages, $messages);
     }
 
-    /**
-     * @covers Ease\Brick::lettersOnly
-     */
-    public function testLettersOnly()
-    {
-        $this->assertEquals('1a2b3', $this->object->lettersOnly('1a2b_3'));
-    }
 }

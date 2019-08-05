@@ -27,29 +27,11 @@ class MoleculeTest extends AtomTest
 
     /**
      * Tears down the fixture, for example, closes a network connection.
-     *t This method is called after a test is executed.
+     * t This method is called after a test is executed.
      */
     protected function tearDown(): void
     {
         
-    }
-
-    /**
-     * Test Constructor
-     *
-     * @covers Ease\Molecule::__construct
-     */
-    public function testConstructor()
-    {
-        $classname = get_class($this->object);
-        // Get mock, without the constructor being called
-        $mock      = $this->getMockBuilder($classname)
-            ->disableOriginalConstructor()
-            ->getMockForAbstractClass();
-        $mock->__construct(1, ['debug' => false]);
-
-        $this->assertInstanceOf('Ease\Logger\Regent', $this->object->logger);
-        $this->assertInstanceOf('Ease\Shared', $this->object->easeShared);
     }
 
     /**
@@ -113,6 +95,7 @@ class MoleculeTest extends AtomTest
     public function testAddStatusMessage()
     {
         $this->object->addStatusMessage('Message1');
+        $wtf = $this->object->getStatusMessages();
         $this->assertNotEmpty($this->object->getStatusMessages());
     }
 
@@ -124,6 +107,7 @@ class MoleculeTest extends AtomTest
         $this->object->addStatusMessage('Message1');
         $this->assertNotEmpty($this->object->getStatusMessages(true));
     }
+
 }
 
 // @codeCoverageIgnoreEnd
