@@ -12,7 +12,7 @@ namespace Ease\Logger;
  * Log to syslog.
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2012 Vitex@hippy.cz (G)
+ * @copyright 2009-2019 Vitex@hippy.cz (G)
  */
 class ToSyslog extends ToStd implements Loggingable
 {
@@ -26,7 +26,7 @@ class ToSyslog extends ToStd implements Loggingable
     /**
      * Saves obejct instace (singleton...).
      */
-    private static $_instance = null;
+    private static $instance = null;
 
     /**
      * Logovací třída.
@@ -41,25 +41,16 @@ class ToSyslog extends ToStd implements Loggingable
     }
 
     /**
-     * Pri vytvareni objektu pomoci funkce singleton (ma stejne parametry, jako
-     * konstruktor) se bude v ramci behu programu pouzivat pouze jedna jeho
-     * instance (ta prvni).
-     *
-     * @link http://docs.php.net/en/language.oop5.patterns.html Dokumentace a
-     * priklad
+     * Obtain instance of Syslog loger
+     * 
+     * @return ToSyslog
      */
     public static function singleton()
     {
-        if (!isset(self::$_instance)) {
-            $class = __CLASS__;
-            if (defined('EASE_APPNAME')) {
-                self::$_instance = new $class(constant('EASE_APPNAME'));
-            } else {
-                self::$_instance = new $class('EaseFramework');
-            }
+        if (!isset(self::$instance)) {
+                self::$instance = new self(defined('EASE_APPNAME') ? constant('EASE_APPNAME') :  'EaseFramework');
         }
-
-        return self::$_instance;
+        return self::$instance;
     }
 
     /**
@@ -70,14 +61,7 @@ class ToSyslog extends ToStd implements Loggingable
      */
     public function output($type, $logLine)
     {
-        switch ($type) {
-            case 'error':
-                syslog(LOG_ERR, $this->finalizeMessage($logLine));
-                break;
-            default:
-                syslog(LOG_INFO, $this->finalizeMessage($logLine));
-                break;
-        }
+        return syslog( $type == 'error' ? constatnt('LOG_ERR') : constant('LOG_INFO') , $this->finalizeMessage($logLine));
     }
 
     /**

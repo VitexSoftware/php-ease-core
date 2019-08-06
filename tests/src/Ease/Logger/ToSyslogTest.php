@@ -82,4 +82,13 @@ class ToSyslogTest extends ToMemoryTest
             'This test has not been implemented yet.'
         );
     }
+    
+    /**
+     * @covers Ease\Logger\ToSyslog::output
+     */
+    public function testOutput()
+    {
+        $this->assertTrue($this->object->output('info','UnitTest'));
+    }
+    
 }
