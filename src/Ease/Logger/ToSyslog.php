@@ -61,7 +61,7 @@ class ToSyslog extends ToStd implements Loggingable
      */
     public function output($type, $logLine)
     {
-        return syslog( $type == 'error' ? constatnt('LOG_ERR') : constant('LOG_INFO') , $this->finalizeMessage($logLine));
+        return syslog( $type == 'error' ? constant('LOG_ERR') : constant('LOG_INFO') , $this->finalizeMessage($logLine));
     }
 
     /**

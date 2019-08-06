@@ -153,8 +153,7 @@ class ToEmail extends ToMemory implements Loggingable
 
         $logLine = strftime("%D %T").' `'.$caller.'`: '.$message;
 
-        $this->mailer->addItem(\Ease\Functions::linkify($logLine));
-
+        $this->mailer->textBody .= "\n" . $logLine;
         return true;
     }
 

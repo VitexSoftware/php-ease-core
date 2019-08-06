@@ -144,10 +144,7 @@ class Mailer extends Sand
         );
 
         $this->mimer = new \Mail_mime($mimer_params);
-
-        if (isset($emailContents)) {
-            $this->setMailBody($emailContents);
-        }
+        $this->textBody = $emailContents;
     }
 
     /**
@@ -219,6 +216,7 @@ class Mailer extends Sand
      */
     public function send()
     {
+        $this->setMailBody($this->textBody);
         $oMail = new \Mail();
         if (count($this->parameters)) {
             $this->mailer = $oMail->factory('smtp', $this->parameters);
