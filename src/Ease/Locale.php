@@ -18,7 +18,7 @@ class Locale
     /**
      * @var Locale Singleton is stored here
      */
-    public static $_instance;
+    public static $instance;
 
     /**
      * Current Used locale code
@@ -688,7 +688,7 @@ class Locale
      */
     public static function getLocaleUsed()
     {
-        return isset(self::$localeUsed) ? self::$localeUsed : self::$_instance->getLocaleUsed();
+        return isset(self::$localeUsed) ? self::$localeUsed : self::$instance->getLocaleUsed();
     }
 
     /**
@@ -698,10 +698,9 @@ class Locale
      */
     public static function singleton()
     {
-        if (!isset(self::$_instance)) {
-            $class           = __CLASS__;
-            self::$_instance = new $class();
+        if (!isset(self::$instance)) {
+            self::$instance = new self();
         }
-        return self::$_instance;
+        return self::$instance;
     }
 }
