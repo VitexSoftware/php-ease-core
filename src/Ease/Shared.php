@@ -27,26 +27,6 @@ namespace Ease;
 class Shared extends Atom
 {
     /**
-     * Odkaz na objekt stránky.
-     *
-     * @var WebPage
-     */
-    public $webPage = null;
-
-    /**
-     * JavaScripts.
-     *
-     * @var array
-     */
-    public $javaScripts = null;
-
-    /**
-     * Pole kaskádových stylů
-     * $var array.
-     */
-    public $cascadeStyles = null;
-
-    /**
      * Pole konfigurací.
      *
      * @var array

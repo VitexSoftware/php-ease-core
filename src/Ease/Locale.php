@@ -576,7 +576,12 @@ class Locale
         $d       = dir(self::$i18n);
         while (false !== ($entry   = $d->read())) {
             if (($entry[0] != '.') && file_exists(self::$i18n.'/'.$entry.'/LC_MESSAGES/'.self::$textDomain.'.mo')) {
-                $locales[$entry] = _(self::$alllngs[$entry]);
+                if (strstr(self::$alllngs[$entry], ' (')) {
+                    list($lang, $country) = explode(' (', self::$alllngs[$entry]);
+                    $locales[$entry] = _($lang).' ('._(substr($country, 0, -1)).')';
+                } else {
+                    $locales[$entry] = _(self::$alllngs[$entry]);
+                }
             }
         }
         $d->close();
@@ -694,12 +699,17 @@ class Locale
     /**
      * Common instance of Locale class
      * 
+     * @param string $setLocale  en_US|cs_CZ|..
+     * @param string $i18n       directory ( /usr/lib/locale/ in Debian )
+     * @param string $textDomain we want use $i18n/$setLocale/LC_ALL/$textDomain.mo
+     * 
      * @return \Ease\Locale
      */
-    public static function singleton()
+    public static function singleton($setLocale = null, $i18n = '../i18n',
+                                     $textDomain = null)
     {
         if (!isset(self::$instance)) {
-            self::$instance = new self();
+            self::$instance = new self($setLocale, $i18n, $textDomain);
         }
         return self::$instance;
     }
