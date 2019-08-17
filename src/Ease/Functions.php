@@ -123,13 +123,6 @@ class Functions
                                 "<a $attr href=\"mailto:{$match[1]}\">{$match[1]}</a>").'>';
                     }, $value);
                     break;
-                case 'twitter': $value = preg_replace_callback('~(?<!\w)[@#](\w++)~',
-                        function ($match) use (&$links, $attr) {
-                        return '<'.array_push($links,
-                                "<a $attr href=\"https://twitter.com/".($match[0][0]
-                                == '@' ? '' : 'search/%23').$match[1]."\">{$match[0]}</a>").'>';
-                    }, $value);
-                    break;
                 default: $value = preg_replace_callback('~'.preg_quote($protocol,
                             '~').'://([^\s<]+?)(?<![\.,:])~i',
                         function ($match) use ($protocol, &$links, $attr) {
@@ -148,12 +141,11 @@ class Functions
     }
     
     /**
-     * Z datového pole $SourceArray přemístí políčko $ColumName do pole
-     * $destinationArray.
+     * Move data field $columName from $sourceArray to $destinationArray.
      *
-     * @param array  $sourceArray      zdrojové pole dat
-     * @param array  $destinationArray cílové pole dat
-     * @param string $columName        název položky k převzetí
+     * @param array  $sourceArray      source
+     * @param array  $destinationArray destination
+     * @param string $columName        item to move
      */
     public static function divDataArray(&$sourceArray, &$destinationArray,
                                         $columName)
@@ -275,7 +267,7 @@ class Functions
             'Ź' => 'Z',
         ];
 
-        return @iconv('UTF-8', 'ASCII//TRANSLIT', strtr($text, $convertTable));
+        return iconv('UTF-8', 'ASCII//TRANSLIT', strtr($text, $convertTable));
     }
 
     /**

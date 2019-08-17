@@ -47,7 +47,7 @@ class MailerTest extends SandTest
 
         $mock->__construct('vitex@hippy.cz', 'Hallo', 'PHPUnit works well!');
         
-        $this->assertEquals('PHPUnit works well!', $mock->mimer->getTXTBody());
+        $this->assertEquals('PHPUnit works well!', $mock->textBody);
     }
 
     /**

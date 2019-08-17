@@ -278,7 +278,7 @@ class User extends Anonym
     {
         $encryptedPassword = '';
         for ($i = 0; $i < 10; ++$i) {
-            $encryptedPassword .= $this->randomNumber();
+            $encryptedPassword .= \Ease\Functions::randomNumber();
         }
         $passwordSalt      = substr(md5($encryptedPassword), 0, 2);
         $encryptedPassword = md5($passwordSalt.$plainTextPassword).':'.$passwordSalt;
@@ -326,11 +326,7 @@ class User extends Anonym
     public function setUserLogin($login)
     {
         $this->userLogin = $login;
-        if (isset($this->loginColumn)) {
-            return $this->setDataValue($this->loginColumn, $login);
-        }
-
-        return $this->userLogin;
+        return isset($this->loginColumn) ? $this->setDataValue($this->loginColumn, $login) : true;
     }
 
     /**

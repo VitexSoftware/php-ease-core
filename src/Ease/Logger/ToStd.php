@@ -68,7 +68,7 @@ class ToStd extends ToMemory implements Loggingable
     /**
      * Saves obejct instace (singleton...).
      */
-    private static $_instance = null;
+    private static $instance = null;
 
     /**
      * Log Name
@@ -97,11 +97,11 @@ class ToStd extends ToMemory implements Loggingable
      */
     public static function singleton()
     {
-        if (!isset(self::$_instance)) {
-            self::$_instance = new $class(defined('EASE_APPNAME') ? constant('EASE_APPNAME') : 'EaseFramework');
+        if (!isset(self::$instance)) {
+            self::$instance = new self(defined('EASE_APPNAME') ? constant('EASE_APPNAME') : 'EaseFramework');
             }
 
-        return self::$_instance;
+        return self::$instance;
     }
 
     /**

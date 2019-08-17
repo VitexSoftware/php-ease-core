@@ -29,6 +29,7 @@ class UserTest extends AnonymTest
      */
     protected function tearDown(): void
     {
+        
     }
 
     /**
@@ -163,41 +164,25 @@ class UserTest extends AnonymTest
 
     /**
      * @covers Ease\User::passwordValidation
-     *
-     * @todo   Implement testPasswordValidation().
-     */
-    public function testPasswordValidation()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
      * @covers Ease\User::encryptPassword
-     *
-     * @todo   Implement testEncryptPassword().
      */
-    public function testEncryptPassword()
+    public function testPassword()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $encrypted = \Ease\User::encryptPassword('password');
+        $this->assertNotEmpty($encrypted);
+        $this->assertTrue(\Ease\User::passwordValidation('password', $encrypted));
+
+        $this->assertFalse(\Ease\User::passwordValidation('X', $encrypted));
+
+        $this->assertFalse(\Ease\User::passwordValidation('X', 'x:x:x'));
     }
 
     /**
      * @covers Ease\User::passwordChange
-     *
-     * @todo   Implement testPasswordChange().
      */
     public function testPasswordChange()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertFalse($this->object->passwordChange('newpass'));
     }
 
     /**
@@ -215,28 +200,12 @@ class UserTest extends AnonymTest
 
     /**
      * @covers Ease\User::getUserLogin
-     *
-     * @todo   Implement testGetUserLogin().
-     */
-    public function testGetUserLogin()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
      * @covers Ease\User::setUserLogin
-     *
-     * @todo   Implement testSetUserLogin().
      */
-    public function testSetUserLogin()
+    public function testUserLogin()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertTrue($this->object->setUserLogin('vitex'));
+        $this->assertEquals('vitex', $this->object->getUserLogin());
     }
 
     /**
@@ -254,15 +223,11 @@ class UserTest extends AnonymTest
 
     /**
      * @covers Ease\User::logout
-     *
-     * @todo   Implement testLogout().
      */
     public function testLogout()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertTrue($this->object->logout());
+        $this->assertFalse($this->object->logged);
     }
 
     /**

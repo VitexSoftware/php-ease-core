@@ -42,6 +42,47 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('http://vitexsoftware.cz/path?a=b&id=1',
             Functions::addUrlParams('http://vitexsoftware.cz/path?a=b',
                 ['id' => 1], TRUE));
+        $this->assertEquals('http://vitexsoftware.cz:80?id=1',
+            Functions::addUrlParams('http://vitexsoftware.cz:80', ['id' => 1],
+                TRUE));
+        $this->assertEquals('http://vitexsoftware.cz?id=2',
+            Functions::addUrlParams('http://vitexsoftware.cz', 'id=2', TRUE));
+    }
+
+    /**
+     * @covers Ease\Functions::linkify
+     */
+    public function testLinkify()
+    {
+        $this->assertEquals('<a  href="https://v.s.cz/">v.s.cz/</a>', \Ease\Functions::linkify('https://v.s.cz/') );
+        $this->assertEquals('<a  a="1" href="mailto:info@vitexsoftware.cz">info@vitexsoftware.cz</a>', \Ease\Functions::linkify('info@vitexsoftware.cz',['mail'],['a'=>1]) );
+    }
+    
+    
+    /**
+     * @covers Ease\Functions::divDataArray
+     */
+    public function testDivDataArray()
+    {
+        $sourceArray      = ['a' => 1, 'b' => 2, 'c' => 3];
+        $destinationArray = [];
+
+        $this->assertTrue(\Ease\Functions::divDataArray($sourceArray,
+                $destinationArray, 'b'));
+        $this->assertFalse(\Ease\Functions::divDataArray($sourceArray,
+                $destinationArray, 'b'));
+
+        $this->assertEquals(['a' => 1, 'c' => 3], $sourceArray);
+        $this->assertEquals(['b' => 2], $destinationArray);
+    }
+
+    /**
+     * @covers Ease\Functions::isAssoc
+     */
+    public function testIsAssoc()
+    {
+        $this->assertTrue(\Ease\Functions::isAssoc(['a' => 'b']));
+        $this->assertFalse(\Ease\Functions::isAssoc(['a', 'b']));
     }
 
     /**
@@ -157,7 +198,7 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
 
         Functions::reindexArrayBy($a, 'Xname');
     }
-    
+
     /**
      * @covers Ease\Functions::isSerialized
      */
@@ -177,7 +218,7 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('ToMemory',
             Functions::baseClassName(new \Ease\Logger\ToMemory()));
     }
-    
+
     /**
      * @covers Ease\Functions::lettersOnly
      */
@@ -185,5 +226,4 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
     {
         $this->assertEquals('1a2b3', Functions::lettersOnly('1a2b_3'));
     }
-    
 }
