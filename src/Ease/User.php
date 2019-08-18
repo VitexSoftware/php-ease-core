@@ -18,7 +18,7 @@ namespace Ease;
 class User extends Anonym
 {
     /**
-     * @var Locale Singleton is stored here
+     * @var User Singleton is stored here
      */
     public static $instance;
 
@@ -86,6 +86,7 @@ class User extends Anonym
      */
     public function __construct($userID = null)
     {
+        $this->userID = $userID;
         $this->setObjectName();
     }
 
@@ -126,8 +127,7 @@ class User extends Anonym
     {
         $email = $this->getUserEmail();
         if ($email) {
-            return self::getGravatar($email, 800, 'mm', 'g', true,
-                    ['title' => $this->getUserName(), 'class' => 'gravatar_icon']);
+            return self::getGravatar($email, 800, 'mm', 'g');
         } else {
             return;
         }
@@ -293,7 +293,7 @@ class User extends Anonym
      *
      * @return boolean success
      */
-    public function passwordChange($newPassword)
+    public function passwordChange(/** @scrutinizer ignore-unused */ $newPassword)
     {
         return false;
     }

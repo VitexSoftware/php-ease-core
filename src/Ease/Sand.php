@@ -26,59 +26,9 @@ class Sand extends Molecule
     /**
      * Common object data holder.
      *
-     * @var array
+     * @var array|null
      */
     public $data = null;
-
-//    /**
-//     * Obsahuje všechna pole souhrně považovaná za identitu. Toto pole je plněno
-//     * v metodě SaveObjectIdentity {volá se automaticky v EaseSand::__construct()}.
-//     *
-//     * @var array
-//     */
-//    public $identity = [];
-//
-//    /**
-//     * Původní identita sloužící jako záloha k zrekonstruování počátečního stavu objektu.
-//     *
-//     * @var array
-//     */
-//    public $initialIdentity = [];
-//
-//    /**
-//     * Tyto sloupecky jsou uchovavany pri operacich s identitou objektu.
-//     * 
-//     * @deprecated since version 2.0
-//     *
-//     * @var array
-//     */
-//    public $identityColumns = ['ObjectName',
-//        'keyColumn',
-//        'myTable',
-//        'MyIDSColumn',
-//        'MyRefIDColumn',
-//        'myCreateColumn',
-//        'myLastModifiedColumn',];
-//    /**
-//     * Synchronizační sloupeček. napr products_ids.
-//     *
-//     * @var string
-//     */
-//    public $myIDSColumn = null;
-//
-//    /**
-//     * Sloupeček obsahující datum vložení záznamu do shopu.
-//     *
-//     * @var string
-//     */
-//    public $myCreateColumn = null;
-//
-//    /**
-//     * Slopecek obsahujici datum poslení modifikace záznamu do shopu.
-//     *
-//     * @var string
-//     */
-//    public $myLastModifiedColumn = null;
 
     /**
      * Objekt pro logování.

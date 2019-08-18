@@ -18,19 +18,19 @@ class ToConsole extends ToMemory implements Loggingable
     /**
      * Saves obejct instace (singleton...).
      */
-    private static $_instance = null;
+    private static $instance = null;
 
     /**
      * Standard Output handle
-     * @var resource
+     * @var resource|false
      */
-    public $stdout = null;
+    public $stdout = false;
 
     /**
      * Standard error handle
      * @var resource
      */
-    public $stderr = null;
+    public $stderr = false;
 
     /**
      * Ansi Codes
@@ -67,7 +67,6 @@ class ToConsole extends ToMemory implements Loggingable
      */
     public function __construct()
     {
-        parent::__construct();
         $this->stdout = fopen('php://stdout', 'w');
         $this->stderr = fopen('php://stderr', 'w');
     }
@@ -77,6 +76,7 @@ class ToConsole extends ToMemory implements Loggingable
      * 
      * @param string $str
      * @param string $color
+     * 
      * @return string
      */
     public static function set($str, $color)
@@ -155,11 +155,9 @@ class ToConsole extends ToMemory implements Loggingable
      */
     public static function singleton()
     {
-        if (!isset(self::$_instance)) {
-            $class           = __CLASS__;
-            self::$_instance = new $class();
+        if (!isset(self::$instance)) {
+            self::$instance = new self();
         }
-
-        return self::$_instance;
+        return self::$instance;
     }
 }

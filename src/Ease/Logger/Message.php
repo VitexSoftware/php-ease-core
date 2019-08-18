@@ -39,18 +39,18 @@ class Message
     public $caller;
 
     /**
-     * Message Time
-     * @var string
+     * Message Timestamp
+     * @var int
      */
     public $when;
 
     /**
      * Basic Message class
      * 
-     * @param string     $message
-     * @param string     info|notice|debug|error
-     * @param \Ease\Atom $caller
-     * @param int        $when
+     * @param string     $message text
+     * @param string     $type    One of info|notice|debug|error
+     * @param \Ease\Atom $caller  Origin of message
+     * @param int        $when    Timestamp
      */
     public function __construct($message, $type = 'info', $caller = null,
                                 $when = null)

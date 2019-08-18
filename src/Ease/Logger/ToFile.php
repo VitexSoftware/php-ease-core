@@ -90,7 +90,7 @@ class ToFile extends ToMemory  implements Loggingable
     /**
      * Saves obejct instace (singleton...).
      */
-    private static $_instance = null;
+    private static $instance = null;
 
     /**
      * Logovací třída.
@@ -111,11 +111,11 @@ class ToFile extends ToMemory  implements Loggingable
      */
     public static function singleton($logdir = null)
     {
-        if (!isset(self::$_instance)) {
-            self::$_instance = new self($logdir);
+        if (!isset(self::$instance)) {
+            self::$instance = new self($logdir);
         }
 
-        return self::$_instance;
+        return self::$instance;
     }
 
     /**

@@ -20,7 +20,7 @@ class ToFileTest extends ToMemoryTest
      */
     protected function setUp(): void
     {
-        $this->object = new ToFile(sys_get_temp_dir() );
+        $this->object = new ToFile(sys_get_temp_dir().'/' );
     }
 
     /**

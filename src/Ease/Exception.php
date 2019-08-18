@@ -29,7 +29,7 @@ class Exception extends \Exception
         \Ease\Shared::logger()->addStatusObject(new Logger\Message($message,
                 'error',
                 $trace[0]['class'].'::'.$trace[0]['function'].
-                ( isset($trace[0]['line']) ? ':'.$trace[0]['line'] : '' )));
+                ( isset($trace[0]['line']) ? ':'.$trace[0]['line'] : new Atom() )));
         parent::__construct($message, $code, $previous);
     }
 }

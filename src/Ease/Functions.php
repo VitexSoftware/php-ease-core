@@ -20,6 +20,7 @@ namespace Ease;
  */
 class Functions
 {
+
     /**
      * Returns PATH modified for current operating system.
      *
@@ -32,9 +33,6 @@ class Functions
         return str_replace(['\\', '/'], constant('DIRECTORY_SEPARATOR'), $path);
     }
 
-
-    
-    
     /**
      * Add params to url
      *
@@ -44,7 +42,8 @@ class Functions
      * 
      * @return string url with parameters added
      */
-    public static function addUrlParams($url, $addParams, $override = false)
+    public static function addUrlParams($url, array $addParams,
+                                        $override = false)
     {
         $urlParts = parse_url($url);
         $urlFinal = '';
@@ -66,12 +65,7 @@ class Functions
         }
 
         if (!empty($urlParams)) {
-            $urlFinal .= '?';
-            if (is_array($urlParams)) {
-                $urlFinal .= http_build_query($urlParams);
-            } else {
-                $urlFinal .= $urlParams;
-            }
+            $urlFinal .= '?'.http_build_query($urlParams);
         }
         return $urlFinal;
     }
@@ -139,7 +133,7 @@ class Functions
             return $links[$match[1] - 1];
         }, $value);
     }
-    
+
     /**
      * Move data field $columName from $sourceArray to $destinationArray.
      *
@@ -319,7 +313,7 @@ class Functions
         mt_srand((float) microtime() * 1000000);
         if (isset($minimal) && isset($maximal)) {
             if ($minimal >= $maximal) {
-                $rand = false;
+                throw new Exception('Minimum cannot be bigger than maximum');
             } else {
                 $rand = mt_rand($minimal, $maximal);
             }
@@ -358,8 +352,9 @@ class Functions
             return \iconv($in_charset, $out_charset, $arr);
         }
         $ret = $arr;
-        
-        array_walk_recursive($ret, '\Ease\Functions::arrayIconv', [$in_charset, $out_charset, $arr]  );
+
+        array_walk_recursive($ret, '\Ease\Functions::arrayIconv',
+            [$in_charset, $out_charset, $arr]);
 
         return $ret;
     }
@@ -373,7 +368,8 @@ class Functions
      * @param string $key
      * @param mixed  $encodings
      */
-    public static function arrayIconv(&$val, /** @scrutinizer ignore-unused */ $key, $encodings)
+    public static function arrayIconv(&$val, /** @scrutinizer ignore-unused */
+                                      $key, $encodings)
     {
         $val = iconv($encodings[0], $encodings[1], $val);
     }
@@ -385,22 +381,18 @@ class Functions
      *
      * @return string
      */
-    public static function humanFilesize($filesize)
+    public static function humanFilesize(int $filesize)
     {
-        if (is_numeric($filesize)) {
-            $decr   = 1024;
-            $step   = 0;
-            $prefix = ['Byte', 'KB', 'MB', 'GB', 'TB', 'PB'];
+        $decr   = 1024;
+        $step   = 0;
+        $prefix = ['Byte', 'KB', 'MB', 'GB', 'TB', 'PB'];
 
-            while (($filesize / $decr) > 0.9) {
-                $filesize = $filesize / $decr;
-                ++$step;
-            }
-
-            return round($filesize, 2).' '.$prefix[$step];
-        } else {
-            return 'NaN';
+        while (($filesize / $decr) > 0.9) {
+            $filesize = $filesize / $decr;
+            ++$step;
         }
+
+        return round($filesize, 2).' '.$prefix[$step];
     }
 
     /**
@@ -415,9 +407,9 @@ class Functions
     {
         $reindexedData = [];
 
-        foreach ($data as $dataID => $data) {
-            if (array_key_exists($indexBy, $data)) {
-                $reindexedData[$data[$indexBy]] = $data;
+        foreach ($data as $dataRow) {
+            if (array_key_exists($indexBy, $dataRow)) {
+                $reindexedData[$dataRow[$indexBy]] = $dataRow;
             } else {
                 throw new \Exception(sprintf('Data row does not contain column %s for reindexing',
                         $indexBy));
@@ -448,22 +440,30 @@ class Functions
     public static function isSerialized($data)
     {
         // if it isn't a string, it isn't serialized
-        if (!is_string($data)) return false;
+        if (!is_string($data)) {
+            return false;
+        }
         $data = trim($data);
-        if ('N;' == $data) return true;
-        if (!preg_match('/^([adObis]):/', $data, $badions)) return false;
+        if ('N;' == $data) {
+            return true;
+        }
+        if (!\preg_match('/^([adObis]):/', $data, $badions)) {
+            return false;
+        }
         switch ($badions[1]) {
             case 'a' :
             case 'O' :
             case 's' :
-                if (preg_match("/^{$badions[1]}:[0-9]+:.*[;}]\$/s", $data))
-                        return true;
+                if (preg_match("/^{$badions[1]}:[0-9]+:.*[;}]\$/s", $data)) {
+                    return true;
+                }
                 break;
             case 'b' :
             case 'i' :
             case 'd' :
-                if (preg_match("/^{$badions[1]}:[0-9.E-]+;\$/", $data))
-                        return true;
+                if (preg_match("/^{$badions[1]}:[0-9.E-]+;\$/", $data)) {
+                    return true;
+                }
                 break;
         }
         return false;
@@ -480,6 +480,5 @@ class Functions
     {
         return is_object($object) ? basename(str_replace('\\', '/',
                     get_class($object))) : null;
-    }    
-    
+    }
 }

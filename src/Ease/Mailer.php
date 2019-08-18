@@ -21,25 +21,25 @@ class Mailer extends Sand
      *
      * @var
      */
-    public $mailer          = null;
+    public $mailer = null;
 
     /**
      * MIME Helper
      * @var \Mail_mime 
      */
-    public $mimer           = null;
+    public $mimer = null;
 
     /**
      *
      * @var string 
      */
-    public $textBody        = null;
+    public $textBody = null;
 
     /**
      * Mail Headers
      * @var array 
      */
-    public $mailHeaders     = [];
+    public $mailHeaders = [];
 
     /**
      * Processed Headers
@@ -51,19 +51,19 @@ class Mailer extends Sand
      * Line divider
      * @var string
      */
-    public $crLf            = "\n";
+    public $crLf = "\n";
 
     /**
      *
      * @var array 
      */
-    public $mailBody        = null;
+    public $mailBody = null;
 
     /**
      * 
      * @var boolean 
      */
-    public $finalized       = false;
+    public $finalized = false;
 
     /**
      * Adresa odesilatele zprávy.
@@ -113,16 +113,13 @@ class Mailer extends Sand
      * @param string $mailSubject   předmět
      * @param mixed  $emailContents tělo - libovolný mix textu a EaseObjektů
      */
-    public function __construct($emailAddress, $mailSubject,
+    public function __construct(string $emailAddress, string $mailSubject,
                                 $emailContents = null)
     {
         if (defined('EASE_SMTP')) {
             $this->parameters = (array) json_decode(constant('EASE_SMTP'));
         }
 
-        if (is_array($emailAddress)) {
-            $emailAddress = current($emailAddress).' <'.key($emailAddress).'>';
-        }
 
         $this->setMailHeaders(
             [
@@ -143,7 +140,7 @@ class Mailer extends Sand
             'eol' => $this->crLf,
         );
 
-        $this->mimer = new \Mail_mime($mimer_params);
+        $this->mimer    = new \Mail_mime($mimer_params);
         $this->textBody = $emailContents;
     }
 
@@ -156,7 +153,7 @@ class Mailer extends Sand
      */
     public function setMailBody($text)
     {
-      return  $this->mimer->setTXTBody($text);
+        return $this->mimer->setTXTBody($text);
     }
 
     /**
@@ -168,7 +165,8 @@ class Mailer extends Sand
      */
     public function getMailHeader($headername)
     {
-            return array_key_exists($headername, $this->mailHeaders) ?  $this->mailHeaders[$headername] : null;
+        return array_key_exists($headername, $this->mailHeaders) ? $this->mailHeaders[$headername]
+                : null;
     }
 
     /**

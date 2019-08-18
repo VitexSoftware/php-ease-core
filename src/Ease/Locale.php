@@ -508,20 +508,20 @@ class Locale
      * Prefered Locale Code - 1) Requested 2) Session 3) Browser for WebPage or
      *                        getenv('LC_ALL') for CLI
      * 
-     * @param $allowCli allow use in cli mode (set false for testing)
+     * @param $allowCli boolean Allow use in cli mode (set false for testing)
      * 
      * @return string locale code 
      */
     public static function getPreferedLocale($allowCli = true)
     {
 //        $locale = Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']); 
-        if (php_sapi_name() == 'cli' && $allowCli) {
+        if (\php_sapi_name() === 'cli' && $allowCli) {
             $locale = getenv('LC_ALL');
         } else {
             $reqLocale = self::requestLocale();
             if (is_null($reqLocale)) {
                 $sesLocale = self::sessionLocale();
-                if (is_null($sesLocale)) {
+                if (\is_null($sesLocale)) {
                     $locale = self::browserLocale();
                 } else {
                     $locale = $sesLocale;
@@ -536,7 +536,7 @@ class Locale
     /**
      * Session by page GET or POST request with 'locale' field
      * 
-     * @return string Locale Code
+     * @return string|null Locale Code
      */
     public static function requestLocale()
     {
@@ -547,7 +547,7 @@ class Locale
     /**
      * Locale code saved to session field $_SESSION['locale']
      * 
-     * @return string locale code
+     * @return string|null locale code
      */
     public static function sessionLocale()
     {

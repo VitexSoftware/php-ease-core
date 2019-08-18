@@ -114,11 +114,10 @@ class Regent extends \Ease\Atom implements Loggingable
      * Add Status Object to stack
      * 
      * @param \Ease\Logger\Message $message
-     * @param string $type
      * 
      * @return int number of stored message
      */
-    public function addStatusObject(Message $message, $type = 'info')
+    public function addStatusObject(Message $message)
     {
         $this->addToLog($message->caller, $message->body, $message->type);
         \Ease\Shared::instanced()->addStatusMessage($message->body,

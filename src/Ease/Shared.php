@@ -48,19 +48,6 @@ class Shared extends Atom
     public $user = null;
 
     /**
-     * Odkaz na objekt databáze.
-     *
-     * @var SQL\PDO
-     */
-    public $dbLink = null;
-
-    /**
-     *
-     * @var Locale 
-     */
-    public $locale = null;
-
-    /**
      * Saves obejct instace (singleton...).
      *
      * @var Shared

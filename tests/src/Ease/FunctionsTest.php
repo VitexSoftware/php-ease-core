@@ -45,8 +45,6 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('http://vitexsoftware.cz:80?id=1',
             Functions::addUrlParams('http://vitexsoftware.cz:80', ['id' => 1],
                 TRUE));
-        $this->assertEquals('http://vitexsoftware.cz?id=2',
-            Functions::addUrlParams('http://vitexsoftware.cz', 'id=2', TRUE));
     }
 
     /**
@@ -122,7 +120,10 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
 
         $this->assertGreaterThan(9, Functions::randomNumber(10, 20));
         $this->assertLessThan(21, Functions::randomNumber(10, 20));
-        $this->assertFalse(Functions::randomNumber(30, 20));
+        
+        $this->expectExceptionMessage('Minimum cannot be bigger than maximum');
+        
+        Functions::randomNumber(30, 20);
     }
 
     /**
@@ -173,7 +174,7 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
             str_replace(',', '.', Functions::humanFilesize('12345453453')));
         $this->assertEquals('1.1 PB',
             str_replace(',', '.', Functions::humanFilesize('1234545345332235')));
-        $this->assertEquals('NaN', Functions::humanFilesize(false));
+        $this->assertEquals('0 Byte', Functions::humanFilesize(false));
     }
 
     /**

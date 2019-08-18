@@ -158,21 +158,6 @@ class ToEmail extends ToMemory implements Loggingable
     }
 
     /**
-     * Oznamuje chybovou událost.
-     *
-     * @param string $caller     název volající funkce, nebo objektu
-     * @param string $message    zpráva
-     * @param mixed  $objectData data k zaznamenání
-     */
-    public function error($caller, $message, $objectData = null)
-    {
-        if (!is_null($objectData)) {
-            $message .= print_r($objectData, true);
-        }
-        $this->addToLog($caller, $message, 'error');
-    }
-
-    /**
      * Send collected messages.
      */
     public function __destruct()

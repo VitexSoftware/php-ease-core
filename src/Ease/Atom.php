@@ -58,10 +58,13 @@ class Atom
      *
      * @param string $message text zpravy
      * @param string $type    fronta
+     * 
+     * @return boolean message added
      */
     public function addStatusMessage($message, $type = 'info')
     {
         $this->statusMessages[$type][] = $message;
+        return true;
     }
 
     /**

@@ -62,24 +62,9 @@ class ToMemory extends \Ease\Atom  implements Loggingable
     private $messageID = 0;
 
     /**
-     * Obecné konfigurace frameworku.
-     *
-     * @var Shared
-     */
-    public $easeShared = null;
-
-    /**
      * Saves obejct instace (singleton...).
      */
-    private static $_instance = null;
-
-    /**
-     * Keep log in memory Class.
-     */
-    public function __construct()
-    {
-        $this->easeShared = \Ease\Shared::singleton();
-    }
+    private static $instance = null;
 
     /**
      * Pri vytvareni objektu pomoci funkce singleton (ma stejne parametry, jako
@@ -91,12 +76,12 @@ class ToMemory extends \Ease\Atom  implements Loggingable
      */
     public static function singleton()
     {
-        if (!isset(self::$_instance)) {
+        if (!isset(self::$instance)) {
             $class           = __CLASS__;
-            self::$_instance = new $class();
+            self::$instance = new $class();
         }
 
-        return self::$_instance;
+        return self::$instance;
     }
 
     /**
@@ -136,18 +121,6 @@ class ToMemory extends \Ease\Atom  implements Loggingable
         }
 
         return true;
-    }
-
-    /**
-     * Oznamuje chybovou událost.
-     *
-     * @param string $caller     název volající funkce, nebo objektu
-     * @param string $message    zpráva
-     * @param mixed  $objectData data k zaznamenání
-     */
-    public function error($caller, $message, $objectData = null)
-    {
-        $this->addToLog($caller, $message, 'error');
     }
 
     /**

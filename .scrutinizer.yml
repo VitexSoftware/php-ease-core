@@ -5,7 +5,7 @@ build:
             before:
                 - composer self-update
                 - composer install --no-interaction
-                - sudo apt-get install -y postfix
+                - DEBIAN_FRONTEND=noninteractive sudo apt-get install -y postfix
     analysis:
       tests:
         override:
