@@ -84,7 +84,7 @@ class MailerTest extends SandTest
      */
     public function testAddFile()
     {
-        $this->assertTrue($this->object->addFile('README.md', 'text/markdown'));
+        $this->assertTrue($this->object->addFile( file_exists('README.md') ? 'README.md' : '../README.md' , 'text/markdown'));
     }
 
     /**

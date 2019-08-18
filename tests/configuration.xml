@@ -8,7 +8,7 @@
     
     <logging>
         <log type="coverage-clover" target="/tmp/nb-phpunit-coverage.xml"/>
-        <log type="junit" target="/tmp/nb-phpunit-log.xml" logIncompleteSkipped="true"/>
+        <log type="junit" target="/tmp/nb-phpunit-log.xml" />
         <log type="coverage-text" target="php://stdout"/>
     </logging>
 </phpunit>
