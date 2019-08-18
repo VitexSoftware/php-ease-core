@@ -11,6 +11,8 @@ build:
             before:
                 - composer self-update
                 - composer install --no-interaction
+                - sudo mkdir -p /home/scrutinizer/buildfile 
+                - sudo chown scrutinizer /home/scrutinizer/buildfile
                 - sudo DEBIAN_FRONTEND="noninteractive" apt-get install -y nullmailer
     analysis:
       tests:
