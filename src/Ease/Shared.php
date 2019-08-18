@@ -168,25 +168,6 @@ class Shared extends Atom
     }
 
     /**
-     * Locale Class handler
-     * 
-     * @param Locale $locale overriding object
-     * 
-     * @return Locale
-     */
-    public static function &locale($locale = null)
-    {
-        $shared = self::instanced();
-        if (is_object($locale)) {
-            $shared->locale = &$locale;
-        }
-        if (!is_object($shared->locale)) {
-            $shared->locale = Locale::singleton();
-        }
-        return $shared->locale;
-    }
-
-    /**
      * Take message to print / log
      * 
      * @param Logger\Message $message
