@@ -4,6 +4,9 @@ build:
       DEBIAN_FRONTEND: 'noninteractive'    
   nodes:
     ease-core:
+        environment:
+            variables:
+                DEBIAN_FRONTEND: 'noninteractive'    
         dependencies:
             before:
                 - composer self-update
