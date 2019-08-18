@@ -102,6 +102,15 @@ class AnonymTest extends BrickTest
     }
 
     /**
+     * @covers Ease\Anonym::setSettingValue
+     */
+    public function testSetSettingValue()
+    {
+        $this->object->setSettingValue('test',true);
+        $this->assertEquals(['test'=>true],$this->object->settings);
+    }
+    
+    /**
      * @covers Ease\Anonym::getUserEmail
      */
     public function testGetUserEmail()

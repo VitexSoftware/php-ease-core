@@ -129,10 +129,11 @@ class Regent extends \Ease\Atom implements Loggingable
     /**
      * Get The Regent
      */
-    public static function singleton()
+   
+    public static function singleton($logger = null)
     {
         if (!isset(self::$instance)) {
-            self::$instance = new self();
+            self::$instance = new self($logger);
         }
         return self::$instance;
     }

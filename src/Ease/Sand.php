@@ -101,120 +101,6 @@ class Sand extends Molecule
      */
     public $easeShared = null;
 
-//    /**
-//     * Prapředek všech objektů.
-//     */
-//    public function __construct()
-//    {
-//        parent::__construct();
-//        $this->initialIdentity = $this->saveObjectIdentity();
-//    }
-
-    /**
-     * Přidá zprávu do sdíleného zásobníku p$this->getLogger()ro zobrazení uživateli.
-     *
-     * @param string $message  Text zprávy
-     * @param string $type     Fronta zpráv (warning|info|error|success)
-     *
-     * @return 
-     */
-    public function addStatusMessage($message, $type = 'info')
-    {
-        return Shared::singleton()->takeMessage(new Logger\Message($message,
-                    $type, get_class($this)));
-    }
-    
-    /**
-     * Předá zprávy.
-     *
-     * @return array
-     */
-    public function getStatusMessages()
-    {
-        return Shared::singleton()->getStatusMessages();
-    }
-
-    /**
-     * Vymaže zprávy.
-     */
-    public function cleanMessages()
-    {
-        return Shared::singleton()->cleanMessages();
-    }
-//    /**
-//     * Nastaví novou identitu objektu.
-//     *
-//     * @deprecated since version 0.1
-//     * 
-//     * @param array $newIdentity
-//     */
-//    public function setObjectIdentity($newIdentity)
-//    {
-//        $changes = 0;
-//        $this->saveObjectIdentity();
-//        foreach ($this->identityColumns as $column) {
-//            if (isset($newIdentity[$column])) {
-//                $this->$column = $newIdentity[$column];
-//                ++$changes;
-//            }
-//        }
-//
-//        return $changes;
-//    }
-//
-//    /**
-//     * Uloží identitu objektu do pole $this->identity.
-//     *
-//     * @deprecated since version 0.1
-//     * 
-//     * @return array pole s identitou
-//     */
-//    public function saveObjectIdentity()
-//    {
-//        foreach ($this->identityColumns as $column) {
-//            if (isset($this->$column)) {
-//                $this->identity[$column] = $this->$column;
-//            }
-//        }
-//
-//        return $this->identity;
-//    }
-//
-//    /**
-//     * Obnoví uloženou identitu objektu.
-//     * 
-//     * @deprecated since version 0.1
-//     *
-//     * @param array $identity pole s identitou např. array('myTable'=>'user');
-//     */
-//    public function restoreObjectIdentity($identity = null)
-//    {
-//        if (is_null($identity)) {
-//            foreach ($this->identityColumns as $column) {
-//                if (isset($this->identity[$column])) {
-//                    $this->$column = $this->identity[$column];
-//                }
-//            }
-//        } else {
-//            foreach ($identity as $column) {
-//                if (isset($this->identity[$column])) {
-//                    $this->$column = $this->identity[$column];
-//                }
-//            }
-//        }
-//    }
-//
-//    /**
-//     * Obnoví poslední použitou identitu.
-//     * 
-//     * @deprecated since version 0.1
-//     */
-//    public function resetObjectIdentity()
-//    {
-//        $this->identity = $this->initialIdentity;
-//        $this->restoreObjectIdentity();
-//    }
-
     /**
      * Vynuluje všechny pole vlastností objektu.
      */
@@ -231,18 +117,14 @@ class Sand extends Molecule
      *
      * @return int počet načtených položek
      */
-    public function setData($data, $reset = false)
+    public function setData(array $data, $reset = false)
     {
-        $ret = null;
-        if (!empty($data) && is_array($data) && count($data)) {
+        $ret = 0;
+        if (!empty($data)) {
             if ($reset) {
                 $this->dataReset();
             }
-            if (is_array($this->data)) {
-                $this->data = array_merge($this->data, $data);
-            } else {
-                $this->data = $data;
-            }
+            $this->data = empty($this->data) ? $data : array_merge($this->data, $data);
             $ret = count($data);
         }
 

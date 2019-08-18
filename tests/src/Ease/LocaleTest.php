@@ -32,7 +32,6 @@ class LocaleTest extends \PHPUnit\Framework\TestCase
         
     }
 
-
     /**
      * Test Constructor
      *
@@ -46,21 +45,29 @@ class LocaleTest extends \PHPUnit\Framework\TestCase
         $mock = $this->getMockBuilder($classname)
             ->disableOriginalConstructor()
             ->getMockForAbstractClass();
-        
+
         $mock->__construct();
 
         $mock->__construct('cs_CZ', './i18n', 'ease-framework');
-        $this->assertEquals('cs_CZ', $mock->getLocaleUsed() );
+        $this->assertEquals('cs_CZ', $mock->getLocaleUsed());
+
+        \Ease\Locale::$textDomain = null;
+
+        $mock->__construct('cs_CZ', './i18n');
     }
-    
+
     /**
      * @covers Ease\Locale::getPreferedLocale
      */
     public function testGetPreferedLocale()
     {
+
+        $this->assertEquals('C', Locale::getPreferedLocale(false));
         $_SESSION['locale'] = 'en_US';
         $this->assertEquals('en_US', Locale::getPreferedLocale(false));
         $this->assertEquals('cs_CZ', Locale::getPreferedLocale(true));
+        
+        
     }
 
     /**
@@ -95,9 +102,10 @@ class LocaleTest extends \PHPUnit\Framework\TestCase
     public function testAvalilble()
     {
         $this->assertEquals([
-            'en_US' => 'English (United States)',
-            'cs_CZ' => 'Czech (Czech Republic)'
-            ], $this->object->availble());
+        'en_US' => 'English (United States)',
+        'cs_CZ' => 'Czech (Czech Republic)',
+        'eo' => 'Esperanto',
+        ], $this->object->availble());
     }
 
     /**
@@ -158,4 +166,13 @@ class LocaleTest extends \PHPUnit\Framework\TestCase
     {
         $this->assertEquals('cs_CZ', $this->object->getLocaleUsed());
     }
+    
+    /**
+     * @covers Ease\Locale::singleton
+     */
+    public function testSingleton()
+    {
+        $this->assertInstanceOf('\Ease\Locale', \Ease\Locale::singleton());
+    }
+    
 }

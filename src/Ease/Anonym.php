@@ -152,7 +152,7 @@ class Anonym extends Brick
      *
      * @param string $permKeyword permission keyword
      */
-    public function getPermission($permKeyword = null)
+    public function getPermission(/** @scrutinizer ignore-unused */ $permKeyword = null)
     {
         return;
     }

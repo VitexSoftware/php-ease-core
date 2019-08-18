@@ -89,6 +89,7 @@ class RegentTest extends \Test\Ease\AtomTest
      */
     public function testSingleton()
     {
+        
         $this->assertInstanceOf('Ease\Logger\Regent', Regent::singleton());
     }
 }
