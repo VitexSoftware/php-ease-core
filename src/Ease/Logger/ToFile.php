@@ -8,7 +8,7 @@
 
 namespace Ease\Logger;
 
-class ToFile extends ToMemory  implements Loggingable
+class ToFile extends ToMemory implements Loggingable
 {
     /**
      * Předvolená metoda logování.
@@ -37,13 +37,6 @@ class ToFile extends ToMemory  implements Loggingable
      * @var string - silent,debug
      */
     public $logLevel = 'debug';
-
-    /**
-     * Soubor do kterého se zapisuje report.
-     *
-     * @var string filepath
-     */
-    public $reportFile = 'EaseReport.log';
 
     /**
      * Soubor do kterého se lougují pouze zprávy typu Error.
@@ -136,19 +129,16 @@ class ToFile extends ToMemory  implements Loggingable
             $this->logPrefix = \Ease\Functions::sysFilename($baseLogDir);
             if ($this->testDirectory($this->logPrefix)) {
                 $this->logFileName  = $this->logPrefix.$this->logFileName;
-                $this->reportFile   = $this->logPrefix.$this->reportFile;
                 $this->errorLogFile = $this->logPrefix.$this->errorLogFile;
             } else {
                 $this->logPrefix    = null;
                 $this->logFileName  = null;
-                $this->reportFile   = null;
                 $this->errorLogFile = null;
             }
         } else {
             $this->logType      = 'none';
             $this->logPrefix    = null;
             $this->logFileName  = null;
-            $this->reportFile   = null;
             $this->errorLogFile = null;
         }
     }
@@ -176,7 +166,7 @@ class ToFile extends ToMemory  implements Loggingable
         $message = htmlspecialchars_decode(strip_tags(stripslashes($message)));
 
         $logLine = date(DATE_ATOM).' ('.$caller.') '.str_replace(['notice', 'message',
-                'debug', 'report', 'error', 'warning', 'success', 'info', 'mail',],
+                'debug', 'error', 'warning', 'success', 'info', 'mail',],
                 ['**', '##', '@@', '::'], $type).' '.$message."\n";
         if (!isset($this->logStyles[$type])) {
             $type = 'notice';
@@ -217,75 +207,34 @@ class ToFile extends ToMemory  implements Loggingable
     }
 
     /**
-     * Přejmenuje soubor s logem.
-     *
-     * @param string $newLogFileName new log filename
-     *
-     * @return string
-     */
-    public function renameLogFile($newLogFileName)
-    {
-        $newLogFileName = dirname($this->logFileName).'/'.basename($newLogFileName);
-        if (rename($this->logFileName, $newLogFileName)) {
-            return realpath($newLogFileName);
-        } else {
-            return realpath($this->logFileName);
-        }
-    }
-
-    /**
      * Zkontroluje stav adresáře a upozorní na případné nesnáze.
      *
      * @param string $directoryPath cesta k adresáři
      * @param bool   $isDir         detekovat existenci adresáře
      * @param bool   $isReadable    testovat čitelnost
      * @param bool   $isWritable    testovat zapisovatelnost
-     * @param bool   $logToFile     povolí logování do souboru
      *
      * @return bool konečný výsledek testu
      */
     public static function testDirectory($directoryPath, $isDir = true,
-                                         $isReadable = true, $isWritable = true,
-                                         $logToFile = false)
+                                         $isReadable = true, $isWritable = true)
     {
-        $sanity = true;
-        if ($isDir) {
-            if (!is_dir($directoryPath)) {
-                echo $directoryPath._(' not an folder. Current directory:').' '.getcwd();
-                if ($logToFile) {
-                    \Ease\Shared::logger()->addToLog('TestDirectory',
-                        $directoryPath._(' not an folder. Current directory:').' '.getcwd());
-                }
-                $sanity = false;
-            }
+        if ($isDir && !is_dir($directoryPath)) {
+            throw new \Exception($directoryPath._(' is not an folder. Current directory:').' '.getcwd());
         }
-        if ($isReadable) {
-            if (!is_readable($directoryPath)) {
-                echo $directoryPath._(' not an readable folder. Current directory:').' '.getcwd();
-                if ($logToFile) {
-                    \Ease\Shared::logger()->addToLog('TestDirectory',
-                        $directoryPath._(' not an readable folder. Current directory:').' '.getcwd());
-                }
-                $sanity = false;
-            }
+        if ($isReadable && !is_readable($directoryPath)) {
+            throw new \Exception($directoryPath._(' not an readable folder. Current directory:').' '.getcwd());
         }
-        if ($isWritable) {
-            if (!is_writable($directoryPath)) {
-                echo $directoryPath._(' not an writeable folder. Current directory:').' '.getcwd();
-                if ($logToFile) {
-                    \Ease\Shared::logger()->addToLog('TestDirectory',
-                        $directoryPath._(' not an writeable folder. Current directory:').' '.getcwd());
-                }
-
-                $sanity = false;
-            }
+        if ($isWritable && !is_writable($directoryPath)) {
+            throw new \Exception($directoryPath._(' not an writeable folder. Current directory:').' '.getcwd());
         }
-
-        return $sanity;
+        return true;
     }
 
     /**
      * Oznamuje chybovou událost.
+     * 
+     * @deprecated since version 1.0
      *
      * @param string $caller     název volající funkce, nebo objektu
      * @param string $message    zpráva
@@ -294,14 +243,14 @@ class ToFile extends ToMemory  implements Loggingable
     public function error($caller, $message, $objectData = null)
     {
         if ($this->errorLogFile) {
-            $logFileHandle = @fopen($this->errorLogFile, 'a+');
+            $logFileHandle = fopen($this->errorLogFile, 'a+');
             if ($logFileHandle) {
-                if ($this->easeShared->runType == 'web') {
-                    fputs($logFileHandle,
-                        \Ease\Brick::printPreBasic($_SERVER)."\n #End of Server enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
-                } else {
+                if (php_sapi_name() == 'clie') {
                     fputs($logFileHandle,
                         \Ease\Brick::printPreBasic($_ENV)."\n #End of CLI enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
+                } else {
+                    fputs($logFileHandle,
+                        \Ease\Brick::printPreBasic($_SERVER)."\n #End of Server enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
                 }
                 if (isset($_POST) && count($_POST)) {
                     fputs($logFileHandle,
@@ -317,8 +266,7 @@ class ToFile extends ToMemory  implements Loggingable
                 }
                 fclose($logFileHandle);
             } else {
-                $this->addToLog('Error: Couldn\'t open the '.realpath($this->errorLogFile).' error log file',
-                    'error');
+                throw new Exception('Error: Couldn\'t open the '.realpath($this->errorLogFile).' error log file');
             }
         }
         $this->addToLog($caller, $message, 'error');
