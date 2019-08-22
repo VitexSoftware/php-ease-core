@@ -113,18 +113,14 @@ class ToFile extends ToMemory implements Loggingable
 
     /**
      * Nastaví cesty logovacích souborů.
+     * 
      * @param string $baseLogDir
      */
     public function setupLogFiles($baseLogDir = null)
     {
-        if (is_null($baseLogDir)) {
-            $baseLogDir = $this->logPrefix;
-        }
 
-        if (is_null($baseLogDir) && defined('LOG_DIRECTORY')) {
-            $baseLogDir = constant('LOG_DIRECTORY');
-        }
-
+        $baseLogDir = is_null($baseLogDir) ? ( is_null($this->logPrefix) && defined('LOG_DIRECTORY') ? constant('LOG_DIRECTORY') : null ) : $baseLogDir;
+        
         if (!empty($baseLogDir)) {
             $this->logPrefix = \Ease\Functions::sysFilename($baseLogDir);
             if ($this->testDirectory($this->logPrefix)) {

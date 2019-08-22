@@ -80,7 +80,7 @@ class Regent extends \Ease\Atom implements Loggingable
                             'singleton')) {
                         $this->loggers[$logger] = $logger::singleton();
                     } else {
-                        $this->loggers[$logger] = ToFile::singleton($logger);
+                        $this->loggers[$logger] = ToFile::singleton();
                     }
                     break;
             }
