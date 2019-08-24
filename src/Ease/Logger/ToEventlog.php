@@ -24,9 +24,9 @@ class ToEventlog extends ToSyslog implements Loggingable
     public $logType = 'eventlog';
 
     /**
-     * Saves obejct instace (singleton...).
+     * @var ToEventlog Saves obejct instace (singleton...).
      */
-    private static $_instance = null;
+    private static $instance = null;
 
     /**
      * Encode For Windows event Log
@@ -40,26 +40,4 @@ class ToEventlog extends ToSyslog implements Loggingable
         return iconv("UTF-8", "cp1251//TRANSLIT", $messageRaw);
     }
     
-    /**
-     * Pri vytvareni objektu pomoci funkce singleton (ma stejne parametry, jako
-     * konstruktor) se bude v ramci behu programu pouzivat pouze jedna jeho
-     * instance (ta prvni).
-     *
-     * @link http://docs.php.net/en/language.oop5.patterns.html Dokumentace a
-     * priklad
-     */
-    public static function singleton()
-    {
-        if (!isset(self::$_instance)) {
-            $class = __CLASS__;
-            if (defined('EASE_APPNAME')) {
-                self::$_instance = new $class(constant('EASE_APPNAME'));
-            } else {
-                self::$_instance = new $class('EaseFramework');
-            }
-        }
-
-        return self::$_instance;
-    }
-        
 }
