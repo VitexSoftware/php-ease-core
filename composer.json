@@ -35,7 +35,6 @@
     },
     "require-dev": {
         "phpunit/phpunit": "*",
-        "squizlabs/php_codesniffer": "*",
         "php-coveralls/php-coveralls": "*",
         "jakub-onderka/php-parallel-lint": "*",
         "jakub-onderka/php-console-highlighter": "*"
