@@ -66,9 +66,11 @@ class ToSyslog extends ToStd implements Loggingable
 
     /**
      * Uzavře chybové soubory.
+     * 
+     * @return boolean syslog close status
      */
     public function __destruct()
     {
-        closelog();
+        return closelog();
     }
 }

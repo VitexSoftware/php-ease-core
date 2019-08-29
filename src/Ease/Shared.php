@@ -34,38 +34,11 @@ class Shared extends Atom
     public $configuration = [];
 
     /**
-     * Informuje zdali je objekt spuštěn v prostředí webové stránky nebo jako script.
-     *
-     * @var string web|cli
-     */
-    public $runType = null;
-
-    /**
-     * Odkaz na instanci objektu uživatele.
-     *
-     * @var User|Anonym
-     */
-    public $user = null;
-
-    /**
      * Saves obejct instace (singleton...).
      *
      * @var Shared
      */
     private static $instance = null;
-
-    /**
-     * Název položky session s objektem uživatele.
-     *
-     * @var string
-     */
-    public static $userSessionName = 'User';
-
-    /**
-     * Logger live here
-     * @var Logger\ToFile|Logger\ToMemory|Logger\ToSyslog
-     */
-    public static $log = null;
 
     /**
      * Array of Status Messages
@@ -165,21 +138,6 @@ class Shared extends Atom
     public static function logger()
     {
         return Logger\Regent::singleton();
-    }
-
-    /**
-     * Take message to print / log
-     * 
-     * @param Logger\Message $message
-     * 
-     * @return boolean message accepted
-     */
-    public function takeMessage($message)
-    {
-        $this->messages[] = $message;
-        $this->logger()->addToLog($message->caller, $message->body,
-            $message->type);
-        return $this->addStatusMessage($message->body, $message->type);
     }
 
     /**

@@ -3,7 +3,7 @@
  * Class to Log messages.
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2016 Vitex@hippy.cz (G)
+ * @copyright 2009-2019 Vitex@hippy.cz (G)
  */
 
 namespace Ease\Logger;
@@ -23,13 +23,6 @@ class ToMemory extends \Ease\Atom  implements Loggingable
      * @var string dirpath
      */
     public $logPrefix = null;
-
-    /**
-     * úroveň logování.
-     *
-     * @var string - silent,debug
-     */
-    public $logLevel = 'debug';
 
     /**
      * Hodnoty pro obarvování logu.
@@ -96,31 +89,8 @@ class ToMemory extends \Ease\Atom  implements Loggingable
     public function addToLog($caller, $message, $type = 'message')
     {
         ++$this->messageID;
-        if ((($type != 'error') && ($this->logLevel == 'silent')) ||
-            (($type == 'debug') && ($this->logLevel != 'debug'))) {
-            return;
-        }
-
         $this->statusMessages[$type][$this->messageID] = $message;
-
-        $message = htmlspecialchars_decode(strip_tags(stripslashes($message)));
-
-        $logLine = date(DATE_ATOM).' ('.$caller.') '.str_replace(['notice', 'message',
-                'debug', 'report', 'error', 'warning', 'success', 'info', 'mail',],
-                ['**', '##', '@@', '::'], $type).' '.$message."\n";
-        if (!isset($this->logStyles[$type])) {
-            $type = 'notice';
-        }
-        if ($this->logType == 'console' || $this->logType == 'both') {
-            if (php_sapi_name() == 'cli') {
-                echo $logLine;
-            } else {
-                echo '<div style="'.$this->logStyles[$type].'">'.$logLine."</div>\n";
-                flush();
-            }
-        }
-
-        return true;
+       return true;
     }
 
     /**
@@ -139,11 +109,4 @@ class ToMemory extends \Ease\Atom  implements Loggingable
         }
     }
 
-    /**
-     * Do Nothing.
-     */
-    public function flush()
-    {
-        //Hotfix
-    }
 }

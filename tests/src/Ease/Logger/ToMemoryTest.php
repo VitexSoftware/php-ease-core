@@ -34,92 +34,26 @@ class ToMemoryTest extends \Test\Ease\AtomTest
 
     /**
      * @covers Ease\Logger\ToMemory::singleton
-     *
-     * @todo   Implement testSingleton().
      */
     public function testSingleton()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Ease\Logger\ToMemory::setStoreMessages
-     *
-     * @todo   Implement testSetStoreMessages().
-     */
-    public function testSetStoreMessages()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Ease\Logger\ToMemory::resetStoredMessages
-     *
-     * @todo   Implement testResetStoredMessages().
-     */
-    public function testResetStoredMessages()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Ease\Logger\ToMemory::getStoredMessages
-     *
-     * @todo   Implement testGetStoredMessages().
-     */
-    public function testGetStoredMessages()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertInstanceOf('Ease\Logger\ToMemory', ToMemory::singleton());
     }
 
     /**
      * @covers Ease\Logger\ToMemory::addToLog
-     *
-     * @todo   Implement testAddToLog().
      */
     public function testAddToLog()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Ease\Logger\ToMemory::error
-     *
-     * @todo   Implement testError().
-     */
-    public function testError()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertTrue( $this->object->addToLog( get_class($this), 'test') );
     }
 
     /**
      * @covers Ease\Logger\ToMemory::getLogStyle
-     *
-     * @todo   Implement testGetLogStyle().
      */
     public function testGetLogStyle()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertEquals('color: black;', $this->object->getLogStyle());
+        $this->assertEquals('', $this->object->getLogStyle('unexist'));
     }
 }

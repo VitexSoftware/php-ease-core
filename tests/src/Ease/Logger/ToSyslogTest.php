@@ -59,15 +59,10 @@ class ToSyslogTest extends ToMemoryTest
 
     /**
      * @covers Ease\Logger\ToSyslog::__destruct
-     *
-     * @todo   Implement test__destruct().
      */
     public function test__destruct()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertTrue($this->object->__destruct());
     }
 
     /**
@@ -90,5 +85,6 @@ class ToSyslogTest extends ToMemoryTest
     {
         $this->assertTrue($this->object->output('info','UnitTest'));
     }
+    
     
 }

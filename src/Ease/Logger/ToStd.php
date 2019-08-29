@@ -17,27 +17,6 @@ namespace Ease\Logger;
 class ToStd extends ToMemory implements Loggingable
 {
     /**
-     * Předvolená metoda logování.
-     *
-     * @var string
-     */
-    public $logType = 'stdout';
-
-    /**
-     * úroveň logování.
-     *
-     * @var string - silent,debug
-     */
-    public $logLevel = 'debug';
-
-    /**
-     * Odkaz na vlastnící objekt.
-     *
-     * @var \Ease\Sand
-     */
-    public $parentObject = null;
-
-    /**
      * Pole uložených zpráv.
      *
      * @var array
