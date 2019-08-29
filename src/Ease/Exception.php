@@ -31,7 +31,7 @@ class Exception extends \Exception
                 $message,
                 'error',
                 $trace[0]['class'].'::'.$trace[0]['function'].
-                ( isset($trace[0]['line']) ? ':'.$trace[0]['line'] : new Atom() )
+                ( isset($trace[0]['line']) ?  (new Molecule())->setObjectName($trace[0]['line']) : new Atom() )
             )
         );
         parent::__construct($message, $code, $previous);
