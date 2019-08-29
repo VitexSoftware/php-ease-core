@@ -163,7 +163,7 @@ class ToEmail extends ToMemory implements Loggingable
      */
     public function __destruct()
     {
-        if (is_object($this->mailer) && ( $this->mailer->getItemsCount() > 0 )) {
+        if (strlen($this->mailer->mailBody) > 0 ) {
             $this->mailer->send();
         }
     }

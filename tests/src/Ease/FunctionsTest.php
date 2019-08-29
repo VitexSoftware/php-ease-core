@@ -52,11 +52,12 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
      */
     public function testLinkify()
     {
-        $this->assertEquals('<a  href="https://v.s.cz/">v.s.cz/</a>', \Ease\Functions::linkify('https://v.s.cz/') );
-        $this->assertEquals('<a  a="1" href="mailto:info@vitexsoftware.cz">info@vitexsoftware.cz</a>', \Ease\Functions::linkify('info@vitexsoftware.cz',['mail'],['a'=>1]) );
+        $this->assertEquals('<a  href="https://v.s.cz/">v.s.cz/</a>',
+            \Ease\Functions::linkify('https://v.s.cz/'));
+        $this->assertEquals('<a  a="1" href="mailto:info@vitexsoftware.cz">info@vitexsoftware.cz</a>',
+            \Ease\Functions::linkify('info@vitexsoftware.cz', ['mail'], ['a' => 1]));
     }
-    
-    
+
     /**
      * @covers Ease\Functions::divDataArray
      */
@@ -118,11 +119,14 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
         $b = Functions::randomNumber();
         $this->assertFalse($a == $b);
 
-        $this->assertGreaterThan(9, Functions::randomNumber(10, 20));
+        $c = Functions::randomNumber(10, 20);
+        $this->assertLessThan(21, $c);
+        $this->assertGreaterThan(9, $c);
+
         $this->assertLessThan(21, Functions::randomNumber(10, 20));
-        
+
         $this->expectExceptionMessage('Minimum cannot be bigger than maximum');
-        
+
         Functions::randomNumber(30, 20);
     }
 
@@ -205,10 +209,15 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
      */
     public function testIsSerialized()
     {
+        $this->assertFalse(Functions::isSerialized(1));
+        $this->assertTrue(Functions::isSerialized('N;'));
         Functions::isSerialized(serialize($this));
         Functions::isSerialized('a:6:{s:1:"a";s:6:"string";s:1:"b";i:1;s:1:"c";d:2.4;s:1:"d";i:2222222222222;s:1:"e";O:8:"stdClass":0:{}s:1:"f";b:1;}');
         $this->assertTrue(Functions::isSerialized('a:1:{s:4:"test";b:1;'));
         $this->assertFalse(Functions::isSerialized('XXXX'));
+        $this->assertFalse(Functions::isSerialized('s:x'));
+        $this->assertFalse(Functions::isSerialized('b:x'));
+        $this->assertTrue(Functions::isSerialized('d:19;'));
     }
 
     /**
