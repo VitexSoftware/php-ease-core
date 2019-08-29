@@ -12,7 +12,7 @@ namespace Ease\Logger;
  * Log to Email
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2012 Vitex@hippy.cz (G)
+ * @copyright 2009-2019 Vitex@hippy.cz (G)
  */
 class ToEmail extends ToMemory implements Loggingable
 {
@@ -101,6 +101,8 @@ class ToEmail extends ToMemory implements Loggingable
     {
         $this->recipient = $recipient;
         $this->subject   = empty($subject) ? $_SERVER['PHP_SELF'] : $subject;
+        $this->mailer = new \Ease\Mailer($this->recipient, $this->subject);
+        $this->mailer->setUserNotification(false);
     }
 
     /**
@@ -139,11 +141,6 @@ class ToEmail extends ToMemory implements Loggingable
      */
     public function addToLog($caller, $message, $type = 'notice')
     {
-
-        if (!is_object($this->mailer)) {
-            $this->mailer = new \Ease\Mailer($this->recipient, $this->subject);
-            $this->mailer->setUserNotification(false);
-        }
 
         ++$this->messageID;
         if (($this->logLevel == 'silent') && ($type != 'error')) {
