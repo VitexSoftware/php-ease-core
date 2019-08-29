@@ -22,18 +22,21 @@ class ToConsole extends ToMemory implements Loggingable
 
     /**
      * Standard Output handle
+     *
      * @var resource|false
      */
     public $stdout = false;
 
     /**
      * Standard error handle
+     *
      * @var resource
      */
     public $stderr = false;
 
     /**
      * Ansi Codes
+     *
      * @var array
      */
     protected static $ANSI_CODES = array(
@@ -101,17 +104,19 @@ class ToConsole extends ToMemory implements Loggingable
      */
     public function addToLog($caller, $message, $type = 'message')
     {
-        $message = $this->set(' '.Message::getTypeUnicodeSymbol($type).' '.strip_tags($message),
-            self::getTypeColor($type));
+        $message = $this->set(
+            ' '.Message::getTypeUnicodeSymbol($type).' '.strip_tags($message),
+            self::getTypeColor($type)
+        );
         $logLine = strftime("%D %T").' `'.$caller.'` '.$message;
 
         switch ($type) {
-            case 'error':
-                fputs($this->stderr, $logLine."\n");
-                break;
-            default:
-                fputs($this->stdout, $logLine."\n");
-                break;
+        case 'error':
+            fputs($this->stderr, $logLine."\n");
+            break;
+        default:
+            fputs($this->stdout, $logLine."\n");
+            break;
         }
     }
 
@@ -123,24 +128,24 @@ class ToConsole extends ToMemory implements Loggingable
     public static function getTypeColor($type)
     {
         switch ($type) {
-            case 'mail':                       // Envelope
-                $color = 'blue';
-                break;
-            case 'warning':                    // Vykřičník v trojůhelníku
-                $color = 'yellow';
-                break;
-            case 'error':                      // Lebka
-                $color = 'red';
-                break;
-            case 'debug':                      // Kytička
-                $color = 'magenta';
-                break;
-            case 'success':                    // Kytička
-                $color = 'green';
-                break;
-            default:                           // i v kroužku
-                $color = 'white';
-                break;
+        case 'mail':                       // Envelope
+            $color = 'blue';
+            break;
+        case 'warning':                    // Vykřičník v trojůhelníku
+            $color = 'yellow';
+            break;
+        case 'error':                      // Lebka
+            $color = 'red';
+            break;
+        case 'debug':                      // Kytička
+            $color = 'magenta';
+            break;
+        case 'success':                    // Kytička
+            $color = 'green';
+            break;
+        default:                           // i v kroužku
+            $color = 'white';
+            break;
         }
         return $color;
     }

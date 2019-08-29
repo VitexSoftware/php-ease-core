@@ -71,7 +71,7 @@ class ToStd extends ToMemory implements Loggingable
     {
         if (!isset(self::$instance)) {
             self::$instance = new self(defined('EASE_APPNAME') ? constant('EASE_APPNAME') : 'EaseFramework');
-            }
+        }
 
         return self::$instance;
     }
@@ -109,9 +109,11 @@ class ToStd extends ToMemory implements Loggingable
             $caller = $person.' '.$caller;
         }
 
-        $logLine = ' `'.$caller.'` '.str_replace(['notice', 'message', 'debug', 'report',
+        $logLine = ' `'.$caller.'` '.str_replace(
+            ['notice', 'message', 'debug', 'report',
                 'error', 'warning', 'success', 'info', 'mail',],
-                ['**', '##', '@@', '::'], $type).' '.$message."\n";
+            ['**', '##', '@@', '::'], $type
+        ).' '.$message."\n";
         if (!isset($this->logStyles[$type])) {
             $type = 'notice';
         }
@@ -130,16 +132,16 @@ class ToStd extends ToMemory implements Loggingable
     public function output($type, $logLine)
     {
         switch ($type) {
-            case 'error':
-                $stderr = fopen('php://stderr', 'w');
-                fwrite($stderr, $this->logName.': '.$logLine);
-                fclose($stderr);
-                break;
-            default:
-                $stdout = fopen('php://stdout', 'w');
-                fwrite($stdout, $this->logName.': '.$logLine);
-                fclose($stdout);
-                break;
+        case 'error':
+            $stderr = fopen('php://stderr', 'w');
+            fwrite($stderr, $this->logName.': '.$logLine);
+            fclose($stderr);
+            break;
+        default:
+            $stdout = fopen('php://stdout', 'w');
+            fwrite($stdout, $this->logName.': '.$logLine);
+            fclose($stdout);
+            break;
         }
     }
 

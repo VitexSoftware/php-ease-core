@@ -42,6 +42,7 @@ class Shared extends Atom
 
     /**
      * Array of Status Messages
+     *
      * @var array of Logger\Message
      */
     public $messages = [];
@@ -56,7 +57,8 @@ class Shared extends Atom
         $prefix      = defined('EASE_APPNAME') ? constant('EASE_APPNAME') : '';
         $msgFile     = sys_get_temp_dir().'/'.$prefix.'EaseStatusMessages'.posix_getuid().'.ser';
         if (file_exists($msgFile) && is_readable($msgFile) && filesize($msgFile)
-            && is_writable($msgFile)) {
+            && is_writable($msgFile)
+        ) {
             $cgiMessages = unserialize(file_get_contents($msgFile));
             file_put_contents($msgFile, '');
         }
@@ -72,8 +74,10 @@ class Shared extends Atom
                 unset($_SESSION['EaseMessages']);
             }
         }
-        $this->statusMessages = is_array($cgiMessages) ? array_merge($cgiMessages,
-                $webMessages) : $webMessages;
+        $this->statusMessages = is_array($cgiMessages) ? array_merge(
+            $cgiMessages,
+            $webMessages
+        ) : $webMessages;
     }
 
     /**
@@ -82,7 +86,7 @@ class Shared extends Atom
      *
      * @param string $class název třídy jenž má být zinstancována
      *
-     * @link   http://docs.php.net/en/language.oop5.patterns.html Dokumentace a priklad
+     * @link http://docs.php.net/en/language.oop5.patterns.html Dokumentace a priklad
      *
      * @return \Ease\Shared
      */
@@ -169,8 +173,10 @@ class Shared extends Atom
     public function loadConfig($configFile, $defineConstants = false)
     {
         if (!file_exists($configFile)) {
-            throw new Exception('Config file '.(realpath($configFile) ? realpath($configFile)
-                        : $configFile).' does not exist');
+            throw new Exception(
+                'Config file '.(realpath($configFile) ? realpath($configFile)
+                : $configFile).' does not exist'
+            );
         }
         $configuration = json_decode(file_get_contents($configFile), true);
         foreach ($configuration as $configKey => $configValue) {

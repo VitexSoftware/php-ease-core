@@ -79,12 +79,14 @@ class ToEmail extends ToMemory implements Loggingable
 
     /**
      * Recipient
+     *
      * @var string
      */
     public $recipient = null;
 
     /**
      * Log Subject
+     *
      * @var string
      */
     public $subject = null;
@@ -93,7 +95,7 @@ class ToEmail extends ToMemory implements Loggingable
      * Logger to mail Class
      *
      * @param string $recipient
-     * @param string $subject of message
+     * @param string $subject   of message
      */
     public function __construct($recipient = null, $subject = null)
     {
@@ -114,8 +116,10 @@ class ToEmail extends ToMemory implements Loggingable
         if (!isset(self::$_instance)) {
             $class = __CLASS__;
             if (defined('EASE_APPNAME')) {
-                self::$_instance = new $class(constant('EASE_EMAILTO'),
-                    constant('EASE_APPNAME'));
+                self::$_instance = new $class(
+                    constant('EASE_EMAILTO'),
+                    constant('EASE_APPNAME')
+                );
             } else {
                 self::$_instance = new $class('EaseFramework');
             }

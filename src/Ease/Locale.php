@@ -22,24 +22,28 @@ class Locale
 
     /**
      * Current Used locale code
+     *
      * @var string 
      */
     public static $localeUsed = null;
 
     /**
      * i18n files location
+     *
      * @var string dirpath 
      */
     public static $i18n = null;
 
     /**
      * GetText Domain
+     *
      * @var string 
      */
     public static $textDomain = null;
 
     /**
      * All Language Codes => languages
+     *
      * @var array
      */
     public static $alllngs = [
@@ -487,8 +491,8 @@ class Locale
      * @param string $textDomain we want use $i18n/$setLocale/LC_ALL/$textDomain.mo
      */
     public function __construct($setLocale = null, $i18n = '../i18n',
-                                $textDomain = null)
-    {
+        $textDomain = null
+    ) {
         if (is_null($setLocale)) {
             $setLocale = self::getPreferedLocale();
         }
@@ -514,7 +518,7 @@ class Locale
      */
     public static function getPreferedLocale($allowCli = true)
     {
-//        $locale = Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']); 
+        //        $locale = Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']); 
         if (\php_sapi_name() === 'cli' && $allowCli) {
             $locale = getenv('LC_ALL');
         } else {
@@ -590,6 +594,7 @@ class Locale
 
     /**
      * Store GetText Domain
+     *
      * @param string $textDomain
      */
     public static function setTextDomain($textDomain)
@@ -602,15 +607,15 @@ class Locale
      *
      * $i18n/$defaultLocale/LC_MESSAGES/$appname.mo
      *
-     * @param string $appname        name for binddomain
-     * @param string $defaultLocale  locale of source code localstring
-     * @param string $i18n           directory base localisation directory
+     * @param string $appname       name for binddomain
+     * @param string $defaultLocale locale of source code localstring
+     * @param string $i18n          directory base localisation directory
      *
      * @return
      */
     public static function initializeGetText($appname, $defaultLocale = 'en_US',
-                                             $i18n = '../i18n')
-    {
+        $i18n = '../i18n'
+    ) {
         self::$i18n = $i18n;
         self::setTextDomain($appname);
         return self::useLocale($defaultLocale);
@@ -628,8 +633,10 @@ class Locale
         $defaultLocale = 'C';
         $langs         = [];
         foreach (self::$alllngs as $langCode => $language) {
-            $langs[$langCode] = [strstr($langCode, '_') ? substr($langCode, 0,
-                    strpos($langCode, '_')) : $langCode, $language];
+            $langs[$langCode] = [strstr($langCode, '_') ? substr(
+                $langCode, 0,
+                strpos($langCode, '_')
+            ) : $langCode, $language];
         }
         foreach ($langs as $code => $langInfo) {
             if ($lang == $langInfo[0]) {
@@ -706,8 +713,8 @@ class Locale
      * @return \Ease\Locale
      */
     public static function singleton($setLocale = null, $i18n = '../i18n',
-                                     $textDomain = null)
-    {
+        $textDomain = null
+    ) {
         if (!isset(self::$instance)) {
             self::$instance = new self($setLocale, $i18n, $textDomain);
         }

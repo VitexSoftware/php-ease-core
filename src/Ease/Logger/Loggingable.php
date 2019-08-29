@@ -9,7 +9,7 @@ namespace Ease\Logger;
 
 /**
  * @codeCoverageIgnore
- * @author Vítězslav Dvořák <info@vitexsoftware.cz>
+ * @author             Vítězslav Dvořák <info@vitexsoftware.cz>
  */
 interface Loggingable
 {

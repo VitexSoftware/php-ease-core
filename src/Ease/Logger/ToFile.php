@@ -161,9 +161,11 @@ class ToFile extends ToMemory implements Loggingable
 
         $message = htmlspecialchars_decode(strip_tags(stripslashes($message)));
 
-        $logLine = date(DATE_ATOM).' ('.$caller.') '.str_replace(['notice', 'message',
+        $logLine = date(DATE_ATOM).' ('.$caller.') '.str_replace(
+            ['notice', 'message',
                 'debug', 'error', 'warning', 'success', 'info', 'mail',],
-                ['**', '##', '@@', '::'], $type).' '.$message."\n";
+            ['**', '##', '@@', '::'], $type
+        ).' '.$message."\n";
         if (!isset($this->logStyles[$type])) {
             $type = 'notice';
         }
@@ -189,8 +191,10 @@ class ToFile extends ToMemory implements Loggingable
             if ($type == 'error') {
                 if (!empty($this->errorLogFile)) {
                     if (!$this->_errorLogFileHandle) {
-                        $this->_errorLogFileHandle = fopen($this->errorLogFile,
-                            'a+');
+                        $this->_errorLogFileHandle = fopen(
+                            $this->errorLogFile,
+                            'a+'
+                        );
                     }
                     if ($this->_errorLogFileHandle) {
                         fputs($this->_errorLogFileHandle, $logLine);
@@ -213,8 +217,8 @@ class ToFile extends ToMemory implements Loggingable
      * @return bool konečný výsledek testu
      */
     public static function testDirectory($directoryPath, $isDir = true,
-                                         $isReadable = true, $isWritable = true)
-    {
+        $isReadable = true, $isWritable = true
+    ) {
         if ($isDir && !is_dir($directoryPath)) {
             throw new \Exception($directoryPath._(' is not an folder. Current directory:').' '.getcwd());
         }
@@ -242,23 +246,33 @@ class ToFile extends ToMemory implements Loggingable
             $logFileHandle = fopen($this->errorLogFile, 'a+');
             if ($logFileHandle) {
                 if (php_sapi_name() == 'clie') {
-                    fputs($logFileHandle,
-                        \Ease\Brick::printPreBasic($_ENV)."\n #End of CLI enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
+                    fputs(
+                        $logFileHandle,
+                        \Ease\Brick::printPreBasic($_ENV)."\n #End of CLI enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n"
+                    );
                 } else {
-                    fputs($logFileHandle,
-                        \Ease\Brick::printPreBasic($_SERVER)."\n #End of Server enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
+                    fputs(
+                        $logFileHandle,
+                        \Ease\Brick::printPreBasic($_SERVER)."\n #End of Server enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n"
+                    );
                 }
                 if (isset($_POST) && count($_POST)) {
-                    fputs($logFileHandle,
-                        \Ease\Brick::printPreBasic($_POST)."\n #End of _POST  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
+                    fputs(
+                        $logFileHandle,
+                        \Ease\Brick::printPreBasic($_POST)."\n #End of _POST  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n"
+                    );
                 }
                 if (isset($_GET) && count($_GET)) {
-                    fputs($logFileHandle,
-                        \Ease\Brick::printPreBasic($_GET)."\n #End of _GET enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n");
+                    fputs(
+                        $logFileHandle,
+                        \Ease\Brick::printPreBasic($_GET)."\n #End of _GET enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n"
+                    );
                 }
                 if ($objectData) {
-                    fputs($logFileHandle,
-                        \Ease\Brick::printPreBasic($objectData)."\n #End of ObjectData >>>>>>>>>>>>>>>>>>>>>>>>>>>># \n\n");
+                    fputs(
+                        $logFileHandle,
+                        \Ease\Brick::printPreBasic($objectData)."\n #End of ObjectData >>>>>>>>>>>>>>>>>>>>>>>>>>>># \n\n"
+                    );
                 }
                 fclose($logFileHandle);
             } else {

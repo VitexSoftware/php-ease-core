@@ -6,7 +6,7 @@
  * 
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2019 Vitex@hippy.cz (G)
- * @license https://opensource.org/licenses/MIT MIT
+ * @license   https://opensource.org/licenses/MIT MIT
  * 
  * PHP 7
  */
@@ -22,12 +22,14 @@ class Message
 {
     /**
      * Message body
+     *
      * @var string
      */
     public $body;
 
     /**
      * Message type
+     *
      * @var string info|succes|warning|danger|mail
      */
     public $type;
@@ -40,6 +42,7 @@ class Message
 
     /**
      * Message Timestamp
+     *
      * @var int
      */
     public $when;
@@ -53,8 +56,8 @@ class Message
      * @param int        $when    Timestamp
      */
     public function __construct($message, $type = 'info', $caller = null,
-                                $when = null)
-    {
+        $when = null
+    ) {
         $this->body   = $message;
         $this->type   = $type;
         $this->caller = $caller;
@@ -68,30 +71,30 @@ class Message
     /**
      * Unicode Symbol for given message type
      *
-     * @param string $type
+     * @param  string $type
      * @return string
      */
     public static function getTypeUnicodeSymbol($type)
     {
         switch ($type) {
-            case 'mail':                       // Envelope
-                $symbol = '✉';
-                break;
-            case 'warning':                    // Vykřičník v trojůhelníku
-                $symbol = '⚠';
-                break;
-            case 'error':                      // Lebka
-                $symbol = '☠';
-                break;
-            case 'success':                    // Kytička
-                $symbol = '❁';
-                break;
-            case 'debug':                      // Gear
-                $symbol = '⚙';
-                break;
-            default:                           // i v kroužku
-                $symbol = 'ⓘ';
-                break;
+        case 'mail':                       // Envelope
+            $symbol = '✉';
+            break;
+        case 'warning':                    // Vykřičník v trojůhelníku
+            $symbol = '⚠';
+            break;
+        case 'error':                      // Lebka
+            $symbol = '☠';
+            break;
+        case 'success':                    // Kytička
+            $symbol = '❁';
+            break;
+        case 'debug':                      // Gear
+            $symbol = '⚙';
+            break;
+        default:                           // i v kroužku
+            $symbol = 'ⓘ';
+            break;
         }
         return $symbol;
     }

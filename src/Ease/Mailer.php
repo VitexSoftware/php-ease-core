@@ -25,6 +25,7 @@ class Mailer extends Sand
 
     /**
      * MIME Helper
+     *
      * @var \Mail_mime 
      */
     public $mimer = null;
@@ -37,18 +38,21 @@ class Mailer extends Sand
 
     /**
      * Mail Headers
+     *
      * @var array 
      */
     public $mailHeaders = [];
 
     /**
      * Processed Headers
+     *
      * @var array
      */
     public $mailHeadersDone = [];
 
     /**
      * Line divider
+     *
      * @var string
      */
     public $crLf = "\n";
@@ -74,6 +78,7 @@ class Mailer extends Sand
 
     /**
      * Email subject holder
+     *
      * @var string 
      */
     public $emailSubject = null;
@@ -114,8 +119,8 @@ class Mailer extends Sand
      * @param mixed  $emailContents tělo - libovolný mix textu a EaseObjektů
      */
     public function __construct(string $emailAddress, string $mailSubject,
-                                $emailContents = null)
-    {
+        $emailContents = null
+    ) {
         if (defined('EASE_SMTP')) {
             $this->parameters = (array) json_decode(constant('EASE_SMTP'));
         }
@@ -221,18 +226,28 @@ class Mailer extends Sand
         } else {
             $this->mailer = $oMail->factory('mail');
         }
-        $this->sendResult = $this->mailer->send($this->emailAddress,
-            $this->mailHeadersDone, $this->mailBody);
+        $this->sendResult = $this->mailer->send(
+            $this->emailAddress,
+            $this->mailHeadersDone, $this->mailBody
+        );
 
         if ($this->notify === true) {
             $mailStripped = str_replace(['<', '>'], '', $this->emailAddress);
             if ($this->sendResult === true) {
-                $this->addStatusMessage(sprintf(_('Message %s was sent to %s'),
-                        $this->emailSubject, $mailStripped), 'success');
+                $this->addStatusMessage(
+                    sprintf(
+                        _('Message %s was sent to %s'),
+                        $this->emailSubject, $mailStripped
+                    ), 'success'
+                );
             } else {
-                $this->addStatusMessage(sprintf(_('Message %s, for %s was not sent because of %s'),
+                $this->addStatusMessage(
+                    sprintf(
+                        _('Message %s, for %s was not sent because of %s'),
                         $this->emailSubject, $mailStripped,
-                        $this->sendResult->message), 'warning');
+                        $this->sendResult->message
+                    ), 'warning'
+                );
             }
         }
 

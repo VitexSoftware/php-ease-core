@@ -7,7 +7,7 @@
  * 
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2019 Vitex@hippy.cz (G)
- * @license https://opensource.org/licenses/MIT GPL-2
+ * @license   https://opensource.org/licenses/MIT GPL-2
  * 
  * PHP 7
  */
@@ -119,8 +119,10 @@ class Atom
      */
     public function logBanner($prefix = null, $suffix = null)
     {
-        $this->addStatusMessage(trim($prefix.' PHP v'.phpversion().' EasePHP Framework v'.self::$frameworkVersion.' '.$suffix),
-            'debug');
+        $this->addStatusMessage(
+            trim($prefix.' PHP v'.phpversion().' EasePHP Framework v'.self::$frameworkVersion.' '.$suffix),
+            'debug'
+        );
     }
 
     /**

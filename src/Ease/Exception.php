@@ -19,17 +19,21 @@ class Exception extends \Exception
     /**
      * Ease Framework Exception
      * 
-     * @param string $message of exeption
-     * @param int    $code    error code
+     * @param string          $message  of exeption
+     * @param int             $code     error code
      * @param \Ease\Exception $previous
      */
     public function __construct($message, $code = 0, Exception $previous = null)
     {
         $trace = $this->getTrace();
-        \Ease\Shared::logger()->addStatusObject(new Logger\Message($message,
+        \Ease\Shared::logger()->addStatusObject(
+            new Logger\Message(
+                $message,
                 'error',
                 $trace[0]['class'].'::'.$trace[0]['function'].
-                ( isset($trace[0]['line']) ? ':'.$trace[0]['line'] : new Atom() )));
+                ( isset($trace[0]['line']) ? ':'.$trace[0]['line'] : new Atom() )
+            )
+        );
         parent::__construct($message, $code, $previous);
     }
 }

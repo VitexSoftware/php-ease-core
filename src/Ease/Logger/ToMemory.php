@@ -90,7 +90,7 @@ class ToMemory extends \Ease\Atom  implements Loggingable
     {
         ++$this->messageID;
         $this->statusMessages[$type][$this->messageID] = $message;
-       return true;
+        return true;
     }
 
     /**
