@@ -7,6 +7,8 @@ namespace Ease;
  *
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2019 Vitex@hippy.cz (G)
+ * 
+ * PHP 7
  */
 class Brick extends Sand
 {

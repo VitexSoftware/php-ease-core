@@ -3,7 +3,9 @@
  * Internationalization helpers
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2018 Vitex@hippy.cz (G)
+ * @copyright 2019 Vitex@hippy.cz (G)
+ * 
+ * PHP 7
  */
 
 namespace Ease;

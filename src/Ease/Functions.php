@@ -310,7 +310,7 @@ class Functions
      */
     public static function randomNumber($minimal = null, $maximal = null)
     {
-        mt_srand((float) microtime() * 1000000);
+        mt_srand((int) microtime() * 1000000);
         if (isset($minimal) && isset($maximal)) {
             if ($minimal >= $maximal) {
                 throw new Exception('Minimum cannot be bigger than maximum');
