@@ -143,13 +143,13 @@ class Sand extends Molecule
      */
     public function unsetDataValue($columnName)
     {
-        if (array_key_exists($columnName, $this->data)) {
+        $result = false;
+        if (is_array($this->data) && array_key_exists($columnName, $this->data)) {
             unset($this->data[$columnName]);
-
-            return true;
+            $result = true;
         }
 
-        return false;
+        return $result;
     }
 
     /**

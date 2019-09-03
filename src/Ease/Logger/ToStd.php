@@ -88,12 +88,6 @@ class ToStd extends ToMemory implements Loggingable
     public function addToLog($caller, $message, $type = 'message')
     {
         ++$this->messageID;
-        if (($this->logLevel == 'silent') && ($type != 'error')) {
-            return;
-        }
-        if (($this->logLevel != 'debug') && ($type == 'debug')) {
-            return;
-        }
 
         $this->statusMessages[$type][$this->messageID] = $message;
 

@@ -3,7 +3,7 @@
  * Třída pro logování.
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2016 Vitex@hippy.cz (G)
+ * @copyright 2009-2019 Vitex@hippy.cz (G)
  */
 
 namespace Ease\Logger;
@@ -32,20 +32,6 @@ class ToFile extends ToMemory implements Loggingable
     public $logFileName = 'Ease.log';
 
     /**
-     * úroveň logování.
-     *
-     * @var string - silent,debug
-     */
-    public $logLevel = 'debug';
-
-    /**
-     * Soubor do kterého se lougují pouze zprávy typu Error.
-     *
-     * @var string filepath
-     */
-    public $errorLogFile = 'EaseErrors.log';
-
-    /**
      * Odkaz na vlastnící objekt.
      *
      * @var \Ease\Sand
@@ -55,16 +41,9 @@ class ToFile extends ToMemory implements Loggingable
     /**
      * Filedescriptor Logu.
      *
-     * @var resource
+     * @var resource|boolean
      */
     private $_logFileHandle = null;
-
-    /**
-     * Filedescriptor chybového Logu.
-     *
-     * @var resource
-     */
-    private $_errorLogFileHandle = null;
 
     /**
      * ID naposledy ulozene zpravy.
@@ -125,17 +104,14 @@ class ToFile extends ToMemory implements Loggingable
             $this->logPrefix = \Ease\Functions::sysFilename($baseLogDir);
             if ($this->testDirectory($this->logPrefix)) {
                 $this->logFileName  = $this->logPrefix.$this->logFileName;
-                $this->errorLogFile = $this->logPrefix.$this->errorLogFile;
             } else {
                 $this->logPrefix    = null;
                 $this->logFileName  = null;
-                $this->errorLogFile = null;
             }
         } else {
             $this->logType      = 'none';
             $this->logPrefix    = null;
             $this->logFileName  = null;
-            $this->errorLogFile = null;
         }
     }
 
@@ -151,12 +127,6 @@ class ToFile extends ToMemory implements Loggingable
     public function addToLog($caller, $message, $type = 'message')
     {
         ++$this->messageID;
-        if (($this->logLevel == 'silent') && ($type != 'error')) {
-            return;
-        }
-        if (($this->logLevel != 'debug') && ($type == 'debug')) {
-            return;
-        }
         $this->statusMessages[$type][$this->messageID] = $message;
 
         $message = htmlspecialchars_decode(strip_tags(stripslashes($message)));
@@ -188,19 +158,6 @@ class ToFile extends ToMemory implements Loggingable
                     }
                 }
             }
-            if ($type == 'error') {
-                if (!empty($this->errorLogFile)) {
-                    if (!$this->_errorLogFileHandle) {
-                        $this->_errorLogFileHandle = fopen(
-                            $this->errorLogFile,
-                            'a+'
-                        );
-                    }
-                    if ($this->_errorLogFileHandle) {
-                        fputs($this->_errorLogFileHandle, $logLine);
-                    }
-                }
-            }
         }
 
         return true;
@@ -229,57 +186,6 @@ class ToFile extends ToMemory implements Loggingable
             throw new \Exception($directoryPath._(' not an writeable folder. Current directory:').' '.getcwd());
         }
         return true;
-    }
-
-    /**
-     * Oznamuje chybovou událost.
-     * 
-     * @deprecated since version 1.0
-     *
-     * @param string $caller     název volající funkce, nebo objektu
-     * @param string $message    zpráva
-     * @param mixed  $objectData data k zaznamenání
-     */
-    public function error($caller, $message, $objectData = null)
-    {
-        if ($this->errorLogFile) {
-            $logFileHandle = fopen($this->errorLogFile, 'a+');
-            if ($logFileHandle) {
-                if (php_sapi_name() == 'clie') {
-                    fputs(
-                        $logFileHandle,
-                        \Ease\Brick::printPreBasic($_ENV)."\n #End of CLI enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n"
-                    );
-                } else {
-                    fputs(
-                        $logFileHandle,
-                        \Ease\Brick::printPreBasic($_SERVER)."\n #End of Server enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n"
-                    );
-                }
-                if (isset($_POST) && count($_POST)) {
-                    fputs(
-                        $logFileHandle,
-                        \Ease\Brick::printPreBasic($_POST)."\n #End of _POST  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n"
-                    );
-                }
-                if (isset($_GET) && count($_GET)) {
-                    fputs(
-                        $logFileHandle,
-                        \Ease\Brick::printPreBasic($_GET)."\n #End of _GET enviroment  <<<<<<<<<<<<<<<<<<<<<<<<<<< # \n\n"
-                    );
-                }
-                if ($objectData) {
-                    fputs(
-                        $logFileHandle,
-                        \Ease\Brick::printPreBasic($objectData)."\n #End of ObjectData >>>>>>>>>>>>>>>>>>>>>>>>>>>># \n\n"
-                    );
-                }
-                fclose($logFileHandle);
-            } else {
-                throw new Exception('Error: Couldn\'t open the '.realpath($this->errorLogFile).' error log file');
-            }
-        }
-        $this->addToLog($caller, $message, 'error');
     }
 
     /**

@@ -81,8 +81,8 @@ class User extends Anonym
     /**
      * Objekt uživatele aplikace.
      *
-     * @param int|string $userID ID nebo Login uživatele jenž se má načíst při
-     *                           inicializaci třídy
+     * @param int $userID ID nebo Login uživatele jenž se má načíst při
+     *                    inicializaci třídy
      */
     public function __construct($userID = null)
     {
@@ -321,7 +321,7 @@ class User extends Anonym
     /**
      * Nastavuje login uživatele.
      *
-     * @return string
+     * @return boolean
      */
     public function setUserLogin($login)
     {
