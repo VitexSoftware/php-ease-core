@@ -326,7 +326,8 @@ class User extends Anonym
     public function setUserLogin($login)
     {
         $this->userLogin = $login;
-        return isset($this->loginColumn) ? $this->setDataValue($this->loginColumn, $login) : true;
+        return isset($this->loginColumn) ? $this->setDataValue($this->loginColumn,
+                $login) : true;
     }
 
     /**
@@ -460,10 +461,10 @@ class User extends Anonym
      * 
      * @return \Ease\User
      */
-    public static function singleton()
+    public static function singleton($user = null)
     {
         if (!isset(self::$instance)) {
-            self::$instance = new self();
+            self::$instance = is_null($user) ? new self() : $user;
         }
         return self::$instance;
     }

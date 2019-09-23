@@ -50,6 +50,13 @@ class Shared extends Atom
     public $messages = [];
 
     /**
+     * session item name with user object
+     *
+     * @var string
+     */
+    public static $userSessionName = 'User';
+
+    /**
      * Inicializace sdílené třídy.
      */
     public function __construct()
@@ -77,9 +84,8 @@ class Shared extends Atom
             }
         }
         $this->statusMessages = is_array($cgiMessages) ? array_merge(
-            $cgiMessages,
-            $webMessages
-        ) : $webMessages;
+                $cgiMessages, $webMessages
+            ) : $webMessages;
     }
 
     /**
@@ -165,6 +171,36 @@ class Shared extends Atom
     }
 
     /**
+     * Vrací, případně i založí objekt uživatele.
+     *
+     * @param User|Anonym|string $user objekt nového uživatele nebo
+     *                                 název třídy
+     *
+     * @return User
+     */
+    public static function &user($user = null, $userSessionName = 'User')
+    {
+        $efprefix = defined('EASE_APPNAME') ? constant('EASE_APPNAME') : 'EaseFramework';
+        if (is_null($user) && isset($_SESSION[$efprefix][self::$userSessionName])
+            && is_object($_SESSION[$efprefix][self::$userSessionName])) {
+            return $_SESSION[$efprefix][self::$userSessionName];
+        }
+        if (!is_null($userSessionName)) {
+            self::$userSessionName = $userSessionName;
+        }
+        if (is_object($user)) {
+            $_SESSION[$efprefix][self::$userSessionName] = clone $user;
+        } else {
+            if (class_exists($user)) {
+                $_SESSION[$efprefix][self::$userSessionName] = new $user();
+            } elseif (!isset($_SESSION[$efprefix][self::$userSessionName]) || !is_object($_SESSION[$efprefix][self::$userSessionName])) {
+                $_SESSION[$efprefix][self::$userSessionName] = new Anonym();
+            }
+        }
+        return $_SESSION[$efprefix][self::$userSessionName];
+    }
+
+    /**
      * Load Configuration values from json file $this->configFile and define UPPERCASE keys
      *
      * @param string  $configFile      Path to file with configuration
@@ -176,8 +212,7 @@ class Shared extends Atom
     {
         if (!file_exists($configFile)) {
             throw new Exception(
-                'Config file '.(realpath($configFile) ? realpath($configFile)
-                : $configFile).' does not exist'
+                'Config file '.(realpath($configFile) ? realpath($configFile) : $configFile).' does not exist'
             );
         }
         $configuration = json_decode(file_get_contents($configFile), true);
