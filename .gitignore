@@ -20,3 +20,7 @@ composer.lock
 /debian/php-ease-core.debhelper.log
 /debian/php-ease-core/
 /.phpunit.result.cache
+/debian/php-ease-core-dev/
+/debian/.debhelper/
+/debian/php-ease-core-dev.substvars
+/debian/php-ease-core-dev.debhelper.log

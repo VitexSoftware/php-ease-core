@@ -8,15 +8,11 @@
 
 namespace Ease\Logger;
 
+/**
+ * @method  methodName(type $paramName) Description
+ */
 class ToFile extends ToMemory implements Loggingable
 {
-    /**
-     * Předvolená metoda logování.
-     *
-     * @var string
-     */
-    public $logType = 'file';
-
     /**
      * Adresář do kterého se zapisují logy.
      *
@@ -124,7 +120,7 @@ class ToFile extends ToMemory implements Loggingable
      *
      * @return null|boolean byl report zapsán ?
      */
-    public function addToLog($caller, $message, $type = 'message')
+    public function addToLog($caller, $message, $type = 'notice')
     {
         ++$this->messageID;
         $this->statusMessages[$type][$this->messageID] = $message;
@@ -136,17 +132,6 @@ class ToFile extends ToMemory implements Loggingable
                 'debug', 'error', 'warning', 'success', 'info', 'mail',],
             ['**', '##', '@@', '::'], $type
         ).' '.$message."\n";
-        if (!isset($this->logStyles[$type])) {
-            $type = 'notice';
-        }
-        if ($this->logType == 'console' || $this->logType == 'both') {
-            if (php_sapi_name() == 'cli') {
-                echo $logLine;
-            } else {
-                echo '<div style="'.$this->logStyles[$type].'">'.$logLine."</div>\n";
-                flush();
-            }
-        }
         if (!empty($this->logPrefix)) {
             if ($this->logType == 'file' || $this->logType == 'both') {
                 if (!empty($this->logFileName)) {
@@ -194,11 +179,7 @@ class ToFile extends ToMemory implements Loggingable
     public function __destruct()
     {
         if ($this->_logFileHandle) {
-            fclose($this->_logFileHandle);
-        }
-        if ($this->_errorLogFileHandle) {
-            fclose($this->_errorLogFileHandle);
-        }
+            fclose($this->_logFileHandle);        }
     }
 
     /**
