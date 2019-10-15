@@ -20,4 +20,4 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y composer exim4 pbuilder ubuntu-dev-tools apt-file debhelper
     - name: Build Package
-      run: debuild-pbuilder -us -uc
+      run: debuild-pbuilder
