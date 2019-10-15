@@ -18,7 +18,7 @@ Description: EasePHP Framework
  common classes foe Ease Framework. 
 
 Package: php-ease-core-dev
-Depends: ${misc:Depends}, php-mail, php-mail-mime, composer, default-mta
+Depends: ${misc:Depends}, php-mail, php-mail-mime, php-ease-core, default-mta
 Architecture: all
 Suggests: php-ease-html, php-ease-twbootstrap, php-ease-twbootstrap4
 Section: web
