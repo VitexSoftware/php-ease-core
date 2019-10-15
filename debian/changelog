@@ -1,17 +1,9 @@
-php-ease-core (0.22) UNRELEASED; urgency=medium
+php-ease-core (0.24) UNRELEASED; urgency=medium
 
+  [ Vítězslav Dvořák ]
   * all unit tests pass
-  * Lintian is happy now
-  * Lintian is happy now
-  * Lintian is happy now
-  * Lintian is happy now
-  * Lintian is happy now
-  * Lintian is happy now
-  * Lintian is happy now
-  * Lintian is happy now
-  * Lintian is happy now
 
- -- Vítězslav Dvořák <info@vitexsoftware.cz>  Sat, 12 Oct 2019 14:27:09 +0200
+ -- vitex <vitex@hosting.vitexsoftware.cz>  Wed, 16 Oct 2019 00:05:33 +0200
 
 php-ease-core (0.12) UNRELEASED; urgency=medium
 
