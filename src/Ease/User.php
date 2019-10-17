@@ -152,14 +152,18 @@ class User extends Anonym
             $this->addStatusMessage(_('missing login'), 'error');
 
             return;
+        } else {
+            $this->setDataValue($this->loginColumn, $login);
         }
         if (!$password) {
             $this->addStatusMessage(_('missing password'), 'error');
 
             return;
+        } else {
+            $this->setDataValue($this->passwordColumn, $password);
         }
         if ($this->authentize()) {
-            $this->setObjectName();
+           return true;
         } else {
             $this->addStatusMessage(sprintf(_('user %s does not exist'), $login,
                     'error'));
@@ -241,6 +245,7 @@ class User extends Anonym
         $this->addStatusMessage(sprintf(_('Sign in %s all ok'), $this->userLogin),
             'success');
         $this->setObjectName();
+        \Ease\Shared::user($this);
         return true;
     }
 
