@@ -1,0 +1,23 @@
+name: Debian Packaging
+
+on:
+  release:
+    types: [published, created, edited]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@master
+      env: 
+        DEBIAN_FRONTEND: "noninteractive"
+    - name: Prepare Environment
+      run: |
+        echo "deb http://repo.vitexsoftware.cz $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/vitexsoftware.list
+        sudo wget -O /etc/apt/trusted.gpg.d/vitexsoftware.gpg http://repo.vitexsoftware.cz/keyring.gpg
+        sudo apt-get update
+        sudo apt-get install -y aptitude composer exim4 pbuilder ubuntu-dev-tools apt-file debhelper
+    - name: Build Package
+      run: debuild-pbuilder

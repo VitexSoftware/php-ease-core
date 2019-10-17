@@ -1,0 +1,5 @@
+tests/src/* 	usr/share/php/EaseCoreTests
+#debian/test/*   usr/share/php/EaseCoreTests
+
+
+

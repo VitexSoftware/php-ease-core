@@ -1,18 +1,27 @@
-Source: ease-core
-Build-Depends: debhelper (>= 7.0.50~)
+Source: php-ease-core
+Build-Depends: debhelper (>= 11)
 Section: web
 Standards-Version: 3.9.8
 Maintainer: Vítězslav Dvořák <info@vitexsoftware.cz>
 Uploaders: Vitex <vitex@hippy.cz>
 Priority: optional
-Homepage: https://github.com/VitexSoftware/ease-core
+Homepage: https://github.com/VitexSoftware/php-ease-core
 
 Package: php-ease-core
-Depends: ${misc:Depends}, php-mail, php-mail-mime, composer
+Depends: ${misc:Depends}, php-mail, php-mail-mime, composer-global-update
 Conflicts: ease-framework
 Architecture: all
-Suggests: composer
+Suggests: php-ease-html, php-ease-twbootstrap, php-ease-twbootstrap4
 Section: web
 Priority: optional
 Description: EasePHP Framework
+ common classes foe Ease Framework. 
+
+Package: php-ease-core-dev
+Depends: ${misc:Depends}, php-mail, php-mail-mime, php-ease-core, default-mta
+Architecture: all
+Suggests: php-ease-html, php-ease-twbootstrap, php-ease-twbootstrap4
+Section: web
+Priority: optional
+Description: EasePHP Framework Unit Tests
  common classes foe Ease Framework. 

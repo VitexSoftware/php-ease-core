@@ -1,0 +1,20 @@
+name: PHPUnit
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@master
+      env: 
+        DEBIAN_FRONTEND: "noninteractive"
+    - name: Prepare Environment
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y composer exim4
+        composer update
+    - name: Run tests
+      run: make phpunit
