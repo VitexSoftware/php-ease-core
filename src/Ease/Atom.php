@@ -63,7 +63,7 @@ class Atom
      */
     public function addStatusMessage($message, $type = 'info')
     {
-        $this->statusMessages[$type][] = $message;
+        $this->statusMessages[$type][microtime()] = $message;
         return true;
     }
 

@@ -54,7 +54,7 @@ class Brick extends Sand
         if ($addIcons) {
             $message = ' '.Logger\Message::getTypeUnicodeSymbol($type).' '.$message;
         }
-        return parent::addStatusMessage($message, $type);
+        return  \Ease\Shared::singleton()->addStatusMessage($message, $type);
     }
 
     
