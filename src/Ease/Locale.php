@@ -702,7 +702,7 @@ class Locale
      */
     public static function getLocaleUsed()
     {
-        return isset(self::$localeUsed) ? self::$localeUsed : self::$instance->getLocaleUsed();
+        return isset(self::$localeUsed) ? self::$localeUsed : '';
     }
 
     /**
