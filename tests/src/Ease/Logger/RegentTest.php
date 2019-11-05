@@ -80,8 +80,8 @@ class RegentTest extends \Test\Ease\AtomTest
         $message = 'Regent::addStatusObject Unit Test';
         $this->object->addStatusObject(new \Ease\Logger\Message($message),
             'info');
-        $this->assertEquals(['info' => [$message]],
-            $this->object->getStatusMessages(true));
+        $stm = $this->object->getStatusMessages(true);
+        $this->assertTrue( array_key_exists( 'info', $stm) && current($stm['info']) == $message  );
     }
 
     /**

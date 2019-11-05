@@ -1,4 +1,11 @@
-ease-core (0.9) UNRELEASED; urgency=medium
+php-ease-core (0.24) UNRELEASED; urgency=medium
+
+  [ Vítězslav Dvořák ]
+  * all unit tests pass
+
+ -- vitex <vitex@hosting.vitexsoftware.cz>  Wed, 16 Oct 2019 00:05:33 +0200
+
+php-ease-core (0.12) UNRELEASED; urgency=medium
 
   * Sensiolabs Icon removed
   * global rename ease-framework to ease-core
@@ -7,10 +14,13 @@ ease-core (0.9) UNRELEASED; urgency=medium
     apps by composer-global-update in postinst
   * Update deb package schema for current composer Upgrade all using
     apps by composer-global-update in postinst
+  * Code Cleanup
+  * Keep user in session backported
+  * Lintian is happy now
 
- -- Vítězslav Dvořák <vitex@develoid.jinonice.czf>  Thu, 06 Jun 2019 15:53:14 +0200
+ -- Vítězslav Dvořák <info@vitexsoftware.cz>  Fri, 11 Oct 2019 11:04:56 +0200
 
-ease-core (0.1) EXPERIMENTAL; urgency=medium
+php-ease-core (0.1) EXPERIMENTAL; urgency=medium
 
   * Package build fixed
 
