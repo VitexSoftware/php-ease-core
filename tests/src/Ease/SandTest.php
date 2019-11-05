@@ -42,7 +42,7 @@ class SandTest extends AtomTest
         $this->object->cleanMessages();
         $this->object->addStatusMessage('EaseSand Status message', 'info');
         $messages = $this->object->getStatusMessages();
-        $this->assertEquals(['info'=>['EaseSand Status message']],$messages);
+        $this->assertTrue(array_key_exists('info', $messages) && current($messages['info']) == 'EaseSand Status message');
     }
     
     /**
