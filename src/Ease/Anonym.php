@@ -18,8 +18,6 @@ namespace Ease;
  */
 class Anonym extends Brick
 {
-    use RecordKey;
-    
     /**
      * Druh uživatele.
      *

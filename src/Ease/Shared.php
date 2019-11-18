@@ -178,10 +178,10 @@ class Shared extends Atom
      *
      * @return User
      */
-    public static function &user($user = null, $userSessionName = 'User')
+    public static function &user($user = null, $candidat = null, $userSessionName = 'User')
     {
         $efprefix = defined('EASE_APPNAME') ? constant('EASE_APPNAME') : 'EaseFramework';
-        if (is_null($user) && isset($_SESSION[$efprefix][self::$userSessionName])
+        if (!is_object($user) && isset($_SESSION[$efprefix][self::$userSessionName])
             && is_object($_SESSION[$efprefix][self::$userSessionName])) {
             return $_SESSION[$efprefix][self::$userSessionName];
         }
@@ -194,7 +194,7 @@ class Shared extends Atom
             if (class_exists($user)) {
                 $_SESSION[$efprefix][self::$userSessionName] = new $user();
             } elseif (!isset($_SESSION[$efprefix][self::$userSessionName]) || !is_object($_SESSION[$efprefix][self::$userSessionName])) {
-                $_SESSION[$efprefix][self::$userSessionName] = new Anonym();
+                $_SESSION[$efprefix][self::$userSessionName] = new User();
             }
         }
         return $_SESSION[$efprefix][self::$userSessionName];
