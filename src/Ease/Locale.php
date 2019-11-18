@@ -658,9 +658,11 @@ class Locale
      */
     public static function useLocale($localeCode)
     {
+        \putenv("LC_ALL=$localeCode");
+        \putenv("LANGUAGUE=$localeCode");
+        \putenv("LANG=$localeCode");
         \setlocale(LC_ALL, $localeCode);
         \bind_textdomain_codeset(self::$textDomain, 'UTF-8');
-        \putenv("LC_ALL=$localeCode");
         if (!empty(self::$textDomain)) {
             if (file_exists(self::$i18n)) {
                 \bindtextdomain(self::$textDomain, self::$i18n);
