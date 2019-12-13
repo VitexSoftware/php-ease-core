@@ -178,11 +178,10 @@ class Shared extends Atom
      *
      * @return User
      */
-    public static function &user($user = null, $candidat = null, $userSessionName = 'User')
+    public static function &user(object $user = null, string $candidat = 'User', string $userSessionName = 'User')
     {
         $efprefix = defined('EASE_APPNAME') ? constant('EASE_APPNAME') : 'EaseFramework';
-        if (!is_object($user) && isset($_SESSION[$efprefix][self::$userSessionName])
-            && is_object($_SESSION[$efprefix][self::$userSessionName])) {
+        if (empty($user) && isset($_SESSION[$efprefix][self::$userSessionName])) {
             return $_SESSION[$efprefix][self::$userSessionName];
         }
         if (!is_null($userSessionName)) {
@@ -191,10 +190,8 @@ class Shared extends Atom
         if (is_object($user)) {
             $_SESSION[$efprefix][self::$userSessionName] = clone $user;
         } else {
-            if (class_exists($user)) {
-                $_SESSION[$efprefix][self::$userSessionName] = new $user();
-            } elseif (!isset($_SESSION[$efprefix][self::$userSessionName]) || !is_object($_SESSION[$efprefix][self::$userSessionName])) {
-                $_SESSION[$efprefix][self::$userSessionName] = new User();
+            if (!empty($candidat)) {
+                $_SESSION[$efprefix][self::$userSessionName] = method_exists($candidat, 'singleton') ? $candidat::singleton() : new $candidat();
             }
         }
         return $_SESSION[$efprefix][self::$userSessionName];
