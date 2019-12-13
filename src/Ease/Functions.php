@@ -480,4 +480,35 @@ class Functions
         return is_object($object) ? basename(str_replace('\\', '/',
                     get_class($object))) : null;
     }
+
+    /**
+     * Human readable bytes repersentation
+     * 
+     * @param int|long $bytes
+     * 
+     * @return string
+     */
+    static function formatBytes($bytes)
+    {
+        $bytes = doubleval($bytes);
+        if ($bytes < 1024) {
+            return $bytes.' B';
+        } elseif ($bytes < 1048576) {
+            return round($bytes / 1024, 2).' KiB';
+        } elseif ($bytes < 1073741824) {
+            return round($bytes / 1048576, 2).' MiB';
+        } elseif ($bytes < 1099511627776) {
+            return round($bytes / 1073741824, 2).' GiB';
+        } elseif ($bytes < 1125899906842624) {
+            return round($bytes / 1099511627776, 2).' TiB';
+        } elseif ($bytes < 1152921504606846976) {
+            return round($bytes / 1125899906842624, 2).' PiB';
+        } elseif ($bytes < 1180591620717411303424) {
+            return round($bytes / 1152921504606846976, 2).' EiB';
+        } elseif ($bytes < 1208925819614629174706176) {
+            return round($bytes / 1180591620717411303424, 2).' ZiB';
+        } else {
+            return round($bytes / 1208925819614629174706176, 2).' YiB';
+        }
+    }
 }
