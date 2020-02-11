@@ -170,5 +170,31 @@ class Sand extends Molecule
         return empty($data) ? null : count($data);
     }
 
+    /**
+     * Add message to stack to show or write to file
+     * Přidá zprávu do zásobníku pro zobrazení uživateli inbo do logu.
+     *
+     * @param string $message text zpravy
+     * @param string $type    fronta
+     * 
+     * @return boolean message added
+     */
+    public function addStatusMessage($message, $type = 'info') {
+        return $this->getLogger()->addToLog($this, $message, $type);
+    }
+    
+    /**
+     * Provide logger object
+     * 
+     * @param string|array $options
+     * 
+     * @return Logger\Regent
+     */
+    public function getLogger($options = null) {
+        if(is_null($this->logger)){
+            $this->logger = Logger\Regent::singleton($options);
+        }
+        return $this->logger;
+    }
 
 }
