@@ -19,10 +19,7 @@
     "repositories": [
         {
             "type": "path",
-            "url": "/usr/share/php/EaseCore",
-            "options": {
-                "symlink": true
-            }
+            "url": "/usr/share/php/EaseCore"
         }
     ]
 }
