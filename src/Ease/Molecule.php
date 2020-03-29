@@ -53,19 +53,22 @@ class Molecule extends Atom
     }
 
     /**
-     * Set up one of properties
+     * Set up one of properties by 1) array 2) ENV 3) Constant
      *
      * @param array  $options  array of given properties
      * @param string $name     name of property to process
      * @param string $constant load default property value from constant
      */
-    public function setupProperty($options, $name, $constant = null)
-    {
-        if (isset($options[$name])) {
+    public function setupProperty($options, $name, $constant = null) {
+        if (\array_key_exists($name, $options)) {
             $this->$name = $options[$name];
         } else {
-            if (is_null($this->$name) && !empty($constant) && defined($constant)) {
-                $this->$name = constant($constant);
+            if (\array_key_exist($name, $_ENV)) {
+                $this->$name = \getenv($name);
+            } else {
+                if (is_null($this->$name) && !empty($constant) && defined($constant)) {
+                    $this->$name = constant($constant);
+                }
             }
         }
     }

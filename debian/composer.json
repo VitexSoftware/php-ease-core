@@ -1,7 +1,7 @@
 {
     "name": "deb/ease-core",
     "description": "An Core of PHP Framework for Ease of writing Applications (debianized)",
-    "version": "0.5",
+    "version": "0.6",
     "authors": [
         {
             "name": "Vítězslav Dvořák",
@@ -13,13 +13,13 @@
         "psr-4": {
             "Ease\\": ".",
             "Ease\\Logger\\": "Logger"
-        }
+        },
+        "classmap": ["/usr/share/php/Mail/","/usr/share/php/Mail.php"]
     },
     "minimum-stability": "dev",
     "require": {
         "php": ">=7",
-        "ext-curl": "*",
-        "ext-pdo": "*"
+        "ext-curl": "*"
     },
     "type": "library",
     "homepage": "http://v.s.cz/ease.php",

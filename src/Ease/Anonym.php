@@ -3,7 +3,7 @@
  * Anonymous user class.
  *
  * @author    Vítězslav Dvořák <vitex@hippy.cz>
- * @copyright 2009-2019 Vitex@hippy.cz (G)
+ * @copyright 2009-2020 Vitex@hippy.cz (G)
  * 
  * @category User Classes
  * @package EasePHP
