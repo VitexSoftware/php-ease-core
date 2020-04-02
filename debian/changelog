@@ -1,4 +1,4 @@
-php-ease-core (0.32) UNRELEASED; urgency=medium
+php-ease-core (0.34) UNRELEASED; urgency=medium
 
   [ Vítězslav Dvořák ]
   * all unit tests pass
@@ -15,8 +15,10 @@ php-ease-core (0.32) UNRELEASED; urgency=medium
   * Allow use constant definiton from system ENV
   * Using ENV configuration fixed
   * Using ENV configuration fixed
+  * package php-ease-core-dev now contain code for mailer testing
+  * package php-ease-core-dev now contain code for mailer testing
 
- -- CyberVitexus <vitex@exiv.jinonice.czf>  Thu, 02 Apr 2020 17:50:27 +0200
+ -- CyberVitexus <vitex@exiv.jinonice.czf>  Thu, 02 Apr 2020 19:39:15 +0200
 
 php-ease-core (0.12) UNRELEASED; urgency=medium
 
