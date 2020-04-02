@@ -1,11 +1,22 @@
-php-ease-core (0.11) UNRELEASED; urgency=medium
+php-ease-core (0.32) UNRELEASED; urgency=medium
 
   [ Vítězslav Dvořák ]
   * all unit tests pass
   * Code Weihght loss
   * Create compat
 
- -- Vítězslav Dvořák <vitex@develoid.jinonice.czf>  Wed, 16 Oct 2019 12:04:33 +0200
+
+  [ CyberVitexus ]
+  * Allow use constant definiton from system ENV
+  * 
+  * Allow use constant definiton from system ENV
+  * 
+  * Allow use constant definiton from system ENV
+  * Allow use constant definiton from system ENV
+  * Using ENV configuration fixed
+  * Using ENV configuration fixed
+
+ -- CyberVitexus <vitex@exiv.jinonice.czf>  Thu, 02 Apr 2020 17:50:27 +0200
 
 php-ease-core (0.12) UNRELEASED; urgency=medium
 

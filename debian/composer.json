@@ -9,17 +9,18 @@
             "homepage": "http://v.s.cz/"
         }
     ],
+    "config": {
+	"vendor-dir": "/var/lib/php-ease-core"
+    },
     "autoload": {
         "psr-4": {
             "Ease\\": ".",
             "Ease\\Logger\\": "Logger"
-        },
-        "classmap": ["/usr/share/php/Mail/","/usr/share/php/Mail.php"]
+        }
     },
     "minimum-stability": "dev",
     "require": {
-        "php": ">=7",
-        "ext-curl": "*"
+        "php": ">=7"
     },
     "type": "library",
     "homepage": "http://v.s.cz/ease.php",
