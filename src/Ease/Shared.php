@@ -227,19 +227,6 @@ class Shared extends Atom
         }
 
         return $this->configuration;
-    }
-    
-    /**
-     * Load & apply .env file
-     * 
-     * @param string $envFile path to environment file. 
-     * 
-     * @return boolean puting enviroment status
-     */
-    public static function loadEnv($envFile = '.env') {
-        return file_exists($envFile) && is_readable($envFile) ? array_walk(file($envFile), 'putenv') : false;
-    }
-
-    
+    }    
     
 }
