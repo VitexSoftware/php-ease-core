@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Something between Atom and Sand
  *
@@ -15,8 +16,8 @@ namespace Ease;
  *
  * @author vitex
  */
-class Molecule extends Atom
-{
+class Molecule extends Atom {
+
     /**
      * Udržuje v sobě jméno objektu.
      *
@@ -31,8 +32,7 @@ class Molecule extends Atom
      *
      * @return string Jméno objektu
      */
-    public function setObjectName($objectName = null)
-    {
+    public function setObjectName($objectName = null) {
         if (empty($objectName)) {
             $this->objectName = get_class($this);
         } else {
@@ -47,8 +47,7 @@ class Molecule extends Atom
      *
      * @return string
      */
-    public function getObjectName()
-    {
+    public function getObjectName() {
         return $this->objectName;
     }
 
@@ -81,11 +80,10 @@ class Molecule extends Atom
      *
      * @return bool byl report zapsán ?
      */
-    public function addToLog($message, $type = 'message')
-    {
+    public function addToLog($message, $type = 'message') {
         return Shared::logger()->addToLog(
-            $this->getObjectName(), $message,
-            $type
+                        $this->getObjectName(), $message,
+                        $type
         );
     }
 

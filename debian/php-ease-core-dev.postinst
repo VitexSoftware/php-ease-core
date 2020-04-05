@@ -1,10 +1,13 @@
 #!/bin/sh
 # postinst script for php-ease-core-dev-papermail
 
+set -e
+
+. /usr/share/debconf/confmodule
 
 db_get composer/WEB_USER
 WEBUSER=$RET
-
+mkdir -p /var/lib/php-ease-core
 chown $WEBUSER /var/lib/php-ease-core /var/lib/composer -R
 echo '{}' > /usr/share/php/Ease/composer.lock
 chown $WEBUSER /usr/share/php/Ease/composer.lock

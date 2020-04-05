@@ -1,4 +1,4 @@
-php-ease-core (0.34) UNRELEASED; urgency=medium
+php-ease-core (0.36) UNRELEASED; urgency=medium
 
   [ Vítězslav Dvořák ]
   * all unit tests pass
@@ -17,8 +17,10 @@ php-ease-core (0.34) UNRELEASED; urgency=medium
   * Using ENV configuration fixed
   * package php-ease-core-dev now contain code for mailer testing
   * package php-ease-core-dev now contain code for mailer testing
+  * v0.34 release
+  * v0.34 release
 
- -- CyberVitexus <vitex@exiv.jinonice.czf>  Thu, 02 Apr 2020 19:39:15 +0200
+ -- CyberVitexus <vitex@exiv.jinonice.czf>  Thu, 02 Apr 2020 20:09:49 +0200
 
 php-ease-core (0.12) UNRELEASED; urgency=medium
 
