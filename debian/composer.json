@@ -1,7 +1,7 @@
 {
     "name": "deb/ease-core",
     "description": "An Core of PHP Framework for Ease of writing Applications (debianized)",
-    "version": "0.5",
+    "version": "0.6",
     "authors": [
         {
             "name": "Vítězslav Dvořák",
@@ -9,6 +9,9 @@
             "homepage": "http://v.s.cz/"
         }
     ],
+    "config": {
+	"vendor-dir": "/var/lib/php-ease-core"
+    },
     "autoload": {
         "psr-4": {
             "Ease\\": ".",
@@ -17,9 +20,7 @@
     },
     "minimum-stability": "dev",
     "require": {
-        "php": ">=7",
-        "ext-curl": "*",
-        "ext-pdo": "*"
+        "php": ">=7"
     },
     "type": "library",
     "homepage": "http://v.s.cz/ease.php",

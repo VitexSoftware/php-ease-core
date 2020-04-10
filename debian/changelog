@@ -1,9 +1,26 @@
-php-ease-core (0.24) UNRELEASED; urgency=medium
+php-ease-core (0.36) UNRELEASED; urgency=medium
 
   [ Vítězslav Dvořák ]
   * all unit tests pass
+  * Code Weihght loss
+  * Create compat
 
- -- vitex <vitex@hosting.vitexsoftware.cz>  Wed, 16 Oct 2019 00:05:33 +0200
+
+  [ CyberVitexus ]
+  * Allow use constant definiton from system ENV
+  * 
+  * Allow use constant definiton from system ENV
+  * 
+  * Allow use constant definiton from system ENV
+  * Allow use constant definiton from system ENV
+  * Using ENV configuration fixed
+  * Using ENV configuration fixed
+  * package php-ease-core-dev now contain code for mailer testing
+  * package php-ease-core-dev now contain code for mailer testing
+  * v0.34 release
+  * v0.34 release
+
+ -- CyberVitexus <vitex@exiv.jinonice.czf>  Thu, 02 Apr 2020 20:09:49 +0200
 
 php-ease-core (0.12) UNRELEASED; urgency=medium
 
