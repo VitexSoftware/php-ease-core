@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Something between Atom and Sand
  *
@@ -15,8 +16,8 @@ namespace Ease;
  *
  * @author vitex
  */
-class Molecule extends Atom
-{
+class Molecule extends Atom {
+
     /**
      * Udržuje v sobě jméno objektu.
      *
@@ -31,8 +32,7 @@ class Molecule extends Atom
      *
      * @return string Jméno objektu
      */
-    public function setObjectName($objectName = null)
-    {
+    public function setObjectName($objectName = null) {
         if (empty($objectName)) {
             $this->objectName = get_class($this);
         } else {
@@ -47,25 +47,27 @@ class Molecule extends Atom
      *
      * @return string
      */
-    public function getObjectName()
-    {
+    public function getObjectName() {
         return $this->objectName;
     }
 
     /**
-     * Set up one of properties
+     * Set up one of properties by 1) array 2) ENV 3) Constant
      *
-     * @param array  $options  array of given properties
-     * @param string $name     name of property to process
-     * @param string $constant load default property value from constant
+     * @param array  $options  array of given availble properties
+     * @param string $name     name of property to set up
+     * @param string $constant load default property value from constant / ENV
      */
-    public function setupProperty($options, $name, $constant = null)
-    {
-        if (isset($options[$name])) {
+    public function setupProperty($options, $name, $constant = null) {
+        if (array_key_exists($name, $options)) {
             $this->$name = $options[$name];
-        } else {
-            if (is_null($this->$name) && !empty($constant) && defined($constant)) {
+        } elseif (array_key_exists($constant, $options)) {
+            $this->$name = $options[$constant];
+        } else { // If No values specified we must use constants or environment
+            if (property_exists($this, $name) && !empty($constant) && defined($constant)) {
                 $this->$name = constant($constant);
+            } elseif (property_exists($this, $name) && ($env = getenv($constant)) && !empty($env)) {
+                $this->$name = getenv($constant);
             }
         }
     }
@@ -78,11 +80,10 @@ class Molecule extends Atom
      *
      * @return bool byl report zapsán ?
      */
-    public function addToLog($message, $type = 'message')
-    {
+    public function addToLog($message, $type = 'message') {
         return Shared::logger()->addToLog(
-            $this->getObjectName(), $message,
-            $type
+                        $this->getObjectName(), $message,
+                        $type
         );
     }
 

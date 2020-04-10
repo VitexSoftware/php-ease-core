@@ -161,12 +161,6 @@ class Shared extends Atom
             $prefix       = defined('EASE_APPNAME') ? constant('EASE_APPNAME') : '';
             $messagesFile = sys_get_temp_dir().'/'.$prefix.'EaseStatusMessages'.posix_getuid().'.ser';
             file_put_contents($messagesFile, serialize($this->statusMessages));
-        } else {
-            if (defined('EASE_APPNAME')) {
-                $_SESSION[constant('EASE_APPNAME')]['EaseMessages'] = $this->statusMessages;
-            } else {
-                $_SESSION['EaseMessages'] = $this->statusMessages;
-            }
         }
     }
 
@@ -227,5 +221,6 @@ class Shared extends Atom
         }
 
         return $this->configuration;
-    }
+    }    
+    
 }

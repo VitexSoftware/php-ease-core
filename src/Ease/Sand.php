@@ -100,7 +100,7 @@ class Sand extends Molecule
      */
     public function getDataCount()
     {
-        return count($this->data);
+        return empty($this->data) ? 0 : count($this->data);
     }
 
     /**
