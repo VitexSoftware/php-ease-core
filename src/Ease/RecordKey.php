@@ -71,7 +71,7 @@ trait RecordKey
      */
     public function setMyKey($myKeyValue)
     {
-        return $this->setDataValue($this->getKeyColumn(), $myKeyValue);
+        return empty($this->getKeyColumn()) ? null : $this->setDataValue($this->getKeyColumn(), $myKeyValue);
     }
 
     /**
