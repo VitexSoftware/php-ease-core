@@ -51,15 +51,7 @@ trait RecordKey
      */
     public function getMyKey($data = null)
     {
-        $key = null;
-        if (is_null($data)) {
-            $data = $this->getData();
-        }
-        if (isset($data) && isset($data[$this->keyColumn])) {
-            $key = $data[$this->keyColumn];
-        }
-
-        return $key;
+        return is_null($data) ? $this->getDataValue($this->getKeyColumn()) : $data[$this->getKeyColumn()];
     }
 
     /**
@@ -71,7 +63,8 @@ trait RecordKey
      */
     public function setMyKey($myKeyValue)
     {
-        return empty($this->getKeyColumn()) ? null : $this->setDataValue($this->getKeyColumn(), $myKeyValue);
+        return empty($this->getKeyColumn()) ? null : $this->setDataValue($this->getKeyColumn(),
+                $myKeyValue);
     }
 
     /**
