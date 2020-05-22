@@ -1,8 +1,14 @@
 <?php
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Loggingable interface
+ * 
+ * @category Logging
+ * 
+ * @author    Vitex <vitex@hippy.cz>
+ * @copyright 2019-2020 Vitex@hippy.cz (G)
+ * @license   https://opensource.org/licenses/MIT MIT
+ * 
+ * PHP 7
  */
 
 namespace Ease\Logger;
