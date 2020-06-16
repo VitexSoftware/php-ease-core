@@ -1,4 +1,4 @@
-php-ease-core (0.37) UNRELEASED; urgency=medium
+php-ease-core (0.38) UNRELEASED; urgency=medium
 
   [ Vítězslav Dvořák ]
   * all unit tests pass
@@ -21,8 +21,9 @@ php-ease-core (0.37) UNRELEASED; urgency=medium
   * v0.34 release
   * Merge origin/master  Conflicts:  src/Ease/Shared.php
     src/Ease/User.php
+  * Merge origin/master
 
- -- CyberVitexus <vitex@exiv.jinonice.czf>  Sun, 12 Apr 2020 00:57:07 +0200
+ -- CyberVitexus <vitex@exiv.jinonice.czf>  Tue, 16 Jun 2020 14:09:20 +0200
 
 php-ease-core (0.12) UNRELEASED; urgency=medium
 
