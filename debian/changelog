@@ -1,4 +1,4 @@
-php-ease-core (0.39) UNRELEASED; urgency=medium
+php-ease-core (0.40) UNRELEASED; urgency=medium
 
   [ Vítězslav Dvořák ]
   * all unit tests pass
@@ -26,8 +26,9 @@ php-ease-core (0.39) UNRELEASED; urgency=medium
   * Release v0.39
   * Release v0.39
   * Release v0.39
+  * Release v0.39
 
- -- CyberVitexus <vitex@exiv.jinonice.czf>  Sat, 20 Jun 2020 13:19:48 +0200
+ -- CyberVitexus <vitex@exiv.jinonice.czf>  Sat, 20 Jun 2020 14:18:39 +0200
 
 php-ease-core (0.12) UNRELEASED; urgency=medium
 
