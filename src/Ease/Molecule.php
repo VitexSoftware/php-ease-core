@@ -80,7 +80,7 @@ class Molecule extends Atom {
      *
      * @return bool byl report zapsán ?
      */
-    public function addToLog($message, $type = 'message') {
+    public function toLog($message, $type = 'message') {
         return Shared::logger()->addToLog(
                         $this->getObjectName(), $message,
                         $type
