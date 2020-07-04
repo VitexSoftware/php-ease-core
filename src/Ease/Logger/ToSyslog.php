@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Třída pro logování.
  *
@@ -14,8 +15,8 @@ namespace Ease\Logger;
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2019 Vitex@hippy.cz (G)
  */
-class ToSyslog extends ToStd implements Loggingable
-{
+class ToSyslog extends ToStd implements Loggingable {
+
     /**
      * Předvolená metoda logování.
      *
@@ -33,8 +34,7 @@ class ToSyslog extends ToStd implements Loggingable
      *
      * @param string $logName syslog log source identifier
      */
-    public function __construct($logName = null)
-    {
+    public function __construct($logName = null) {
         if (!empty($logName)) {
             openlog($logName, constant('LOG_NDELAY'), constant('LOG_USER'));
         }
@@ -45,10 +45,9 @@ class ToSyslog extends ToStd implements Loggingable
      * 
      * @return ToSyslog
      */
-    public static function singleton()
-    {
+    public static function singleton() {
         if (!isset(self::$instance)) {
-                self::$instance = new self(defined('EASE_APPNAME') ? constant('EASE_APPNAME') :  'EaseFramework');
+            self::$instance = new self(defined('EASE_APPNAME') ? constant('EASE_APPNAME') : 'EaseFramework');
         }
         return self::$instance;
     }
@@ -59,8 +58,7 @@ class ToSyslog extends ToStd implements Loggingable
      * @param string $type    message type 'error' or anything else
      * @param string $logLine message to output
      */
-    public function output($type, $logLine)
-    {
+    public function output($type, $logLine) {
         return syslog($type == 'error' ? constant('LOG_ERR') : constant('LOG_INFO'), $this->finalizeMessage($logLine));
     }
 
@@ -69,8 +67,8 @@ class ToSyslog extends ToStd implements Loggingable
      * 
      * @return boolean syslog close status
      */
-    public function __destruct()
-    {
+    public function __destruct() {
         return closelog();
     }
+
 }
