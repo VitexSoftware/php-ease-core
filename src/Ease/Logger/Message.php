@@ -72,6 +72,7 @@ class Message
      * Unicode Symbol for given message type
      *
      * @param  string $type
+     * 
      * @return string
      */
     public static function getTypeUnicodeSymbol($type)

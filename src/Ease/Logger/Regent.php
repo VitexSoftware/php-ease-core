@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class to Rule message loggers.
  *
@@ -13,8 +14,8 @@ namespace Ease\Logger;
  *
  * @author vitex
  */
-class Regent extends \Ease\Atom implements Loggingable
-{
+class Regent extends \Ease\Atom implements Loggingable {
+
     /**
      * Saves obejct instace (singleton...).
      */
@@ -26,6 +27,12 @@ class Regent extends \Ease\Atom implements Loggingable
      * @var array 
      */
     public $loggers = [];
+
+    /**
+     * Keep All messages here
+     * @var array 
+     */
+    public $messages = [];
 
     /**
      * Hodnoty pro obarvování logu.
@@ -48,8 +55,7 @@ class Regent extends \Ease\Atom implements Loggingable
      * 
      * @param string $logger class name
      */
-    public function __construct($logger = null)
-    {
+    public function __construct($logger = null) {
         if (is_null($logger) && defined('EASE_LOGGER')) {
             $loggers = explode('|', constant('EASE_LOGGER'));
         } else {
@@ -58,41 +64,36 @@ class Regent extends \Ease\Atom implements Loggingable
 
         foreach ($loggers as $logger) {
             switch ($logger) {
-            case 'console':
-                $this->loggers[$logger] = ToConsole::singleton();
-                break;
-            case 'syslog':
-                $this->loggers[$logger] = ToSyslog::singleton();
-                break;
-            case 'memory':
-                $this->loggers[$logger] = ToMemory::singleton();
-                break;
-            case 'email':
-                $this->loggers[$logger] = ToEmail::singleton();
-                break;
-            case 'std':
-                $this->loggers[$logger] = ToStd::singleton();
-                break;
-            case 'eventlog':
-                $this->loggers[$logger] = ToEventlog::singleton();
-                break;
-            default:
-                if (\class_exists($logger) && \method_exists(
-                    $logger,
-                    'singleton'
-                )
-                ) {
-                    $this->loggers[$logger] = $logger::singleton();
-                } else {
-                    $this->loggers[$logger] = ToFile::singleton();
-                }
-                break;
+                case 'console':
+                    $this->loggers[$logger] = ToConsole::singleton();
+                    break;
+                case 'syslog':
+                    $this->loggers[$logger] = ToSyslog::singleton();
+                    break;
+                case 'memory':
+                    $this->loggers[$logger] = ToMemory::singleton();
+                    break;
+                case 'email':
+                    $this->loggers[$logger] = ToEmail::singleton();
+                    break;
+                case 'std':
+                    $this->loggers[$logger] = ToStd::singleton();
+                    break;
+                case 'eventlog':
+                    $this->loggers[$logger] = ToEventlog::singleton();
+                    break;
+                default:
+                    if (\class_exists($logger) && \method_exists($logger, 'singleton')) {
+                        $this->loggers[$logger] = $logger::singleton();
+                    } else {
+                        $this->loggers[$logger] = ToFile::singleton();
+                    }
+                    break;
             }
         }
     }
 
-    public function takeMessage()
-    {
+    public function takeMessage() {
         
     }
 
@@ -105,13 +106,21 @@ class Regent extends \Ease\Atom implements Loggingable
      * 
      * @return boolean At least one logger takes message
      */
-    public function addToLog($caller, $message, $type = 'info')
-    {
+    public function addToLog($caller, $message, $type = 'info') {
         $logged = false;
+        $this->messages[] = new \Ease\Logger\Message($message, $type, $caller);
         foreach ($this->loggers as $logger) {
             $logged = $logger->addToLog($caller, $message, $type);
         }
         return $logged;
+    }
+
+    public function getMessages() {
+        return $this->messages;
+    }
+
+    public function cleanMessages() {
+        $this->messages = [];
     }
 
     /**
@@ -121,12 +130,11 @@ class Regent extends \Ease\Atom implements Loggingable
      * 
      * @return int number of stored message
      */
-    public function addStatusObject(Message $message)
-    {
+    public function addStatusObject(Message $message) {
         $this->addToLog($message->caller, $message->body, $message->type);
         \Ease\Shared::instanced()->addStatusMessage(
-            $message->body,
-            $message->type
+                $message->body,
+                $message->type
         );
         return parent::addStatusMessage($message->body, $message->type);
     }
@@ -134,12 +142,11 @@ class Regent extends \Ease\Atom implements Loggingable
     /**
      * Get The Regent
      */
-   
-    public static function singleton($logger = null)
-    {
+    public static function singleton($logger = null) {
         if (!isset(self::$instance)) {
             self::$instance = new self($logger);
         }
         return self::$instance;
     }
+
 }
