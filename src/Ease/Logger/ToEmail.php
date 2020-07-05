@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Send logs by email
  *
@@ -14,8 +15,8 @@ namespace Ease\Logger;
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2019 Vitex@hippy.cz (G)
  */
-class ToEmail extends ToMemory implements Loggingable
-{
+class ToEmail extends ToMemory implements Loggingable {
+
     /**
      * Předvolená metoda logování.
      *
@@ -97,10 +98,9 @@ class ToEmail extends ToMemory implements Loggingable
      * @param string $recipient
      * @param string $subject   of message
      */
-    public function __construct($recipient = null, $subject = null)
-    {
+    public function __construct($recipient = null, $subject = null) {
         $this->recipient = $recipient;
-        $this->subject   = empty($subject) ? $_SERVER['PHP_SELF'] : $subject;
+        $this->subject = empty($subject) ? $_SERVER['PHP_SELF'] : $subject;
         $this->mailer = new \Ease\Mailer($this->recipient, $this->subject);
         $this->mailer->setUserNotification(false);
     }
@@ -113,14 +113,13 @@ class ToEmail extends ToMemory implements Loggingable
      * @link http://docs.php.net/en/language.oop5.patterns.html Dokumentace a
      * priklad
      */
-    public static function singleton()
-    {
+    public static function singleton() {
         if (!isset(self::$_instance)) {
             $class = __CLASS__;
             if (defined('EASE_APPNAME')) {
                 self::$_instance = new $class(
-                    constant('EASE_EMAILTO'),
-                    constant('EASE_APPNAME')
+                        constant('EASE_EMAILTO'),
+                        constant('EASE_APPNAME')
                 );
             } else {
                 self::$_instance = new $class('EaseFramework');
@@ -139,8 +138,7 @@ class ToEmail extends ToMemory implements Loggingable
      *
      * @return null|boolean byl report zapsán ?
      */
-    public function addToLog($caller, $message, $type = 'notice')
-    {
+    public function addToLog($caller, $message, $type = 'notice') {
 
         ++$this->messageID;
         if (($this->logLevel == 'silent') && ($type != 'error')) {
@@ -152,7 +150,7 @@ class ToEmail extends ToMemory implements Loggingable
 
         $this->statusMessages[$type][$this->messageID] = $message;
 
-        $logLine = strftime("%D %T").' `'.$caller.'`: '.$message;
+        $logLine = strftime("%D %T") . ' `' . $caller . '`: ' . $message;
 
         $this->mailer->textBody .= "\n" . $logLine;
         return true;
@@ -161,9 +159,8 @@ class ToEmail extends ToMemory implements Loggingable
     /**
      * Send collected messages.
      */
-    public function __destruct()
-    {
-        if (strlen($this->mailer->mailBody) > 0 ) {
+    public function __destruct() {
+        if (strlen($this->mailer->mailBody) > 0) {
             $this->mailer->send();
         }
     }
@@ -175,8 +172,7 @@ class ToEmail extends ToMemory implements Loggingable
      *
      * @return int how many messages was flushed
      */
-    public function flush($caller = null)
-    {
+    public function flush($caller = null) {
         $flushed = 0;
         if (count($this->statusMessages)) {
             foreach ($this->statusMessages as $type => $messages) {
@@ -192,4 +188,5 @@ class ToEmail extends ToMemory implements Loggingable
 
         return $flushed;
     }
+
 }

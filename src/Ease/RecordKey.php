@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Record Key methods
  *
@@ -16,8 +17,8 @@ namespace Ease;
  *
  * @author Vítězslav Dvořák <info@vitexsoftware.cz>
  */
-trait RecordKey
-{
+trait RecordKey {
+
     /**
      * Key Column for Current Record
      *
@@ -49,9 +50,8 @@ trait RecordKey
      *
      * @return int key column value
      */
-    public function getMyKey($data = null)
-    {
-        return is_null($data) ? $this->getDataValue($this->getKeyColumn()) : (array_key_exists($this->getKeyColumn(),$data) ?  $data[$this->getKeyColumn()] : null) ;
+    public function getMyKey($data = null) {
+        return is_null($data) ? $this->getDataValue($this->getKeyColumn()) : (array_key_exists($this->getKeyColumn(), $data) ? $data[$this->getKeyColumn()] : null);
     }
 
     /**
@@ -61,10 +61,9 @@ trait RecordKey
      *
      * @return bool
      */
-    public function setMyKey($myKeyValue)
-    {
+    public function setMyKey($myKeyValue) {
         return empty($this->getKeyColumn()) ? null : $this->setDataValue($this->getKeyColumn(),
-                $myKeyValue);
+                        $myKeyValue);
     }
 
     /**
@@ -72,8 +71,7 @@ trait RecordKey
      *
      * @return string
      */
-    public function getKeyColumn()
-    {
+    public function getKeyColumn() {
         return $this->keyColumn;
     }
 
@@ -82,8 +80,8 @@ trait RecordKey
      *
      * @param string $keyColumn
      */
-    public function setkeyColumn($keyColumn)
-    {
+    public function setkeyColumn($keyColumn) {
         $this->keyColumn = $keyColumn;
     }
+
 }

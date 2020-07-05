@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Internationalization helpers
  *
@@ -15,8 +16,8 @@ namespace Ease;
  *
  * @author vitex
  */
-class Locale
-{
+class Locale {
+
     /**
      * @var Locale Singleton is stored here
      */
@@ -493,7 +494,7 @@ class Locale
      * @param string $textDomain we want use $i18n/$setLocale/LC_ALL/$textDomain.mo
      */
     public function __construct($setLocale = null, $i18n = '../i18n',
-        $textDomain = null
+            $textDomain = null
     ) {
         if (is_null($setLocale)) {
             $setLocale = self::getPreferedLocale();
@@ -518,8 +519,7 @@ class Locale
      * 
      * @return string locale code 
      */
-    public static function getPreferedLocale($allowCli = true)
-    {
+    public static function getPreferedLocale($allowCli = true) {
         //        $locale = Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']); 
         if (\php_sapi_name() === 'cli' && $allowCli) {
             $locale = getenv('LC_ALL');
@@ -544,10 +544,8 @@ class Locale
      * 
      * @return string|null Locale Code
      */
-    public static function requestLocale()
-    {
-        return isset($_REQUEST) && array_key_exists('locale', $_REQUEST) ? $_REQUEST['locale']
-                : null;
+    public static function requestLocale() {
+        return isset($_REQUEST) && array_key_exists('locale', $_REQUEST) ? $_REQUEST['locale'] : null;
     }
 
     /**
@@ -555,10 +553,8 @@ class Locale
      * 
      * @return string|null locale code
      */
-    public static function sessionLocale()
-    {
-        return isset($_SESSION) && array_key_exists('locale', $_SESSION) ? $_SESSION['locale']
-                : null;
+    public static function sessionLocale() {
+        return isset($_SESSION) && array_key_exists('locale', $_SESSION) ? $_SESSION['locale'] : null;
     }
 
     /**
@@ -566,8 +562,7 @@ class Locale
      * 
      * @return string locale code
      */
-    public static function browserLocale()
-    {
+    public static function browserLocale() {
         return self::langToLocale(self::autodetected());
     }
 
@@ -576,15 +571,14 @@ class Locale
      * 
      * @return array locales availble
      */
-    public function availble()
-    {
+    public function availble() {
         $locales = [];
-        $d       = dir(self::$i18n);
-        while (false !== ($entry   = $d->read())) {
-            if (($entry[0] != '.') && file_exists(self::$i18n.'/'.$entry.'/LC_MESSAGES/'.self::$textDomain.'.mo')) {
+        $d = dir(self::$i18n);
+        while (false !== ($entry = $d->read())) {
+            if (($entry[0] != '.') && file_exists(self::$i18n . '/' . $entry . '/LC_MESSAGES/' . self::$textDomain . '.mo')) {
                 if (strstr(self::$alllngs[$entry], ' (')) {
                     list($lang, $country) = explode(' (', self::$alllngs[$entry]);
-                    $locales[$entry] = _($lang).' ('._(substr($country, 0, -1)).')';
+                    $locales[$entry] = _($lang) . ' (' . _(substr($country, 0, -1)) . ')';
                 } else {
                     $locales[$entry] = _(self::$alllngs[$entry]);
                 }
@@ -599,8 +593,7 @@ class Locale
      *
      * @param string $textDomain
      */
-    public static function setTextDomain($textDomain)
-    {
+    public static function setTextDomain($textDomain) {
         self::$textDomain = $textDomain;
     }
 
@@ -616,7 +609,7 @@ class Locale
      * @return
      */
     public static function initializeGetText($appname, $defaultLocale = 'en_US',
-        $i18n = '../i18n'
+            $i18n = '../i18n'
     ) {
         self::$i18n = $i18n;
         self::setTextDomain($appname);
@@ -630,15 +623,14 @@ class Locale
      * 
      * @return string locale code
      */
-    public static function langToLocale($lang)
-    {
+    public static function langToLocale($lang) {
         $defaultLocale = 'C';
-        $langs         = [];
+        $langs = [];
         foreach (self::$alllngs as $langCode => $language) {
             $langs[$langCode] = [strstr($langCode, '_') ? substr(
-                $langCode, 0,
-                strpos($langCode, '_')
-            ) : $langCode, $language];
+                        $langCode, 0,
+                        strpos($langCode, '_')
+                ) : $langCode, $language];
         }
         foreach ($langs as $code => $langInfo) {
             if ($lang == $langInfo[0]) {
@@ -656,8 +648,7 @@ class Locale
      * 
      * @return string used locale code
      */
-    public static function useLocale($localeCode)
-    {
+    public static function useLocale($localeCode) {
         \putenv("LC_ALL=$localeCode");
         \putenv("LANGUAGUE=$localeCode");
         \putenv("LANG=$localeCode");
@@ -680,10 +671,8 @@ class Locale
      * 
      * @return string lang code 
      */
-    public static function autodetected()
-    {
-        return array_key_exists('HTTP_ACCEPT_LANGUAGE', $_SERVER) && function_exists('\locale_accept_from_http')
-                ? \locale_accept_from_http($_SERVER['HTTP_ACCEPT_LANGUAGE']) : null;
+    public static function autodetected() {
+        return array_key_exists('HTTP_ACCEPT_LANGUAGE', $_SERVER) && function_exists('\locale_accept_from_http') ? \locale_accept_from_http($_SERVER['HTTP_ACCEPT_LANGUAGE']) : null;
     }
 
     /**
@@ -691,8 +680,7 @@ class Locale
      * 
      * @return string
      */
-    public function get2Code()
-    {
+    public function get2Code() {
         $localeUsed = $this->getLocaleUsed();
         return strstr($localeUsed, '_') ? current(explode('_', $localeUsed)) : $localeUsed;
     }
@@ -702,8 +690,7 @@ class Locale
      * 
      * @return string
      */
-    public static function getLocaleUsed()
-    {
+    public static function getLocaleUsed() {
         return isset(self::$localeUsed) ? self::$localeUsed : '';
     }
 
@@ -717,11 +704,12 @@ class Locale
      * @return \Ease\Locale
      */
     public static function singleton($setLocale = null, $i18n = '../i18n',
-        $textDomain = null
+            $textDomain = null
     ) {
         if (!isset(self::$instance)) {
             self::$instance = new self($setLocale, $i18n, $textDomain);
         }
         return self::$instance;
     }
+
 }

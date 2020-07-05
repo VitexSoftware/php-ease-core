@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Třídy pro odesílání Mailu ✉.
  *
@@ -16,8 +17,8 @@ namespace Ease;
  *
  * @author Vitex <vitex@hippy.cz>
  */
-class Mailer extends Sand
-{
+class Mailer extends Sand {
+
     /**
      * Objekt pro odesílání pošty.
      *
@@ -121,7 +122,7 @@ class Mailer extends Sand
      * @param mixed  $emailContents tělo - libovolný mix textu a EaseObjektů
      */
     public function __construct(string $emailAddress, string $mailSubject,
-        $emailContents = null
+            $emailContents = null
     ) {
         if (defined('EASE_SMTP')) {
             $this->parameters = (array) json_decode(constant('EASE_SMTP'));
@@ -129,14 +130,14 @@ class Mailer extends Sand
 
 
         $this->setMailHeaders(
-            [
-                'To' => $emailAddress,
-                'From' => $this->fromEmailAddress,
-                'Reply-To' => $this->fromEmailAddress,
-                'Subject' => $mailSubject,
-                'Content-Type' => 'text/plain; charset=utf-8',
-                'Content-Transfer-Encoding' => '8bit',
-            ]
+                [
+                    'To' => $emailAddress,
+                    'From' => $this->fromEmailAddress,
+                    'Reply-To' => $this->fromEmailAddress,
+                    'Subject' => $mailSubject,
+                    'Content-Type' => 'text/plain; charset=utf-8',
+                    'Content-Transfer-Encoding' => '8bit',
+                ]
         );
 
 
@@ -147,7 +148,7 @@ class Mailer extends Sand
             'eol' => $this->crLf,
         );
 
-        $this->mimer    = new \Mail_mime($mimer_params);
+        $this->mimer = new \Mail_mime($mimer_params);
         $this->textBody = $emailContents;
     }
 
@@ -158,8 +159,7 @@ class Mailer extends Sand
      * 
      * @return boolean|\Pear_Err
      */
-    public function setMailBody($text)
-    {
+    public function setMailBody($text) {
         return $this->mimer->setTXTBody($text);
     }
 
@@ -170,10 +170,8 @@ class Mailer extends Sand
      *
      * @return string|null requested header value
      */
-    public function getMailHeader($headername)
-    {
-        return array_key_exists($headername, $this->mailHeaders) ? $this->mailHeaders[$headername]
-                : null;
+    public function getMailHeader($headername) {
+        return array_key_exists($headername, $this->mailHeaders) ? $this->mailHeaders[$headername] : null;
     }
 
     /**
@@ -183,8 +181,7 @@ class Mailer extends Sand
      *
      * @return bool true pokud byly hlavičky nastaveny
      */
-    public function setMailHeaders(array $mailHeaders)
-    {
+    public function setMailHeaders(array $mailHeaders) {
         $this->mailHeaders = array_merge($this->mailHeaders, $mailHeaders);
         if (isset($this->mailHeaders['To'])) {
             $this->emailAddress = $this->mailHeaders['To'];
@@ -194,8 +191,8 @@ class Mailer extends Sand
         }
         if (isset($this->mailHeaders['Subject'])) {
             if (!strstr($this->mailHeaders['Subject'], '=?UTF-8?B?')) {
-                $this->emailSubject           = $this->mailHeaders['Subject'];
-                $this->mailHeaders['Subject'] = '=?UTF-8?B?'.base64_encode($this->mailHeaders['Subject']).'?=';
+                $this->emailSubject = $this->mailHeaders['Subject'];
+                $this->mailHeaders['Subject'] = '=?UTF-8?B?' . base64_encode($this->mailHeaders['Subject']) . '?=';
             }
         }
         $this->finalized = false;
@@ -211,16 +208,14 @@ class Mailer extends Sand
      * 
      * @return boolean|\PEAR_Error
      */
-    public function addFile($filename, $mimeType = 'text/plain')
-    {
+    public function addFile($filename, $mimeType = 'text/plain') {
         return $this->mimer->addAttachment($filename, $mimeType);
     }
 
     /**
      * Send mail.
      */
-    public function send()
-    {
+    public function send() {
         $this->setMailBody($this->textBody);
         $oMail = new \Mail();
         if (count($this->parameters)) {
@@ -229,26 +224,26 @@ class Mailer extends Sand
             $this->mailer = $oMail->factory('mail');
         }
         $this->sendResult = $this->mailer->send(
-            $this->emailAddress,
-            $this->mailHeadersDone, $this->mailBody
+                $this->emailAddress,
+                $this->mailHeadersDone, $this->mailBody
         );
 
         if ($this->notify === true) {
             $mailStripped = str_replace(['<', '>'], '', $this->emailAddress);
             if ($this->sendResult === true) {
                 $this->addStatusMessage(
-                    sprintf(
-                        _('Message %s was sent to %s'),
-                        $this->emailSubject, $mailStripped
-                    ), 'success'
+                        sprintf(
+                                _('Message %s was sent to %s'),
+                                $this->emailSubject, $mailStripped
+                        ), 'success'
                 );
             } else {
                 $this->addStatusMessage(
-                    sprintf(
-                        _('Message %s, for %s was not sent because of %s'),
-                        $this->emailSubject, $mailStripped,
-                        $this->sendResult->message
-                    ), 'warning'
+                        sprintf(
+                                _('Message %s, for %s was not sent because of %s'),
+                                $this->emailSubject, $mailStripped,
+                                $this->sendResult->message
+                        ), 'warning'
                 );
             }
         }
@@ -261,8 +256,8 @@ class Mailer extends Sand
      *
      * @param bool $notify požadovaný stav notifikace
      */
-    public function setUserNotification(bool $notify)
-    {
+    public function setUserNotification(bool $notify) {
         $this->notify = $notify;
     }
+
 }

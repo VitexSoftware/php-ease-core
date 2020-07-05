@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Misc functions holder 
  * 
@@ -18,8 +19,7 @@ namespace Ease;
  *
  * @author Vítězslav Dvořák <info@vitexsoftware.cz>
  */
-class Functions
-{
+class Functions {
 
     /**
      * Returns PATH modified for current operating system.
@@ -28,8 +28,7 @@ class Functions
      *
      * @return string
      */
-    public static function sysFilename($path)
-    {
+    public static function sysFilename($path) {
         return str_replace(['\\', '/'], constant('DIRECTORY_SEPARATOR'), $path);
     }
 
@@ -43,15 +42,14 @@ class Functions
      * @return string url with parameters added
      */
     public static function addUrlParams($url, array $addParams,
-                                        $override = false)
-    {
+            $override = false) {
         $urlParts = parse_url($url);
         $urlFinal = '';
         if (array_key_exists('scheme', $urlParts)) {
-            $urlFinal .= $urlParts['scheme'].'://'.$urlParts['host'];
+            $urlFinal .= $urlParts['scheme'] . '://' . $urlParts['host'];
         }
         if (array_key_exists('port', $urlParts)) {
-            $urlFinal .= ':'.$urlParts['port'];
+            $urlFinal .= ':' . $urlParts['port'];
         }
         if (array_key_exists('path', $urlParts)) {
             $urlFinal .= $urlParts['path'];
@@ -59,13 +57,13 @@ class Functions
         if (array_key_exists('query', $urlParts)) {
             parse_str($urlParts['query'], $queryUrlParams);
             $urlParams = $override ? array_merge($queryUrlParams, $addParams) : array_merge($addParams,
-                    $queryUrlParams);
+                            $queryUrlParams);
         } else {
             $urlParams = $addParams;
         }
 
         if (!empty($urlParams)) {
-            $urlFinal .= '?'.http_build_query($urlParams);
+            $urlFinal .= '?' . http_build_query($urlParams);
         }
         return $urlFinal;
     }
@@ -83,20 +81,19 @@ class Functions
      * @return string
      */
     public static function linkify($value, $protocols = array('http', 'mail'),
-                                   array $attributes = array())
-    {
+            array $attributes = array()) {
         // Link attributes
         $attr = '';
         foreach ($attributes as $key => $val) {
-            $attr = ' '.$key.'="'.htmlentities($val).'"';
+            $attr = ' ' . $key . '="' . htmlentities($val) . '"';
         }
 
         $links = array();
 
         // Extract existing links and tags
         $value = preg_replace_callback('~(<a .*?>.*?</a>|<.*?>)~i',
-            function ($match) use (&$links) {
-            return '<'.array_push($links, $match[1]).'>';
+                function ($match) use (&$links) {
+            return '<' . array_push($links, $match[1]) . '>';
         }, $value);
 
         // Extract text links for each protocol
@@ -104,24 +101,25 @@ class Functions
             switch ($protocol) {
                 case 'http':
                 case 'https': $value = preg_replace_callback('~(?:(https?)://([^\s<]+)|(www\.[^\s<]+?\.[^\s<]+))(?<![\.,:])~i',
-                        function ($match) use ($protocol, &$links, $attr) {
-                        if ($match[1]) $protocol = $match[1];
-                        $link     = $match[2] ?: $match[3];
-                        return '<'.array_push($links,
-                                "<a $attr href=\"$protocol://$link\">$link</a>").'>';
+                            function ($match) use ($protocol, &$links, $attr) {
+                        if ($match[1])
+                            $protocol = $match[1];
+                        $link = $match[2] ?: $match[3];
+                        return '<' . array_push($links,
+                                        "<a $attr href=\"$protocol://$link\">$link</a>") . '>';
                     }, $value);
                     break;
                 case 'mail': $value = preg_replace_callback('~([^\s<]+?@[^\s<]+?\.[^\s<]+)(?<![\.,:])~',
-                        function ($match) use (&$links, $attr) {
-                        return '<'.array_push($links,
-                                "<a $attr href=\"mailto:{$match[1]}\">{$match[1]}</a>").'>';
+                            function ($match) use (&$links, $attr) {
+                        return '<' . array_push($links,
+                                        "<a $attr href=\"mailto:{$match[1]}\">{$match[1]}</a>") . '>';
                     }, $value);
                     break;
-                default: $value = preg_replace_callback('~'.preg_quote($protocol,
-                            '~').'://([^\s<]+?)(?<![\.,:])~i',
-                        function ($match) use ($protocol, &$links, $attr) {
-                        return '<'.array_push($links,
-                                "<a $attr href=\"$protocol://{$match[1]}\">{$match[1]}</a>").'>';
+                default: $value = preg_replace_callback('~' . preg_quote($protocol,
+                                    '~') . '://([^\s<]+?)(?<![\.,:])~i',
+                            function ($match) use ($protocol, &$links, $attr) {
+                        return '<' . array_push($links,
+                                        "<a $attr href=\"$protocol://{$match[1]}\">{$match[1]}</a>") . '>';
                     }, $value);
                     break;
             }
@@ -129,7 +127,7 @@ class Functions
 
         // Insert all link
         return preg_replace_callback('/<(\d+)>/',
-            function ($match) use (&$links) {
+                function ($match) use (&$links) {
             return $links[$match[1] - 1];
         }, $value);
     }
@@ -142,8 +140,7 @@ class Functions
      * @param string $columName        item to move
      */
     public static function divDataArray(&$sourceArray, &$destinationArray,
-                                        $columName)
-    {
+            $columName) {
         $result = false;
         if (array_key_exists($columName, $sourceArray)) {
             $destinationArray[$columName] = $sourceArray[$columName];
@@ -162,8 +159,7 @@ class Functions
      *
      * @return bool
      */
-    public static function isAssoc(array $arr)
-    {
+    public static function isAssoc(array $arr) {
         return array_keys($arr) !== range(0, count($arr) - 1);
     }
 
@@ -172,8 +168,7 @@ class Functions
      *
      * @param string $text
      */
-    public static function rip($text)
-    {
+    public static function rip($text) {
         $convertTable = [
             'ä' => 'a',
             'Ä' => 'A',
@@ -273,13 +268,12 @@ class Functions
      *
      * @return string encrypted text
      */
-    public static function easeEncrypt($textToEncrypt, $encryptKey)
-    {
+    public static function easeEncrypt($textToEncrypt, $encryptKey) {
         $encryption_key = base64_decode($encryptKey);
-        $iv             = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
-        $encrypted      = openssl_encrypt($textToEncrypt, 'aes-256-cbc',
-            $encryption_key, 0, $iv);
-        return base64_encode($encrypted.'::'.$iv);
+        $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
+        $encrypted = openssl_encrypt($textToEncrypt, 'aes-256-cbc',
+                $encryption_key, 0, $iv);
+        return base64_encode($encrypted . '::' . $iv);
     }
 
     /**
@@ -291,13 +285,12 @@ class Functions
      *
      * @return string
      */
-    public static function easeDecrypt($textToDecrypt, $encryptKey)
-    {
+    public static function easeDecrypt($textToDecrypt, $encryptKey) {
         $encryption_key = base64_decode($encryptKey);
         list($encrypted_data, $iv) = explode('::',
-            base64_decode($textToDecrypt), 2);
+                base64_decode($textToDecrypt), 2);
         return openssl_decrypt($encrypted_data, 'aes-256-cbc', $encryption_key,
-            0, $iv);
+                0, $iv);
     }
 
     /**
@@ -308,8 +301,7 @@ class Functions
      *
      * @return float
      */
-    public static function randomNumber($minimal = null, $maximal = null)
-    {
+    public static function randomNumber($minimal = null, $maximal = null) {
         if (isset($minimal) && isset($maximal)) {
             if ($minimal >= $maximal) {
                 throw new Exception('Minimum cannot be bigger than maximum');
@@ -330,10 +322,9 @@ class Functions
      *
      * @return string
      */
-    public static function randomString($length = 6)
-    {
+    public static function randomString($length = 6) {
         return substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
-            0, $length);
+                0, $length);
     }
 
     /**
@@ -345,15 +336,14 @@ class Functions
      *
      * @return array překódované pole
      */
-    public static function recursiveIconv($in_charset, $out_charset, $arr)
-    {
+    public static function recursiveIconv($in_charset, $out_charset, $arr) {
         if (!is_array($arr)) {
             return \iconv($in_charset, $out_charset, $arr);
         }
         $ret = $arr;
 
         array_walk_recursive($ret, '\Ease\Functions::arrayIconv',
-            [$in_charset, $out_charset, $arr]);
+                [$in_charset, $out_charset, $arr]);
 
         return $ret;
     }
@@ -368,8 +358,7 @@ class Functions
      * @param mixed  $encodings
      */
     public static function arrayIconv(&$val, /** @scrutinizer ignore-unused */
-                                      $key, $encodings)
-    {
+            $key, $encodings) {
         $val = iconv($encodings[0], $encodings[1], $val);
     }
 
@@ -380,10 +369,9 @@ class Functions
      *
      * @return string
      */
-    public static function humanFilesize(int $filesize)
-    {
-        $decr   = 1024;
-        $step   = 0;
+    public static function humanFilesize(int $filesize) {
+        $decr = 1024;
+        $step = 0;
         $prefix = ['Byte', 'KB', 'MB', 'GB', 'TB', 'PB'];
 
         while (($filesize / $decr) > 0.9) {
@@ -391,7 +379,7 @@ class Functions
             ++$step;
         }
 
-        return round($filesize, 2).' '.$prefix[$step];
+        return round($filesize, 2) . ' ' . $prefix[$step];
     }
 
     /**
@@ -402,8 +390,7 @@ class Functions
      *
      * @return array
      */
-    public static function reindexArrayBy($data, $indexBy = null)
-    {
+    public static function reindexArrayBy($data, $indexBy = null) {
         $reindexedData = [];
 
         foreach ($data as $dataRow) {
@@ -411,7 +398,7 @@ class Functions
                 $reindexedData[$dataRow[$indexBy]] = $dataRow;
             } else {
                 throw new \Exception(sprintf('Data row does not contain column %s for reindexing',
-                        $indexBy));
+                                $indexBy));
             }
         }
 
@@ -424,8 +411,7 @@ class Functions
      *
      * @return string text bez zvláštních znaků
      */
-    public static function lettersOnly($text)
-    {
+    public static function lettersOnly($text) {
         return preg_replace('/[^(a-zA-Z0-9)]*/', '', $text);
     }
 
@@ -436,8 +422,7 @@ class Functions
      *
      * @return boolean
      */
-    public static function isSerialized($data)
-    {
+    public static function isSerialized($data) {
         // if it isn't a string, it isn't serialized
         if (!is_string($data)) {
             return false;
@@ -475,10 +460,9 @@ class Functions
      * 
      * @return string
      */
-    static public function baseClassName($object)
-    {
+    static public function baseClassName($object) {
         return is_object($object) ? basename(str_replace('\\', '/',
-                    get_class($object))) : null;
+                                get_class($object))) : null;
     }
 
     /**
@@ -488,27 +472,27 @@ class Functions
      * 
      * @return string
      */
-    static function formatBytes($bytes)
-    {
+    static function formatBytes($bytes) {
         $bytes = doubleval($bytes);
         if ($bytes < 1024) {
-            return $bytes.' B';
+            return $bytes . ' B';
         } elseif ($bytes < 1048576) {
-            return round($bytes / 1024, 2).' KiB';
+            return round($bytes / 1024, 2) . ' KiB';
         } elseif ($bytes < 1073741824) {
-            return round($bytes / 1048576, 2).' MiB';
+            return round($bytes / 1048576, 2) . ' MiB';
         } elseif ($bytes < 1099511627776) {
-            return round($bytes / 1073741824, 2).' GiB';
+            return round($bytes / 1073741824, 2) . ' GiB';
         } elseif ($bytes < 1125899906842624) {
-            return round($bytes / 1099511627776, 2).' TiB';
+            return round($bytes / 1099511627776, 2) . ' TiB';
         } elseif ($bytes < 1152921504606846976) {
-            return round($bytes / 1125899906842624, 2).' PiB';
+            return round($bytes / 1125899906842624, 2) . ' PiB';
         } elseif ($bytes < 1180591620717411303424) {
-            return round($bytes / 1152921504606846976, 2).' EiB';
+            return round($bytes / 1152921504606846976, 2) . ' EiB';
         } elseif ($bytes < 1208925819614629174706176) {
-            return round($bytes / 1180591620717411303424, 2).' ZiB';
+            return round($bytes / 1180591620717411303424, 2) . ' ZiB';
         } else {
-            return round($bytes / 1208925819614629174706176, 2).' YiB';
+            return round($bytes / 1208925819614629174706176, 2) . ' YiB';
         }
     }
+
 }

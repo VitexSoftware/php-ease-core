@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Log to stdout/stderr
  *
@@ -14,8 +15,8 @@ namespace Ease\Logger;
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2019 Vitex@hippy.cz (G)
  */
-class ToStd extends ToMemory implements Loggingable
-{
+class ToStd extends ToMemory implements Loggingable {
+
     /**
      * Pole uložených zpráv.
      *
@@ -54,8 +55,7 @@ class ToStd extends ToMemory implements Loggingable
      *
      * @param string $logName symbolic name for log
      */
-    public function __construct($logName = null)
-    {
+    public function __construct($logName = null) {
         $this->logName = $logName;
     }
 
@@ -67,8 +67,7 @@ class ToStd extends ToMemory implements Loggingable
      * @link http://docs.php.net/en/language.oop5.patterns.html Dokumentace a
      * priklad
      */
-    public static function singleton()
-    {
+    public static function singleton() {
         if (!isset(self::$instance)) {
             self::$instance = new self(defined('EASE_APPNAME') ? constant('EASE_APPNAME') : 'EaseFramework');
         }
@@ -85,8 +84,7 @@ class ToStd extends ToMemory implements Loggingable
      *
      * @return null|boolean byl report zapsán ?
      */
-    public function addToLog($caller, $message, $type = 'message')
-    {
+    public function addToLog($caller, $message, $type = 'message') {
         ++$this->messageID;
 
         $this->statusMessages[$type][$this->messageID] = $message;
@@ -100,14 +98,14 @@ class ToStd extends ToMemory implements Loggingable
             } else {
                 $person = $user->getObjectName();
             }
-            $caller = $person.' '.$caller;
+            $caller = $person . ' ' . $caller;
         }
 
-        $logLine = ' `'.$caller.'` '.str_replace(
-            ['notice', 'message', 'debug', 'report',
-                'error', 'warning', 'success', 'info', 'mail',],
-            ['**', '##', '@@', '::'], $type
-        ).' '.$message."\n";
+        $logLine = ' `' . $caller . '` ' . str_replace(
+                        ['notice', 'message', 'debug', 'report',
+                            'error', 'warning', 'success', 'info', 'mail',],
+                        ['**', '##', '@@', '::'], $type
+                ) . ' ' . $message . "\n";
         if (!isset($this->logStyles[$type])) {
             $type = 'notice';
         }
@@ -123,19 +121,18 @@ class ToStd extends ToMemory implements Loggingable
      * @param string $type    message type 'error' or anything else
      * @param string $logLine message to output
      */
-    public function output($type, $logLine)
-    {
+    public function output($type, $logLine) {
         switch ($type) {
-        case 'error':
-            $stderr = fopen('php://stderr', 'w');
-            fwrite($stderr, $this->logName.': '.$logLine);
-            fclose($stderr);
-            break;
-        default:
-            $stdout = fopen('php://stdout', 'w');
-            fwrite($stdout, $this->logName.': '.$logLine);
-            fclose($stdout);
-            break;
+            case 'error':
+                $stderr = fopen('php://stderr', 'w');
+                fwrite($stderr, $this->logName . ': ' . $logLine);
+                fclose($stderr);
+                break;
+            default:
+                $stdout = fopen('php://stdout', 'w');
+                fwrite($stdout, $this->logName . ': ' . $logLine);
+                fclose($stdout);
+                break;
         }
     }
 
@@ -146,9 +143,8 @@ class ToStd extends ToMemory implements Loggingable
      *
      * @return string ready to use message
      */
-    public function finalizeMessage($messageRaw)
-    {
-        return trim($messageRaw).PHP_EOL;
+    public function finalizeMessage($messageRaw) {
+        return trim($messageRaw) . PHP_EOL;
     }
 
     /**
@@ -158,8 +154,7 @@ class ToStd extends ToMemory implements Loggingable
      *
      * @return int how many messages was flushed
      */
-    public function flush($caller = null)
-    {
+    public function flush($caller = null) {
         $flushed = 0;
         if (count($this->statusMessages)) {
             foreach ($this->statusMessages as $type => $messages) {
@@ -175,4 +170,5 @@ class ToStd extends ToMemory implements Loggingable
 
         return $flushed;
     }
+
 }

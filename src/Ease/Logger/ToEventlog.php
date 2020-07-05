@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Log to Windows Event Log.
  *
@@ -14,8 +15,8 @@ namespace Ease\Logger;
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2019 Vitex@hippy.cz (G)
  */
-class ToEventlog extends ToSyslog implements Loggingable
-{
+class ToEventlog extends ToSyslog implements Loggingable {
+
     /**
      * Předvolená metoda logování.
      *
@@ -35,9 +36,8 @@ class ToEventlog extends ToSyslog implements Loggingable
      *
      * @return string ready to use message
      */
-    public function finalizeMessage($messageRaw)
-    {
+    public function finalizeMessage($messageRaw) {
         return iconv("UTF-8", "cp1251//TRANSLIT", $messageRaw);
     }
-    
+
 }

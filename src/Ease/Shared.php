@@ -211,6 +211,6 @@ class Shared extends Atom {
         }
 
         return $this->configuration;
-    }    
-    
+    }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Message Classs
  * 
@@ -18,8 +19,8 @@ namespace Ease\Logger;
  *
  * @author vitex
  */
-class Message
-{
+class Message {
+
     /**
      * Message body
      *
@@ -56,10 +57,10 @@ class Message
      * @param int        $when    Timestamp
      */
     public function __construct($message, $type = 'info', $caller = null,
-        $when = null
+            $when = null
     ) {
-        $this->body   = $message;
-        $this->type   = $type;
+        $this->body = $message;
+        $this->type = $type;
         $this->caller = $caller;
         if (is_null($when)) {
             $this->when = time();
@@ -75,28 +76,28 @@ class Message
      * 
      * @return string
      */
-    public static function getTypeUnicodeSymbol($type)
-    {
+    public static function getTypeUnicodeSymbol($type) {
         switch ($type) {
-        case 'mail':                       // Envelope
-            $symbol = '✉';
-            break;
-        case 'warning':                    // Vykřičník v trojůhelníku
-            $symbol = '⚠';
-            break;
-        case 'error':                      // Lebka
-            $symbol = '☠';
-            break;
-        case 'success':                    // Kytička
-            $symbol = '❁';
-            break;
-        case 'debug':                      // Gear
-            $symbol = '⚙';
-            break;
-        default:                           // i v kroužku
-            $symbol = 'ⓘ';
-            break;
+            case 'mail':                       // Envelope
+                $symbol = '✉';
+                break;
+            case 'warning':                    // Vykřičník v trojůhelníku
+                $symbol = '⚠';
+                break;
+            case 'error':                      // Lebka
+                $symbol = '☠';
+                break;
+            case 'success':                    // Kytička
+                $symbol = '❁';
+                break;
+            case 'debug':                      // Gear
+                $symbol = '⚙';
+                break;
+            default:                           // i v kroužku
+                $symbol = 'ⓘ';
+                break;
         }
         return $symbol;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Ease Exeption
  *
@@ -15,8 +16,7 @@ namespace Ease;
  *
  * @author vitex
  */
-class Exception extends \Exception
-{
+class Exception extends \Exception {
 
     /**
      * Ease Framework Exception
@@ -25,17 +25,17 @@ class Exception extends \Exception
      * @param int             $code     error code
      * @param \Ease\Exception $previous
      */
-    public function __construct($message, $code = 0, Exception $previous = null)
-    {
+    public function __construct($message, $code = 0, Exception $previous = null) {
         $trace = $this->getTrace();
         \Ease\Shared::logger()->addStatusObject(
-            new Logger\Message(
-                $message,
-                'error',
-                $trace[0]['class'].'::'.$trace[0]['function'].
-                ( isset($trace[0]['line']) ?  (new Molecule())->setObjectName($trace[0]['line']) : new Atom() )
-            )
+                new Logger\Message(
+                        $message,
+                        'error',
+                        $trace[0]['class'] . '::' . $trace[0]['function'] .
+                        ( isset($trace[0]['line']) ? (new Molecule())->setObjectName($trace[0]['line']) : new Atom() )
+                )
         );
         parent::__construct($message, $code, $previous);
     }
+
 }

@@ -10,11 +10,10 @@ namespace Ease;
  * 
  * PHP 7
  */
-class Brick extends Sand
-{
+class Brick extends Sand {
 
     use RecordKey;
-    
+
     /**
      * Nastavuje jméno objektu
      * Je li známý, doplní jméno objektu hodnotu klíče např User#vitex
@@ -24,12 +23,11 @@ class Brick extends Sand
      *
      * @return string new name
      */
-    public function setObjectName($objectName = null)
-    {
+    public function setObjectName($objectName = null) {
         if (is_null($objectName)) {
             $key = $this->getMyKey($this->data);
             if ($key) {
-                $result = parent::setObjectName(get_class($this).'@'.$key);
+                $result = parent::setObjectName(get_class($this) . '@' . $key);
             } else {
                 $result = parent::setObjectName();
             }
@@ -39,25 +37,21 @@ class Brick extends Sand
 
         return $result;
     }
-    
+
     /**
      * Clean global status messages
      */
-    public function cleanMessages()
-    {
+    public function cleanMessages() {
         \Ease\Shared::singleton()->cleanMessages();
     }
-
 
     /**
      * Obtain global status messages
      *
      * @return array
      */
-    public function getStatusMessages()
-    {
+    public function getStatusMessages() {
         return \Ease\Shared::singleton()->getStatusMessages();
     }
-    
-    
+
 }

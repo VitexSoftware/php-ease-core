@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Základní pojící element všech objektů v EaseFrameWorku. Jeho hlavní schopnost je:
  * Pojímat do sebe zprávy.
@@ -19,8 +20,8 @@ namespace Ease;
  * 
  * @author Vítězslav Dvořák <info@vitexsoftware.cz>
  */
-class Atom
-{
+class Atom {
+
     /**
      * Version of EasePHP Framework
      *
@@ -47,8 +48,7 @@ class Atom
      *
      * @return string
      */
-    public function getObjectName()
-    {
+    public function getObjectName() {
         return get_class();
     }
 
@@ -61,8 +61,7 @@ class Atom
      * 
      * @return boolean message added
      */
-    public function addStatusMessage($message, $type = 'info')
-    {
+    public function addStatusMessage($message, $type = 'info') {
         $this->statusMessages[$type][microtime()] = $message;
         return true;
     }
@@ -74,8 +73,7 @@ class Atom
      *
      * @return int Počet zpráv přidaných do fronty
      */
-    public function addStatusMessages($statusMessages)
-    {
+    public function addStatusMessages($statusMessages) {
         if (is_array($statusMessages) && count($statusMessages)) {
             $allMessages = [];
             foreach ($statusMessages as $quee => $messages) {
@@ -96,8 +94,7 @@ class Atom
     /**
      * Vymaže zprávy.
      */
-    public function cleanMessages()
-    {
+    public function cleanMessages() {
         $this->statusMessages = [];
     }
 
@@ -106,9 +103,8 @@ class Atom
      *
      * @return array
      */
-    public function getStatusMessages()
-    {
-            return $this->statusMessages;
+    public function getStatusMessages() {
+        return $this->statusMessages;
     }
 
     /**
@@ -117,11 +113,10 @@ class Atom
      * @param string $prefix banner prefix text
      * @param string $suffix banner suffix text
      */
-    public function logBanner($prefix = null, $suffix = null)
-    {
+    public function logBanner($prefix = null, $suffix = null) {
         $this->addStatusMessage(
-            trim($prefix.' PHP v'.phpversion().' EasePHP Framework v'.self::$frameworkVersion.' '.$suffix),
-            'debug'
+                trim($prefix . ' PHP v' . phpversion() . ' EasePHP Framework v' . self::$frameworkVersion . ' ' . $suffix),
+                'debug'
         );
     }
 
@@ -130,8 +125,7 @@ class Atom
      *
      * @return string
      */
-    public function __toString()
-    {
+    public function __toString() {
         return '';
     }
 
@@ -140,8 +134,8 @@ class Atom
      *
      * @return string
      */
-    public function draw()
-    {
+    public function draw() {
         return method_exists($this, '__toString') ? $this->__toString() : null;
     }
+
 }
