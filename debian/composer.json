@@ -1,28 +1,29 @@
 {
-    "name": "deb/ease-core",
-    "description": "An Core of PHP Framework for Ease of writing Applications (debianized)",
-    "version": "0.6",
-    "authors": [
-        {
-            "name": "Vítězslav Dvořák",
-            "email": "info@vitexsoftware.cz",
-            "homepage": "http://v.s.cz/"
-        }
-    ],
-    "config": {
-        "vendor-dir": "/var/lib/php-ease-core"
-    },
-    "autoload": {
-        "psr-4": {
-            "Ease\\": ".",
-            "Ease\\Logger\\": "Logger"
-        }
-    },
-    "minimum-stability": "dev",
-    "require": {
-        "php": ">=7"
-    },
-    "type": "library",
-    "homepage": "http://v.s.cz/ease.php",
-    "license": "GPL-2.0+"
+  "name": "deb/ease-core",
+  "description": "An Core of PHP Framework for Ease of writing Applications (debianized)",
+  "version": "0.6",
+  "authors": [
+    {
+      "name": "Vítězslav Dvořák",
+      "email": "info@vitexsoftware.cz",
+      "homepage": "http://v.s.cz/"
+    }
+  ],
+  "config": {
+    "vendor-dir": "/var/lib/php-ease-core"
+  },
+  "autoload": {
+    "psr-4": {
+      "Ease\\": ".",
+      "Ease\\Logger\\": "Logger"
+    }
+  },
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=7"
+  },
+  "type": "library",
+  "homepage": "http://v.s.cz/ease.php",
+  "license": "GPL-2.0+",
+  "address": "0.41"
 }
