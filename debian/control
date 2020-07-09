@@ -8,20 +8,29 @@ Priority: optional
 Homepage: https://github.com/VitexSoftware/php-ease-core
 
 Package: php-ease-core
+Depends: ${misc:Depends}, php-vitexsoftware-ease-core
+Architecture: all
+Section: web
+Priority: optional
+Description: Ease Core compatibility package
+ Backwards compatibility package for vitexsoftware/ease-core library.
+
+Package: php-vitexsoftware-ease-core
 Depends: ${misc:Depends}, php-mail, php-mail-mime, composer-global-update
 Conflicts: ease-framework
 Architecture: all
 Suggests: php-ease-html, php-ease-bootstrap, php-ease-bootstrap4
 Section: web
 Priority: optional
-Description: EasePHP Framework
- common classes foe Ease Framework. 
+Description: EasePHP Framework Core
+ common classes for Ease Framework.
 
-Package: php-ease-core-dev
-Depends: ${misc:Depends}, php-mail, php-mail-mime, php-ease-core, default-mta
+Package: php-vitexsoftware-ease-core-dev
+Depends: ${misc:Depends}, php-mail, php-mail-mime, php-vitexsoftware-ease-core, default-mta
 Architecture: all
+Replaces: php-ease-core-dev
 Suggests: php-ease-html, php-ease-bootstrap, php-ease-bootstrap4
 Section: web
 Priority: optional
 Description: EasePHP Framework Unit Tests
- common classes foe Ease Framework. 
+ common classes foe Ease Framework.

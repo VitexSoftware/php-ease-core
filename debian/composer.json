@@ -10,7 +10,7 @@
     }
   ],
   "config": {
-    "vendor-dir": "/var/lib/php-ease-core"
+    "vendor-dir": "/var/lib/php-vitexsoftware-ease-core"
   },
   "autoload": {
     "psr-4": {

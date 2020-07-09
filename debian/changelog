@@ -1,4 +1,4 @@
-php-ease-core (0.41) UNRELEASED; urgency=medium
+php-vitexsoftware-ease-core (0.41) UNRELEASED; urgency=medium
 
   [ Vítězslav Dvořák ]
   * all unit tests pass
@@ -15,8 +15,8 @@ php-ease-core (0.41) UNRELEASED; urgency=medium
   * Allow use constant definiton from system ENV
   * Using ENV configuration fixed
   * Using ENV configuration fixed
-  * package php-ease-core-dev now contain code for mailer testing
-  * package php-ease-core-dev now contain code for mailer testing
+  * package php-vitexsoftware-ease-core-dev now contain code for mailer testing
+  * package php-vitexsoftware-ease-core-dev now contain code for mailer testing
   * v0.34 release
   * v0.34 release
   * Merge origin/master  Conflicts:  src/Ease/Shared.php
@@ -33,7 +33,7 @@ php-ease-core (0.41) UNRELEASED; urgency=medium
 
  -- CyberVitexus <vitex@exiv.jinonice.czf>  Sun, 05 Jul 2020 04:26:06 +0200
 
-php-ease-core (0.12) UNRELEASED; urgency=medium
+php-vitexsoftware-ease-core (0.12) UNRELEASED; urgency=medium
 
   * Sensiolabs Icon removed
   * global rename ease-framework to ease-core
@@ -48,7 +48,7 @@ php-ease-core (0.12) UNRELEASED; urgency=medium
 
  -- Vítězslav Dvořák <info@vitexsoftware.cz>  Fri, 11 Oct 2019 11:04:56 +0200
 
-php-ease-core (0.1) EXPERIMENTAL; urgency=medium
+php-vitexsoftware-ease-core (0.1) EXPERIMENTAL; urgency=medium
 
   * Package build fixed
 

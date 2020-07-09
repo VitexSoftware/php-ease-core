@@ -4,9 +4,9 @@ Ease framework Core for Debian
     Is installed by standard way in /usr/share/php/EaseCore
 
 
-After installing package php-ease-core-dev you can test EaseMailer function:
+After installing package php-vitexsoftware-ease-core-dev you can test EaseMailer function:
 
-php -f /usr/share/doc/php-ease-core-dev/SendTestMail.php  info@vitexsoftware.cz
+php -f /usr/share/doc/php-vitexsoftware-ease-core-dev/SendTestMail.php  info@vitexsoftware.cz
 
 04/02/20 19:44:49 ``  ❁ Message Příliš žluťoučký kůň úpěl ďábelské ódy was sent to info@vitexsoftware.cz
 04/02/20 19:44:49 ``  ⓘ Test mail sent
