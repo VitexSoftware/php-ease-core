@@ -1,4 +1,4 @@
-name: Debian Packaging
+name: Ubuntu Packaging
 
 on:
   release:

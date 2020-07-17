@@ -1,4 +1,4 @@
-php-vitexsoftware-ease-core (0.41) UNRELEASED; urgency=medium
+php-vitexsoftware-ease-core (0.42) UNRELEASED; urgency=medium
 
   [ Vítězslav Dvořák ]
   * all unit tests pass
@@ -30,8 +30,18 @@ php-vitexsoftware-ease-core (0.41) UNRELEASED; urgency=medium
   * Release v0.40
   * Code reformat
   * New Directory update
+  * Status Message functions moved to its own trait \Ease\Logger\Logging
+  * Status Message functions moved to its own trait \Ease\Logger\Logging
+  * Status Message functions moved to its own trait \Ease\Logger\Logging
+  * Status Message functions moved to its own trait \Ease\Logger\Logging
+    Unit tests update
+  * Status Message functions moved to its own trait \Ease\Logger\Logging
+    Unit tests update
+  * Status Message functions moved to its own trait \Ease\Logger\Logging
+  * Status Message functions moved to its own trait \Ease\Logger\Logging
+  * Status Message functions moved to its own trait \Ease\Logger\Logging
 
- -- CyberVitexus <vitex@exiv.jinonice.czf>  Sun, 05 Jul 2020 04:26:06 +0200
+ -- CyberVitexus <vitex@exiv.jinonice.czf>  Fri, 17 Jul 2020 21:02:11 +0200
 
 php-vitexsoftware-ease-core (0.12) UNRELEASED; urgency=medium
 

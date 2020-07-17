@@ -32,8 +32,8 @@ test: ## run unit tests
 
 clean: ## remove unneeded files
 	rm -rf vendor composer.lock
-	rm -rf debian/php-ease-core
-	rm -rf debian/php-ease-core-doc
+	rm -rf debian/php-vitexsoftware-ease-core
+	rm -rf debian/php-vitexsoftware-ease-core-doc
 	rm -rf debian/*.log debian/tmp
 	rm -rf docs/*
 

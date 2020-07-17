@@ -1,4 +1,4 @@
-Source: php-ease-core
+Source: php-vitexsoftware-ease-core
 Build-Depends: debhelper (>= 10)
 Section: web
 Standards-Version: 3.9.8
@@ -19,7 +19,7 @@ Package: php-vitexsoftware-ease-core
 Depends: ${misc:Depends}, php-mail, php-mail-mime, composer-global-update
 Conflicts: ease-framework
 Architecture: all
-Suggests: php-ease-html, php-ease-bootstrap, php-ease-bootstrap4
+Suggests: php-vitexsoftware-ease-html, php-vitexsoftware-ease-bootstrap, php-vitexsoftware-ease-bootstrap4
 Section: web
 Priority: optional
 Description: EasePHP Framework Core

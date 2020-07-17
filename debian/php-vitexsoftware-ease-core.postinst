@@ -2,7 +2,7 @@
 
 #DEBHELPER#
 
-# postinst script for ease-core
+# postinst script for php-vitexsoftware-ease-core
 #
 # see: dh_installdeb(1)
 
@@ -24,7 +24,7 @@ set -e
 case "$1" in
     configure)
 
-        composer-global-update ease-core
+        composer-global-update deb/ease-core
 
     ;;
 

@@ -1,11 +1,11 @@
 Format-Specification: http://wiki.debian.org/Proposals/CopyrightFormat?action=recall&rev=143
-Upstream-Name: ease-core
-Upstream-Source: http://v.s.cz/download/Ease.tar.bz2
+Upstream-Name: php-ease-core
+Upstream-Source: https://github.com/VitexSoftware/php-ease-core/archive/master.zip
 
 Files: *
-Homepage: http://v.s.cz/ease.php
+Homepage: https://github.com/VitexSoftware/php-ease-core
 Copyright:
-  (c) 2013 Vítězslav Dvořák (v.s.cz)
+  (c) 2013-2020 Vítězslav Dvořák (v.s.cz)
 License: MIT 
 
 License: MIT

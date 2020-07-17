@@ -14,6 +14,8 @@ Object oriented PHP Framework for easy&fast writing small/middle sized apps.
 [![Total Downloads](https://img.shields.io/packagist/dt/vitexsoftware/ease-core.svg?style=flat-square)](https://packagist.org/packages/vitexsoftware/ease-core)
 [![Latest stable](https://img.shields.io/packagist/v/vitexsoftware/ease-core.svg?style=flat-square)](https://packagist.org/packages/vitexsoftware/ease-core)
 
+![PHPUnit](https://github.com/VitexSoftware/php-ease-core/workflows/PHPUnit/badge.svg)
+
 [![Latest Stable Version](https://poser.pugx.org/vitexsoftware/ease-core/v/stable)](https://packagist.org/packages/vitexsoftware/ease-core)
 [![Total Downloads](https://poser.pugx.org/vitexsoftware/ease-core/downloads)](https://packagist.org/packages/vitexsoftware/ease-core)
 [![Latest Unstable Version](https://poser.pugx.org/vitexsoftware/ease-core/v/unstable)](https://packagist.org/packages/vitexsoftware/ease-core)
