@@ -21,3 +21,9 @@ jobs:
         sudo apt-get install -y aptitude composer exim4 pbuilder ubuntu-dev-tools apt-file debhelper
     - name: Build Package
       run: debuild-pbuilder
+    - name: Archive code coverage results
+      uses: actions/upload-artifact@v1
+      with:
+        name: debian-package
+        path: ../*.deb
+          
