@@ -26,17 +26,13 @@
     "conflict": {
         "vitexsoftware/ease-framework": "*"
     },
-    "minimum-stability": "dev",
     "require": {
         "php": ">=7",
         "pear/mail": "~1.3",
         "pear/mail_mime": "~1.10"
     },
     "require-dev": {
-        "phpunit/phpunit": "*",
-        "php-coveralls/php-coveralls": "*",
-        "jakub-onderka/php-parallel-lint": "*",
-        "jakub-onderka/php-console-highlighter": "*"
+        "phpunit/phpunit": "^8"
     },
     "type": "library",
     "homepage": "http://v.s.cz/ease.php",

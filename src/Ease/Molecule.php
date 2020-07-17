@@ -19,14 +19,14 @@ namespace Ease;
 class Molecule extends Atom {
 
     /**
-     * Udržuje v sobě jméno objektu.
+     * Object name place
      *
      * @var string
      */
     public $objectName = 'Molecule';
 
     /**
-     * Nastaví jméno objektu.
+     * Set object name
      *
      * @param string $objectName
      *
@@ -70,21 +70,6 @@ class Molecule extends Atom {
                 $this->$name = getenv($constant);
             }
         }
-    }
-
-    /**
-     * Zapíše zprávu do logu.
-     *
-     * @param string $message zpráva
-     * @param string $type    typ zprávy (info|warning|success|error|*)
-     *
-     * @return bool byl report zapsán ?
-     */
-    public function toLog($message, $type = 'message') {
-        return Shared::logger()->addToLog(
-                        $this->getObjectName(), $message,
-                        $type
-        );
     }
 
 }

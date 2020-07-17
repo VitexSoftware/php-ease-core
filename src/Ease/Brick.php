@@ -6,7 +6,7 @@ namespace Ease;
  * 
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2019 Vitex@hippy.cz (G)
+ * @copyright 2009-2020 Vitex@hippy.cz (G)
  * 
  * PHP 7
  */
@@ -36,22 +36,6 @@ class Brick extends Sand {
         }
 
         return $result;
-    }
-
-    /**
-     * Clean global status messages
-     */
-    public function cleanMessages() {
-        \Ease\Shared::singleton()->cleanMessages();
-    }
-
-    /**
-     * Obtain global status messages
-     *
-     * @return array
-     */
-    public function getStatusMessages() {
-        return \Ease\Shared::singleton()->getStatusMessages();
     }
 
 }

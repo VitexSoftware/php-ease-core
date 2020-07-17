@@ -59,46 +59,23 @@ class MoleculeTest extends AtomTest {
             define('OBJNAME', 'CONSTATNT');
         }
 
-        $options = ['key' => 'value'];
-        $this->object->objectName = 'Original';
-        $this->object->setupProperty($options, 'objectName', 'OBJNAME');
+        $this->object->setupProperty(['objectName' => 'Original'], 'objectName', 'OBJNAME');
         $this->assertEquals('Original', $this->object->objectName);
 
+        $this->object->setupProperty(['OBJNAME' => 'Copy'], 'objectName', 'OBJNAME');
+        $this->assertEquals('Copy', $this->object->objectName);
+
         $this->object->objectName = null;
-        $this->object->setupProperty($options, 'objectName', 'OBJNAME');
+        $this->object->setupProperty(['key' => 'value'], 'objectName', 'OBJNAME');
         $this->assertEquals('CONSTATNT', $this->object->objectName);
 
-        $options['objectName'] = 'ARRAY';
-        $this->object->setupProperty($options, 'objectName', 'OBJNAME');
+        $this->object->setupProperty(['objectName' => 'ARRAY'], 'objectName', 'OBJNAME');
         $this->assertEquals('ARRAY', $this->object->objectName);
-    }
 
-    /**
-     * @covers Ease\Molecule::addToLog
-     *
-     * @todo   Implement testAddToLog().
-     */
-    public function testAddToLog() {
-        $this->logger = null;
-        $this->assertTrue($this->object->addToLog('Message 1'));
-        $this->assertTrue($this->object->addToLog('Message 2'));
-    }
+        putenv('ENVTEST=TEST');
 
-    /**
-     * @covers Ease\Molecule::addStatusMessage
-     */
-    public function testAddStatusMessage() {
-        $this->object->addStatusMessage('Message1');
-        $wtf = $this->object->getStatusMessages();
-        $this->assertNotEmpty($this->object->getStatusMessages());
-    }
-
-    /**
-     * @covers Ease\Molecule::getStatusMessages
-     */
-    public function testGetStatusMessage() {
-        $this->object->addStatusMessage('Message1');
-        $this->assertNotEmpty($this->object->getStatusMessages(true));
+        $this->object->setupProperty([], 'objectName', 'ENVTEST');
+        $this->assertEquals('TEST', $this->object->objectName);
     }
 
 }

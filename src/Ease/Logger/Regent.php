@@ -32,7 +32,7 @@ class Regent extends \Ease\Atom implements Loggingable {
      * Keep All messages here
      * @var array 
      */
-    public $messages = [];
+    private $messages = [];
 
     /**
      * Hodnoty pro obarvování logu.
@@ -107,18 +107,21 @@ class Regent extends \Ease\Atom implements Loggingable {
      * @return boolean At least one logger takes message
      */
     public function addToLog($caller, $message, $type = 'info') {
-        $logged = false;
-        $this->messages[] = new \Ease\Logger\Message($message, $type, $caller);
-        foreach ($this->loggers as $logger) {
-            $logged = $logger->addToLog($caller, $message, $type);
-        }
-        return $logged;
+        return $this->addStatusObject(new Message($message, $type, $caller));
     }
 
+    /**
+     * Stored messages array
+     * 
+     * @return array<Message>
+     */
     public function getMessages() {
         return $this->messages;
     }
 
+    /**
+     * Clean Internal message buffer
+     */
     public function cleanMessages() {
         $this->messages = [];
     }
@@ -128,15 +131,15 @@ class Regent extends \Ease\Atom implements Loggingable {
      * 
      * @param \Ease\Logger\Message $message
      * 
-     * @return int number of stored message
+     * @return int number of stored messages
      */
     public function addStatusObject(Message $message) {
-        $this->addToLog($message->caller, $message->body, $message->type);
-        \Ease\Shared::instanced()->addStatusMessage(
-                $message->body,
-                $message->type
-        );
-        return parent::addStatusMessage($message->body, $message->type);
+        $this->messages[] = $message;
+        $logged = 0;
+        foreach ($this->loggers as $logger) {
+            $logged += $logger->addToLog($message->caller, $message->body, $message->type);
+        }
+        return $logged;
     }
 
     /**

@@ -42,6 +42,24 @@ trait Logging {
     }
 
     /**
+     * Obtain global status messages
+     *
+     * @return array
+     */
+    public function getStatusMessages() {
+        return $this->getLogger()->getMessages();
+    }
+
+    /**
+     * Erase all status messages
+     * 
+     * @return type
+     */
+    public function cleanSatatusMessages() {
+        return $this->getLogger()->cleanMessages();
+    }
+
+    /**
      * Provide logger object
      * 
      * @param string|array $options
@@ -53,6 +71,19 @@ trait Logging {
             $this->logger = Regent::singleton($options);
         }
         return $this->logger;
+    }
+
+    /**
+     * Add Info about used PHP and EasePHP Library
+     *
+     * @param string $prefix banner prefix text
+     * @param string $suffix banner suffix text
+     */
+    public function logBanner($prefix = null, $suffix = null) {
+        $this->addStatusMessage(
+                trim($prefix . ' PHP v' . phpversion() . ' EasePHP Framework v' . \Ease\Atom::$frameworkVersion . ' ' . $suffix),
+                'debug'
+        );
     }
 
 }
