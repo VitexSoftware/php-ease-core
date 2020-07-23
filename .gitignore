@@ -24,3 +24,10 @@ composer.lock
 /debian/.debhelper/
 /debian/php-ease-core-dev.substvars
 /debian/php-ease-core-dev.debhelper.log
+/debian/php-vitexsoftware-ease-core/
+/debian/php-vitexsoftware-ease-core-dev/
+/debian/php-ease-core.substvars
+/debian/php-vitexsoftware-ease-core-dev.debhelper.log
+/debian/php-vitexsoftware-ease-core-dev.substvars
+/debian/php-vitexsoftware-ease-core.debhelper.log
+/debian/php-vitexsoftware-ease-core.substvars
