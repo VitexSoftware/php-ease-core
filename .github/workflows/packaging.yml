@@ -19,11 +19,9 @@ jobs:
         sudo wget -O /etc/apt/trusted.gpg.d/vitexsoftware.gpg http://repo.vitexsoftware.cz/keyring.gpg
         sudo apt-get update
         sudo apt-get install -y aptitude composer exim4 pbuilder ubuntu-dev-tools apt-file debhelper
-    - name: Build Package
-      run: debuild-pbuilder
-    - name: Archive code coverage results
-      uses: actions/upload-artifact@v1
+    - name: Build Debian package
+      uses: dawidd6/action-debian-package@v1
       with:
-        name: debian-package
-        path: ../*.deb
-          
+        source_directory: .
+        artifacts_directory: dist
+        
