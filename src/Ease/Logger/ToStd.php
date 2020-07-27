@@ -98,7 +98,7 @@ class ToStd extends ToMemory implements Loggingable {
             } else {
                 $person = $user->getObjectName();
             }
-            $caller = $person . ' ' . $caller;
+            $caller = $person . ' ' . (is_object($caller) ? get_class($caller) : $caller);
         }
 
         $logLine = ' `' . $caller . '` ' . str_replace(

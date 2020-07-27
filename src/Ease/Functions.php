@@ -474,29 +474,29 @@ class Functions {
      */
     static function formatBytes($bytes) {
         $bytes = doubleval($bytes);
-        
+
         if ($bytes < 1024) {
-            $humanReadable =  $bytes . ' B';
+            $humanReadable = $bytes . ' B';
         } elseif ($bytes < 1048576) {
-            $humanReadable =  round($bytes / 1024, 2) . ' KiB';
+            $humanReadable = round($bytes / 1024, 2) . ' KiB';
         } elseif ($bytes < 1073741824) {
-            $humanReadable =  round($bytes / 1048576, 2) . ' MiB';
+            $humanReadable = round($bytes / 1048576, 2) . ' MiB';
         } elseif ($bytes < 1099511627776) {
-            $humanReadable =  round($bytes / 1073741824, 2) . ' GiB';
+            $humanReadable = round($bytes / 1073741824, 2) . ' GiB';
         } elseif ($bytes < 1125899906842624) {
-            $humanReadable =  round($bytes / 1099511627776, 2) . ' TiB';
+            $humanReadable = round($bytes / 1099511627776, 2) . ' TiB';
         } elseif ($bytes < 1152921504606846976) {
-            $humanReadable =  round($bytes / 1125899906842624, 2) . ' PiB';
+            $humanReadable = round($bytes / 1125899906842624, 2) . ' PiB';
         } elseif ($bytes < 1180591620717411303424) {
-            $humanReadable =  round($bytes / 1152921504606846976, 2) . ' EiB';
+            $humanReadable = round($bytes / 1152921504606846976, 2) . ' EiB';
         } elseif ($bytes < 1208925819614629174706176) {
-            $humanReadable =  round($bytes / 1180591620717411303424, 2) . ' ZiB';
+            $humanReadable = round($bytes / 1180591620717411303424, 2) . ' ZiB';
         } else {
-            $humanReadable =  round($bytes / 1208925819614629174706176, 2) . ' YiB';
+            $humanReadable = round($bytes / 1208925819614629174706176, 2) . ' YiB';
         }
         return $humanReadable;
     }
-    
+
     /**
      * Get configuration from constant or environment
      * 
