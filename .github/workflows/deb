@@ -1,0 +1,19 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build Debian package
+      uses: dawidd6/action-debian-package@v1.0.1
+    - name: github-action-publish-binaries
+      uses: skx/github-action-publish-binaries@release-0.14
