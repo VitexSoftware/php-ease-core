@@ -62,6 +62,17 @@ class ToSyslog extends ToStd implements Loggingable {
         return syslog($type == 'error' ? constant('LOG_ERR') : constant('LOG_INFO'), $this->finalizeMessage($logLine));
     }
 
+   /**
+     * Last message check/modify point before output
+     *
+     * @param string $messageRaw
+     *
+     * @return string ready to use message
+     */
+    public function finalizeMessage($messageRaw) {
+        return trim($messageRaw);
+    }    
+    
     /**
      * Uzavře chybové soubory.
      * 
