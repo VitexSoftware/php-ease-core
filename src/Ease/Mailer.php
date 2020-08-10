@@ -22,7 +22,7 @@ class Mailer extends Sand {
     /**
      * Objekt pro odesílání pošty.
      *
-     * @var
+     * @var \Mail
      */
     public $mailer = null;
 

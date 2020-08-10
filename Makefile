@@ -38,8 +38,10 @@ clean: ## remove unneeded files
 	rm -rf docs/*
 
 apigen: ## Build Apigen documentation
+	rm -rfv docs ; mkdir docs
 	VERSION=`cat debian/composer.json | grep version | awk -F'"' '{print $4}'`; \
-	apigen generate --source src --destination docs --title "Ease PHP Framework Core ${VERSION}" --charset UTF-8 --access-levels public --access-levels protected --php --tree
+	apigen generate --destination=docs -- src/
+#	apigen generate --destination=docs --title "Ease PHP Framework Core ${VERSION}" --charset UTF-8 --access-levels public --access-levels protected --php --tree -- src/
 
 
 composer: ## Update PHP dependencies

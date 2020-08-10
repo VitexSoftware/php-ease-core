@@ -1,5 +1,5 @@
 Source: php-vitexsoftware-ease-core
-Build-Depends: debhelper (>= 10), moreutils, jq
+Build-Depends: debhelper (>= 10), moreutils, jq, composer, php-apigen
 Section: web
 Standards-Version: 3.9.8
 Maintainer: Vítězslav Dvořák <info@vitexsoftware.cz>
@@ -33,4 +33,15 @@ Suggests: php-ease-html, php-ease-bootstrap, php-ease-bootstrap4
 Section: web
 Priority: optional
 Description: EasePHP Framework Unit Tests
- common classes foe Ease Framework.
+ Ease Framework Core unit Test classes.
+
+Package: php-vitexsoftware-ease-core-doc
+Depends: ${misc:Depends}
+Architecture: all
+Replaces: php-ease-core-doc
+Suggests: www-browser
+Section: doc
+Priority: optional
+Description: EasePHP Framework Documentation
+ Ease Framework core apigen documentation.
+
