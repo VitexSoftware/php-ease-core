@@ -172,20 +172,8 @@ class User extends Anonym {
      * 
      * @return boolean
      */
-    public function authentize() {
-        return false;
-    }
-
-    /**
-     * Try to validate Password
-     * 
-     * @param string $password plaintext
-     * 
-     * @return boolean
-     */
-    public function validatePassword($password) {
-        if ($this->passwordValidation($password,
-                        $this->getDataValue($this->passwordColumn))) {
+    public function authentize($plaintext) {
+        if ($this->validatePassword($plaintext)) {
             if ($this->isAccountEnabled()) {
                 return $this->loginSuccess();
             } else {
@@ -202,6 +190,17 @@ class User extends Anonym {
 
             return false;
         }
+    }
+
+    /**
+     * Try to validate Password
+     * 
+     * @param string $password plaintext
+     * 
+     * @return boolean
+     */
+    public function validatePassword($password) {
+        return $this->passwordValidation($password, $this->getDataValue($this->passwordColumn));
     }
 
     /**
