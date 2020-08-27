@@ -1,28 +1,18 @@
 <?php
 
 /**
- * Všeobecně sdílený objekt frameworku.
- * Tento objekt je automaticky přez svůj singleton instancován do každého Ease*
- * objektu.
- * Poskytuje kdykoliv přístup k často volaným objektům framworku jako například
- * uživatel, databáze, webstránka nebo logy.
- * Také obsahuje pole obecnych nastavení a funkce pro jeho obluhu.
- *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2018 Vitex@hippy.cz (G)
+ * @copyright 2009-2020 Vitex@hippy.cz (G)
  * 
  * PHP 7
  */
 
 namespace Ease;
 
+use Ease\Functions;
+
 /**
- * Všeobecně sdílený objekt frameworku.
- * Tento objekt je automaticky přez svůj singleton instancován do každého Ease*
- * objektu.
- * Poskytuje kdykoliv přístup k často volaným objektům framworku jako například
- * uživatel, databáze, webstránka nebo logy.
- * Také obsahuje pole obecnych nastavení a funkce pro jeho obluhu.
+ * Common shared object
  *
  * @copyright 2009-2016 Vitex@hippy.cz (G)
  * @author    Vitex <vitex@hippy.cz>
@@ -58,33 +48,55 @@ class Shared extends Atom {
     public static $userSessionName = 'User';
 
     /**
+     * Application name or "EaseFramework" fallback
+     * 
+     * @return string
+     */
+    static public function appName() {
+        return (Functions::cfg('EASE_APPNAME') ? Functions::cfg('EASE_APPNAME') : (Functions::cfg('APP_NAME') ? Functions::cfg('APP_NAME') : 'EaseFramework' ));
+    }
+
+    /**
      * Inicializace sdílené třídy.
      */
     public function __construct() {
-        $cgiMessages = [];
         $webMessages = [];
-        $prefix = defined('EASE_APPNAME') ? constant('EASE_APPNAME') : '';
-        $msgFile = sys_get_temp_dir() . '/' . $prefix . 'EaseStatusMessages' . posix_getuid() . '.ser';
-        if (file_exists($msgFile) && is_readable($msgFile) && filesize($msgFile) && is_writable($msgFile)
-        ) {
-            $cgiMessages = unserialize(file_get_contents($msgFile));
-            file_put_contents($msgFile, '');
+        $appName = self::appName();
+        if (isset($_SESSION[$appName]['EaseMessages'])) {
+            $webMessages = $_SESSION[$appName]['EaseMessages'];
+            unset($_SESSION[$appName]['EaseMessages']);
         }
 
-        if (defined('EASE_APPNAME')) {
-            if (isset($_SESSION[constant('EASE_APPNAME')]['EaseMessages'])) {
-                $webMessages = $_SESSION[constant('EASE_APPNAME')]['EaseMessages'];
-                unset($_SESSION[constant('EASE_APPNAME')]['EaseMessages']);
-            }
-        } else {
-            if (isset($_SESSION['EaseMessages'])) {
-                $webMessages = $_SESSION['EaseMessages'];
-                unset($_SESSION['EaseMessages']);
-            }
+        $this->statusMessages = array_merge(self::loadStatusMessages(), $webMessages);
+    }
+
+    public static function msgFile($sessID = 'EaseStatusMessages') {
+        return Functions::sysFilename(sys_get_temp_dir() . '/' . self::appName() . $sessID . posix_getuid() . '.ser');
+    }
+
+    /**
+     * 
+     * @param string $sessID
+     * 
+     * @return array
+     */
+    public static function loadStatusMessages($sessID = 'EaseStatusMessages') {
+        $msgFile = self::msgFile();
+        $messages = [];
+        if (file_exists($msgFile) && is_readable($msgFile) && filesize($msgFile) && is_writable($msgFile)) {
+            $messages = unserialize(file_get_contents($msgFile));
+            unlink($msgFile);
         }
-        $this->statusMessages = is_array($cgiMessages) ? array_merge(
-                        $cgiMessages, $webMessages
-                ) : $webMessages;
+        return $messages;
+    }
+
+    /**
+     * Write remaining messages to temporary file.
+     * 
+     * @return int bytes saved
+     */
+    public function saveStatusMessages($sessID = 'EaseStatusMessages') {
+        return file_put_contents(self::msgFile($sessID), serialize($this->statusMessages));
     }
 
     /**
@@ -146,17 +158,6 @@ class Shared extends Atom {
     }
 
     /**
-     * Write remaining messages to temporary file.
-     */
-    public function __destruct() {
-        if (php_sapi_name() == 'cli') {
-            $prefix = defined('EASE_APPNAME') ? constant('EASE_APPNAME') : '';
-            $messagesFile = sys_get_temp_dir() . '/' . $prefix . 'EaseStatusMessages' . posix_getuid() . '.ser';
-            file_put_contents($messagesFile, serialize($this->statusMessages));
-        }
-    }
-
-    /**
      * Vrací, případně i založí objekt uživatele.
      *
      * @param User|Anonym|string $user objekt nového uživatele nebo
@@ -165,7 +166,7 @@ class Shared extends Atom {
      * @return User
      */
     public static function &user(object $user = null, string $candidat = 'User', string $userSessionName = 'User') {
-        $efprefix = defined('EASE_APPNAME') ? constant('EASE_APPNAME') : 'EaseFramework';
+        $efprefix = self::appName();
         if (empty($user) && isset($_SESSION[$efprefix][self::$userSessionName])) {
             return $_SESSION[$efprefix][self::$userSessionName];
         }
