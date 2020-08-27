@@ -35,13 +35,13 @@ Priority: optional
 Description: EasePHP Framework Unit Tests
  Ease Framework Core unit Test classes.
 
-Package: php-vitexsoftware-ease-core-doc
-Depends: ${misc:Depends}
-Architecture: all
-Replaces: php-ease-core-doc
-Suggests: www-browser
-Section: doc
-Priority: optional
-Description: EasePHP Framework Documentation
- Ease Framework core apigen documentation.
+#Package: php-vitexsoftware-ease-core-doc
+#Depends: ${misc:Depends}
+#Architecture: all
+#Replaces: php-ease-core-doc
+#Suggests: www-browser
+#Section: doc
+#Priority: optional
+#Description: EasePHP Framework Documentation
+# Ease Framework core apigen documentation.
 
