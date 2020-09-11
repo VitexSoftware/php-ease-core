@@ -138,11 +138,8 @@ class User extends Anonym {
      * @return null|boolean
      */
     public function tryToLogin($formData) {
-        if (!count($formData)) {
-            return;
-        }
-        $login = $formData[$this->loginColumn];
-        $password = $formData[$this->passwordColumn];
+        $login = array_key_exists($this->loginColumn, $formData) ?  $formData[$this->loginColumn] : null;
+        $password = array_key_exists($this->passwordColumn, $formData) ? $formData[$this->passwordColumn] : null ;
         if (empty($login)) {
             $this->addStatusMessage(_('missing login'), 'error');
 
@@ -150,14 +147,14 @@ class User extends Anonym {
         } else {
             $this->setDataValue($this->loginColumn, $login);
         }
-        if (!$password) {
+        if (empty($password)) {
             $this->addStatusMessage(_('missing password'), 'error');
 
             return;
         } else {
             $this->setDataValue($this->passwordColumn, $password);
         }
-        if ($this->authentize()) {
+        if ($this->authentize($password)) {
             return true;
         } else {
             $this->addStatusMessage(sprintf(_('user %s does not exist'), $login,
