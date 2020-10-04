@@ -84,7 +84,8 @@ class UserTest extends AnonymTest {
      */
     public function testTryToLogin() {
         $this->assertEmpty($this->object->tryToLogin([]));
-        $this->assertEmpty($this->object->tryToLogin(['login'=>'','password'=>'']));
+        $this->assertEmpty($this->object->tryToLogin(['login' => 'noone']));
+        $this->assertEmpty($this->object->tryToLogin(['login' => '', 'password' => '']));
         $this->assertFalse($this->object->logged, $this->object->tryToLogin(['login' => 'vitex', 'password' => 'secret']));
     }
 
@@ -106,42 +107,6 @@ class UserTest extends AnonymTest {
     public function testLoginSuccess() {
         $this->object->loginSuccess();
         $this->assertTrue($this->object->logged);
-    }
-
-    /**
-     * @covers Ease\User::loadSettings
-     *
-     * @todo   Implement testLoadSettings().
-     */
-    public function testLoadSettings() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Ease\User::saveSettings
-     *
-     * @todo   Implement testSaveSettings().
-     */
-    public function testSaveSettings() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Ease\User::getSettings
-     *
-     * @todo   Implement testGetSettings().
-     */
-    public function testGetSettings() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
     }
 
     /**
@@ -167,14 +132,9 @@ class UserTest extends AnonymTest {
 
     /**
      * @covers Ease\User::getUserID
-     *
-     * @todo   Implement testGetUserID().
      */
     public function testGetUserID() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->assertEquals(0, $this->object->getUserID());
     }
 
     /**
@@ -188,14 +148,9 @@ class UserTest extends AnonymTest {
 
     /**
      * @covers Ease\User::getPermission
-     *
-     * @todo   Implement testGetPermission().
      */
     public function testGetPermission() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->assertEquals('', $this->object->getPermission());
     }
 
     /**
@@ -207,63 +162,39 @@ class UserTest extends AnonymTest {
     }
 
     /**
+     * @a
      * @covers Ease\User::getSettingValue
-     *
-     * @todo   Implement testGetSettingValue().
      */
     public function testGetSettingValue() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->assertEquals('test', $this->object->getSettingValue('test'));
     }
 
     /**
      * @covers Ease\User::setSettings
-     *
-     * @todo   Implement testSetSettings().
      */
     public function testSetSettings() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->assertTrue($this->object->setSettings(['key' => 'value']));
     }
 
     /**
      * @covers Ease\User::setSettingValue
-     *
-     * @todo   Implement testSetSettingValue().
      */
     public function testSetSettingValue() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->assertTrue($this->object->setSettingValue('test', 'tested'));
     }
 
     /**
      * @covers Ease\User::loadPermissions
-     *
-     * @todo   Implement testLoadPermissions().
      */
     public function testLoadPermissions() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->assertEquals('', $this->object->loadPermissions());
     }
 
     /**
      * @covers Ease\User::getName
-     *
-     * @todo   Implement testGetName().
      */
     public function testGetName() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->assertEquals('Ease\User:@127.0.0.1 [tester]', $this->object->getName());
     }
 
     /**
@@ -292,26 +223,16 @@ class UserTest extends AnonymTest {
 
     /**
      * @covers Ease\User::getGravatar
-     *
-     * @todo   Implement testGetGravatar().
      */
     public function testGetGravatar() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->assertEquals('http://www.gravatar.com/avatar/f00226a1c6fe891010a2543531ed432c?s=80&d=mm&r=g', $this->object->getGravatar('info@vitexsoftware.cz'));
     }
 
     /**
      * @covers Ease\User::setObjectName
-     *
-     * @todo   Implement testSetObjectName().
      */
     public function testSetObjectName() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->assertEquals('', $this->object->setObjectName());
     }
 
 }
