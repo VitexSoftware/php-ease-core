@@ -56,10 +56,10 @@ class Regent extends \Ease\Atom implements Loggingable {
      * @param string $logger class name
      */
     public function __construct($logger = null) {
-        if (is_null($logger) && defined('EASE_LOGGER')) {
-            $loggers = explode('|', constant('EASE_LOGGER'));
-        } else {
+        if (empty(\Ease\Functions::cfg('EASE_LOGGER'))) {
             $loggers = empty($logger) ? ['syslog'] : [$logger];
+        } else {
+            $loggers = explode('|', \Ease\Functions::cfg('EASE_LOGGER'));
         }
 
         foreach ($loggers as $logger) {

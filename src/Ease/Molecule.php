@@ -64,10 +64,8 @@ class Molecule extends Atom {
         } elseif (array_key_exists($constant, $options)) {
             $this->$name = $options[$constant];
         } else { // If No values specified we must use constants or environment
-            if (property_exists($this, $name) && !empty($constant) && defined($constant)) {
-                $this->$name = constant($constant);
-            } elseif (property_exists($this, $name) && ($env = getenv($constant)) && !empty($env)) {
-                $this->$name = getenv($constant);
+            if (empty(\Ease\Functions::cfg($constant) === false)) {
+                $this->$name = \Ease\Functions::cfg($constant);
             }
         }
     }
