@@ -1,4 +1,4 @@
-php-vitexsoftware-ease-core (1.2) UNRELEASED; urgency=medium
+php-vitexsoftware-ease-core (1.7) UNRELEASED; urgency=medium
 
   [ Vítězslav Dvořák ]
   * all unit tests pass
@@ -22,8 +22,9 @@ php-vitexsoftware-ease-core (1.2) UNRELEASED; urgency=medium
   * Merge branch 'master' of github.com:VitexSoftware/ease-core
   * 
   * Apigen is to hungry to generate doc package every time
+  * Unit tests pass again
 
- -- CyberVitexus <vitex@exiv.jinonice.czf>  Thu, 27 Aug 2020 13:36:31 +0200
+ -- CyberVitexus <vitex@exiv.jinonice.czf>  Mon, 12 Oct 2020 00:48:33 +0200
 
 php-vitexsoftware-ease-core (0.12) UNRELEASED; urgency=medium
 
