@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Třída pro logování.
+ * File Logging class.
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2019 Vitex@hippy.cz (G)
+ * @copyright 2009-2020 Vitex@hippy.cz (G)
  */
 
 namespace Ease\Logger;
@@ -94,7 +94,11 @@ class ToFile extends ToMemory implements Loggingable {
 
         $baseLogDir = is_null($baseLogDir) ? ( is_null($this->logPrefix) && defined('LOG_DIRECTORY') ? constant('LOG_DIRECTORY') : null ) : $baseLogDir;
 
-        if (!empty($baseLogDir)) {
+        if (empty($baseLogDir)) {
+            $this->logType = 'none';
+            $this->logPrefix = null;
+            $this->logFileName = null;
+        } else {
             $this->logPrefix = \Ease\Functions::sysFilename($baseLogDir);
             if ($this->testDirectory($this->logPrefix)) {
                 $this->logFileName = $this->logPrefix . $this->logFileName;
@@ -102,10 +106,6 @@ class ToFile extends ToMemory implements Loggingable {
                 $this->logPrefix = null;
                 $this->logFileName = null;
             }
-        } else {
-            $this->logType = 'none';
-            $this->logPrefix = null;
-            $this->logFileName = null;
         }
     }
 
@@ -116,15 +116,16 @@ class ToFile extends ToMemory implements Loggingable {
      * @param string $message zpráva
      * @param string $type    typ zprávy (success|info|error|warning|*)
      *
-     * @return null|boolean byl report zapsán ?
+     * @return int bytes written
      */
     public function addToLog($caller, $message, $type = 'notice') {
         ++$this->messageID;
+        $written = 0;
         $this->statusMessages[$type][$this->messageID] = $message;
 
         $message = htmlspecialchars_decode(strip_tags(stripslashes($message)));
 
-        $logLine = date(DATE_ATOM) . ' (' . $caller . ') ' . str_replace(
+        $logLine = date(DATE_ATOM) . ' (' . is_object($caller) ? get_class($caller) : $caller . ') ' . str_replace(
                         ['notice', 'message',
                             'debug', 'error', 'warning', 'success', 'info', 'mail',],
                         ['**', '##', '@@', '::'], $type
@@ -136,13 +137,13 @@ class ToFile extends ToMemory implements Loggingable {
                         $this->_logFileHandle = fopen($this->logFileName, 'a+');
                     }
                     if ($this->_logFileHandle !== null) {
-                        fwrite($this->_logFileHandle, $logLine);
+                        $written += fwrite($this->_logFileHandle, $logLine);
                     }
                 }
             }
         }
 
-        return true;
+        return $written;
     }
 
     /**
@@ -179,19 +180,5 @@ class ToFile extends ToMemory implements Loggingable {
         }
     }
 
-    /**
-     * Vrací styl logování.
-     *
-     * @param string $logType typ logu warning|info|success|error|notice|*
-     *
-     * @return string
-     */
-    public function getLogStyle($logType = 'notice') {
-        if (key_exists($logType, $this->logStyles)) {
-            return $this->logStyles[$logType];
-        } else {
-            return '';
-        }
-    }
 
 }

@@ -14,7 +14,7 @@ use Ease\Functions;
 /**
  * Common shared object
  *
- * @copyright 2009-2016 Vitex@hippy.cz (G)
+ * @copyright 2009-2020 Vitex@hippy.cz (G)
  * @author    Vitex <vitex@hippy.cz>
  */
 class Shared extends Atom {
@@ -60,14 +60,14 @@ class Shared extends Atom {
      * Inicializace sdílené třídy.
      */
     public function __construct() {
-        $webMessages = [];
+        $sessMsgs = [];
         $appName = self::appName();
         if (isset($_SESSION[$appName]['EaseMessages'])) {
-            $webMessages = $_SESSION[$appName]['EaseMessages'];
+            $sessMsgs = $_SESSION[$appName]['EaseMessages'];
             unset($_SESSION[$appName]['EaseMessages']);
         }
 
-        $this->statusMessages = array_merge(self::loadStatusMessages(), $webMessages);
+        $this->statusMessages = array_merge(self::loadStatusMessages(), $sessMsgs);
     }
 
     public static function msgFile($sessID = 'EaseStatusMessages') {

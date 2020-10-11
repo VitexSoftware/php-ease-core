@@ -56,7 +56,7 @@ class ToStd extends ToMemory implements Loggingable {
      * @param string $logName symbolic name for log
      */
     public function __construct($logName = null) {
-        $this->logName = $logName;
+        $this->logName = empty($logName) ? \Ease\Shared::appName() : $logName;
     }
 
     /**
@@ -120,20 +120,24 @@ class ToStd extends ToMemory implements Loggingable {
      *
      * @param string $type    message type 'error' or anything else
      * @param string $logLine message to output
+     * 
+     * @return int bytes written
      */
     public function output($type, $logLine) {
+        $written = 0;
         switch ($type) {
             case 'error':
                 $stderr = fopen('php://stderr', 'w');
-                fwrite($stderr, $this->logName . ': ' . $logLine);
+                $written += fwrite($stderr, $this->logName . ': ' . $logLine);
                 fclose($stderr);
                 break;
             default:
                 $stdout = fopen('php://stdout', 'w');
-                fwrite($stdout, $this->logName . ': ' . $logLine);
+                $written += fwrite($stdout, $this->logName . ': ' . $logLine);
                 fclose($stdout);
                 break;
         }
+        return $written;
     }
 
     /**
@@ -145,30 +149,6 @@ class ToStd extends ToMemory implements Loggingable {
      */
     public function finalizeMessage($messageRaw) {
         return trim($messageRaw) . PHP_EOL;
-    }
-
-    /**
-     * Flush Messages.
-     *
-     * @param string $caller
-     *
-     * @return int how many messages was flushed
-     */
-    public function flush($caller = null) {
-        $flushed = 0;
-        if (count($this->statusMessages)) {
-            foreach ($this->statusMessages as $type => $messages) {
-                foreach ($messages as $messageID => $message) {
-                    if (!isset($this->flushed[$type][$messageID])) {
-                        $this->addToLog($caller, $message, $type);
-                        $this->flushed[$type][$messageID] = true;
-                        ++$flushed;
-                    }
-                }
-            }
-        }
-
-        return $flushed;
     }
 
 }

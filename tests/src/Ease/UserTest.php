@@ -67,7 +67,7 @@ class UserTest extends AnonymTest {
      * @covers Ease\User::draw
      */
     public function testDraw($whatWant = null) {
-        $this->assertEquals('', $this->object->draw());
+        $this->assertEquals('<img class="avatar" src="">', $this->object->draw());
     }
 
     /**
@@ -166,21 +166,24 @@ class UserTest extends AnonymTest {
      * @covers Ease\User::getSettingValue
      */
     public function testGetSettingValue() {
-        $this->assertEquals('test', $this->object->getSettingValue('test'));
+        $this->object->setSettingValue('test', 'tested');
+        $this->assertEquals('tested', $this->object->getSettingValue('test'));
     }
 
     /**
      * @covers Ease\User::setSettings
      */
     public function testSetSettings() {
-        $this->assertTrue($this->object->setSettings(['key' => 'value']));
+        $this->object->setSettings(['key' => 'value']);
+        $this->assertEquals('value', $this->object->getSettingValue('key'));
     }
 
     /**
      * @covers Ease\User::setSettingValue
      */
     public function testSetSettingValue() {
-        $this->assertTrue($this->object->setSettingValue('test', 'tested'));
+        $this->object->setSettingValue('test', 'tested');
+        $this->assertEquals('tested', $this->object->getSettingValue('test'));
     }
 
     /**
@@ -197,29 +200,6 @@ class UserTest extends AnonymTest {
         $this->assertEquals('Ease\User:@127.0.0.1 [tester]', $this->object->getName());
     }
 
-    /**
-     * @covers Ease\User::saveToSQL
-     *
-     * @todo   Implement testSaveToSQL().
-     */
-    public function testSaveToSQL() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Ease\User::loadFromSQL
-     *
-     * @todo   Implement testLoadFromSQL().
-     */
-    public function testLoadFromSQL() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
-    }
 
     /**
      * @covers Ease\User::getGravatar
@@ -232,7 +212,7 @@ class UserTest extends AnonymTest {
      * @covers Ease\User::setObjectName
      */
     public function testSetObjectName() {
-        $this->assertEquals('', $this->object->setObjectName());
+        $this->assertEquals('Ease\User:@127.0.0.1 [tester]', $this->object->setObjectName());
     }
 
 }

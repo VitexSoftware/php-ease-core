@@ -77,8 +77,8 @@ class ToConsole extends ToMemory implements Loggingable {
     /**
      * Set Ansi Color
      * 
-     * @param string $str
-     * @param string $color
+     * @param string $str   string to colorize
+     * @param string $color color name
      * 
      * @return string
      */
@@ -99,29 +99,30 @@ class ToConsole extends ToMemory implements Loggingable {
      * @param string $message zpráva
      * @param string $type    typ zprávy (success|info|error|warning|*)
      *
-     * @return boolean|null byl report zapsán ?
+     * @return int written message length
      */
     public function addToLog($caller, $message, $type = 'message') {
-        $message = $this->set(
+        $ansiMessage = $this->set(
                 ' ' . Message::getTypeUnicodeSymbol($type) . ' ' . strip_tags($message),
                 self::getTypeColor($type)
         );
-        $logLine = strftime("%D %T") . ' `' . (is_object($caller) ? get_class($caller) : $caller) . '` ' . $message;
-
+        $logLine = strftime("%D %T") . ' •' . (is_object($caller) ? get_class($caller) : $caller) . '‣ ' . $ansiMessage;
+        $written = 0;
         switch ($type) {
             case 'error':
-                fputs($this->stderr, $logLine . "\n");
+                $written += fputs($this->stderr, $logLine . "\n");
                 break;
             default:
-                fputs($this->stdout, $logLine . "\n");
+                $written += fputs($this->stdout, $logLine . "\n");
                 break;
         }
+        return $written;
     }
 
     /**
      * Get color code for given message 
      * 
-     * @param string $type
+     * @param string $type  mail|warning|error|debug|success
      */
     public static function getTypeColor($type) {
         switch ($type) {

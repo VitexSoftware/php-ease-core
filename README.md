@@ -77,11 +77,15 @@ To get Docker image:
 Framework Constants
 ===================
 
-  * EASE_APPNAME  - common name of application. Mainly used in logs.
+  * EASE_APPNAME  - common name of application. Mainly used in logs. (APP_NAME is also recoginsed)
   * EASE_LOGGER   - one of memory,console,file,syslog,email,std,eventlog or combination eg. "console|syslog"
   * EASE_EMAILTO  - recipient email address for Ease/Logger/ToMail
   * EASE_SMTP     - Custom SMTP Settings (JSON Encoded) 
   * LOG_DIRECTORY - destination for ToFile logger
+  * LOG_OPTION    - syslog option argument
+  * LOG_FACILITY  - syslog facility argument
+
+
   
 Logging
 -------

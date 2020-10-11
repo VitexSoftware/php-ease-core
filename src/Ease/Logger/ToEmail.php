@@ -116,10 +116,10 @@ class ToEmail extends ToMemory implements Loggingable {
     public static function singleton() {
         if (!isset(self::$_instance)) {
             $class = __CLASS__;
-            if (defined('EASE_APPNAME')) {
+            if (\Ease\Shared::appName()) {
                 self::$_instance = new $class(
-                        constant('EASE_EMAILTO'),
-                        constant('EASE_APPNAME')
+                \Ease\Functions::cfg('EASE_EMAILTO'),
+                        \Ease\Shared::appName()
                 );
             } else {
                 self::$_instance = new $class('EaseFramework');
@@ -150,7 +150,7 @@ class ToEmail extends ToMemory implements Loggingable {
 
         $this->statusMessages[$type][$this->messageID] = $message;
 
-        $logLine = strftime("%D %T") . ' `' . $caller . '`: ' . $message;
+        $logLine = strftime("%D %T") . ' `' . is_object($caller) ? get_class($caller) : $caller . '`: ' . $message;
 
         $this->mailer->textBody .= "\n" . $logLine;
         return true;
@@ -163,30 +163,6 @@ class ToEmail extends ToMemory implements Loggingable {
         if (strlen($this->mailer->mailBody) > 0) {
             $this->mailer->send();
         }
-    }
-
-    /**
-     * Flush Messages.
-     *
-     * @param string $caller
-     *
-     * @return int how many messages was flushed
-     */
-    public function flush($caller = null) {
-        $flushed = 0;
-        if (count($this->statusMessages)) {
-            foreach ($this->statusMessages as $type => $messages) {
-                foreach ($messages as $messageID => $message) {
-                    if (!isset($this->flushed[$type][$messageID])) {
-                        $this->addToLog($caller, $message, $type);
-                        $this->flushed[$type][$messageID] = true;
-                        ++$flushed;
-                    }
-                }
-            }
-        }
-
-        return $flushed;
     }
 
 }

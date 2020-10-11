@@ -19,7 +19,7 @@ class RegentTest extends \Test\Ease\AtomTest {
      * This method is called before a test is executed.
      */
     protected function setUp(): void {
-        $this->object = new Regent();
+        $this->object = new Regent([]);
     }
 
     /**
@@ -30,6 +30,9 @@ class RegentTest extends \Test\Ease\AtomTest {
         
     }
 
+    /**
+     * @covers Ease\Logger\Regent::__construct
+     */
     public function testConstructor() {
         $classname = get_class($this->object);
 
@@ -47,7 +50,7 @@ class RegentTest extends \Test\Ease\AtomTest {
         $mock->__construct('\Ease\Logger\ToFile');
 
         $this->assertEquals(['memory', 'syslog', 'console', 'file', 'std', 'email', 'eventlog', '\Ease\Logger\ToFile'],
-                array_keys($mock->loggers));
+        array_keys($mock->loggers));
     }
 
     /**
@@ -74,7 +77,7 @@ class RegentTest extends \Test\Ease\AtomTest {
     public function testAddStatusObject() {
         $this->object->cleanMessages();
         $message = 'Regent::addStatusObject Unit Test';
-        $this->object->addStatusObject(new \Ease\Logger\Message($message),'info');
+        $this->object->addStatusObject(new \Ease\Logger\Message($message), 'info');
         $this->assertEquals(1, count($this->object->getMessages()));
     }
 

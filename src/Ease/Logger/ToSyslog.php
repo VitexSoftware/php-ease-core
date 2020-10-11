@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Třída pro logování.
+ * Syslog logger handler
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2019 Vitex@hippy.cz (G)
+ * @copyright 2009-2020 Vitex@hippy.cz (G)
  */
 
 namespace Ease\Logger;
@@ -35,9 +35,7 @@ class ToSyslog extends ToStd implements Loggingable {
      * @param string $logName syslog log source identifier
      */
     public function __construct($logName = null) {
-        if (!empty($logName)) {
-            openlog($logName, constant('LOG_NDELAY'), constant('LOG_USER'));
-        }
+            openlog( empty($logName) ? \Ease\Shared::appName() :  $logName  , \Ease\Functions::cfg('LOG_OPTION'), \Ease\Functions::cfg('LOG_FACILITY'));
     }
 
     /**
