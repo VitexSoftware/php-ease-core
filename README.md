@@ -1,4 +1,4 @@
-![EasePHP Framework Logo](https://raw.githubusercontent.com/VitexSoftware/ease-core/master/project-logo.png "Project Logo")
+![EasePHP Framework Logo](ease-core-social-preview.png?raw=true "Project Logo")
 
 EasePHP Framework Core
 ======================
