@@ -41,12 +41,15 @@ Linux
 
 For Debian, Ubuntu & friends please use repo:
 
-``
-    wget -O - http://v.s.cz/info@vitexsoftware.cz.gpg.key|sudo apt-key add -
-    echo deb http://v.s.cz/ stable main | sudo tee /etc/apt/sources.list.d/vitexsoftware.list 
-    sudo apt update
-    sudo apt install ease-core
-``
+```shell
+sudo apt install lsb-release wget
+echo "deb http://repo.vitexsoftware.cz $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/vitexsoftware.list
+sudo wget -O /etc/apt/trusted.gpg.d/vitexsoftware.gpg http://repo.vitexsoftware.cz/keyring.gpg
+sudo apt update
+sudo apt install php-vitexsoftware-ease-core 
+````
+
+You can also install optional packages **php-vitexsoftware-ease-core-dev** and **php-vitexsoftware-ease-core-doc**
 
 In this case please add this to your app composer.json:
 
