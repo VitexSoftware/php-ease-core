@@ -1,19 +1,11 @@
 Source: php-vitexsoftware-ease-core
-Build-Depends: debhelper (>= 10), moreutils, jq, composer, php-apigen
+Build-Depends: debhelper (>= 10), moreutils, jq, composer, phpdocumentor
 Section: web
 Standards-Version: 3.9.8
 Maintainer: Vítězslav Dvořák <info@vitexsoftware.cz>
 Uploaders: Vitex <vitex@hippy.cz>
 Priority: optional
 Homepage: https://github.com/VitexSoftware/php-ease-core
-
-Package: php-ease-core
-Depends: ${misc:Depends}, php-vitexsoftware-ease-core
-Architecture: all
-Section: web
-Priority: optional
-Description: Ease Core compatibility package
- Backwards compatibility package for vitexsoftware/ease-core library.
 
 Package: php-vitexsoftware-ease-core
 Depends: ${misc:Depends}, php-mail, php-mail-mime, composer-global-update
@@ -35,13 +27,13 @@ Priority: optional
 Description: EasePHP Framework Unit Tests
  Ease Framework Core unit Test classes.
 
-#Package: php-vitexsoftware-ease-core-doc
-#Depends: ${misc:Depends}
-#Architecture: all
-#Replaces: php-ease-core-doc
-#Suggests: www-browser
-#Section: doc
-#Priority: optional
-#Description: EasePHP Framework Documentation
-# Ease Framework core apigen documentation.
+Package: php-vitexsoftware-ease-core-doc
+Depends: ${misc:Depends}
+Architecture: all
+Replaces: php-ease-core-doc
+Suggests: www-browser
+Section: doc
+Priority: optional
+Description: EasePHP Framework Documentation
+ Ease Framework core apigen documentation.
 

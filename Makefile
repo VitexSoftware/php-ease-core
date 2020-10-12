@@ -30,12 +30,20 @@ test: ## run unit tests
 #build: doc
 #	echo build;	
 
+doc:	phpdoc
+
 clean: ## remove unneeded files
 	rm -rf vendor composer.lock
 	rm -rf debian/php-vitexsoftware-ease-core
 	rm -rf debian/php-vitexsoftware-ease-core-doc
 	rm -rf debian/*.log debian/tmp
 	rm -rf docs/*
+
+phpdoc: clean
+	phpdoc
+	mv .phpdoc/build/* docs
+
+
 
 apigen: ## Build Apigen documentation
 	rm -rfv docs ; mkdir docs

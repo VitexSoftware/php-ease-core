@@ -23,8 +23,10 @@ php-vitexsoftware-ease-core (1.7) UNRELEASED; urgency=medium
   * 
   * Apigen is to hungry to generate doc package every time
   * Unit tests pass again
+  * Release v1.7
+  * Release v1.7
 
- -- CyberVitexus <vitex@exiv.jinonice.czf>  Mon, 12 Oct 2020 00:48:33 +0200
+ -- CyberVitexus <vitex@exiv.jinonice.czf>  Mon, 12 Oct 2020 13:36:14 +0200
 
 php-vitexsoftware-ease-core (0.12) UNRELEASED; urgency=medium
 

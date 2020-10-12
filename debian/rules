@@ -7,7 +7,9 @@ BUILD_DIR:=build
 	dh $@
 
 override_dh_prep:
-	echo composer update
+	phpdoc -d src
+	mv .phpdoc/build/* docs
+
 	echo disabled apigen generate --destination=docs -- src
 	dh_prep
 
@@ -15,7 +17,7 @@ override_dh_auto_test:
 	echo tests temporarly skipped for now in rules file
 
 override_dh_install:
-	jq '.address = "'`dpkg-parsechangelog | sed -n 's/^Version: //p'`'"' debian/composer.json |sponge debian/composer.json
+	jq '.version = "'`dpkg-parsechangelog | sed -n 's/^Version: //p'`'"' debian/composer.json |sponge debian/composer.json
 	dh_install
 	./debian/fixversion.sh
 	echo "require_once 'Mail.php';"  >> debian/php-vitexsoftware-ease-core/usr/share/php/EaseCore/Mailer.php

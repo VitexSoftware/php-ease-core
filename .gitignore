@@ -31,3 +31,4 @@ composer.lock
 /debian/php-vitexsoftware-ease-core-dev.substvars
 /debian/php-vitexsoftware-ease-core.debhelper.log
 /debian/php-vitexsoftware-ease-core.substvars
+.phpdoc
