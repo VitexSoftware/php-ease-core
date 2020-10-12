@@ -133,4 +133,5 @@ Homepage: https://www.vitexsoftware.cz/ease.php
 
 GitHub: https://github.com/VitexSoftware/ease-core
 
-Apigen Docs: https://www.vitexsoftware.cz/ease-core/
+phpDocumentor: http://vitexsoftware.cz/php-ease-core/
+

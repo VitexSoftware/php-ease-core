@@ -9,8 +9,6 @@ BUILD_DIR:=build
 override_dh_prep:
 	phpdoc -d src
 	mv .phpdoc/build/* docs
-
-	echo disabled apigen generate --destination=docs -- src
 	dh_prep
 
 override_dh_auto_test:

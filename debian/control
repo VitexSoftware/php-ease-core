@@ -35,5 +35,5 @@ Suggests: www-browser
 Section: doc
 Priority: optional
 Description: EasePHP Framework Documentation
- Ease Framework core apigen documentation.
+ Ease Framework core documentation generate phpDocumentor
 
