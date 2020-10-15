@@ -97,6 +97,8 @@ class SharedTest extends AtomTest {
      * @covers Ease\Shared::loadConfig
      */
     public function testLoadConfig() {
+        $this->object->loadConfig('tests/.ENV', true);
+        $this->assertEquals(['KEY' => 'VALUE','FOO' => 'BAR','debug' => 'true','test'=>true], $this->object->configuration);
         $this->object->loadConfig('tests/configtest.json', true);
         $this->assertArrayHasKey('opt', $this->object->configuration);
         $this->assertTrue(defined('KEY'));
@@ -104,6 +106,8 @@ class SharedTest extends AtomTest {
         $this->object->loadConfig('unexistent.json');
         $this->assertEquals('optvalue', $this->object->getConfigValue('opt'));
         $this->assertEquals('keyvalue', $this->object->getConfigValue('KEY'));
+        $this->expectException('Exception');
+        $this->object->loadConfig('tests/Bootstrap.php', true);
     }
 
     /**

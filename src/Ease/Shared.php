@@ -197,7 +197,24 @@ class Shared extends Atom {
                     'Config file ' . (realpath($configFile) ? realpath($configFile) : $configFile) . ' does not exist'
             );
         }
-        $configuration = json_decode(file_get_contents($configFile), true);
+
+        switch (pathinfo($configFile, PATHINFO_EXTENSION)) {
+            case 'json':
+                $configuration = json_decode(file_get_contents($configFile), true);
+                break;
+            case 'ENV':
+                foreach (file($configFile) as $cfgRow) {
+                    if (strchr($cfgRow, '=')) {
+                        list($key, $value) = explode('=', trim($cfgRow));
+                        $configuration[$key] = $value;
+                    }
+                }
+                break;
+            default:
+                throw new Exception('unsupported config type: ' . $configFile);
+                break;
+        }
+
         foreach ($configuration as $configKey => $configValue) {
             if ($defineConstants && (strtoupper($configKey) == $configKey) && (!defined($configKey))) {
                 define($configKey, $configValue);
