@@ -25,8 +25,9 @@ php-vitexsoftware-ease-core (1.7) UNRELEASED; urgency=medium
   * Unit tests pass again
   * Release v1.7
   * Release v1.7
+  * added Ability to load simple .env files
 
- -- CyberVitexus <vitex@exiv.jinonice.czf>  Mon, 12 Oct 2020 13:36:14 +0200
+ -- CyberVitexus <vitex@exiv.jinonice.czf>  Sat, 24 Oct 2020 20:19:12 +0200
 
 php-vitexsoftware-ease-core (0.12) UNRELEASED; urgency=medium
 
