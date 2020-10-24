@@ -125,7 +125,7 @@ class ToFile extends ToMemory implements Loggingable {
 
         $message = htmlspecialchars_decode(strip_tags(stripslashes($message)));
 
-        $logLine = date(DATE_ATOM) . ' (' . is_object($caller) ? get_class($caller) : $caller . ') ' . str_replace(
+        $logLine = date(DATE_ATOM) . ' (' . (is_object($caller) ? get_class($caller) : $caller) . ') ' . str_replace(
                         ['notice', 'message',
                             'debug', 'error', 'warning', 'success', 'info', 'mail',],
                         ['**', '##', '@@', '::'], $type

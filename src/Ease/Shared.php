@@ -198,15 +198,15 @@ class Shared extends Atom {
             );
         }
 
-        switch (pathinfo($configFile, PATHINFO_EXTENSION)) {
+        switch (strtolower(pathinfo($configFile, PATHINFO_EXTENSION))) {
             case 'json':
                 $configuration = json_decode(file_get_contents($configFile), true);
                 break;
-            case 'ENV':
+            case 'env':
                 foreach (file($configFile) as $cfgRow) {
                     if (strchr($cfgRow, '=')) {
-                        list($key, $value) = explode('=', trim($cfgRow));
-                        $configuration[$key] = $value;
+                        list($key, $value) = explode('=', $cfgRow);
+                        $configuration[$key] = trim($value, " \t\n\r\0\x0B'\"");
                     }
                 }
                 break;

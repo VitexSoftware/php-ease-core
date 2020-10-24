@@ -64,7 +64,7 @@ class Molecule extends Atom {
         } elseif (array_key_exists($constant, $options)) {
             $this->$name = $options[$constant];
         } else { // If No values specified we must use constants or environment
-            if (empty(\Ease\Functions::cfg($constant) === false)) {
+            if (empty(\Ease\Functions::cfg($constant)) === false) {
                 $this->$name = \Ease\Functions::cfg($constant);
             }
         }
