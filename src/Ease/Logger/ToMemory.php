@@ -4,7 +4,7 @@
  * Class to Log messages.
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2019 Vitex@hippy.cz (G)
+ * @copyright 2009-2020 Vitex@hippy.cz (G)
  */
 
 namespace Ease\Logger;

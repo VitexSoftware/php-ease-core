@@ -3,7 +3,7 @@
  * Zaváděcí soubor pro provádění PHPUnit testů na EaseFrameworkem.
  *
  * @author     Vitex <vitex@hippy.cz>
- * @copyright  2012-2019 Vitex@hippy.cz (G)
+ * @copyright  2012-2020 Vitex@hippy.cz (G)
  */
 
 namespace Test\Ease;

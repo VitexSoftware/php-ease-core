@@ -51,10 +51,10 @@ class Message {
     /**
      * Basic Message class
      * 
-     * @param string     $message text
-     * @param string     $type    One of info|notice|debug|error
-     * @param \Ease\Atom $caller  Origin of message
-     * @param int        $when    Timestamp
+     * @param string            $message text
+     * @param string            $type    One of info|notice|debug|error
+     * @param \Ease\Atom|string $caller  Origin of message
+     * @param int               $when    Timestamp
      */
     public function __construct($message, $type = 'info', $caller = null,
             $when = null

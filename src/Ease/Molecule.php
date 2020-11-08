@@ -4,7 +4,7 @@
  * Something between Atom and Sand
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2019 Vitex@hippy.cz (G)
+ * @copyright 2009-2020 Vitex@hippy.cz (G)
  * 
  * PHP 7
  */

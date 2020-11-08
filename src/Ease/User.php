@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Objekty uživatelů.
+ * User objects
  *
  * @author    Vítězslav Dvořák <vitex@hippy.cz>
  * @copyright 2009-2020 Vitex@hippy.cz (G)
@@ -12,7 +12,7 @@
 namespace Ease;
 
 /**
- * Třída uživatele.
+ * User Class
  *
  * @author  Vítězslav Dvořák <vitex@hippy.cz>
  */

@@ -23,7 +23,7 @@ trait Logging {
     /**
      * Objekt pro logování.
      *
-     * @var Logger\Regent
+     * @var Regent
      */
     public $logger = null;
 
@@ -53,7 +53,7 @@ trait Logging {
     /**
      * Erase all status messages
      * 
-     * @return type
+     * @return boolean
      */
     public function cleanSatatusMessages() {
         return $this->getLogger()->cleanMessages();

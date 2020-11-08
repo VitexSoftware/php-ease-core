@@ -106,20 +106,20 @@ class Functions {
                             $protocol = $match[1];
                         $link = $match[2] ?: $match[3];
                         return '<' . array_push($links,
-                                        "<a $attr href=\"$protocol://$link\">$link</a>") . '>';
+                                "<a $attr href=\"$protocol://$link\">$link</a>") . '>';
                     }, $value);
                     break;
                 case 'mail': $value = preg_replace_callback('~([^\s<]+?@[^\s<]+?\.[^\s<]+)(?<![\.,:])~',
                             function ($match) use (&$links, $attr) {
                         return '<' . array_push($links,
-                                        "<a $attr href=\"mailto:{$match[1]}\">{$match[1]}</a>") . '>';
+                                "<a $attr href=\"mailto:{$match[1]}\">{$match[1]}</a>") . '>';
                     }, $value);
                     break;
                 default: $value = preg_replace_callback('~' . preg_quote($protocol,
                                     '~') . '://([^\s<]+?)(?<![\.,:])~i',
                             function ($match) use ($protocol, &$links, $attr) {
                         return '<' . array_push($links,
-                                        "<a $attr href=\"$protocol://{$match[1]}\">{$match[1]}</a>") . '>';
+                                "<a $attr href=\"$protocol://{$match[1]}\">{$match[1]}</a>") . '>';
                     }, $value);
                     break;
             }
@@ -328,20 +328,19 @@ class Functions {
     }
 
     /**
-     * Rekurzivně překóduje pole.
+     * Array content recusrsive recode
      *
-     * @param string $in_charset
-     * @param string $out_charset
-     * @param array  $arr         originální pole
+     * @param string        $in_charset
+     * @param string        $out_charset
+     * @param array|string  $arr         original array
      *
-     * @return array překódované pole
+     * @return array array recoded
      */
-    public static function recursiveIconv($in_charset, $out_charset, $arr) {
+    public static function recursiveIconv(string $in_charset, string $out_charset, $arr) {
         if (!is_array($arr)) {
             return \iconv($in_charset, $out_charset, $arr);
         }
         $ret = $arr;
-
         array_walk_recursive($ret, '\Ease\Functions::arrayIconv',
                 [$in_charset, $out_charset, $arr]);
 
@@ -398,7 +397,7 @@ class Functions {
                 $reindexedData[$dataRow[$indexBy]] = $dataRow;
             } else {
                 throw new \Exception(sprintf('Data row does not contain column %s for reindexing',
-                                $indexBy));
+                                        $indexBy));
             }
         }
 
@@ -422,11 +421,7 @@ class Functions {
      *
      * @return boolean
      */
-    public static function isSerialized($data) {
-        // if it isn't a string, it isn't serialized
-        if (!is_string($data)) {
-            return false;
-        }
+    public static function isSerialized(string $data) {
         $data = trim($data);
         if ('N;' == $data) {
             return true;
@@ -468,11 +463,11 @@ class Functions {
     /**
      * Human readable bytes repersentation
      * 
-     * @param int|long $bytes
+     * @param int|double $bytes
      * 
      * @return string
      */
-    static function formatBytes($bytes) {
+    public static function formatBytes($bytes) {
         $bytes = doubleval($bytes);
 
         if ($bytes < 1024) {
