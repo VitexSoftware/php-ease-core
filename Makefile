@@ -40,7 +40,8 @@ clean: ## remove unneeded files
 	rm -rf docs/*
 
 phpdoc: clean
-	phpdoc
+	mkdir -p docs
+	phpdoc --defaultpackagename=MainPackage
 	mv .phpdoc/build/* docs
 
 
