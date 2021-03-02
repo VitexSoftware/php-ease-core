@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
+
 /**
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2020 Vitex@hippy.cz (G)
+ * @copyright 2009-2021 Vitex@hippy.cz (G)
  * 
  * PHP 7
  */
@@ -14,7 +17,7 @@ use Ease\Functions;
 /**
  * Common shared object
  *
- * @copyright 2009-2020 Vitex@hippy.cz (G)
+ * @copyright 2009-2021 Vitex@hippy.cz (G)
  * @author    Vitex <vitex@hippy.cz>
  */
 class Shared extends Atom {

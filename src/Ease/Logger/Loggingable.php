@@ -1,12 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
+
 /**
  * Loggingable interface
  * 
  * @category Logging
  * 
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2019-2020 Vitex@hippy.cz (G)
+ * @copyright 2019-2021 Vitex@hippy.cz (G)
  * @license   https://opensource.org/licenses/MIT MIT
  * 
  * PHP 7

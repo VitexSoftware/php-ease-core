@@ -1,4 +1,4 @@
-php-vitexsoftware-ease-core (1.9) UNRELEASED; urgency=medium
+php-vitexsoftware-ease-core (1.10) UNRELEASED; urgency=medium
 
   [ Vítězslav Dvořák ]
   * all unit tests pass
@@ -28,8 +28,9 @@ php-vitexsoftware-ease-core (1.9) UNRELEASED; urgency=medium
   * Release v1.7
   * Release v1.7
   * Release v1.7
+  * Merge branch 'main' of github.com:VitexSoftware/ease-core into main
 
- -- CyberVitexus <vitex@exiv.jinonice.czf>  Sun, 08 Nov 2020 04:56:28 +0100
+ -- CyberVitexus <vitex@exiv.jinonice.czf>  Sun, 20 Dec 2020 10:32:36 +0100
 
 php-vitexsoftware-ease-core (0.12) UNRELEASED; urgency=medium
 

@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 /**
  * Log to Windows Event Log.
  *
@@ -13,7 +16,7 @@ namespace Ease\Logger;
  * Log to EventLog.
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2020 Vitex@hippy.cz (G)
+ * @copyright 2009-2021 Vitex@hippy.cz (G)
  */
 class ToEventlog extends ToSyslog implements Loggingable {
 

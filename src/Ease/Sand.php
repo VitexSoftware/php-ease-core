@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+
 /**
  * Zakladni objekt urceny k rodicovstvi pokročilým objektum.
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2020 Vitex@hippy.cz (G)
+ * @copyright 2009-2021 Vitex@hippy.cz (G)
  * 
  * PHP 7
  */
@@ -118,7 +121,7 @@ class Sand extends Molecule {
      *
      * @return bool Success
      */
-    public function setDataValue($columnName, $value) {
+    public function setDataValue(string $columnName, $value) {
         $this->data[$columnName] = $value;
 
         return true;
@@ -131,7 +134,7 @@ class Sand extends Molecule {
      *
      * @return bool success
      */
-    public function unsetDataValue($columnName) {
+    public function unsetDataValue(string $columnName) {
         $result = false;
         if (is_array($this->data) && array_key_exists($columnName, $this->data)) {
             unset($this->data[$columnName]);

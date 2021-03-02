@@ -46,9 +46,6 @@ class RecordKeyTest extends \PHPUnit\Framework\TestCase
     {
         $this->object->setmyKey('test');
         $this->assertEquals('test', $this->object->getmyKey());
-
-        $this->object->setkeyColumn(null);
-        $this->assertNull($this->object->getmyKey());
     }
 
     /**

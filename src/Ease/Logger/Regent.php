@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+
 /**
  * Class to Rule message loggers.
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2016-2020 Vitex@hippy.cz (G)
+ * @copyright 2016-2021 Vitex@hippy.cz (G)
  */
 
 namespace Ease\Logger;

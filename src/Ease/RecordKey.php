@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Record Key methods
  *
@@ -41,7 +43,7 @@ trait RecordKey {
      *
      * @return bool Success
      */
-    public abstract function setDataValue($columnName, $value);
+    public abstract function setDataValue(string $columnName, $value);
 
     /**
      * Gives you value of KEY Column
@@ -80,7 +82,7 @@ trait RecordKey {
      *
      * @param string $keyColumn
      */
-    public function setkeyColumn($keyColumn) {
+    public function setKeyColumn(string $keyColumn) {
         $this->keyColumn = $keyColumn;
     }
 

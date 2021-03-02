@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Syslog logger handler
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2020 Vitex@hippy.cz (G)
+ * @copyright 2009-2021 Vitex@hippy.cz (G)
  */
 
 namespace Ease\Logger;
@@ -13,7 +15,7 @@ namespace Ease\Logger;
  * Log to syslog.
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2020 Vitex@hippy.cz (G)
+ * @copyright 2009-2021 Vitex@hippy.cz (G)
  */
 class ToSyslog extends ToStd implements Loggingable {
 
@@ -31,11 +33,13 @@ class ToSyslog extends ToStd implements Loggingable {
 
     /**
      * Logovací třída.
+     * 
+     * @see https://www.php.net/manual/en/function.openlog.php
      *
      * @param string $logName syslog log source identifier
      */
     public function __construct($logName = null) {
-            openlog( empty($logName) ? \Ease\Shared::appName() :  $logName  , \Ease\Functions::cfg('LOG_OPTION'), \Ease\Functions::cfg('LOG_FACILITY'));
+        openlog(empty($logName) ? \Ease\Shared::appName() : $logName, intval(\Ease\Functions::cfg('LOG_FLAG')), intval(\Ease\Functions::cfg('LOG_FACILITY')));
     }
 
     /**
@@ -60,7 +64,7 @@ class ToSyslog extends ToStd implements Loggingable {
         return syslog($type == 'error' ? constant('LOG_ERR') : constant('LOG_INFO'), $this->finalizeMessage($logLine));
     }
 
-   /**
+    /**
      * Last message check/modify point before output
      *
      * @param string $messageRaw
@@ -69,8 +73,8 @@ class ToSyslog extends ToStd implements Loggingable {
      */
     public function finalizeMessage($messageRaw) {
         return trim($messageRaw);
-    }    
-    
+    }
+
     /**
      * Uzavře chybové soubory.
      * 

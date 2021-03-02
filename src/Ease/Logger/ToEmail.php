@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+
 /**
  * Send logs by email
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2020 Vitex@hippy.cz (G)
+ * @copyright 2009-2021 Vitex@hippy.cz (G)
  */
 
 namespace Ease\Logger;
@@ -13,7 +16,7 @@ namespace Ease\Logger;
  * Log to Email
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2020 Vitex@hippy.cz (G)
+ * @copyright 2009-2021 Vitex@hippy.cz (G)
  */
 class ToEmail extends ToMemory implements Loggingable {
 
@@ -160,7 +163,7 @@ class ToEmail extends ToMemory implements Loggingable {
      * Send collected messages.
      */
     public function __destruct() {
-        if (strlen($this->mailer->mailBody) > 0) {
+        if (empty($this->mailer->mailBody) === false) {
             $this->mailer->send();
         }
     }

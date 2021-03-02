@@ -20,8 +20,7 @@ Description: EasePHP Framework Core
 Package: php-vitexsoftware-ease-core-dev
 Depends: ${misc:Depends}, php-mail, php-mail-mime, php-vitexsoftware-ease-core, default-mta
 Architecture: all
-Replaces: php-ease-core-dev
-Suggests: php-ease-html, php-ease-bootstrap, php-ease-bootstrap4
+Suggests: php-vitexsoftware-ease-html, php-vitexsoftware-ease-bootstrap, php-vitexsoftware-ease-bootstrap4
 Section: web
 Priority: optional
 Description: EasePHP Framework Unit Tests
@@ -30,7 +29,6 @@ Description: EasePHP Framework Unit Tests
 Package: php-vitexsoftware-ease-core-doc
 Depends: ${misc:Depends}
 Architecture: all
-Replaces: php-ease-core-doc
 Suggests: www-browser
 Section: doc
 Priority: optional

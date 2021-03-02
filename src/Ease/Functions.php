@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+
 /**
  * Misc functions holder 
  * 
@@ -85,7 +88,7 @@ class Functions {
         // Link attributes
         $attr = '';
         foreach ($attributes as $key => $val) {
-            $attr = ' ' . $key . '="' . htmlentities($val) . '"';
+            $attr = ' ' . strval($key) . '="' . htmlentities(strval($val)) . '"';
         }
 
         $links = array();
@@ -389,7 +392,7 @@ class Functions {
      *
      * @return array
      */
-    public static function reindexArrayBy($data, $indexBy = null) {
+    public static function reindexArrayBy(array $data, string $indexBy = null) {
         $reindexedData = [];
 
         foreach ($data as $dataRow) {

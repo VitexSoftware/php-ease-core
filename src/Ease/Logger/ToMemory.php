@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+
 /**
  * Class to Log messages.
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2020 Vitex@hippy.cz (G)
+ * @copyright 2009-2021 Vitex@hippy.cz (G)
  */
 
 namespace Ease\Logger;
