@@ -34,7 +34,7 @@ class ToEventlogTest extends ToSyslogTest
      */
     public function testFinalizeMessage()
     {
-        $this->assertEquals('�lu�ou�k� k��', $this->object->finalizeMessage('žluťoučký kůň'));
+        $this->assertEquals('?lu?ou?k? k??', $this->object->finalizeMessage('žluťoučký kůň'));
         
     }
     
