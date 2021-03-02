@@ -1,9 +1,11 @@
-php-vitexsoftware-ease-core (1.10) UNRELEASED; urgency=medium
+php-vitexsoftware-ease-core (1.11) UNRELEASED; urgency=medium
 
   [ Vítězslav Dvořák ]
   * all unit tests pass
   * Code Weihght loss
   * Create compat
+  * PHP8 Ready
+  * Strict types
 
 
   [ CyberVitexus ]
@@ -29,8 +31,12 @@ php-vitexsoftware-ease-core (1.10) UNRELEASED; urgency=medium
   * Release v1.7
   * Release v1.7
   * Merge branch 'main' of github.com:VitexSoftware/ease-core into main
+  * Strict types & PHP8 compatibility added
+  * 
+  * Strict types & PHP8 compatibility added
+  * Strict types & PHP8 compatibility added
 
- -- CyberVitexus <vitex@exiv.jinonice.czf>  Sun, 20 Dec 2020 10:32:36 +0100
+ -- CyberVitexus <vitex@exiv.jinonice.czf>  Tue, 02 Mar 2021 09:48:27 +0100
 
 php-vitexsoftware-ease-core (0.12) UNRELEASED; urgency=medium
 

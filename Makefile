@@ -1,4 +1,4 @@
-repoversion=$(shell LANG=C aptitude show php-ease-core | grep Version: | awk '{print $$2}')
+repoversion=$(shell LANG=C aptitude show php-vitexsoftware-ease-core | grep Version: | awk '{print $$2}')
 nextversion=$(shell echo $(repoversion) | perl -ne 'chomp; print join(".", splice(@{[split/\./,$$_]}, 0, -1), map {++$$_} pop @{[split/\./,$$_]}), "\n";')
 
 #DESTDIR ?= debian/php-ease-core/DEBIAN
