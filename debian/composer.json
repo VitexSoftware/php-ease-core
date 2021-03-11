@@ -1,7 +1,7 @@
 {
   "name": "deb/ease-core",
   "description": "An Core of PHP Framework for Ease of writing Applications (debianized)",
-  "version": "1.12",
+  "version": "1.13",
   "authors": [
     {
       "name": "Vítězslav Dvořák",

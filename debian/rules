@@ -20,4 +20,5 @@ override_dh_install:
 	./debian/fixversion.sh
 	echo "require_once 'Mail.php';"  >> debian/php-vitexsoftware-ease-core/usr/share/php/EaseCore/Mailer.php
 	echo "require_once 'Mail/mime.php';" >> debian/php-vitexsoftware-ease-core/usr/share/php/EaseCore/Mailer.php
-	sed -i -e 's/..\/vendor/\/var\/lib\/php-vitexsoftware-ease-core/g' 	     debian/php-vitexsoftware-ease-core-dev/usr/share/doc/php-vitexsoftware-ease-core-dev/SendTestMail.php
+	sed -i -e 's/..\/vendor/\/var\/lib\/php-vitexsoftware-ease-core/g' 	debian/php-vitexsoftware-ease-core-dev/usr/share/doc/php-vitexsoftware-ease-core-dev/SendTestMail.php
+	sed -i -e 's/..\/i18n/\/usr\/share\/locale/g'            	        debian/php-vitexsoftware-ease-core/usr/share/php/EaseCore/Locale.php
