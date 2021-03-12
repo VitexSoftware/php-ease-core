@@ -74,7 +74,8 @@ class Shared extends Atom {
     }
 
     public static function msgFile($sessID = 'EaseStatusMessages') {
-        return Functions::sysFilename(sys_get_temp_dir() . '/' . self::appName() . $sessID . posix_getuid() . '.ser');
+        $uid = (function_exists('posix_getuid') ?   posix_getuid() : ( function_exists('posix_getpwuid') ? posix_getpwuid() : '' ));
+        return Functions::sysFilename(sys_get_temp_dir() . '/' . self::appName() . $sessID . $uid . '.ser');
     }
 
     /**
