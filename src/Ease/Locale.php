@@ -504,7 +504,7 @@ class Locale {
         }
         if (is_null($textDomain)) {
             if (is_null(self::$textDomain)) {
-                $textDomain = strtolower(\Ease\Functions::cfg('EASE_APPNAME') . \Ease\Functions::cfg('APP_NAME'));
+                $textDomain = strtolower(\Ease\Shared::appName());
             } else {
                 $textDomain = self::$textDomain;
             }
