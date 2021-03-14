@@ -504,14 +504,12 @@ class Locale {
         }
         if (is_null($textDomain)) {
             if (is_null(self::$textDomain)) {
-                if (defined('EASE_APPNAME')) {
-                    $textDomain = strtolower(constant('EASE_APPNAME'));
-                }
+                $textDomain = strtolower(\Ease\Functions::cfg('EASE_APPNAME') . \Ease\Functions::cfg('APP_NAME'));
             } else {
                 $textDomain = self::$textDomain;
             }
         }
-        self::initializeGetText($textDomain, $setLocale, $i18n);
+        self::initializeGetText(is_null($textDomain) ? '' : $textDomain, $setLocale, $i18n);
     }
 
     /**
