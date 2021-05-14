@@ -49,7 +49,7 @@ class ToSyslog extends ToStd implements Loggingable {
      */
     public static function singleton() {
         if (!isset(self::$instance)) {
-            self::$instance = new self(defined('EASE_APPNAME') ? constant('EASE_APPNAME') : 'EaseFramework');
+            self::$instance = new self(\Ease\Shared::appName() ? \Ease\Shared::appName() : 'EaseFramework');
         }
         return self::$instance;
     }

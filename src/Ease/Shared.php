@@ -207,6 +207,7 @@ class Shared extends Atom {
                 $configuration = json_decode(file_get_contents($configFile), true);
                 break;
             case 'env':
+                $configuration = [];
                 foreach (file($configFile) as $cfgRow) {
                     if (strchr($cfgRow, '=')) {
                         list($key, $value) = explode('=', $cfgRow);

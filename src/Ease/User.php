@@ -235,7 +235,6 @@ class User extends Anonym {
         $this->addStatusMessage(sprintf(_('Signed in as %s'), $this->userLogin),
                 'success');
         $this->setObjectName();
-        \Ease\Shared::user($this);
         return true;
     }
 
@@ -457,8 +456,6 @@ class User extends Anonym {
         return ['logged', 'data'];
     }
 
-    public function __wakeup() {
-        return;
-    }
+  
 
 }
