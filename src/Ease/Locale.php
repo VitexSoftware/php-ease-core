@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 /**
  * Internationalization helpers
  *
@@ -683,7 +682,7 @@ class Locale {
      */
     public function get2Code() {
         $localeUsed = $this->getLocaleUsed();
-        return strstr($localeUsed, '_') ? current(explode('_', $localeUsed)) : $localeUsed;
+        return empty($localeUsed) ? 'en' : (strstr($localeUsed, '_') ? current(explode('_', $localeUsed)) : $localeUsed);
     }
 
     /**
