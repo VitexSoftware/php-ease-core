@@ -1,4 +1,4 @@
-php-vitexsoftware-ease-core (1.17) UNRELEASED; urgency=medium
+php-vitexsoftware-ease-core (1.19) UNRELEASED; urgency=medium
 
   [ Vítězslav Dvořák ]
   * all unit tests pass
@@ -37,8 +37,10 @@ php-vitexsoftware-ease-core (1.17) UNRELEASED; urgency=medium
   * Strict types & PHP8 compatibility added
   * Merge branch 'main' of github.com:VitexSoftware/ease-core into main
   * Try to pass Eventlog encoding test
+  * v17 release
+  * v17 release
 
- -- CyberVitexus <vitex@exiv.jinonice.czf>  Wed, 17 Mar 2021 22:29:47 +0100
+ -- CyberVitexus <vitex@exiv.jinonice.czf>  Sun, 06 Jun 2021 11:51:40 +0200
 
 php-vitexsoftware-ease-core (0.12) UNRELEASED; urgency=medium
 

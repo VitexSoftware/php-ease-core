@@ -44,7 +44,7 @@ class Locale {
      *
      * @var string 
      */
-    public static $textDomain = null;
+    public static $textDomain = '';
 
     /**
      * All Language Codes => languages
