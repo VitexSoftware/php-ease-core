@@ -13,12 +13,8 @@ pipeline {
             }
             steps {
                 dir('build/debian/package') {
-		    buildPackage()
                     checkout scm
-                    sh 'debuild -i -us -uc -b'
-                    sh 'ls -la ..'
-		    debianPbuilder
-                    sh 'mkdir -p $WORKSPACE/dist/debian/ ; mv ../*.deb ../*.changes ../*.build $WORKSPACE/dist/debian/'
+		    buildPackage()
                 }
                 stash includes: 'dist/**', name: 'dist-debian'
             }
@@ -75,4 +71,20 @@ def buildPackage() {
     ansiColor('vga') {
       echo '\033[42m\033[97mBuild debian package for $(lsb_release -sd)\033[0m'
     }
+
+    DISTRO = sh (
+	script: 'lsb_release -sd',
+        returnStdout: true
+    ).trim()
+
+	    debianPbuilder additionalBuildResults: '', 
+	    components: '', 
+	    distribution: $DISTRO, 
+	    keyring: '', 
+	    mirrorSite: 'http://deb.debian.org/debian/', 
+	    pristineTarName: ''
+
+    sh 'debuild -i -us -uc -b'
+    sh 'ls -la ..'
+    sh 'mkdir -p $WORKSPACE/dist/debian/ ; mv ../*.deb ../*.changes ../*.build $WORKSPACE/dist/debian/'
 }
