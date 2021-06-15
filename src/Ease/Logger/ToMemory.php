@@ -29,6 +29,12 @@ class ToMemory extends \Ease\Atom implements Loggingable {
     public $logPrefix = null;
 
     /**
+     * Messages live here
+     * @var array
+     */
+    public static $statusMessages = [];
+
+    /**
      * Hodnoty pro obarvování logu.
      *
      * @var array
@@ -91,7 +97,7 @@ class ToMemory extends \Ease\Atom implements Loggingable {
      */
     public function addToLog($caller, $message, $type = 'message') {
         ++$this->messageID;
-        $this->statusMessages[$type][$this->messageID] = $message;
+        self::$statusMessages[$type][$this->messageID] = $message;
         return true;
     }
 

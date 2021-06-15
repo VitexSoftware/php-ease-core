@@ -42,5 +42,16 @@ class ToEventlog extends ToSyslog implements Loggingable {
     public function finalizeMessage($messageRaw) {
         return iconv("UTF-8", "cp1251//TRANSLIT", $messageRaw);
     }
+    /**
+     * Obtain instance of Syslog loger
+     * 
+     * @return ToSyslog
+     */
+    public static function singleton() {
+        if (!isset(self::$instance)) {
+            self::$instance = new self(\Ease\Shared::appName() ? \Ease\Shared::appName() : 'EaseFramework');
+        }
+        return self::$instance;
+    }
 
 }

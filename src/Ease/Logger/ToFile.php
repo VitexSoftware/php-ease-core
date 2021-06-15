@@ -178,10 +178,9 @@ class ToFile extends ToMemory implements Loggingable {
      * Uzavře chybové soubory.
      */
     public function __destruct() {
-        if ($this->_logFileHandle) {
+        if ($this->_logFileHandle && is_resource($this->_logFileHandle)) {
             fclose($this->_logFileHandle);
         }
     }
-
 
 }

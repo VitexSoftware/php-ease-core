@@ -51,6 +51,12 @@ class Shared extends Atom {
     public static $userSessionName = 'User';
 
     /**
+     * Status messeges lives here
+     * @var array
+     */
+    public static $statusMessages = [];
+
+        /**
      * Application name or "EaseFramework" fallback
      * 
      * @return string
@@ -69,10 +75,16 @@ class Shared extends Atom {
             $sessMsgs = $_SESSION[$appName]['EaseMessages'];
             unset($_SESSION[$appName]['EaseMessages']);
         }
-
-        $this->statusMessages = array_merge(self::loadStatusMessages(), $sessMsgs);
+        self::$statusMessages = array_merge(self::loadStatusMessages(), $sessMsgs);
     }
 
+    /**
+     * File with stored messages
+     * 
+     * @param sring $sessID
+     * 
+     * @return string
+     */
     public static function msgFile($sessID = 'EaseStatusMessages') {
         $uid = (function_exists('posix_getuid') ?   posix_getuid() : ( function_exists('posix_getpwuid') ? posix_getpwuid() : '' ));
         return Functions::sysFilename(sys_get_temp_dir() . '/' . self::appName() . $sessID . $uid . '.ser');
@@ -202,7 +214,7 @@ class Shared extends Atom {
             );
         }
 
-        switch (strtolower(pathinfo($configFile, PATHINFO_EXTENSION))) {
+        switch (strtolower(pathinfo($configFile, constant('PATHINFO_EXTENSION') ))) {
             case 'json':
                 $configuration = json_decode(file_get_contents($configFile), true);
                 break;

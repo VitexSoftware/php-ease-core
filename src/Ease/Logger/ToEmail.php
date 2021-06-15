@@ -101,7 +101,7 @@ class ToEmail extends ToMemory implements Loggingable {
      * @param string $recipient
      * @param string $subject   of message
      */
-    public function __construct($recipient = null, $subject = null) {
+    public function __construct($recipient = '', $subject = null) {
         $this->recipient = $recipient;
         $this->subject = empty($subject) ? $_SERVER['PHP_SELF'] : $subject;
         $this->mailer = new \Ease\Mailer($this->recipient, $this->subject);

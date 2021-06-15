@@ -67,7 +67,7 @@ trait Logging {
      * 
      * @param string|array $options
      * 
-     * @return Logger\Regent
+     * @return Regent
      */
     public function getLogger($options = null) {
         if (is_null($this->logger)) {

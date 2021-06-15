@@ -81,6 +81,12 @@ class User extends Anonym {
      * @var string
      */
     public $settingsColumn = null;
+    
+    /**
+     * Store of user permissions
+     * @var array
+     */
+    public $permissions = [];
 
     /**
      * Objekt uživatele aplikace.
@@ -209,7 +215,7 @@ class User extends Anonym {
      * @return bool
      */
     public function isAccountEnabled() {
-        if (is_null($this->disableColumn)) {
+        if (empty($this->disableColumn)) {
             return true;
         }
         if ($this->getDataValue($this->disableColumn)) {

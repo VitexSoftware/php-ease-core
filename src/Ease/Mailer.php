@@ -204,14 +204,14 @@ class Mailer extends Sand {
     }
 
     /**
-     * Připojí k mailu přílohu ze souboru.
+     * Attach file to mail
      *
      * @param string $filename cesta/název souboru k přiložení
      * @param string $mimeType MIME typ přílohy
      * 
      * @return boolean|\PEAR_Error
      */
-    public function addFile($filename, $mimeType = 'text/plain') {
+    public function addFile(string $filename, $mimeType = 'text/plain') {
         return $this->mimer->addAttachment($filename, $mimeType);
     }
 

@@ -498,17 +498,17 @@ class Locale {
     public function __construct($setLocale = null, $i18n = '../i18n',
             $textDomain = null
     ) {
-        if (is_null($setLocale)) {
+        if (empty($setLocale)) {
             $setLocale = self::getPreferedLocale();
         }
-        if (is_null($textDomain)) {
-            if (is_null(self::$textDomain)) {
+        if (empty($textDomain)) {
+            if (empty(self::$textDomain)) {
                 $textDomain = strtolower(\Ease\Shared::appName());
             } else {
                 $textDomain = self::$textDomain;
             }
         }
-        self::initializeGetText(is_null($textDomain) ? '' : $textDomain, $setLocale, $i18n);
+        self::initializeGetText(empty($textDomain) ? '' : $textDomain, $setLocale, $i18n);
     }
 
     /**
