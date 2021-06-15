@@ -40,7 +40,7 @@ class ToEventlog extends ToSyslog implements Loggingable {
      * @return string ready to use message
      */
     public function finalizeMessage($messageRaw) {
-        return iconv("UTF-8", "cp1251//TRANSLIT", $messageRaw);
+        return \Ease\Functions::rip($messageRaw);
     }
     /**
      * Obtain instance of Syslog loger
