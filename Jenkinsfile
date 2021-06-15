@@ -2,6 +2,10 @@
 pipeline {
     agent none
 
+    options {
+        ansiColor('xterm')
+    }
+
     stages {
         stage('debian-stable') {
             agent {
@@ -9,6 +13,7 @@ pipeline {
             }
             steps {
                 dir('build/debian/package') {
+		    buildPackage()
                     checkout scm
                     sh 'ls -la'
                     sh 'ls -la source'
@@ -63,5 +68,11 @@ pipeline {
                 }
             }
        }
+    }
+}
+
+def buildPackage() {
+    ansiColor('vga') {
+      echo '\033[42m\033[97mBuild debian package for $(lsb_release -sd)\033[0m'
     }
 }
