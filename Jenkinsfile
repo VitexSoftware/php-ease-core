@@ -15,10 +15,10 @@ pipeline {
                 dir('build/debian/package') {
 		    buildPackage()
                     checkout scm
-                    sh 'ls -la'
-                    sh 'ls -la source'
-                    sh 'cd source ; debuild -i -us -uc -b ; cd ..'
-                    sh 'mkdir -p $WORKSPACE/dist/debian/ ; mv *.deb *.changes *.build $WORKSPACE/dist/debian/'
+                    sh 'debuild -i -us -uc -b'
+                    sh 'ls -la ..'
+		    debianPbuilder
+                    sh 'mkdir -p $WORKSPACE/dist/debian/ ; mv ../*.deb ../*.changes ../*.build $WORKSPACE/dist/debian/'
                 }
                 stash includes: 'dist/**', name: 'dist-debian'
             }
