@@ -80,14 +80,14 @@ def buildPackage() {
     }
 
 
-#Buster problem: Can't continue: dpkg-parsechangelog is not new enough(needs to be at least 1.17.0)
-#
-#    debianPbuilder additionalBuildResults: '', 
-#	    components: '', 
-#	    distribution: DISTRO, 
-#	    keyring: '', 
-#	    mirrorSite: 'http://deb.debian.org/debian/', 
-#	    pristineTarName: ''
+//Buster problem: Can't continue: dpkg-parsechangelog is not new enough(needs to be at least 1.17.0)
+//
+//    debianPbuilder additionalBuildResults: '', 
+//	    components: '', 
+//	    distribution: DISTRO, 
+//	    keyring: '', 
+//	    mirrorSite: 'http://deb.debian.org/debian/', 
+//	    pristineTarName: ''
 
     sh 'debuild -i -us -uc -b'
     sh 'ls -la ..'
