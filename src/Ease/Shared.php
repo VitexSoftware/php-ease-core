@@ -112,7 +112,7 @@ class Shared extends Atom {
      * @return int bytes saved
      */
     public function saveStatusMessages($sessID = 'EaseStatusMessages') {
-        return file_put_contents(self::msgFile($sessID), serialize($this->statusMessages));
+        return file_put_contents(self::msgFile($sessID), serialize(self::$statusMessages));
     }
 
     /**

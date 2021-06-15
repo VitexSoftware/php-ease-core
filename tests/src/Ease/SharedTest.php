@@ -46,7 +46,7 @@ class SharedTest extends AtomTest {
 
         $_SESSION['testApp']['EaseMessages'] = [];
         $mock->__construct();
-        $this->assertIsArray($mock->statusMessages);
+        $this->assertIsArray($mock::$statusMessages);
     }
 
     /**

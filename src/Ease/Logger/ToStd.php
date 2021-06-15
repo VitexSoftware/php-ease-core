@@ -19,14 +19,6 @@ namespace Ease\Logger;
  * @copyright 2009-2021 Vitex@hippy.cz (G)
  */
 class ToStd extends ToMemory implements Loggingable {
-
-    /**
-     * Pole uložených zpráv.
-     *
-     * @var array
-     */
-    public $statusMessages = [];
-
     /**
      * ID naposledy ulozene zpravy.
      *
@@ -90,7 +82,7 @@ class ToStd extends ToMemory implements Loggingable {
     public function addToLog($caller, $message, $type = 'message') {
         ++$this->messageID;
 
-        $this->statusMessages[$type][$this->messageID] = $message;
+        self::$statusMessages[$type][$this->messageID] = $message;
 
         $message = htmlspecialchars_decode(strip_tags(stripslashes($message)));
 

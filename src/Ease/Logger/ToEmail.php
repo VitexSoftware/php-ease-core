@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 /**
  * Send logs by email
  *
@@ -40,13 +39,6 @@ class ToEmail extends ToMemory implements Loggingable {
      * @var \Ease\Sand
      */
     public $parentObject = null;
-
-    /**
-     * Pole uložených zpráv.
-     *
-     * @var array
-     */
-    public $statusMessages = [];
 
     /**
      * ID naposledy ulozene zpravy.
@@ -121,7 +113,7 @@ class ToEmail extends ToMemory implements Loggingable {
             $class = __CLASS__;
             if (\Ease\Shared::appName()) {
                 self::$_instance = new $class(
-                \Ease\Functions::cfg('EASE_EMAILTO'),
+                        \Ease\Functions::cfg('EASE_EMAILTO'),
                         \Ease\Shared::appName()
                 );
             } else {
@@ -151,7 +143,7 @@ class ToEmail extends ToMemory implements Loggingable {
             return;
         }
 
-        $this->statusMessages[$type][$this->messageID] = $message;
+        self::$statusMessages[$type][$this->messageID] = $message;
 
         $logLine = strftime("%D %T") . ' `' . is_object($caller) ? get_class($caller) : $caller . '`: ' . $message;
 

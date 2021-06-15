@@ -46,7 +46,7 @@ class ToSyslogTest extends ToMemoryTest {
 
         $_SESSION['testApp']['EaseMessages'] = [];
         $mock->__construct();
-        $this->assertIsArray($mock->statusMessages);
+        $this->assertIsArray($mock::$statusMessages);
     }
 
     /**

@@ -124,7 +124,7 @@ class ToFile extends ToMemory implements Loggingable {
     public function addToLog($caller, $message, $type = 'notice') {
         ++$this->messageID;
         $written = 0;
-        $this->statusMessages[$type][$this->messageID] = $message;
+        self::$statusMessages[$type][$this->messageID] = $message;
 
         $message = htmlspecialchars_decode(strip_tags(stripslashes($message)));
 
