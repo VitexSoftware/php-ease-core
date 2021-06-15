@@ -68,21 +68,26 @@ pipeline {
 }
 
 def buildPackage() {
-    ansiColor('vga') {
-      echo '\033[42m\033[97mBuild debian package for $(lsb_release -sd)\033[0m'
-    }
 
     def DISTRO = sh (
 	script: 'lsb_release -sd',
         returnStdout: true
     ).trim()
 
-	    debianPbuilder additionalBuildResults: '', 
-	    components: '', 
-	    distribution: DISTRO, 
-	    keyring: '', 
-	    mirrorSite: 'http://deb.debian.org/debian/', 
-	    pristineTarName: ''
+
+    ansiColor('vga') {
+      echo '\033[42m\033[97mBuild debian package for ${DISTRO}\033[0m'
+    }
+
+
+#Buster problem: Can't continue: dpkg-parsechangelog is not new enough(needs to be at least 1.17.0)
+#
+#    debianPbuilder additionalBuildResults: '', 
+#	    components: '', 
+#	    distribution: DISTRO, 
+#	    keyring: '', 
+#	    mirrorSite: 'http://deb.debian.org/debian/', 
+#	    pristineTarName: ''
 
     sh 'debuild -i -us -uc -b'
     sh 'ls -la ..'
