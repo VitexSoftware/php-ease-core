@@ -19,6 +19,20 @@ build:
                     - sudo touch /usr/bin/-1
                     - sudo chmod +x /usr/bin/-1
         analysis:
+            environment:
+                variables:
+                    DEBIAN_FRONTEND: 'noninteractive'
+                php:
+                    ini:
+                        sendmail_path: 'cat - >> /tmp/mailfile'
+            dependencies:
+                before:
+                    - composer self-update
+                    - composer install --no-interaction
+                    - sudo mkdir -p /home/scrutinizer/buildfile 
+                    - sudo chown scrutinizer /home/scrutinizer/buildfile
+                    - sudo touch /usr/bin/-1
+                    - sudo chmod +x /usr/bin/-1
             tests:
                 override:
                     - php-scrutinizer-run
