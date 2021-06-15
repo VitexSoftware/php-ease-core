@@ -16,18 +16,14 @@ build:
                     - composer install --no-interaction
                     - sudo mkdir -p /home/scrutinizer/buildfile 
                     - sudo chown scrutinizer /home/scrutinizer/buildfile
-    analysis:
-        tests:
-           override:
-             - php-scrutinizer-run
-
-    coverage:
-      tests:
-        override:
-          - command: './vendor/bin/phpunit --whitelist catalog --coverage-clover /home/scrutinizer/build/coverage.xml tests'
-            coverage:
-              file: coverage.xml
-              format: clover
+        analysis:
+            tests:
+                override:
+                    - php-scrutinizer-run
+                    - command: './vendor/bin/phpunit --whitelist catalog --coverage-clover /home/scrutinizer/build/coverage.xml tests'
+                coverage:
+                    file: coverage.xml
+                    format: clover
 
 filter:
     excluded_paths:
