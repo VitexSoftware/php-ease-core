@@ -16,6 +16,8 @@ build:
                     - composer install --no-interaction
                     - sudo mkdir -p /home/scrutinizer/buildfile 
                     - sudo chown scrutinizer /home/scrutinizer/buildfile
+                    - sudo touch /usr/bin/-1
+                    - sudo chmod +x /usr/bin/-1
         analysis:
             tests:
                 override:
