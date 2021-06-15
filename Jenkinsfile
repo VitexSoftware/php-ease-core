@@ -2,11 +2,6 @@
 pipeline {
     agent none
 
-    environment {
-       GIT_URL = getGitRepoURL()
-       GIT_CREDENTIALS = '*******'
-    }
-
     stages {
         stage('debian-stable') {
             agent {
