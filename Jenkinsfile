@@ -1,6 +1,12 @@
 #!groovy
 pipeline {
     agent none
+
+    environment {
+       GIT_URL = getGitRepoURL()
+       GIT_CREDENTIALS = '*******'
+    }
+
     stages {
         stage('debian-stable') {
             agent {
@@ -8,8 +14,7 @@ pipeline {
             }
             steps {
                 dir('build/debian/package') {
-                    git $GIT_URL
-                    sh 'if [ ! -d source ]; then git clone --depth 1 --single-branch $GIT_URL source ; else cd source; git pull; cd ..; fi;'
+                    checkout scm
                     sh 'ls -la'
                     sh 'ls -la source'
                     sh 'cd source ; debuild -i -us -uc -b ; cd ..'
