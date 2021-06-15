@@ -72,14 +72,14 @@ def buildPackage() {
       echo '\033[42m\033[97mBuild debian package for $(lsb_release -sd)\033[0m'
     }
 
-    DISTRO = sh (
+    def DISTRO = sh (
 	script: 'lsb_release -sd',
         returnStdout: true
     ).trim()
 
 	    debianPbuilder additionalBuildResults: '', 
 	    components: '', 
-	    distribution: $DISTRO, 
+	    distribution: DISTRO, 
 	    keyring: '', 
 	    mirrorSite: 'http://deb.debian.org/debian/', 
 	    pristineTarName: ''
