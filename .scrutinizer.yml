@@ -1,31 +1,21 @@
 build:
     environment:
-        php:
-            version: 7.2
-            ini:
-                sendmail_path: 'cat - >> /tmp/mailfile'
-        mysql: false
-        postgresql: false
-        redis: false
-        elasticsearch: false
-        rabbitmq: false
-        mongodb: false
-        neo4j: false
-        memcached: false
         variables:
           DEBIAN_FRONTEND: 'noninteractive'    
     nodes:
         ease-core:
             environment:
                 variables:
-                    DEBIAN_FRONTEND: 'noninteractive'    
+                    DEBIAN_FRONTEND: 'noninteractive'
+                php:
+                    ini:
+                        sendmail_path: 'cat - >> /tmp/mailfile'
             dependencies:
                 before:
                     - composer self-update
                     - composer install --no-interaction
                     - sudo mkdir -p /home/scrutinizer/buildfile 
                     - sudo chown scrutinizer /home/scrutinizer/buildfile
-                    - sudo DEBIAN_FRONTEND="noninteractive" apt-get install -y nullmailer
     analysis:
         tests:
            override:
