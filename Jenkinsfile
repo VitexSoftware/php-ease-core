@@ -74,9 +74,10 @@ def buildPackage() {
         returnStdout: true
     ).trim()
 
-
     ansiColor('vga') {
-      echo '\033[42m\033[97mBuild debian package for ${DISTRO}\033[0m'
+      echo '\033[42m\033[97mBuild debian package for '
+      echo DISTRO
+      echo '\033[0m'
     }
 
 
@@ -89,7 +90,8 @@ def buildPackage() {
 //	    mirrorSite: 'http://deb.debian.org/debian/', 
 //	    pristineTarName: ''
 
-    sh 'debuild -i -us -uc -b'
+    sh 'debuild-pbuilder  -i -us -uc -b'
+//    sh 'debuild -i -us -uc -b'
     sh 'ls -la ..'
     sh 'mkdir -p $WORKSPACE/dist/debian/ ; mv ../*.deb ../*.changes ../*.build $WORKSPACE/dist/debian/'
 }
