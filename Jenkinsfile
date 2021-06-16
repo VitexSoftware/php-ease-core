@@ -78,9 +78,9 @@ def buildPackage() {
       echo '\033[42m\033[97mBuild debian package for ' + DISTRO + '\033[0m'
     }
 
-    sh 'whoami'
     sh 'cat /etc/passwd'
     sh 'set'
+    sh 'whoami'
 
 
 //Buster problem: Can't continue: dpkg-parsechangelog is not new enough(needs to be at least 1.17.0)
