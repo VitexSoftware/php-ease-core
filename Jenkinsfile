@@ -100,6 +100,7 @@ def buildPackage() {
 
     sh 'debuild-pbuilder  -i -us -uc -b'
     sh 'mkdir -p $WORKSPACE/dist/debian/ ; mv ../' + SOURCE + '*_' + VERSION  + '_*.deb ../' + SOURCE + '*_' + VERSION  + '_*.changes ../' + SOURCE + '*_' + VERSION  + '_*.build $WORKSPACE/dist/debian/'
-    def files = readFile "${env.WORKSPACE}/debian/files"
-    def packages = files.split("\n")
+    def files = readFile "${env.WORKSPACE}/build/debian/package/debian/files"
+    def packages = files.readLines().collect { it[0.. it.indexOf(' ')] }
+    return packages
 }
