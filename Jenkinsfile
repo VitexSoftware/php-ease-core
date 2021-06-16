@@ -123,7 +123,7 @@ def buildPackage() {
 //	    pristineTarName: ''
     sh 'dch -b -v ' + VERSION + '~' + DIST + ' "' + env.BUILD_TAG  + '"'
     sh 'debuild-pbuilder  -i -us -uc -b'
-    sh 'mkdir -p $WORKSPACE/dist/debian/ ; mv ../' + SOURCE + '*_' + VERSION  + '_*.deb ../' + SOURCE + '*_' + VERSION  + '_*.changes ../' + SOURCE + '*_' + VERSION  + '_*.build $WORKSPACE/dist/debian/'
+    sh 'mkdir -p $WORKSPACE/dist/debian/ ; mv ../' + SOURCE + '*_' + VERSION + '~' + DIST + '_*.deb ../' + SOURCE + '*_' + VERSION + '~' + DIST + '_*.changes ../' + SOURCE + '*_' + VERSION '~' + DIST + '_*.build $WORKSPACE/dist/debian/'
 }
 
 def addToRepository() {
