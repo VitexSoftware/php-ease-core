@@ -112,18 +112,19 @@ def buildPackage() {
       echo '\033[42m\033[90mBuild debian package ' + SOURCE + ' v' + VERSION  + ' for ' + DISTRO  + '\033[0m'
     }
 
+    def VER = VERSION + '~' + DIST
 
 //Buster problem: Can't continue: dpkg-parsechangelog is not new enough(needs to be at least 1.17.0)
 //
 //    debianPbuilder additionalBuildResults: '', 
 //	    components: '', 
-//	    distribution: DISTRO, 
+//	    distribution: DIST, 
 //	    keyring: '', 
 //	    mirrorSite: 'http://deb.debian.org/debian/', 
 //	    pristineTarName: ''
-    sh 'dch -b -v ' + VERSION + '~' + DIST + ' "' + env.BUILD_TAG  + '"'
+    sh 'dch -b -v ' + VER  + ' "' + env.BUILD_TAG  + '"'
     sh 'debuild-pbuilder  -i -us -uc -b'
-    sh 'mkdir -p $WORKSPACE/dist/debian/ ; mv ../' + SOURCE + '*_' + VERSION + '~' + DIST + '_*.deb ../' + SOURCE + '*_' + VERSION + '~' + DIST + '_*.changes ../' + SOURCE + '*_' + VERSION '~' + DIST + '_*.build $WORKSPACE/dist/debian/'
+    sh 'mkdir -p $WORKSPACE/dist/debian/ ; mv ../' + SOURCE + '*_' + VER + '_*.deb ../' + SOURCE + '*_' + VER + '_*.changes ../' + SOURCE + '*_' + VER + '_*.build $WORKSPACE/dist/debian/'
 }
 
 def addToRepository() {
