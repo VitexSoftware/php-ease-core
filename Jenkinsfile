@@ -140,5 +140,6 @@ def addToRepository() {
 }
 
 def installPackage() {
+    sh 'sudo apt install -y dialog apt-utils'
     sh 'find $WORKSPACE/dist/debian/ -iname "*.deb"  -exec sudo gdebi --n {} \\;'
 }
