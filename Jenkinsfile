@@ -142,12 +142,9 @@ def addToRepository() {
 def installPackage() {
     
     sh 'cd $WORKSPACE/dist/debian/ ; dpkg-scanpackages . /dev/null | gzip -9c > Packages.gz; cd $WORKSPACE'
-
     sh 'echo "deb [trusted=yes] file:///$WORKSPACE/dist/debian/ ./" | sudo tee /etc/apt/sources.list.d/local.list'
-
-    sh 'apt-get update'
-
-    sh 'IFS="\n\b"; for package in  `$WORKSPACE/dist/debian/ | grep .deb | awk -F_ \'{print \$1}\'` ; do apt-get -y $package ; done;'
+    sh 'sudo apt-get update'
+    sh 'IFS="\n\b"; for package in  `$WORKSPACE/dist/debian/ | grep .deb | awk -F_ \'{print \$1}\'` ; do sudo apt-get -y $package ; done;'
 
 //    sh 'DEBIAN_FRONTEND=noninteractive find $WORKSPACE/dist/debian/ -iname "*.deb"  -exec sudo gdebi --n {} \\;'
 }
