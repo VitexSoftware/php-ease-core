@@ -142,6 +142,6 @@ def addToRepository() {
 def installPackage() {
     dh = new File(env.WORKSPACE + '/dist/debian/')
     dh.eachFile {
-        sh 'gdebi --n ' + it
+        sh 'sudo gdebi --n ' + it
     }
 }
