@@ -22,7 +22,7 @@ pipeline {
             post {
                 success {
 		    addToRepository()
-                    archiveArtifacts '$WORKSPACE/dist/debian/'
+                    archiveArtifacts 'dist/debian/'
                 }
             }
 
@@ -42,7 +42,7 @@ pipeline {
             post {
                 success {
 		    addToRepository()
-                    archiveArtifacts '$WORKSPACE/dist/debian/'
+                    archiveArtifacts 'dist/debian/'
                 }
             }
         }
@@ -60,7 +60,7 @@ pipeline {
             post {
                 success {
 		    addToRepository()
-                    archiveArtifacts '$WORKSPACE/dist/debian/'
+                    archiveArtifacts 'dist/debian/'
                 }
             }
         }
@@ -78,7 +78,7 @@ pipeline {
             post {
                 success {
 		    addToRepository()
-                    archiveArtifacts '$WORKSPACE/dist/debian/'
+                    archiveArtifacts 'dist/debian/'
                 }
             }
        }
