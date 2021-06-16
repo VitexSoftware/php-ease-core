@@ -75,9 +75,7 @@ def buildPackage() {
     ).trim()
 
     ansiColor('vga') {
-      echo '\033[42m\033[97mBuild debian package for '
-      echo DISTRO
-      echo '\033[0m'
+      echo '\033[42m\033[97mBuild debian package for ' + DISTRO + '\033[0m'
     }
 
 
