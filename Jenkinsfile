@@ -74,13 +74,19 @@ def buildPackage() {
         returnStdout: true
     ).trim()
 
-    ansiColor('vga') {
-      echo '\033[42m\033[97mBuild debian package for ' + DISTRO + '\033[0m'
-    }
+    def SOURCE = sh (
+	script: 'dpkg-parsechangelog --show-field Source',
+        returnStdout: true
+    ).trim()
 
-    sh 'cat /etc/passwd'
-    sh 'set'
-    sh 'whoami'
+    def VERSION = sh (
+	script: 'dpkg-parsechangelog --show-field Version',
+        returnStdout: true
+    ).trim()
+
+    ansiColor('vga') {
+      echo '\033[42m\033[97mBuild debian package ' + PACKAGE + ' v' + VERSION  + ' for ' + DISTRO  + '\033[0m'
+    }
 
 
 //Buster problem: Can't continue: dpkg-parsechangelog is not new enough(needs to be at least 1.17.0)
@@ -93,7 +99,7 @@ def buildPackage() {
 //	    pristineTarName: ''
 
     sh 'debuild-pbuilder  -i -us -uc -b'
-//    sh 'debuild -i -us -uc -b'
-    sh 'ls -la ..'
-    sh 'mkdir -p $WORKSPACE/dist/debian/ ; mv ../*.deb ../*.changes ../*.build $WORKSPACE/dist/debian/'
+    sh 'mkdir -p $WORKSPACE/dist/debian/ ; mv ../' + SOURCE + '*_' + VERSION  + '_*.deb ../' + SOURCE + '*_' + VERSION  + '_*.changes ../' + SOURCE + '*_' + VERSION  + '_*.build $WORKSPACE/dist/debian/'
+    def files = readFile "${env.WORKSPACE}/debian/files"
+    def packages = files.split("\n")
 }
