@@ -16,12 +16,12 @@ pipeline {
                     checkout scm
 		    buildPackage()
                 }
-                stash includes: 'dist/**', name: 'dist-debian'
+                stash includes: 'dist/**', name: 'dist-buster'
             }
 
             post {
                 success {
-		    addToRepository
+		    addToRepository()
                     archiveArtifacts '$WORKSPACE/dist/debian/'
                 }
             }
@@ -34,9 +34,15 @@ pipeline {
             }
             steps {
                 dir('build/debian/package') {
-                    sh 'if [ ! -d source ]; then git clone --depth 1 --single-branch $GIT_URL source ; else cd source; git pull; cd ..; fi;'
-                    sh 'cd source ; debuild -i -us -uc -b ; cd ..'
-                    sh 'mkdir -p $WORKSPACE/dist/debian/ ; mv *.deb *.changes *.build $WORKSPACE/dist/debian/'
+                    checkout scm
+		    buildPackage()
+                }
+                stash includes: 'dist/**', name: 'dist-bullseye'
+            }
+            post {
+                success {
+		    addToRepository()
+                    archiveArtifacts '$WORKSPACE/dist/debian/'
                 }
             }
         }
@@ -46,9 +52,15 @@ pipeline {
             }
             steps {
                 dir('build/debian/package') {
-                    sh 'if [ ! -d source ]; then git clone --depth 1 --single-branch $GIT_URL source ; else cd source; git pull; cd ..; fi;'
-                    sh 'cd source ; debuild -i -us -uc -b ; cd ..'
-                    sh 'mkdir -p $WORKSPACE/dist/debian/ ; mv *.deb *.changes *.build $WORKSPACE/dist/debian/'
+                    checkout scm
+		    buildPackage()
+                }
+                stash includes: 'dist/**', name: 'dist-trusty'
+            }
+            post {
+                success {
+		    addToRepository()
+                    archiveArtifacts '$WORKSPACE/dist/debian/'
                 }
             }
         }
@@ -58,9 +70,15 @@ pipeline {
             }
             steps {
                 dir('build/debian/package') {
-                    sh 'if [ ! -d source ]; then git clone --depth 1 --single-branch $GIT_URL source ; else cd source; git pull; cd ..; fi;'
-                    sh 'cd source ; debuild -i -us -uc -b ; cd ..'
-                    sh 'mkdir -p $WORKSPACE/dist/debian/ ; mv *.deb *.changes *.build $WORKSPACE/dist/debian/'
+                    checkout scm
+		    buildPackage()
+                }
+                stash includes: 'dist/**', name: 'dist-hirsute'
+            }
+            post {
+                success {
+		    addToRepository()
+                    archiveArtifacts '$WORKSPACE/dist/debian/'
                 }
             }
        }
@@ -101,12 +119,10 @@ def buildPackage() {
     sh 'mkdir -p $WORKSPACE/dist/debian/ ; mv ../' + SOURCE + '*_' + VERSION  + '_*.deb ../' + SOURCE + '*_' + VERSION  + '_*.changes ../' + SOURCE + '*_' + VERSION  + '_*.build $WORKSPACE/dist/debian/'
 }
 
-def addToRepository(){
+def addToRepository() {
     def files = readFile "${env.WORKSPACE}/build/debian/package/debian/files"
     def packages = files.readLines().collect { it[0.. it.indexOf(' ')] }
     ansiColor('vga') {
       echo '\033[42m\033[31mBuilded packages ' + packages.join(", ")  + '\033[0m'
     }
 }
-
-
