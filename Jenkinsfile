@@ -21,8 +21,8 @@ pipeline {
 
             post {
                 success {
-                    phpunit '**/target/php-ease-core/phpunit.xml'
-                    archiveArtifacts '../*.deb'
+		    echo packages
+                    archiveArtifacts '$WORKSPACE/dist/debian/'
                 }
             }
 
