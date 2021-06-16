@@ -140,5 +140,5 @@ def addToRepository() {
 }
 
 def installPackage() {
-    sh 'find $WORKSPACE/dist/debian/ -iname \'*.deb\' -exec sudo gdebi --n \;'
+    sh 'find $WORKSPACE/dist/debian/ -iname "*.deb" -exec sudo gdebi --n'
 }
