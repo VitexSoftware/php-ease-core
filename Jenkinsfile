@@ -21,7 +21,7 @@ pipeline {
 
             post {
                 success {
-		    echo packages
+		    addToRepository
                     archiveArtifacts '$WORKSPACE/dist/debian/'
                 }
             }
@@ -85,7 +85,7 @@ def buildPackage() {
     ).trim()
 
     ansiColor('vga') {
-      echo '\033[42m\033[97mBuild debian package ' + SOURCE + ' v' + VERSION  + ' for ' + DISTRO  + '\033[0m'
+      echo '\033[42m\033[90mBuild debian package ' + SOURCE + ' v' + VERSION  + ' for ' + DISTRO  + '\033[0m'
     }
 
 
@@ -97,10 +97,16 @@ def buildPackage() {
 //	    keyring: '', 
 //	    mirrorSite: 'http://deb.debian.org/debian/', 
 //	    pristineTarName: ''
-
     sh 'debuild-pbuilder  -i -us -uc -b'
     sh 'mkdir -p $WORKSPACE/dist/debian/ ; mv ../' + SOURCE + '*_' + VERSION  + '_*.deb ../' + SOURCE + '*_' + VERSION  + '_*.changes ../' + SOURCE + '*_' + VERSION  + '_*.build $WORKSPACE/dist/debian/'
+}
+
+def addToRepository(){
     def files = readFile "${env.WORKSPACE}/build/debian/package/debian/files"
     def packages = files.readLines().collect { it[0.. it.indexOf(' ')] }
-    return packages
+    ansiColor('vga') {
+      echo '\033[42m\033[31mBuilded packages ' + packages.join(", ")  + '\033[0m'
+    }
 }
+
+
