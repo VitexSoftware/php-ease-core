@@ -115,7 +115,7 @@ def buildPackage() {
 //	    keyring: '', 
 //	    mirrorSite: 'http://deb.debian.org/debian/', 
 //	    pristineTarName: ''
-    sh 'echo dch -v ' + VERSION + '~' + DISTRO + '"' + BUILD_TAG  + '"'
+    echo 'dch -v ' + VERSION + '~' + DISTRO + '"' + $BUILD_TAG  + '"'
     sh 'debuild-pbuilder  -i -us -uc -b'
     sh 'mkdir -p $WORKSPACE/dist/debian/ ; mv ../' + SOURCE + '*_' + VERSION  + '_*.deb ../' + SOURCE + '*_' + VERSION  + '_*.changes ../' + SOURCE + '*_' + VERSION  + '_*.build $WORKSPACE/dist/debian/'
 }
