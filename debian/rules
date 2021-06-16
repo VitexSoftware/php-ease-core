@@ -16,7 +16,7 @@ override_dh_auto_test:
 	echo tests temporarly skipped for now in rules file
 
 override_dh_install:
-	jq '.version = "'`dpkg-parsechangelog | sed -n 's/^Version: //p'`'"' | sed 's/~.*//' | debian/composer.json |sponge debian/composer.json
+	jq '.version = "'`dpkg-parsechangelog | sed -n 's/^Version: //p'| sed 's/~.*//' `'"'  debian/composer.json |sponge debian/composer.json
 	dh_install
 	./debian/fixversion.sh
 	echo "require_once 'Mail.php';"  >> debian/php-vitexsoftware-ease-core/usr/share/php/EaseCore/Mailer.php
