@@ -48,7 +48,7 @@ pipeline {
         }
         stage('ubuntu-trusty') {
             agent {
-                docker { image 'vitexsoftware/trusty:stable' }
+                docker { image 'vitexsoftware/ubuntu:stable' }
             }
             steps {
                 dir('build/debian/package') {
