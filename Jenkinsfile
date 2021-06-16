@@ -15,6 +15,7 @@ pipeline {
                 dir('build/debian/package') {
                     checkout scm
 		    buildPackage()
+		    installPackage()
                 }
                 stash includes: 'dist/**', name: 'dist-buster'
             }
@@ -36,6 +37,7 @@ pipeline {
                 dir('build/debian/package') {
                     checkout scm
 		    buildPackage()
+		    installPackage()
                 }
                 stash includes: 'dist/**', name: 'dist-bullseye'
             }
@@ -54,6 +56,7 @@ pipeline {
                 dir('build/debian/package') {
                     checkout scm
 		    buildPackage()
+		    installPackage()
                 }
                 stash includes: 'dist/**', name: 'dist-trusty'
             }
@@ -72,6 +75,7 @@ pipeline {
                 dir('build/debian/package') {
                     checkout scm
 		    buildPackage()
+		    installPackage()
                 }
                 stash includes: 'dist/**', name: 'dist-hirsute'
             }
@@ -124,7 +128,7 @@ def buildPackage() {
 //	    pristineTarName: ''
     sh 'dch -b -v ' + VER  + ' "' + env.BUILD_TAG  + '"'
     sh 'debuild-pbuilder  -i -us -uc -b'
-    sh 'mkdir -p $WORKSPACE/dist/debian/ ; mv ../' + SOURCE + '*_' + VER + '_*.deb ../' + SOURCE + '*_' + VER + '_*.changes ../' + SOURCE + '*_' + VER + '_*.build $WORKSPACE/dist/debian/'
+    sh 'mkdir -p $WORKSPACE/dist/debian/ ; rm -rf $WORKSPACE/dist/debian/* ; mv ../' + SOURCE + '*_' + VER + '_*.deb ../' + SOURCE + '*_' + VER + '_*.changes ../' + SOURCE + '*_' + VER + '_*.build $WORKSPACE/dist/debian/'
 }
 
 def addToRepository() {
@@ -132,5 +136,12 @@ def addToRepository() {
     def packages = files.readLines().collect { it[0.. it.indexOf(' ')] }
     ansiColor('vga') {
       echo '\033[42m\033[31mBuilded packages ' + packages.join(", ")  + '\033[0m'
+    }
+}
+
+def installPackage() {
+    dh = new File(env.WORKSPACE + '/dist/debian/')
+    dh.eachFile {
+        sh 'gdebi --n ' + env.WORKSPACE + '/dist/debian/ ' + it
     }
 }
