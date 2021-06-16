@@ -143,7 +143,7 @@ def installPackage() {
     
     sh 'cd $WORKSPACE/dist/debian/ ; dpkg-scanpackages . /dev/null | gzip -9c > Packages.gz; cd $WORKSPACE'
 
-    sh 'echo "deb [trusted=yes] file:///$WORKSPACE/dist/debian/ ./" > /etc/apt/sources.list.d/local.list'
+    sh 'echo "deb [trusted=yes] file:///$WORKSPACE/dist/debian/ ./" | sudo tee /etc/apt/sources.list.d/local.list'
 
     sh 'apt-get update'
 
