@@ -87,10 +87,16 @@ pipeline {
 
 def buildPackage() {
 
+    def DIST = sh (
+	script: 'lsb_release -sc',
+        returnStdout: true
+    ).trim()
+
     def DISTRO = sh (
 	script: 'lsb_release -sd',
         returnStdout: true
     ).trim()
+
 
     def SOURCE = sh (
 	script: 'dpkg-parsechangelog --show-field Source',
@@ -115,7 +121,7 @@ def buildPackage() {
 //	    keyring: '', 
 //	    mirrorSite: 'http://deb.debian.org/debian/', 
 //	    pristineTarName: ''
-    echo 'dch -v ' + VERSION + '~' + DISTRO + '"' + env.BUILD_TAG  + '"'
+    sh 'dch -v ' + VERSION + '~' + DIST + '"' + env.BUILD_TAG  + '"'
     sh 'debuild-pbuilder  -i -us -uc -b'
     sh 'mkdir -p $WORKSPACE/dist/debian/ ; mv ../' + SOURCE + '*_' + VERSION  + '_*.deb ../' + SOURCE + '*_' + VERSION  + '_*.changes ../' + SOURCE + '*_' + VERSION  + '_*.build $WORKSPACE/dist/debian/'
 }
