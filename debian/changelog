@@ -38,8 +38,12 @@ php-vitexsoftware-ease-core (1.19) UNRELEASED; urgency=medium
   * Merge branch 'main' of github.com:VitexSoftware/ease-core into main
   * Try to pass Eventlog encoding test
   * v17 release
+  * jenkins
+  * jenkins
+  * jenkins
+  * jenkins
 
- -- CyberVitexus <vitex@exiv.jinonice.czf>  Sun, 06 Jun 2021 11:51:40 +0200
+ -- CyberVitexus <vitex@exiv.jinonice.czf>  Fri, 18 Jun 2021 11:55:04 +0200
 
 php-vitexsoftware-ease-core (0.12) UNRELEASED; urgency=medium
 
