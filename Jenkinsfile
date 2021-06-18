@@ -7,6 +7,7 @@ pipeline {
     }
 
     stages {
+
         stage('debian-stable') {
             agent {
                 docker { image 'vitexsoftware/debian:stable' }
@@ -14,19 +15,25 @@ pipeline {
             steps {
                 dir('build/debian/package') {
                     checkout scm
-		    buildPackage()
-		    installPackage()
+		            buildPackage()
+		            installPackages()
                 }
                 stash includes: 'dist/**', name: 'dist-buster'
+                script {
+                    step ([$class: 'CopyArtifact',
+                        projectName: 'composer-global-update',
+                        filter: "**/*.deb",
+                        target: '/var/tmp/deb']);
+                }
             }
-
             post {
                 success {
-		    addToRepository()
                     archiveArtifacts 'dist/debian/'
                 }
             }
 
+
+            
         }
 
         stage('debian-testing') {
@@ -37,17 +44,17 @@ pipeline {
                 dir('build/debian/package') {
                     checkout scm
 		    buildPackage()
-		    installPackage()
+		    installPackages()
                 }
                 stash includes: 'dist/**', name: 'dist-bullseye'
             }
             post {
                 success {
-		    addToRepository()
                     archiveArtifacts 'dist/debian/'
                 }
             }
         }
+
         stage('ubuntu-trusty') {
             agent {
                 docker { image 'vitexsoftware/ubuntu:stable' }
@@ -55,18 +62,18 @@ pipeline {
             steps {
                 dir('build/debian/package') {
                     checkout scm
-		    buildPackage()
-		    installPackage()
+		            buildPackage()
+		            installPackages()
                 }
                 stash includes: 'dist/**', name: 'dist-trusty'
             }
             post {
                 success {
-		    addToRepository()
                     archiveArtifacts 'dist/debian/'
                 }
             }
         }
+
         stage('ubuntu-hirsute') {
             agent {
                 docker { image 'vitexsoftware/ubuntu:testing' }
@@ -74,18 +81,19 @@ pipeline {
             steps {
                 dir('build/debian/package') {
                     checkout scm
-		    buildPackage()
-		    installPackage()
+		            buildPackage()
+		            installPackages()
                 }
                 stash includes: 'dist/**', name: 'dist-hirsute'
             }
             post {
                 success {
-		    addToRepository()
                     archiveArtifacts 'dist/debian/'
                 }
             }
-       }
+        }
+
+
     }
 }
 
@@ -116,7 +124,7 @@ def buildPackage() {
       echo '\033[42m\033[90mBuild debian package ' + SOURCE + ' v' + VERSION  + ' for ' + DISTRO  + '\033[0m'
     }
 
-    def VER = VERSION + '~' + DIST
+    def VER = VERSION + '~' + DIST + '~' + env.BUILD_NUMBER 
 
 //Buster problem: Can't continue: dpkg-parsechangelog is not new enough(needs to be at least 1.17.0)
 //
@@ -131,19 +139,9 @@ def buildPackage() {
     sh 'mkdir -p $WORKSPACE/dist/debian/ ; rm -rf $WORKSPACE/dist/debian/* ; mv ../' + SOURCE + '*_' + VER + '_*.deb ../' + SOURCE + '*_' + VER + '_*.changes ../' + SOURCE + '*_' + VER + '_*.build $WORKSPACE/dist/debian/'
 }
 
-def addToRepository() {
-    def files = readFile "${env.WORKSPACE}/build/debian/package/debian/files"
-    def packages = files.readLines().collect { it[0.. it.indexOf(' ')] }
-    ansiColor('vga') {
-      echo '\033[42m\033[31mBuilded packages ' + packages.join(", ")  + '\033[0m'
-    }
-}
-
-def installPackage() {
-    
+def installPackages() {
     sh 'cd $WORKSPACE/dist/debian/ ; dpkg-scanpackages . /dev/null | gzip -9c > Packages.gz; cd $WORKSPACE'
     sh 'echo "deb [trusted=yes] file:///$WORKSPACE/dist/debian/ ./" | sudo tee /etc/apt/sources.list.d/local.list'
     sh 'sudo apt-get update'
-    sh 'sudo apt-get install apt-utils'
-    sh 'IFS="\n\b"; for package in  `ls $WORKSPACE/dist/debian/ | grep .deb | awk -F_ \'{print \$1}\'` ; do sudo apt-get -y install $package ; done;'
+    sh 'IFS="\n\b"; for package in  `ls $WORKSPACE/dist/debian/ | grep .deb | awk -F_ \'{print \$1}\'` ; do sudo  DEBIAN_FRONTEND=noninteractive apt-get -y install $package ; done;'
 }
