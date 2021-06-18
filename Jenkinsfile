@@ -4,6 +4,7 @@ pipeline {
 
     options {
         ansiColor('xterm')
+        copyArtifactPermission('*');
     }
 
     stages {
@@ -19,16 +20,11 @@ pipeline {
 		            installPackages()
                 }
                 stash includes: 'dist/**', name: 'dist-buster'
-                script {
-                    step ([$class: 'CopyArtifact',
-                        projectName: 'composer-global-update',
-                        filter: "**/*.deb",
-                        target: '/var/tmp/deb']);
-                }
             }
             post {
                 success {
                     archiveArtifacts 'dist/debian/'
+                    copyArtifact()
                 }
             }
 
@@ -43,14 +39,15 @@ pipeline {
             steps {
                 dir('build/debian/package') {
                     checkout scm
-		    buildPackage()
-		    installPackages()
+		            buildPackage()
+		            installPackages()
                 }
                 stash includes: 'dist/**', name: 'dist-bullseye'
             }
             post {
                 success {
                     archiveArtifacts 'dist/debian/'
+                    copyArtifact()
                 }
             }
         }
@@ -70,6 +67,7 @@ pipeline {
             post {
                 success {
                     archiveArtifacts 'dist/debian/'
+                    copyArtifact()
                 }
             }
         }
@@ -84,17 +82,27 @@ pipeline {
 		            buildPackage()
 		            installPackages()
                 }
-                stash includes: 'dist/**', name: 'dist-hirsute'
+                stash includes: 'dist/**', name: 'dist-trusty'
             }
             post {
                 success {
                     archiveArtifacts 'dist/debian/'
+                    copyArtifact()
                 }
             }
         }
 
-
     }
+}
+
+def copyArtifact(){
+    step ([$class: 'CopyArtifact',
+        projectName: '${JOB_NAME}',
+        filter: "**/*.deb",
+        target: '/var/tmp/deb',
+        flatten: true,
+        selector: specific('${BUILD_NUMBER}')
+    ]);
 }
 
 def buildPackage() {
