@@ -1,5 +1,12 @@
-tests/src/* 	usr/share/php/EaseCoreTests
-Examples/*      usr/share/doc/php-vitexsoftware-ease-core-dev
-debian/ease-mailer-test usr/bin
+tests/Bootstrap.php		usr/share/php/EaseCoreTests
+tests/BrickTester.php  		usr/share/php/EaseCoreTests
+tests/configtest.json  		usr/share/php/EaseCoreTests
+tests/LoggingTester.php  	usr/share/php/EaseCoreTests
+tests/SandTester.php 		usr/share/php/EaseCoreTests
 
+tests/src/* 			usr/share/php/EaseCoreTests
+debian/tests/composer.json	usr/share/php/EaseCoreTests
+
+Examples/*      		usr/share/doc/php-vitexsoftware-ease-core-dev
+debian/ease-mailer-test 	usr/bin
 

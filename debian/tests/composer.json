@@ -1,0 +1,42 @@
+{
+  "name": "deb/ease-core-dev",
+  "description": "An Core of PHP Framework for Ease of writing Applications test files (debianized)",
+  "version": "1.19",
+  "authors": [
+    {
+      "name": "Vítězslav Dvořák",
+      "email": "info@vitexsoftware.cz",
+      "homepage": "http://v.s.cz/"
+    }
+  ],
+  "config": {
+    "vendor-dir": "/var/lib/php-vitexsoftware-ease-core-dev"
+  },
+  "minimum-stability": "dev",
+
+    "autoload-dev": {
+        "psr-4": {
+            "Test\\Ease\\Local\\": "tests",
+            "Test\\Ease\\": "tests/src/Ease",
+            "Test\\Ease\\Logger\\": "tests/src/Ease/Logger",
+            "Example\\Ease\\": "Examples",
+            "Example\\Ease\\Logger\\": "Examples/Logger"
+        }
+    },
+    "require": {
+        "deb/ease-core": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*",
+        "roave/security-advisories": "dev-latest"
+    },
+
+
+  "type": "library",
+  "homepage": "http://v.s.cz/ease.php",
+  "license": "GPL-2.0+",
+  "address": "1.11"
+}
+
+
+
