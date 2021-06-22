@@ -30,7 +30,7 @@ Object oriented PHP Framework for easy&fast writing small/middle sized apps.
 Installation
 ============
 
-Download https://github.com/VitexSoftware/ease-core/archive/master.zip or:
+Download https://github.com/VitexSoftware/php-ease-core/archive/master.zip or:
 
 Composer:
 ---------
@@ -55,7 +55,7 @@ In this case please add this to your app composer.json:
 
 ``json
     "require": {
-        "ease-core": "*"
+        "deb/ease-core": "*"
     },
     "repositories": [
         {
