@@ -1,4 +1,4 @@
-php-vitexsoftware-ease-core (1.19) UNRELEASED; urgency=medium
+php-vitexsoftware-ease-core (1.28) UNRELEASED; urgency=medium
 
   [ Vítězslav Dvořák ]
   * all unit tests pass
@@ -42,8 +42,26 @@ php-vitexsoftware-ease-core (1.19) UNRELEASED; urgency=medium
   * jenkins
   * jenkins
   * jenkins
+  * prepare to run tests after installing package php-vitexsoftware-ease-
+    core-dev
+  * prepare to run tests after installing package php-vitexsoftware-ease-
+    core-dev
+  * prepare to run tests after installing package php-vitexsoftware-ease-
+    core-dev
+  * prepare to run tests after installing package php-vitexsoftware-ease-
+    core-dev
+  * prepare to run tests after installing package php-vitexsoftware-ease-
+    core-dev
+  * prepare to run tests after installing package php-vitexsoftware-ease-
+    core-dev
+  * prepare to run tests after installing package php-vitexsoftware-ease-
+    core-dev
+  * prepare to run tests after installing package php-vitexsoftware-ease-
+    core-dev
+  * prepare to run tests after installing package php-vitexsoftware-ease-
+    core-dev
 
- -- CyberVitexus <vitex@exiv.jinonice.czf>  Fri, 18 Jun 2021 11:55:04 +0200
+ -- CyberVitexus <vitex@exiv.jinonice.czf>  Mon, 21 Jun 2021 12:24:24 +0200
 
 php-vitexsoftware-ease-core (0.12) UNRELEASED; urgency=medium
 
