@@ -14,24 +14,27 @@
   },
   "minimum-stability": "dev",
 
-    "autoload-dev": {
+    "autoload": {
         "psr-4": {
-            "Test\\Ease\\Local\\": "tests",
-            "Test\\Ease\\": "tests/src/Ease",
-            "Test\\Ease\\Logger\\": "tests/src/Ease/Logger",
-            "Example\\Ease\\": "Examples",
-            "Example\\Ease\\Logger\\": "Examples/Logger"
+            "Test\\Ease\\Local\\": "../../share/php/EaseCoreTests/",
+            "Test\\Ease\\": "../../share/php/EaseCoreTests/Ease",
+            "Test\\Ease\\Logger\\": "../../share/php/EaseCoreTests/Ease/Logger",
+            "Example\\Ease\\": "../../share/php/EaseCoreTests/Ease/Examples",
+            "Example\\Ease\\Logger\\": "../../share/php/EaseCoreTests/Examples/Logger"
         }
     },
     "require": {
         "deb/ease-core": "*"
     },
-    "require-dev": {
-        "phpunit/phpunit": "*",
-        "roave/security-advisories": "dev-latest"
-    },
-
-
+    "repositories": [
+        {
+            "type": "path",
+            "url": "/usr/share/php/EaseCore",
+            "options": {
+                "symlink": true
+            }
+        }
+    ],
   "type": "library",
   "homepage": "http://v.s.cz/ease.php",
   "license": "GPL-2.0+",

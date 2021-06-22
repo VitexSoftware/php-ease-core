@@ -28,8 +28,7 @@ case "$1" in
 
         composer-global-update deb/ease-core-dev
 	composer-debian php-vitexsoftware-ease-core-dev
-
-	phpunit --bootstrap /usr/share/php/EaseCoreTests/Bootstrap.php --configuration /usr/share/php/EaseCoreTests/phpunit.xml
+	su - `composer-webuser` -s /bin/bash -c 'phpunit --bootstrap /usr/share/php/EaseCoreTests/Bootstrap.php --configuration /usr/share/php/EaseCoreTests/phpunit.xml'
 
     ;;
 

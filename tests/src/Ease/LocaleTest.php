@@ -20,7 +20,7 @@ class LocaleTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp(): void
     {
-        $this->object = new Locale('cs_CZ', './i18n', 'ease-framework');
+        $this->object = new Locale('cs_CZ', './i18n', 'php-vitexsoftware-ease-core');
     }
 
     /**
@@ -48,7 +48,7 @@ class LocaleTest extends \PHPUnit\Framework\TestCase
 
         $mock->__construct();
 
-        $mock->__construct('cs_CZ', './i18n', 'ease-framework');
+        $mock->__construct('cs_CZ', './i18n', 'php-vitexsoftware-ease-core');
         $this->assertEquals('cs_CZ', $mock->getLocaleUsed());
 
         \Ease\Locale::$textDomain = null;
@@ -125,8 +125,8 @@ class LocaleTest extends \PHPUnit\Framework\TestCase
      */
     public function testInitializeGetText()
     {
-        Locale::initializeGetText('EaseTest', 'en_US', '../i18n');
-        $this->assertEquals(Locale::$i18n, '../i18n');
+        Locale::initializeGetText('EaseTest', 'en_US', './i18n');
+        $this->assertEquals(Locale::$i18n, './i18n');
     }
 
     /**
