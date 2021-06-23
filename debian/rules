@@ -30,3 +30,4 @@ override_dh_install:
 	sed -i -e 's/.\/i18n/\/usr\/share\/php\/EaseCoreTests\/i18n/g' debian/php-vitexsoftware-ease-core-dev/usr/share/php/EaseCoreTests/Ease/LocaleTest.php
 	sed -i -e 's/tests\/.env/\/usr\/share\/php\/EaseCoreTests\/.env/g' debian/php-vitexsoftware-ease-core-dev/usr/share/php/EaseCoreTests/Ease/SharedTest.php
 	sed -i -e 's/tests\/configtest.json/\/usr\/share\/php\/EaseCoreTests\/configtest.json/g' debian/php-vitexsoftware-ease-core-dev/usr/share/php/EaseCoreTests/Ease/SharedTest.php
+	tree debian/php-vitexsoftware-ease-core-dev/usr/share/php/EaseCoreTests/
