@@ -18,7 +18,8 @@ Description: EasePHP Framework Core
  common classes for Ease Framework.
 
 Package: php-vitexsoftware-ease-core-dev
-Depends: ${misc:Depends}, php-mail, php-mail-mime, php-vitexsoftware-ease-core, default-mta | postfix | exim4 | ssmtp | mail-transport-agent, phpunit
+Pre-Depends: default-mta | postfix | exim4 | ssmtp | mail-transport-agent
+Depends: ${misc:Depends}, php-mail, php-mail-mime, php-vitexsoftware-ease-core, phpunit
 Architecture: all
 Suggests: php-vitexsoftware-ease-html, php-vitexsoftware-ease-bootstrap, php-vitexsoftware-ease-bootstrap4
 Section: web
