@@ -108,7 +108,7 @@ class LocaleTest extends \PHPUnit\Framework\TestCase
         'en_US' => 'English (United States)',
         'cs_CZ' => 'Czech (Czech Republic)',
         'eo' => 'Esperanto',
-        ], $this->object->availble());
+        ], $this->object->availble(),'Cannot find locales ?!? in '. Locale::$i18n );
     }
 
     /**
