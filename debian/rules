@@ -23,10 +23,7 @@ override_dh_install:
 	echo "require_once 'Mail/mime.php';" >> debian/php-vitexsoftware-ease-core/usr/share/php/EaseCore/Mailer.php
 	sed -i -e 's/..\/vendor/\/var\/lib\/php-vitexsoftware-ease-core/g' 	debian/php-vitexsoftware-ease-core-dev/usr/share/doc/php-vitexsoftware-ease-core-dev/SendTestMail.php
 	sed -i -e 's/..\/i18n/\/usr\/share\/locale/g'            	        debian/php-vitexsoftware-ease-core/usr/share/php/EaseCore/Locale.php
-	ls -la debian/php-vitexsoftware-ease-core-dev/usr/share/doc/php-vitexsoftware-ease-core-dev/ 
-	sed -i -e 's/..\/README.md/\/usr\/share\/doc\/php-vitexsoftware-ease-core-dev\/README.md.gz/g'  debian/php-vitexsoftware-ease-core-dev/usr/share/php/EaseCoreTests/Ease/MailerTest.php 
+	sed -i -e 's/..\/README.md/\/usr\/share\/doc\/php-vitexsoftware-ease-core-dev\/SendTestMail.php/g'  debian/php-vitexsoftware-ease-core-dev/usr/share/php/EaseCoreTests/Ease/MailerTest.php 
 	sed -i -e 's/.\/i18n/\/usr\/share\/php\/EaseCoreTests\/i18n/g' debian/php-vitexsoftware-ease-core-dev/usr/share/php/EaseCoreTests/Ease/LocaleTest.php
 	sed -i -e 's/tests\/.env/\/usr\/share\/php\/EaseCoreTests\/.env/g' debian/php-vitexsoftware-ease-core-dev/usr/share/php/EaseCoreTests/Ease/SharedTest.php
 	sed -i -e 's/tests\/configtest.json/\/usr\/share\/php\/EaseCoreTests\/configtest.json/g' debian/php-vitexsoftware-ease-core-dev/usr/share/php/EaseCoreTests/Ease/SharedTest.php
-
-
