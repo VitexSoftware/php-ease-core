@@ -24,9 +24,6 @@ fresh: ## Update source code
 #	mkdir -p $(DESTDIR)$(docdir)
 #	cp -r docs $(DESTDIR)$(docdir)
 
-test: ## run unit tests
-	./vendor/bin/phpunit --bootstrap tests/Bootstrap.php 
-	
 #build: doc
 #	echo build;	
 
