@@ -158,5 +158,7 @@ def installPackages() {
     sh 'cd $WORKSPACE/dist/debian/ ; dpkg-scanpackages . /dev/null | gzip -9c > Packages.gz; cd $WORKSPACE'
     sh 'echo "deb [trusted=yes] file:///$WORKSPACE/dist/debian/ ./" | sudo tee /etc/apt/sources.list.d/local.list'
     sh 'sudo apt-get update'
+    sh 'echo "${RED} INSTALATION ${ENDCOLOR}"'
+    sh 'sleep 500'
     sh 'IFS="\n\b"; for package in  `ls $WORKSPACE/dist/debian/ | grep .deb | awk -F_ \'{print \$1}\'` ; do  echo -e "${GREEN} installing ${package} ${ENDCOLOR} " ; sleep 100; sudo  DEBIAN_FRONTEND=noninteractive DEBCONF_DEBUG=developer apt-get -y install $package ; done;'
 }
