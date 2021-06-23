@@ -1,5 +1,5 @@
 Source: php-vitexsoftware-ease-core
-Build-Depends: debhelper (>= 10), moreutils, jq, composer, phpdocumentor, php-mbstring
+Build-Depends: debhelper (>= 10), moreutils, jq, composer, phpdocumentor, php-mbstring, mail-transport-agent
 Section: web
 Standards-Version: 3.9.8
 Maintainer: Vítězslav Dvořák <info@vitexsoftware.cz>
