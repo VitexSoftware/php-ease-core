@@ -1,7 +1,7 @@
 build:
     environment:
         variables:
-          DEBIAN_FRONTEND: 'noninteractive'    
+          DEBIAN_FRONTEND: 'noninteractive'
     nodes:
         ease-core:
             environment:
@@ -33,6 +33,7 @@ build:
                     - sudo chown scrutinizer /home/scrutinizer/buildfile
                     - sudo touch /usr/bin/-1
                     - sudo chmod +x /usr/bin/-1
+                    - rm -rf debian
             tests:
                 override:
                     - php-scrutinizer-run
