@@ -159,6 +159,13 @@ def installPackages() {
     sh 'echo "deb [trusted=yes] file:///$WORKSPACE/dist/debian/ ./" | sudo tee /etc/apt/sources.list.d/local.list'
     sh 'sudo apt-get update'
     sh 'echo "${RED} INSTALATION ${ENDCOLOR}"'
+    
+    def DIST = sh (
+	script: 'lsb_release -sc',
+        returnStdout: true
+    ).trim()
+    
+    
     if( DIST == 'focal' || DIST == 'hirsute' ){
         sh 'sleep 500'
     }
