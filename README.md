@@ -89,7 +89,7 @@ Framework Constants
   * LOG_FACILITY  - syslog facility argument
 
 
-  
+
 Logging
 -------
 
