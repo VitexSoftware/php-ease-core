@@ -8,7 +8,7 @@ Priority: optional
 Homepage: https://github.com/VitexSoftware/php-ease-core
 
 Package: php-vitexsoftware-ease-core
-Depends: ${misc:Depends}, php-mail, php-mail-mime, composer-global-update
+Depends: ${misc:Depends}, php-mail, php-mail-mime, composer-debian
 Conflicts: ease-framework
 Architecture: all
 Suggests: php-vitexsoftware-ease-html, php-vitexsoftware-ease-bootstrap, php-vitexsoftware-ease-bootstrap4
