@@ -25,9 +25,8 @@ set -e
 
 case "$1" in
     configure)
-        composer-autoload usr/lib/php-vitexsoftware-ease-core-dev/composer.json
+        composer-autoload /usr/lib/php-vitexsoftware-ease-core-dev/composer.json
 	su - `composer-webuser` -s /bin/bash -c 'phpunit --bootstrap /usr/share/php/EaseCoreTests/Bootstrap.php --configuration /usr/share/php/EaseCoreTests/phpunit.xml'
-
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
