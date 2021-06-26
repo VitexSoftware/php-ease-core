@@ -25,16 +25,7 @@ set -e
 
 case "$1" in
     configure)
-
         composer-global-update deb/ease-core-dev
-	composer-debian php-vitexsoftware-ease-core-dev
-        su - `composer-webuser` -s /bin/bash -c 'ls -la /usr/share/php/EaseCoreTests/i18n/*';
-        su - `composer-webuser` -s /bin/bash -c 'ls -la /usr/share/php/EaseCoreTests/i18n/*/*/*';
-
-        su -s /bin/bash -c 'ls -la /usr/share/locale/*/LC_MESSAGES/php-vitexsoftware-ease-core.mo';
-
-        su - `composer-webuser` -s /bin/bash -c 'ls -la /usr/share/locale/*/LC_MESSAGES/php-vitexsoftware-ease-core.mo';
-        su - `composer-webuser` -s /bin/bash -c 'file /usr/share/locale/*/LC_MESSAGES/php-vitexsoftware-ease-core.mo';
 	su - `composer-webuser` -s /bin/bash -c 'phpunit --bootstrap /usr/share/php/EaseCoreTests/Bootstrap.php --configuration /usr/share/php/EaseCoreTests/phpunit.xml'
 
     ;;
