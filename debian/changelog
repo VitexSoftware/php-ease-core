@@ -1,4 +1,4 @@
-php-vitexsoftware-ease-core (1.29) UNRELEASED; urgency=medium
+php-vitexsoftware-ease-core (1.30) UNRELEASED; urgency=medium
 
   [ Vítězslav Dvořák ]
   * all unit tests pass
@@ -61,8 +61,9 @@ php-vitexsoftware-ease-core (1.29) UNRELEASED; urgency=medium
   * prepare to run tests after installing package php-vitexsoftware-ease-
     core-dev
   * we use composer-debian now
+  * composer-debian used now
 
- -- CyberVitexus <vitex@exiv.jinonice.czf>  Sat, 26 Jun 2021 10:59:43 +0200
+ -- CyberVitexus <vitex@exiv.jinonice.czf>  Sun, 27 Jun 2021 19:12:13 +0200
 
 php-vitexsoftware-ease-core (0.12) UNRELEASED; urgency=medium
 
