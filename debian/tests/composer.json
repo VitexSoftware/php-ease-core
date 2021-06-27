@@ -10,7 +10,7 @@
     }
   ],
   "config": {
-    "vendor-dir": "/var/lib/php-vitexsoftware-ease-core-dev"
+    "vendor-dir": "/var/lib/composer/php-vitexsoftware-ease-core-dev"
   },
   "minimum-stability": "dev",
 
