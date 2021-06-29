@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" colors="true" bootstrap="./tests/Bootstrap.php" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" colors="true" bootstrap="/usr/share/php/EaseCore/Test/Bootstrap.php" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
 cacheResult ="false">
   <testsuites>
     <testsuite name="all">
-      <directory>/usr/share/php/EaseCoreTests/Ease</directory>
+      <directory>/usr/share/php/EaseCore/Test/Ease</directory>
     </testsuite>
   </testsuites>
 </phpunit>

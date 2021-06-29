@@ -16,11 +16,11 @@
 
     "autoload": {
         "psr-4": {
-            "Test\\Ease\\Local\\": "../../share/php/EaseCoreTests/",
-            "Test\\Ease\\": "../../share/php/EaseCoreTests/Ease",
-            "Test\\Ease\\Logger\\": "../../share/php/EaseCoreTests/Ease/Logger",
-            "Example\\Ease\\": "../../share/php/EaseCoreTests/Ease/Examples",
-            "Example\\Ease\\Logger\\": "../../share/php/EaseCoreTests/Examples/Logger"
+            "Test\\Ease\\Local\\": "../../share/php/EaseCore/Test/",
+            "Test\\Ease\\": "../../share/php/EaseCore/Test/Ease",
+            "Test\\Ease\\Logger\\": "../../share/php/EaseCore/Test/Ease/Logger",
+            "Example\\Ease\\": "../../share/php/EaseCore/Test/Ease/Examples",
+            "Example\\Ease\\Logger\\": "../../share/php/EaseCore/Test/Examples/Logger"
         }
     },
     "require": {

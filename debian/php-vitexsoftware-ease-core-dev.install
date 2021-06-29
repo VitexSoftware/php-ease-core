@@ -1,23 +1,21 @@
-tests/BrickTester.php  		usr/share/php/EaseCoreTests
-tests/configtest.json  		usr/share/php/EaseCoreTests
-tests/LoggingTester.php  	usr/share/php/EaseCoreTests
-tests/SandTester.php 		usr/share/php/EaseCoreTests
-tests/.env 			usr/share/php/EaseCoreTests
-tests/configtest.json		usr/share/php/EaseCoreTests
+tests/BrickTester.php  		usr/share/php/EaseCore/Test
+tests/configtest.json  		usr/share/php/EaseCore/Test
+tests/LoggingTester.php  	usr/share/php/EaseCore/Test
+tests/SandTester.php 		usr/share/php/EaseCore/Test
+tests/.env 			usr/share/php/EaseCore/Test
+tests/configtest.json		usr/share/php/EaseCore/Test
 
 
-tests/src/* 			usr/share/php/EaseCoreTests
-debian/tests/phpunit.xml	usr/share/php/EaseCoreTests
+tests/src/* 			usr/share/php/EaseCore/Test
+debian/tests/phpunit.xml	usr/share/php/EaseCore/Test
 debian/tests/composer.json	usr/lib/php-vitexsoftware-ease-core-dev
-debian/tests/Bootstrap.php	usr/share/php/EaseCoreTests
+debian/tests/Bootstrap.php	usr/share/php/EaseCore/Test
 
 Examples/*      		usr/share/doc/php-vitexsoftware-ease-core-dev
 README.md      			usr/share/doc/php-vitexsoftware-ease-core-dev
 debian/ease-mailer-test 	usr/bin
 
 
-i18n/cs_CZ/LC_MESSAGES/php-vitexsoftware-ease-core.po  usr/share/php/EaseCoreTests/i18n/cs_CZ/LC_MESSAGES
-i18n/en_US/LC_MESSAGES/php-vitexsoftware-ease-core.po  usr/share/php/EaseCoreTests/i18n/en_US/LC_MESSAGES
-i18n/eo/LC_MESSAGES/php-vitexsoftware-ease-core.po  usr/share/php/EaseCoreTests/i18n/eo/LC_MESSAGES
-
-
+i18n/cs_CZ/LC_MESSAGES/php-vitexsoftware-ease-core.po  usr/share/php/EaseCore/Test/i18n/cs_CZ/LC_MESSAGES
+i18n/en_US/LC_MESSAGES/php-vitexsoftware-ease-core.po  usr/share/php/EaseCore/Test/i18n/en_US/LC_MESSAGES
+i18n/eo/LC_MESSAGES/php-vitexsoftware-ease-core.po  usr/share/php/EaseCore/Test/i18n/eo/LC_MESSAGES
