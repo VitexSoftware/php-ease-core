@@ -1,4 +1,4 @@
-php-vitexsoftware-ease-core (1.33) UNRELEASED; urgency=medium
+php-vitexsoftware-ease-core (1.35) UNRELEASED; urgency=medium
 
   [ Vítězslav Dvořák ]
   * all unit tests pass
@@ -65,8 +65,10 @@ php-vitexsoftware-ease-core (1.33) UNRELEASED; urgency=medium
   * EaseCoreTests -> EaseCore/Test
   * EaseCoreTests -> EaseCore/Test
   * EaseCoreTests -> EaseCore/Test
+  * path in rules fix
+  * path in rules fix
 
- -- CyberVitexus <vitex@exiv.jinonice.czf>  Tue, 29 Jun 2021 14:06:21 +0200
+ -- CyberVitexus <vitex@exiv.jinonice.czf>  Tue, 29 Jun 2021 14:58:28 +0200
 
 php-vitexsoftware-ease-core (0.12) UNRELEASED; urgency=medium
 
