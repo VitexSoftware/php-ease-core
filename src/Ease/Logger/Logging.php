@@ -41,7 +41,7 @@ trait Logging {
      * @return boolean message added
      */
     public function addStatusMessage($message, $type = 'info', $caller = null) {
-        return $this->getLogger()->addToLog($caller, $message, $type);
+        return $this->getLogger()->addToLog((empty($caller) ? $this : $caller), $message, $type);
     }
 
     /**
