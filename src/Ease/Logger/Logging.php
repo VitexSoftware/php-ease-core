@@ -36,7 +36,7 @@ trait Logging {
      *
      * @param string $message text zpravy
      * @param string $type    fronta
-     * @param string $caller  Message source name
+     * @param object $caller  Message source name
      * 
      * @return boolean message added
      */
