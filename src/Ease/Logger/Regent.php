@@ -103,7 +103,7 @@ class Regent extends \Ease\Atom implements Loggingable {
     /**
      * Add Status Message to all registered loggers
      *
-     * @param string $caller  message provider
+     * @param object $caller  message provider
      * @param string $message message to log
      * @param string $type    info|succes|warning|error|email|...
      * 
