@@ -508,7 +508,7 @@ class Locale {
                 $textDomain = self::$textDomain;
             }
         }
-        self::initializeGetText(empty($textDomain) ? '' : $textDomain, $setLocale, $i18n);
+        self::initializeGetText($textDomain, $setLocale, $i18n);
     }
 
     /**
@@ -522,7 +522,7 @@ class Locale {
     public static function getPreferedLocale($allowCli = true) {
         //        $locale = Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']); 
         if (\php_sapi_name() === 'cli' && $allowCli) {
-            $locale = getenv('LC_ALL');
+            $locale = (\Ease\Functions::cfg('LANG') ? \Ease\Functions::cfg('LANG') : (\Ease\Functions::cfg('LC_ALL') ? \Ease\Functions::cfg('LC_ALL') : null ));
         } else {
             $reqLocale = self::requestLocale();
             if (is_null($reqLocale)) {
@@ -682,7 +682,7 @@ class Locale {
      */
     public function get2Code() {
         $localeUsed = $this->getLocaleUsed();
-        return empty($localeUsed) ? 'en' : (strstr($localeUsed, '_') ? current(explode('_', $localeUsed)) : $localeUsed);
+        return strstr($localeUsed, '_') ? current(explode('_', $localeUsed)) : $localeUsed;
     }
 
     /**
