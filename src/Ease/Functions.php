@@ -397,7 +397,7 @@ class Functions {
 
         foreach ($data as $dataRow) {
             if (array_key_exists($indexBy, $dataRow)) {
-                $reindexedData[$dataRow[$indexBy]] = $dataRow;
+                $reindexedData[(string)$dataRow[$indexBy]] = $dataRow;
             } else {
                 throw new \Exception(sprintf('Data row does not contain column %s for reindexing',
                                         $indexBy));
