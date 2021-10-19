@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 /**
  * Zakladni objekt urceny k rodicovstvi pokročilým objektum.
  *
@@ -106,7 +105,7 @@ class Sand extends Molecule {
      * @return mixed
      */
     public function getDataValue($columnName) {
-        return array_key_exists($columnName, $this->data) ? $this->data[$columnName] : null ;
+        return !empty($columnName) && is_array($this->data) && array_key_exists($columnName, $this->data) ? $this->data[$columnName] : null;
     }
 
     /**
