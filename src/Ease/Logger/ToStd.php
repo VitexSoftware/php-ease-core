@@ -64,7 +64,7 @@ class ToStd extends ToMemory implements Loggingable {
      */
     public static function singleton() {
         if (!isset(self::$instance)) {
-            self::$instance = new self(defined('EASE_APPNAME') ? constant('EASE_APPNAME') : 'EaseFramework');
+            self::$instance = new self(\Ease\Shared::appName() ? \Ease\Shared::appName() : 'EaseFramework');
         }
 
         return self::$instance;
@@ -84,7 +84,7 @@ class ToStd extends ToMemory implements Loggingable {
 
         self::$statusMessages[$type][$this->messageID] = $message;
 
-        $message = htmlspecialchars_decode(strip_tags(stripslashes($message)));
+        $message = htmlspecialchars_decode(strip_tags(stripslashes(strval($message))));
 
         $user = \Ease\User::singleton();
         if (get_class($user) !== 'Ease\\Anonym') {
