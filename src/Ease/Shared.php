@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 /**
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2021 Vitex@hippy.cz (G)
@@ -56,7 +55,7 @@ class Shared extends Atom {
      */
     public static $statusMessages = [];
 
-        /**
+    /**
      * Application name or "EaseFramework" fallback
      * 
      * @return string
@@ -86,7 +85,7 @@ class Shared extends Atom {
      * @return string
      */
     public static function msgFile($sessID = 'EaseStatusMessages') {
-        $uid = (function_exists('posix_getuid') ?   posix_getuid() : ( function_exists('posix_getpwuid') ? posix_getpwuid() : '' ));
+        $uid = (function_exists('posix_getuid') ? posix_getuid() : ( function_exists('posix_getpwuid') ? posix_getpwuid() : '' ));
         return Functions::sysFilename(sys_get_temp_dir() . '/' . self::appName() . $sessID . $uid . '.ser');
     }
 
@@ -181,7 +180,7 @@ class Shared extends Atom {
      *
      * @return User
      */
-    public static function &user(object $user = null, string $candidat = 'User', string $userSessionName = 'User') {
+    public static function &user(Person $user = null, string $candidat = 'User', string $userSessionName = 'User') {
         $efprefix = self::appName();
         if (empty($user) && isset($_SESSION[$efprefix][self::$userSessionName])) {
             return $_SESSION[$efprefix][self::$userSessionName];
@@ -210,11 +209,11 @@ class Shared extends Atom {
     public function loadConfig($configFile, $defineConstants = false) {
         if (!file_exists($configFile)) {
             throw new Exception(
-                    'Config file ' . (realpath($configFile) ? realpath($configFile) : $configFile) . ' does not exist'
+                            'Config file ' . (realpath($configFile) ? realpath($configFile) : $configFile) . ' does not exist'
             );
         }
 
-        switch (strtolower(pathinfo($configFile, constant('PATHINFO_EXTENSION') ))) {
+        switch (strtolower(pathinfo($configFile, constant('PATHINFO_EXTENSION')))) {
             case 'json':
                 $configuration = json_decode(file_get_contents($configFile), true);
                 break;
