@@ -120,6 +120,7 @@ class UserTest extends AnonymTest {
      * @covers Ease\User::validatePassword
      */
     public function testValidatePassword() {
+        $this->object->setDataValue('password', '240885b263943a74849aa0b2d3b1285b:2d');
         $this->assertTrue($this->object->validatePassword('password'));
     }
 
@@ -135,7 +136,7 @@ class UserTest extends AnonymTest {
      */
     public function testPasswordValidation() {
         $this->assertFalse(\Ease\User::passwordValidation('heslo', '813c98b71749197010bb458facd84021'));
-        $this->assertTrue(\Ease\User::passwordValidation('password', '813c98b71749197010bb458facd84021'));
+        $this->assertTrue(\Ease\User::passwordValidation('password', '240885b263943a74849aa0b2d3b1285b:2d'));
     }
 
     /**
