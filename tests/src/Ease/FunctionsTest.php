@@ -244,6 +244,9 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase {
         $this->assertEquals('a', Functions::cfg('EASE_TEST'));
         define('EASE_TEST', 'b');
         $this->assertEquals('b', Functions::cfg('EASE_TEST'));
+        $_ENV['tst'] = 'ok';
+        $this->assertEquals('ok', Functions::cfg('tst'));
+        
     }
 
 }

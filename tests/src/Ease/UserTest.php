@@ -57,6 +57,7 @@ class UserTest extends AnonymTest {
 
     /**
      * @covers Ease\User::getUserEmail
+     * @covers Ease\Person::getUserEmail
      */
     public function testGetUserEmail() {
         $this->object->setDataValue('email', 'info@vitexsoftware.cz');

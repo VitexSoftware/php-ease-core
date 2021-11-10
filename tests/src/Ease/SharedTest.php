@@ -44,8 +44,9 @@ class SharedTest extends AtomTest {
                 ->disableOriginalConstructor()
                 ->getMockForAbstractClass();
 
-        $_SESSION['testApp']['EaseMessages'] = [];
+        $_SESSION['unitTest']['EaseMessages'] = [0=>'a',1=>'b'];
         $mock->__construct();
+
         $this->assertIsArray($mock::$statusMessages);
     }
 

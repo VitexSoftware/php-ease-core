@@ -50,7 +50,7 @@ class RegentTest extends \Test\Ease\AtomTest {
         $mock->__construct('\Ease\Logger\ToFile');
 
         $this->assertEquals(['memory', 'syslog', 'console', 'file', 'std', 'email', 'eventlog', '\Ease\Logger\ToFile'],
-        array_keys($mock->loggers));
+                array_keys($mock->loggers));
     }
 
     /**
@@ -58,6 +58,21 @@ class RegentTest extends \Test\Ease\AtomTest {
      */
     public function testTakeMessage() {
         $this->assertEmpty($this->object->takeMessage());
+    }
+
+    /**
+     * @covers Ease\Logger\Regent::getMessages
+     */
+    public function testgetMessages() {
+        $this->assertTrue(is_array($this->object->getMessages()));
+    }
+
+    /**
+     * @covers Ease\Logger\Regent::cleanMessages
+     */
+    public function testcleanMessages() {
+        $this->object->cleanMessages();
+        $this->assertEmpty($this->object->getMessages());
     }
 
     /**
