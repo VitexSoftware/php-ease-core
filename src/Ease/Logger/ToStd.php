@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-
 /**
  * Log to stdout/stderr
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2016 Vitex@hippy.cz (G)
+ * @copyright 2009-2021 Vitex@hippy.cz (G)
  */
 
 namespace Ease\Logger;
@@ -19,6 +18,7 @@ namespace Ease\Logger;
  * @copyright 2009-2021 Vitex@hippy.cz (G)
  */
 class ToStd extends ToMemory implements Loggingable {
+
     /**
      * ID naposledy ulozene zpravy.
      *

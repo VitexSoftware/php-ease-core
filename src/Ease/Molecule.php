@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 /**
  * Something between Atom and Sand
  *
@@ -13,9 +12,9 @@ declare(strict_types=1);
  */
 
 namespace Ease;
+
 use Ease\Atom;
 use Ease\Functions;
-
 
 /**
  * Description of Molecule
@@ -70,7 +69,7 @@ class Molecule extends Atom {
         } elseif ($constant && array_key_exists($constant, $options)) {
             $this->$name = $options[$constant];
         } else { // If No values specified we must use constants or environment
-            if ($constant && (empty(Functions::cfg($constant)) === false))  {
+            if ($constant && (empty(Functions::cfg($constant)) === false)) {
                 $this->$name = Functions::cfg($constant);
             }
         }

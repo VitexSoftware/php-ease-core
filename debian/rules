@@ -8,6 +8,7 @@ BUILD_DIR:=build
 
 override_dh_prep:
 	phpdoc -d src --defaultpackagename=MainPackage
+	rm -rf docs
 	mkdir -p docs        
 	mv .phpdoc/build/* docs
 	dh_prep

@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 /**
  * Class to Log messages to Console.
  *
@@ -106,7 +105,7 @@ class ToConsole extends ToMemory implements Loggingable {
      */
     public function addToLog($caller, $message, $type = 'message') {
         $ansiMessage = $this->set(
-                ' ' . Message::getTypeUnicodeSymbol($type) . ' ' . strip_tags($message),
+                ' ' . Message::getTypeUnicodeSymbol($type) . ' ' . strip_tags(strval($message)),
                 self::getTypeColor($type)
         );
         $logLine = strftime("%D %T") . ' •' . (is_object($caller) ? get_class($caller) : $caller) . '‣ ' . $ansiMessage;

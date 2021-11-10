@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 /**
  * Log to Windows Event Log.
  *
@@ -42,6 +41,7 @@ class ToEventlog extends ToSyslog implements Loggingable {
     public function finalizeMessage($messageRaw) {
         return \Ease\Functions::rip($messageRaw);
     }
+
     /**
      * Obtain instance of Syslog loger
      * 

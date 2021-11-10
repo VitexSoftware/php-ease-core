@@ -96,7 +96,7 @@ class ToEmail extends ToMemory implements Loggingable {
     public function __construct($recipient = '', $subject = null) {
         $this->recipient = empty($recipient) ? \Ease\Functions::cfg('EASE_EMAILTO') : $recipient;
         $this->subject = empty($subject) ? $_SERVER['PHP_SELF'] : $subject;
-        $this->mailer = new \Ease\Mailer( $this->recipient, $this->subject);
+        $this->mailer = new \Ease\Mailer($this->recipient, $this->subject);
         $this->mailer->setUserNotification(false);
     }
 

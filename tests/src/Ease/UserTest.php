@@ -110,6 +110,35 @@ class UserTest extends AnonymTest {
     }
 
     /**
+     * @covers Ease\User::authentize
+     */
+    public function testAuthentize() {
+        $this->assertFalse($this->object->authentize('pass'));
+    }
+
+    /**
+     * @covers Ease\User::validatePassword
+     */
+    public function testValidatePassword() {
+        $this->assertTrue($this->object->validatePassword('password'));
+    }
+
+    /**
+     * @covers Ease\User::encryptPassword
+     */
+    public function testEncryptPassword() {
+        $this->assertFalse(empty(\Ease\User::encryptPassword('password')));
+    }
+
+    /**
+     * @covers Ease\User::passwordValidation
+     */
+    public function testPasswordValidation() {
+        $this->assertFalse(\Ease\User::passwordValidation('heslo', '813c98b71749197010bb458facd84021'));
+        $this->assertTrue(\Ease\User::passwordValidation('password', '813c98b71749197010bb458facd84021'));
+    }
+
+    /**
      * @covers Ease\User::passwordValidation
      * @covers Ease\User::encryptPassword
      */
@@ -199,7 +228,6 @@ class UserTest extends AnonymTest {
     public function testGetName() {
         $this->assertEquals('Ease\User:@127.0.0.1 [tester]', $this->object->getName());
     }
-
 
     /**
      * @covers Ease\User::getGravatar

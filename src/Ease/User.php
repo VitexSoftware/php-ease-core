@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 /**
  * User objects
  *
@@ -81,7 +80,7 @@ class User extends Anonym {
      * @var string
      */
     public $settingsColumn = null;
-    
+
     /**
      * Store of user permissions
      * @var array
@@ -147,8 +146,8 @@ class User extends Anonym {
      * @return null|boolean
      */
     public function tryToLogin($formData) {
-        $login = array_key_exists($this->loginColumn, $formData) ?  $formData[$this->loginColumn] : null;
-        $password = array_key_exists($this->passwordColumn, $formData) ? $formData[$this->passwordColumn] : null ;
+        $login = array_key_exists($this->loginColumn, $formData) ? $formData[$this->loginColumn] : null;
+        $password = array_key_exists($this->passwordColumn, $formData) ? $formData[$this->passwordColumn] : null;
         if (empty($login)) {
             $this->addStatusMessage(_('missing login'), 'error');
 
@@ -189,7 +188,7 @@ class User extends Anonym {
             }
         } else {
             $this->userID = null;
-            if (count($this->getData())) {
+            if (!empty($this->getData())) {
                 $this->addStatusMessage(_('invalid password'), 'error');
             }
             $this->dataReset();
@@ -206,7 +205,7 @@ class User extends Anonym {
      * @return boolean
      */
     public function validatePassword($password) {
-        return $this->passwordValidation($password, $this->getDataValue($this->passwordColumn));
+        return self::passwordValidation($password, $this->getDataValue($this->passwordColumn));
     }
 
     /**
@@ -461,7 +460,5 @@ class User extends Anonym {
     public function __sleep() {
         return ['logged', 'data'];
     }
-
-  
 
 }

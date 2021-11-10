@@ -63,6 +63,7 @@ class ToConsoleTest extends ToMemoryTest {
     public function testAddToLog() {
         $this->assertIsInt($this->object->addToLog($this, 'test'));
         $this->assertIsInt($this->object->addToLog($this, 'test', 'success'));
+        $this->assertIsInt($this->object->addToLog($this, 'test error', 'error'));
     }
 
     /**

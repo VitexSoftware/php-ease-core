@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 /**
  * Anonymous user class.
  *
@@ -20,7 +19,7 @@ namespace Ease;
 /**
  * Anonymous User Class
  */
-class Anonym extends Brick {
+class Anonym extends Brick implements Person {
 
     /**
      * Druh uživatele.

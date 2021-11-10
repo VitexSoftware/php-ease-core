@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 /**
  * Třídy pro odesílání Mailu ✉.
  *
@@ -142,7 +141,6 @@ class Mailer extends Sand {
                     'Content-Transfer-Encoding' => '8bit',
                 ]
         );
-
 
         $mimer_params = array(
             'html_charset' => 'utf-8',
