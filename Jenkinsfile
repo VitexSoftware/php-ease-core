@@ -60,25 +60,25 @@ pipeline {
             }
         }
 
-        stage('debian-bookworm') {
-            agent {
-                docker { image 'vitexsoftware/debian:testing' }
-            }
-            steps {
-                dir('build/debian/package') {
-                    checkout scm
-		            buildPackage()
-		            installPackages()
-                }
-                stash includes: 'dist/**', name: 'dist-bookworm'
-            }
-            post {
-                success {
-                    archiveArtifacts 'dist/debian/'
-                    copyArtifact()
-                }
-            }
-        }
+//        stage('debian-bookworm') {
+//            agent {
+//                docker { image 'vitexsoftware/debian:testing' }
+//            }
+//            steps {
+//                dir('build/debian/package') {
+//                    checkout scm
+//		            buildPackage()
+//		            installPackages()
+//                }
+//                stash includes: 'dist/**', name: 'dist-bookworm'
+//            }
+//            post {
+//                success {
+//                    archiveArtifacts 'dist/debian/'
+//                    copyArtifact()
+//                }
+//            }
+//        }
 
         stage('ubuntu-focal') {
             agent {
