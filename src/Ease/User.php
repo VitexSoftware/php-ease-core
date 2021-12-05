@@ -159,8 +159,6 @@ class User extends Anonym {
             $this->addStatusMessage(_('missing password'), 'error');
 
             return;
-        } else {
-            $this->setDataValue($this->passwordColumn, $password);
         }
         if ($this->authentize($password)) {
             return true;
