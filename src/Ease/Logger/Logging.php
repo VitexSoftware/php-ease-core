@@ -81,7 +81,10 @@ trait Logging {
      * @param string $prefix banner prefix text
      * @param string $suffix banner suffix text
      */
-    public function logBanner($prefix = null, $suffix = null) {
+    public function logBanner($prefix = '', $suffix = '') {
+        if(\Ease\Functions::cfg('DEBUG') === true){
+            $suffix .= ' Loggers: '.\Ease\Functions::cfg('EASE_LOGGER');
+        }
         $this->addStatusMessage(
                 trim($prefix . ' PHP v' . phpversion() . ' EasePHP Framework v' . \Ease\Atom::$frameworkVersion . ' ' . $suffix),
                 'debug'
