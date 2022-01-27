@@ -14,7 +14,8 @@ namespace Ease\Logger;
 /**
  * @method  methodName(type $paramName) Description
  */
-class ToFile extends ToMemory implements Loggingable {
+class ToFile extends ToMemory implements Loggingable
+{
 
     /**
      * Adresář do kterého se zapisují logy.
@@ -68,7 +69,8 @@ class ToFile extends ToMemory implements Loggingable {
      *
      * @param string $baseLogDir
      */
-    public function __construct($baseLogDir = null) {
+    public function __construct($baseLogDir = null)
+    {
         $this->setupLogFiles($baseLogDir);
     }
 
@@ -79,7 +81,8 @@ class ToFile extends ToMemory implements Loggingable {
      * 
      * @return ToFile
      */
-    public static function singleton($logdir = null) {
+    public static function singleton($logdir = null)
+    {
         if (!isset(self::$instance)) {
             self::$instance = new self($logdir);
         }
@@ -92,7 +95,8 @@ class ToFile extends ToMemory implements Loggingable {
      * 
      * @param string $baseLogDir
      */
-    public function setupLogFiles($baseLogDir = null) {
+    public function setupLogFiles($baseLogDir = null)
+    {
 
         $baseLogDir = is_null($baseLogDir) ? ( is_null($this->logPrefix) && defined('LOG_DIRECTORY') ? constant('LOG_DIRECTORY') : null ) : $baseLogDir;
 
@@ -120,7 +124,8 @@ class ToFile extends ToMemory implements Loggingable {
      *
      * @return int bytes written
      */
-    public function addToLog($caller, $message, $type = 'notice') {
+    public function addToLog($caller, $message, $type = 'notice')
+    {
         ++$this->messageID;
         $written = 0;
         self::$statusMessages[$type][$this->messageID] = $message;
@@ -160,7 +165,8 @@ class ToFile extends ToMemory implements Loggingable {
      */
     public static function testDirectory($directoryPath, $isDir = true,
             $isReadable = true, $isWritable = true
-    ) {
+    )
+    {
         if ($isDir && !is_dir($directoryPath)) {
             throw new \Exception($directoryPath . _(' is not an folder. Current directory:') . ' ' . getcwd());
         }
@@ -176,7 +182,8 @@ class ToFile extends ToMemory implements Loggingable {
     /**
      * Uzavře chybové soubory.
      */
-    public function __destruct() {
+    public function __destruct()
+    {
         if ($this->_logFileHandle && is_resource($this->_logFileHandle)) {
             fclose($this->_logFileHandle);
         }

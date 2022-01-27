@@ -21,7 +21,8 @@ namespace Ease;
  * 
  * @author Vítězslav Dvořák <info@vitexsoftware.cz>
  */
-class Atom {
+class Atom
+{
 
     /**
      * Version of EasePHP Framework
@@ -42,7 +43,8 @@ class Atom {
      *
      * @return string
      */
-    public function getObjectName() {
+    public function getObjectName()
+    {
         return get_class();
     }
 
@@ -51,7 +53,8 @@ class Atom {
      *
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return '';
     }
 
@@ -60,7 +63,8 @@ class Atom {
      *
      * @return string
      */
-    public function draw() {
+    public function draw()
+    {
         return $this->__toString();
     }
 

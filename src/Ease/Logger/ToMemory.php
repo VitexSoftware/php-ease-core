@@ -11,7 +11,8 @@ declare(strict_types=1);
 
 namespace Ease\Logger;
 
-class ToMemory extends \Ease\Atom implements Loggingable {
+class ToMemory extends \Ease\Atom implements Loggingable
+{
 
     /**
      * Předvolená metoda logování.
@@ -76,7 +77,8 @@ class ToMemory extends \Ease\Atom implements Loggingable {
      * @link http://docs.php.net/en/language.oop5.patterns.html Dokumentace a
      * priklad
      */
-    public static function singleton() {
+    public static function singleton()
+    {
         if (!isset(self::$instance)) {
             $class = __CLASS__;
             self::$instance = new $class();
@@ -94,7 +96,8 @@ class ToMemory extends \Ease\Atom implements Loggingable {
      *
      * @return bool byl report zapsán ?
      */
-    public function addToLog($caller, $message, $type = 'message') {
+    public function addToLog($caller, $message, $type = 'message')
+    {
         ++$this->messageID;
         self::$statusMessages[$type][$this->messageID] = $message;
         return true;
@@ -107,7 +110,8 @@ class ToMemory extends \Ease\Atom implements Loggingable {
      *
      * @return string
      */
-    public function getLogStyle($logType = 'notice') {
+    public function getLogStyle($logType = 'notice')
+    {
         if (key_exists($logType, $this->logStyles)) {
             return $this->logStyles[$logType];
         } else {

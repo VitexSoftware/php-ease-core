@@ -16,7 +16,8 @@ namespace Ease\Logger;
  *
  * @author vitex
  */
-class ToConsole extends ToMemory implements Loggingable {
+class ToConsole extends ToMemory implements Loggingable
+{
 
     /**
      * Saves obejct instace (singleton...).
@@ -42,7 +43,7 @@ class ToConsole extends ToMemory implements Loggingable {
      *
      * @var array
      */
-    protected static $ANSI_CODES = array(
+    protected static $ansiCodes = array(
         "off" => 0,
         "bold" => 1,
         "italic" => 3,
@@ -71,7 +72,8 @@ class ToConsole extends ToMemory implements Loggingable {
     /**
      * Log Status messages to console
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->stdout = fopen('php://stdout', 'w');
         $this->stderr = fopen('php://stderr', 'w');
     }
@@ -84,13 +86,15 @@ class ToConsole extends ToMemory implements Loggingable {
      * 
      * @return string
      */
-    public static function set($str, $color) {
-        $color_attrs = explode("+", $color);
+    public static function set($str, $color)
+    {
+        $colorAttrs = explode("+", $color);
         $ansi_str = "";
-        foreach ($color_attrs as $attr) {
-            $ansi_str .= "\033[" . self::$ANSI_CODES[$attr] . "m";
+        foreach ($colorAttrs as $attr)
+        {
+            $ansi_str .= "\033[" . self::$ansiCodes[$attr] . "m";
         }
-        $ansi_str .= $str . "\033[" . self::$ANSI_CODES["off"] . "m";
+        $ansi_str .= $str . "\033[" . self::$ansiCodes["off"] . "m";
         return $ansi_str;
     }
 
@@ -103,14 +107,16 @@ class ToConsole extends ToMemory implements Loggingable {
      *
      * @return int written message length
      */
-    public function addToLog($caller, $message, $type = 'message') {
+    public function addToLog($caller, $message, $type = 'message')
+    {
         $ansiMessage = $this->set(
                 ' ' . Message::getTypeUnicodeSymbol($type) . ' ' . strip_tags(strval($message)),
                 self::getTypeColor($type)
         );
         $logLine = strftime("%D %T") . ' •' . (is_object($caller) ? get_class($caller) : $caller) . '‣ ' . $ansiMessage;
         $written = 0;
-        switch ($type) {
+        switch ($type)
+        {
             case 'error':
                 $written += fputs($this->stderr, $logLine . "\n");
                 break;
@@ -126,8 +132,10 @@ class ToConsole extends ToMemory implements Loggingable {
      * 
      * @param string $type  mail|warning|error|debug|success
      */
-    public static function getTypeColor($type) {
-        switch ($type) {
+    public static function getTypeColor($type)
+    {
+        switch ($type)
+        {
             case 'mail':                       // Envelope
                 $color = 'blue';
                 break;
@@ -158,7 +166,8 @@ class ToConsole extends ToMemory implements Loggingable {
      * @link http://docs.php.net/en/language.oop5.patterns.html Dokumentace a
      * priklad
      */
-    public static function singleton() {
+    public static function singleton()
+    {
         if (!isset(self::$instance)) {
             self::$instance = new self();
         }

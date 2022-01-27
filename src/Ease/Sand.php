@@ -19,7 +19,8 @@ namespace Ease;
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@hippy.cz (G)
  */
-class Sand extends Molecule {
+class Sand extends Molecule
+{
 
     use Logger\Logging;
 
@@ -54,7 +55,8 @@ class Sand extends Molecule {
     /**
      * Vynuluje všechny pole vlastností objektu.
      */
-    public function dataReset() {
+    public function dataReset()
+    {
         $this->data = [];
     }
 
@@ -66,7 +68,8 @@ class Sand extends Molecule {
      *
      * @return int počet načtených položek
      */
-    public function setData(array $data, $reset = false) {
+    public function setData(array $data, $reset = false)
+    {
         $ret = 0;
         if (!empty($data)) {
             if ($reset) {
@@ -84,7 +87,8 @@ class Sand extends Molecule {
      *
      * @return array
      */
-    public function getData() {
+    public function getData()
+    {
         return $this->data;
     }
 
@@ -93,7 +97,8 @@ class Sand extends Molecule {
      *
      * @return int
      */
-    public function getDataCount() {
+    public function getDataCount()
+    {
         return empty($this->data) ? 0 : count($this->data);
     }
 
@@ -104,7 +109,8 @@ class Sand extends Molecule {
      *
      * @return mixed
      */
-    public function getDataValue($columnName) {
+    public function getDataValue($columnName)
+    {
         return !empty($columnName) && is_array($this->data) && array_key_exists($columnName, $this->data) ? $this->data[$columnName] : null;
     }
 
@@ -116,7 +122,8 @@ class Sand extends Molecule {
      *
      * @return bool Success
      */
-    public function setDataValue(string $columnName, $value) {
+    public function setDataValue(string $columnName, $value)
+    {
         $this->data[$columnName] = $value;
 
         return true;
@@ -129,7 +136,8 @@ class Sand extends Molecule {
      *
      * @return bool success
      */
-    public function unsetDataValue(string $columnName) {
+    public function unsetDataValue(string $columnName)
+    {
         $result = false;
         if (is_array($this->data) && array_key_exists($columnName, $this->data)) {
             unset($this->data[$columnName]);
@@ -146,7 +154,8 @@ class Sand extends Molecule {
      *
      * @return int
      */
-    public function takeData($data) {
+    public function takeData($data)
+    {
         if (is_array($this->data) && is_array($data)) {
             $this->data = array_merge($this->data, $data);
         } else {

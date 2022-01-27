@@ -12,6 +12,7 @@ declare(strict_types=1);
  * @package EasePHP
  * 
  * PHP 7
+ * 
  */
 
 namespace Ease;
@@ -19,7 +20,8 @@ namespace Ease;
 /**
  * Anonymous User Class
  */
-class Anonym extends Brick implements Person {
+class Anonym extends Brick implements Person
+{
 
     /**
      * Druh uživatele.
@@ -56,7 +58,8 @@ class Anonym extends Brick implements Person {
      *
      * @return string
      */
-    public function setObjectName($objectName = null) {
+    public function setObjectName($objectName = null)
+    {
         if (is_null($objectName) && isset($_SERVER['REMOTE_ADDR'])) {
             $name = parent::setObjectName(get_class($this) . '@' . self::remoteToIdentity());
         } else {
@@ -70,7 +73,8 @@ class Anonym extends Brick implements Person {
      *
      * @return string
      */
-    public static function remoteToIdentity() {
+    public static function remoteToIdentity()
+    {
         if (isset($_SERVER['REMOTE_USER'])) {
             $identity = $_SERVER['REMOTE_ADDR'] . ' [' . $_SERVER['REMOTE_USER'] . ']';
         } else {
@@ -84,21 +88,24 @@ class Anonym extends Brick implements Person {
      *
      * @return int
      */
-    public function getUserLevel() {
+    public function getUserLevel()
+    {
         return -1;
     }
 
     /**
      * Anonym nema ID.
      */
-    public function getUserID() {
+    public function getUserID()
+    {
         return;
     }
 
     /**
      * Anonym nemá login.
      */
-    public function getUserLogin() {
+    public function getUserLogin()
+    {
         return;
     }
 
@@ -107,7 +114,8 @@ class Anonym extends Brick implements Person {
      *
      * @return bool FALSE
      */
-    public function isLogged() {
+    public function isLogged()
+    {
         return $this->logged;
     }
 
@@ -116,7 +124,8 @@ class Anonym extends Brick implements Person {
      *
      * @param string $settingName jméno klíče nastavení
      */
-    public function getSettingValue(/** @scrutinizer ignore-unused */ $settingName = null) {
+    public function getSettingValue(/** @scrutinizer ignore-unused */ $settingName = null)
+    {
         return;
     }
 
@@ -126,14 +135,16 @@ class Anonym extends Brick implements Person {
      * @param string $settingName  klíčové slovo pro nastavení
      * @param mixed  $settingValue hodnota nastavení
      */
-    public function setSettingValue($settingName, $settingValue) {
+    public function setSettingValue($settingName, $settingValue)
+    {
         $this->settings[$settingName] = $settingValue;
     }
 
     /**
      * Anonym nemá mail.
      */
-    public function getUserEmail() {
+    public function getUserEmail()
+    {
         return;
     }
 
@@ -142,7 +153,8 @@ class Anonym extends Brick implements Person {
      *
      * @param string $permKeyword permission keyword
      */
-    public function getPermission(/** @scrutinizer ignore-unused */ $permKeyword = null) {
+    public function getPermission(/** @scrutinizer ignore-unused */ $permKeyword = null)
+    {
         return;
     }
 
@@ -151,7 +163,8 @@ class Anonym extends Brick implements Person {
      *
      * @return bool true - always logged off
      */
-    public function logout() {
+    public function logout()
+    {
         $this->userID = null;
 
         return true;

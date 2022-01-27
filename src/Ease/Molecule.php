@@ -21,7 +21,8 @@ use Ease\Functions;
  *
  * @author vitex
  */
-class Molecule extends Atom {
+class Molecule extends Atom
+{
 
     /**
      * Object name place
@@ -37,7 +38,8 @@ class Molecule extends Atom {
      *
      * @return string Jméno objektu
      */
-    public function setObjectName($objectName = null) {
+    public function setObjectName($objectName = null)
+    {
         if (empty($objectName)) {
             $this->objectName = get_class($this);
         } else {
@@ -52,7 +54,8 @@ class Molecule extends Atom {
      *
      * @return string
      */
-    public function getObjectName() {
+    public function getObjectName()
+    {
         return $this->objectName;
     }
 
@@ -63,7 +66,8 @@ class Molecule extends Atom {
      * @param string $name     name of property to set up
      * @param string $constant load default property value from constant / ENV
      */
-    public function setupProperty($options, $name, $constant = false) {
+    public function setupProperty($options, $name, $constant = false)
+    {
         if (array_key_exists($name, $options)) {
             $this->$name = $options[$name];
         } elseif ($constant && array_key_exists($constant, $options)) {

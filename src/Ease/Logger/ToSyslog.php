@@ -17,7 +17,8 @@ namespace Ease\Logger;
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2021 Vitex@hippy.cz (G)
  */
-class ToSyslog extends ToStd implements Loggingable {
+class ToSyslog extends ToStd implements Loggingable
+{
 
     /**
      * Předvolená metoda logování.
@@ -38,8 +39,10 @@ class ToSyslog extends ToStd implements Loggingable {
      *
      * @param string $logName syslog log source identifier
      */
-    public function __construct($logName = null) {
-        openlog(empty($logName) ? \Ease\Shared::appName() : $logName, intval(\Ease\Functions::cfg('LOG_FLAG')), intval(\Ease\Functions::cfg('LOG_FACILITY')));
+    public function __construct($logName = null)
+    {
+        parent::__construct($logName);
+        openlog(empty($this->logName) ? \Ease\Shared::appName() : $this->logName, intval(\Ease\Functions::cfg('LOG_FLAG')), intval(\Ease\Functions::cfg('LOG_FACILITY')));
     }
 
     /**
@@ -47,7 +50,8 @@ class ToSyslog extends ToStd implements Loggingable {
      * 
      * @return ToSyslog
      */
-    public static function singleton() {
+    public static function singleton()
+    {
         if (!isset(self::$instance)) {
             self::$instance = new self(\Ease\Shared::appName() ? \Ease\Shared::appName() : 'EaseFramework');
         }
@@ -60,7 +64,8 @@ class ToSyslog extends ToStd implements Loggingable {
      * @param string $type    message type 'error' or anything else
      * @param string $logLine message to output
      */
-    public function output($type, $logLine) {
+    public function output($type, $logLine)
+    {
         return syslog($type == 'error' ? constant('LOG_ERR') : constant('LOG_INFO'), $this->finalizeMessage($logLine));
     }
 
@@ -71,7 +76,8 @@ class ToSyslog extends ToStd implements Loggingable {
      *
      * @return string ready to use message
      */
-    public function finalizeMessage($messageRaw) {
+    public function finalizeMessage($messageRaw)
+    {
         return trim($messageRaw);
     }
 
@@ -80,7 +86,8 @@ class ToSyslog extends ToStd implements Loggingable {
      * 
      * @return boolean syslog close status
      */
-    public function __destruct() {
+    public function __destruct()
+    {
         return closelog();
     }
 

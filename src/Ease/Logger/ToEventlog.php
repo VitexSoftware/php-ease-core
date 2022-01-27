@@ -17,7 +17,8 @@ namespace Ease\Logger;
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2021 Vitex@hippy.cz (G)
  */
-class ToEventlog extends ToSyslog implements Loggingable {
+class ToEventlog extends ToSyslog implements Loggingable
+{
 
     /**
      * Předvolená metoda logování.
@@ -38,7 +39,8 @@ class ToEventlog extends ToSyslog implements Loggingable {
      *
      * @return string ready to use message
      */
-    public function finalizeMessage($messageRaw) {
+    public function finalizeMessage($messageRaw)
+    {
         return \Ease\Functions::rip($messageRaw);
     }
 
@@ -47,7 +49,8 @@ class ToEventlog extends ToSyslog implements Loggingable {
      * 
      * @return ToSyslog
      */
-    public static function singleton() {
+    public static function singleton()
+    {
         if (!isset(self::$instance)) {
             self::$instance = new self(\Ease\Shared::appName() ? \Ease\Shared::appName() : 'EaseFramework');
         }

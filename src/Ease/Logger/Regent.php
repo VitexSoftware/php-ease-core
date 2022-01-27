@@ -16,7 +16,8 @@ namespace Ease\Logger;
  *
  * @author vitex
  */
-class Regent extends \Ease\Atom implements Loggingable {
+class Regent extends \Ease\Atom implements Loggingable
+{
 
     /**
      * Saves obejct instace (singleton...).
@@ -57,15 +58,18 @@ class Regent extends \Ease\Atom implements Loggingable {
      * 
      * @param string $logger class name
      */
-    public function __construct($logger = null) {
+    public function __construct($logger = null)
+    {
         if (empty($logger)) {
             $loggers = empty(\Ease\Functions::cfg('EASE_LOGGER')) ? ['syslog'] : explode('|', \Ease\Functions::cfg('EASE_LOGGER'));
         } else {
             $loggers = is_array($logger) ? $logger : [$logger];
         }
 
-        foreach ($loggers as $logger) {
-            switch ($logger) {
+        foreach ($loggers as $logger)
+        {
+            switch ($logger)
+            {
                 case 'console':
                     $this->loggers[$logger] = ToConsole::singleton();
                     break;
@@ -95,7 +99,8 @@ class Regent extends \Ease\Atom implements Loggingable {
         }
     }
 
-    public function takeMessage() {
+    public function takeMessage()
+    {
         
     }
 
@@ -108,7 +113,8 @@ class Regent extends \Ease\Atom implements Loggingable {
      * 
      * @return boolean At least one logger takes message
      */
-    public function addToLog($caller, $message, $type = 'info') {
+    public function addToLog($caller, $message, $type = 'info')
+    {
         return $this->addStatusObject(new Message($message, $type, $caller));
     }
 
@@ -117,14 +123,16 @@ class Regent extends \Ease\Atom implements Loggingable {
      * 
      * @return array<Message>
      */
-    public function getMessages() {
+    public function getMessages()
+    {
         return $this->messages;
     }
 
     /**
      * Clean Internal message buffer
      */
-    public function cleanMessages() {
+    public function cleanMessages()
+    {
         $this->messages = [];
         return true;
     }
@@ -136,10 +144,12 @@ class Regent extends \Ease\Atom implements Loggingable {
      * 
      * @return int number of stored messages
      */
-    public function addStatusObject(Message $message) {
+    public function addStatusObject(Message $message)
+    {
         $this->messages[] = $message;
         $logged = 0;
-        foreach ($this->loggers as $logger) {
+        foreach ($this->loggers as $logger)
+        {
             $logged += $logger->addToLog($message->caller, $message->body, $message->type);
         }
         return $logged;
@@ -148,7 +158,8 @@ class Regent extends \Ease\Atom implements Loggingable {
     /**
      * Get The Regent
      */
-    public static function singleton($logger = null) {
+    public static function singleton($logger = null)
+    {
         if (!isset(self::$instance)) {
             self::$instance = new self($logger);
         }

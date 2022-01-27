@@ -19,7 +19,8 @@ use Ease\Functions;
  * @copyright 2009-2021 Vitex@hippy.cz (G)
  * @author    Vitex <vitex@hippy.cz>
  */
-class Shared extends Atom {
+class Shared extends Atom
+{
 
     /**
      * Pole konfigurací.
@@ -60,14 +61,16 @@ class Shared extends Atom {
      * 
      * @return string
      */
-    static public function appName() {
+    static public function appName()
+    {
         return (Functions::cfg('EASE_APPNAME') ? Functions::cfg('EASE_APPNAME') : (Functions::cfg('APP_NAME') ? Functions::cfg('APP_NAME') : 'EaseFramework' ));
     }
 
     /**
      * Inicializace sdílené třídy.
      */
-    public function __construct() {
+    public function __construct()
+    {
         $sessMsgs = [];
         $appName = self::appName();
         if (isset($_SESSION[$appName]['EaseMessages'])) {
@@ -80,12 +83,13 @@ class Shared extends Atom {
     /**
      * File with stored messages
      * 
-     * @param sring $sessID
+     * @param string $sessID
      * 
      * @return string
      */
-    public static function msgFile($sessID = 'EaseStatusMessages') {
-        $uid = (function_exists('posix_getuid') ? posix_getuid() : ( function_exists('posix_getpwuid') ? posix_getpwuid() : '' ));
+    public static function msgFile($sessID = 'EaseStatusMessages')
+    {
+        $uid = (function_exists('posix_getuid') ? posix_getuid() : ( function_exists('posix_getpwuid') ? posix_getpwuid(posix_getuid()) : '' ));
         return Functions::sysFilename(sys_get_temp_dir() . '/' . self::appName() . $sessID . $uid . '.ser');
     }
 
@@ -95,8 +99,9 @@ class Shared extends Atom {
      * 
      * @return array
      */
-    public static function loadStatusMessages($sessID = 'EaseStatusMessages') {
-        $msgFile = self::msgFile();
+    public static function loadStatusMessages($sessID = 'EaseStatusMessages')
+    {
+        $msgFile = self::msgFile($sessID);
         $messages = [];
         if (file_exists($msgFile) && is_readable($msgFile) && filesize($msgFile) && is_writable($msgFile)) {
             $messages = unserialize(file_get_contents($msgFile));
@@ -110,7 +115,8 @@ class Shared extends Atom {
      * 
      * @return int bytes saved
      */
-    public function saveStatusMessages($sessID = 'EaseStatusMessages') {
+    public function saveStatusMessages($sessID = 'EaseStatusMessages')
+    {
         return file_put_contents(self::msgFile($sessID), serialize(self::$statusMessages));
     }
 
@@ -124,7 +130,8 @@ class Shared extends Atom {
      *
      * @return \Ease\Shared
      */
-    public static function singleton() {
+    public static function singleton()
+    {
         if (!isset(self::$instance)) {
             self::$instance = new self();
         }
@@ -136,7 +143,8 @@ class Shared extends Atom {
      *
      * @return Shared
      */
-    public static function &instanced() {
+    public static function &instanced()
+    {
         $easeShared = self::singleton();
 
         return $easeShared;
@@ -148,7 +156,8 @@ class Shared extends Atom {
      * @param string $configName  klíč
      * @param mixed  $configValue hodnota klíče
      */
-    public function setConfigValue($configName, $configValue) {
+    public function setConfigValue($configName, $configValue)
+    {
         $this->configuration[$configName] = $configValue;
     }
 
@@ -159,16 +168,18 @@ class Shared extends Atom {
      *
      * @return mixed
      */
-    public function getConfigValue($configName) {
+    public function getConfigValue($configName)
+    {
         return array_key_exists($configName, $this->configuration) ? $this->configuration[$configName] : null;
     }
 
     /**
      * Vrací instanci objektu logování.
      *
-     * @return Logger
+     * @return Logger\Regent
      */
-    public static function logger() {
+    public static function logger()
+    {
         return Logger\Regent::singleton();
     }
 
@@ -180,7 +191,8 @@ class Shared extends Atom {
      *
      * @return User
      */
-    public static function &user(Person $user = null, string $candidat = 'User', string $userSessionName = 'User') {
+    public static function &user(Person $user = null, string $candidat = 'User', string $userSessionName = 'User')
+    {
         $efprefix = self::appName();
         if (empty($user) && isset($_SESSION[$efprefix][self::$userSessionName])) {
             return $_SESSION[$efprefix][self::$userSessionName];
@@ -206,20 +218,23 @@ class Shared extends Atom {
      *
      * @return array full configuration array
      */
-    public function loadConfig($configFile, $defineConstants = false) {
+    public function loadConfig($configFile, $defineConstants = false)
+    {
         if (!file_exists($configFile)) {
             throw new Exception(
                             'Config file ' . (realpath($configFile) ? realpath($configFile) : $configFile) . ' does not exist'
             );
         }
 
-        switch (strtolower(pathinfo($configFile, constant('PATHINFO_EXTENSION')))) {
+        switch (strtolower(pathinfo($configFile, constant('PATHINFO_EXTENSION'))))
+        {
             case 'json':
                 $configuration = json_decode(file_get_contents($configFile), true);
                 break;
             case 'env':
                 $configuration = [];
-                foreach (file($configFile) as $cfgRow) {
+                foreach (file($configFile) as $cfgRow)
+                {
                     if (strchr($cfgRow, '=')) {
                         list($key, $value) = explode('=', $cfgRow);
                         $configuration[$key] = trim($value, " \t\n\r\0\x0B'\"");
@@ -231,7 +246,8 @@ class Shared extends Atom {
                 break;
         }
 
-        foreach ($configuration as $configKey => $configValue) {
+        foreach ($configuration as $configKey => $configValue)
+        {
             if ($defineConstants && (strtoupper($configKey) == $configKey) && (!defined($configKey))) {
                 define($configKey, $configValue);
             } else {

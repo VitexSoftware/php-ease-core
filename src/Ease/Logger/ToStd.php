@@ -17,7 +17,8 @@ namespace Ease\Logger;
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2021 Vitex@hippy.cz (G)
  */
-class ToStd extends ToMemory implements Loggingable {
+class ToStd extends ToMemory implements Loggingable
+{
 
     /**
      * ID naposledy ulozene zpravy.
@@ -50,7 +51,8 @@ class ToStd extends ToMemory implements Loggingable {
      *
      * @param string $logName symbolic name for log
      */
-    public function __construct($logName = null) {
+    public function __construct($logName = null)
+    {
         $this->logName = empty($logName) ? \Ease\Shared::appName() : $logName;
     }
 
@@ -62,7 +64,8 @@ class ToStd extends ToMemory implements Loggingable {
      * @link http://docs.php.net/en/language.oop5.patterns.html Dokumentace a
      * priklad
      */
-    public static function singleton() {
+    public static function singleton()
+    {
         if (!isset(self::$instance)) {
             self::$instance = new self(\Ease\Shared::appName() ? \Ease\Shared::appName() : 'EaseFramework');
         }
@@ -79,7 +82,8 @@ class ToStd extends ToMemory implements Loggingable {
      *
      * @return null|boolean byl report zapsán ?
      */
-    public function addToLog($caller, $message, $type = 'message') {
+    public function addToLog($caller, $message, $type = 'message')
+    {
         ++$this->messageID;
 
         self::$statusMessages[$type][$this->messageID] = $message;
@@ -118,9 +122,11 @@ class ToStd extends ToMemory implements Loggingable {
      * 
      * @return int bytes written
      */
-    public function output($type, $logLine) {
+    public function output($type, $logLine)
+    {
         $written = 0;
-        switch ($type) {
+        switch ($type)
+        {
             case 'error':
                 $stderr = fopen('php://stderr', 'w');
                 $written += fwrite($stderr, $this->logName . ': ' . $logLine);
@@ -142,7 +148,8 @@ class ToStd extends ToMemory implements Loggingable {
      *
      * @return string ready to use message
      */
-    public function finalizeMessage($messageRaw) {
+    public function finalizeMessage($messageRaw)
+    {
         return trim($messageRaw) . PHP_EOL;
     }
 

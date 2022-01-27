@@ -15,7 +15,8 @@ namespace Ease;
  *
  * @author vitex
  */
-interface Person {
+interface Person
+{
 
     /**
      * Anonym má level.

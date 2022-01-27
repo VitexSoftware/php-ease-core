@@ -18,7 +18,8 @@ namespace Ease;
  *
  * @author  Vítězslav Dvořák <vitex@hippy.cz>
  */
-class User extends Anonym {
+class User extends Anonym
+{
 
     /**
      * @var User Singleton is stored here
@@ -93,7 +94,8 @@ class User extends Anonym {
      * @param int $userID ID nebo Login uživatele jenž se má načíst při
      *                    inicializaci třídy
      */
-    public function __construct($userID = null) {
+    public function __construct($userID = null)
+    {
         $this->userID = $userID;
         $this->setObjectName();
     }
@@ -103,7 +105,8 @@ class User extends Anonym {
      *
      * @return string
      */
-    public function getUserName() {
+    public function getUserName()
+    {
         return $this->getDataValue($this->loginColumn);
     }
 
@@ -112,14 +115,16 @@ class User extends Anonym {
      *
      * @return string
      */
-    public function getUserEmail() {
+    public function getUserEmail()
+    {
         return $this->getDataValue($this->mailColumn);
     }
 
     /**
      * Vykreslí GrAvatara uživatele.
      */
-    public function draw() {
+    public function draw()
+    {
         return '<img class="avatar" src="' . $this->getIcon() . '">';
     }
 
@@ -128,7 +133,8 @@ class User extends Anonym {
      *
      * @return string url ikony
      */
-    public function getIcon() {
+    public function getIcon()
+    {
         $email = $this->getUserEmail();
         if ($email) {
             return self::getGravatar($email, 800, 'mm', 'g');
@@ -145,7 +151,8 @@ class User extends Anonym {
      *
      * @return null|boolean
      */
-    public function tryToLogin($formData) {
+    public function tryToLogin($formData)
+    {
         $login = array_key_exists($this->loginColumn, $formData) ? $formData[$this->loginColumn] : null;
         $password = array_key_exists($this->passwordColumn, $formData) ? $formData[$this->passwordColumn] : null;
         if (empty($login)) {
@@ -175,7 +182,8 @@ class User extends Anonym {
      * 
      * @return boolean
      */
-    public function authentize($plaintext) {
+    public function authentize($plaintext)
+    {
         if ($this->validatePassword($plaintext)) {
             if ($this->isAccountEnabled()) {
                 return $this->loginSuccess();
@@ -202,7 +210,8 @@ class User extends Anonym {
      * 
      * @return boolean
      */
-    public function validatePassword($password) {
+    public function validatePassword($password)
+    {
         return self::passwordValidation($password, $this->getDataValue($this->passwordColumn));
     }
 
@@ -211,7 +220,8 @@ class User extends Anonym {
      *
      * @return bool
      */
-    public function isAccountEnabled() {
+    public function isAccountEnabled()
+    {
         if (empty($this->disableColumn)) {
             return true;
         }
@@ -231,7 +241,8 @@ class User extends Anonym {
      * 
      * @return boolean
      */
-    public function loginSuccess() {
+    public function loginSuccess()
+    {
         $this->userID = (int) $this->getMyKey();
         $this->setUserLogin($this->getDataValue($this->loginColumn));
         $this->logged = true;
@@ -249,7 +260,8 @@ class User extends Anonym {
      *
      * @return bool
      */
-    public static function passwordValidation($plainPassword, $encryptedPassword) {
+    public static function passwordValidation($plainPassword, $encryptedPassword)
+    {
         if ($plainPassword && $encryptedPassword) {
             $passwordStack = explode(':', $encryptedPassword);
             if (sizeof($passwordStack) != 2) {
@@ -270,9 +282,11 @@ class User extends Anonym {
      *
      * @return string Encrypted password
      */
-    public static function encryptPassword($plainTextPassword) {
+    public static function encryptPassword($plainTextPassword)
+    {
         $encryptedPassword = '';
-        for ($i = 0; $i < 10; ++$i) {
+        for ($i = 0; $i < 10; ++$i)
+        {
             $encryptedPassword .= \Ease\Functions::randomNumber();
         }
         $passwordSalt = substr(md5($encryptedPassword), 0, 2);
@@ -288,7 +302,8 @@ class User extends Anonym {
      *
      * @return boolean success
      */
-    public function passwordChange(/** @scrutinizer ignore-unused */ $newPassword) {
+    public function passwordChange(/** @scrutinizer ignore-unused */ $newPassword)
+    {
         return false;
     }
 
@@ -297,7 +312,8 @@ class User extends Anonym {
      *
      * @return int ID uživatele
      */
-    public function getUserID() {
+    public function getUserID()
+    {
         return isset($this->userID) ? (int) $this->userID : (int) $this->getMyKey();
     }
 
@@ -306,7 +322,8 @@ class User extends Anonym {
      *
      * @return string
      */
-    public function getUserLogin() {
+    public function getUserLogin()
+    {
         return isset($this->userLogin) ? $this->userLogin : $this->getDataValue($this->loginColumn);
     }
 
@@ -315,7 +332,8 @@ class User extends Anonym {
      *
      * @return boolean
      */
-    public function setUserLogin($login) {
+    public function setUserLogin($login)
+    {
         $this->userLogin = $login;
         return isset($this->loginColumn) ? $this->setDataValue($this->loginColumn,
                         $login) : true;
@@ -328,7 +346,8 @@ class User extends Anonym {
      *
      * @return mixed
      */
-    public function getPermission($permKeyword = null) {
+    public function getPermission($permKeyword = null)
+    {
         if (isset($this->permissions[$permKeyword])) {
             return $this->permissions[$permKeyword];
         } else {
@@ -339,7 +358,8 @@ class User extends Anonym {
     /**
      * Provede odhlášení uživatele.
      */
-    public function logout() {
+    public function logout()
+    {
         $this->logged = false;
         $this->addStatusMessage(_('Sign Out successful'), 'success');
 
@@ -353,7 +373,8 @@ class User extends Anonym {
      *
      * @return mixed
      */
-    public function getSettingValue($settingName = null) {
+    public function getSettingValue($settingName = null)
+    {
         if (isset($this->settings[$settingName])) {
             return $this->settings[$settingName];
         } else {
@@ -366,7 +387,8 @@ class User extends Anonym {
      *
      * @param array $settings asociativní pole nastavení
      */
-    public function setSettings($settings) {
+    public function setSettings($settings)
+    {
         $this->settings = array_merge($this->settings, $settings);
     }
 
@@ -376,7 +398,8 @@ class User extends Anonym {
      * @param string $settingName  klíčové slovo pro nastavení
      * @param mixed  $settingValue hodnota nastavení
      */
-    public function setSettingValue($settingName, $settingValue) {
+    public function setSettingValue($settingName, $settingValue)
+    {
         $this->settings[$settingName] = $settingValue;
     }
 
@@ -385,7 +408,8 @@ class User extends Anonym {
      *
      * @return mixed
      */
-    public function loadPermissions() {
+    public function loadPermissions()
+    {
         return;
     }
 
@@ -394,7 +418,8 @@ class User extends Anonym {
      *
      * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->getObjectName();
     }
 
@@ -413,7 +438,8 @@ class User extends Anonym {
      */
     public static function getGravatar(
             $email, $size = 80, $default = 'mm', $maxRating = 'g'
-    ) {
+    )
+    {
         $url = 'http://www.gravatar.com/avatar/';
         $url .= md5(strtolower(trim($email)));
         $url .= "?s=$size&d=$default&r=$maxRating";
@@ -428,7 +454,8 @@ class User extends Anonym {
      *
      * @return string
      */
-    public function setObjectName($objectName = null) {
+    public function setObjectName($objectName = null)
+    {
 
         if (empty($objectName) && isset($_SERVER['REMOTE_ADDR'])) {
             $name = parent::setObjectName(get_class($this) . ':' . $this->getUserName() . '@' . self::remoteToIdentity());
@@ -443,7 +470,8 @@ class User extends Anonym {
      * 
      * @return \Ease\User
      */
-    public static function singleton($user = null) {
+    public static function singleton($user = null)
+    {
         if (!isset(self::$instance)) {
             self::$instance = is_null($user) ? new self() : $user;
         }
@@ -455,7 +483,8 @@ class User extends Anonym {
      *
      * @return array
      */
-    public function __sleep() {
+    public function __sleep()
+    {
         return ['logged', 'data'];
     }
 

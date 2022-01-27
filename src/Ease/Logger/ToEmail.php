@@ -15,9 +15,10 @@ namespace Ease\Logger;
  * Log to Email
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2021 Vitex@hippy.cz (G)
+ * @copyright 2009-2022 Vitex@hippy.cz (G)
  */
-class ToEmail extends ToMemory implements Loggingable {
+class ToEmail extends ToMemory implements Loggingable
+{
 
     /**
      * Předvolená metoda logování.
@@ -93,7 +94,8 @@ class ToEmail extends ToMemory implements Loggingable {
      * @param string $recipient
      * @param string $subject   of message
      */
-    public function __construct($recipient = '', $subject = null) {
+    public function __construct($recipient = '', $subject = null)
+    {
         $this->recipient = empty($recipient) ? \Ease\Functions::cfg('EASE_EMAILTO') : $recipient;
         $this->subject = empty($subject) ? $_SERVER['PHP_SELF'] : $subject;
         $this->mailer = new \Ease\Mailer($this->recipient, $this->subject);
@@ -108,7 +110,8 @@ class ToEmail extends ToMemory implements Loggingable {
      * @link http://docs.php.net/en/language.oop5.patterns.html Dokumentace a
      * priklad
      */
-    public static function singleton() {
+    public static function singleton()
+    {
         if (!isset(self::$_instance)) {
             $class = __CLASS__;
             if (\Ease\Shared::appName()) {
@@ -133,7 +136,8 @@ class ToEmail extends ToMemory implements Loggingable {
      *
      * @return null|boolean byl report zapsán ?
      */
-    public function addToLog($caller, $message, $type = 'notice') {
+    public function addToLog($caller, $message, $type = 'notice')
+    {
 
         ++$this->messageID;
         if (($this->logLevel == 'silent') && ($type != 'error')) {
@@ -154,7 +158,8 @@ class ToEmail extends ToMemory implements Loggingable {
     /**
      * Send collected messages.
      */
-    public function __destruct() {
+    public function __destruct()
+    {
         if (empty($this->mailer->mailBody) === false) {
             $this->mailer->send();
         }

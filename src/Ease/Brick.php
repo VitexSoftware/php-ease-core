@@ -12,7 +12,8 @@ namespace Ease;
  * 
  * PHP 7
  */
-class Brick extends Sand {
+class Brick extends Sand
+{
 
     use RecordKey;
 
@@ -25,7 +26,8 @@ class Brick extends Sand {
      *
      * @return string new name
      */
-    public function setObjectName($objectName = null) {
+    public function setObjectName($objectName = null)
+    {
         if (is_null($objectName)) {
             $key = $this->getMyKey($this->data);
             if ($key) {

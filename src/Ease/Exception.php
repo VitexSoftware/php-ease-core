@@ -18,7 +18,8 @@ namespace Ease;
  *
  * @author vitex
  */
-class Exception extends \Exception {
+class Exception extends \Exception
+{
 
     /**
      * Ease Framework Exception
@@ -27,7 +28,8 @@ class Exception extends \Exception {
      * @param int             $code     error code
      * @param \Ease\Exception $previous
      */
-    public function __construct($message, $code = 0, Exception $previous = null) {
+    public function __construct($message, $code = 0, Exception $previous = null)
+    {
         $trace = $this->getTrace();
         $caller = new Molecule();
         $where = $trace[0]['class'] . '::' . $trace[0]['function'];

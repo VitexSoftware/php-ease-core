@@ -21,7 +21,8 @@ namespace Ease\Logger;
  *
  * @author vitex
  */
-class Message {
+class Message
+{
 
     /**
      * Message body
@@ -60,7 +61,8 @@ class Message {
      */
     public function __construct($message, $type = 'info', $caller = null,
             $when = null
-    ) {
+    )
+    {
         $this->body = $message;
         $this->type = $type;
         $this->caller = $caller;
@@ -78,8 +80,10 @@ class Message {
      * 
      * @return string
      */
-    public static function getTypeUnicodeSymbol($type) {
-        switch ($type) {
+    public static function getTypeUnicodeSymbol($type)
+    {
+        switch ($type)
+        {
             case 'mail':                       // Envelope
                 $symbol = '✉';
                 break;

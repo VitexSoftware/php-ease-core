@@ -20,7 +20,8 @@ namespace Ease\Logger;
  *
  * @author vitex
  */
-trait Logging {
+trait Logging
+{
 
     /**
      * Objekt pro logování.
@@ -39,7 +40,8 @@ trait Logging {
      * 
      * @return boolean message added
      */
-    public function addStatusMessage($message, $type = 'info', $caller = null) {
+    public function addStatusMessage($message, $type = 'info', $caller = null)
+    {
         return $this->getLogger()->addToLog((empty($caller) ? $this : $caller), $message, $type);
     }
 
@@ -48,7 +50,8 @@ trait Logging {
      *
      * @return array
      */
-    public function getStatusMessages() {
+    public function getStatusMessages()
+    {
         return $this->getLogger()->getMessages();
     }
 
@@ -57,7 +60,8 @@ trait Logging {
      * 
      * @return boolean
      */
-    public function cleanSatatusMessages() {
+    public function cleanSatatusMessages()
+    {
         return $this->getLogger()->cleanMessages();
     }
 
@@ -68,7 +72,8 @@ trait Logging {
      * 
      * @return Regent
      */
-    public function getLogger($options = null) {
+    public function getLogger($options = null)
+    {
         if (is_null($this->logger)) {
             $this->logger = Regent::singleton($options);
         }
@@ -81,9 +86,10 @@ trait Logging {
      * @param string $prefix banner prefix text
      * @param string $suffix banner suffix text
      */
-    public function logBanner($prefix = '', $suffix = '') {
-        if(\Ease\Functions::cfg('DEBUG') === true){
-            $suffix .= ' Loggers: '.\Ease\Functions::cfg('EASE_LOGGER');
+    public function logBanner($prefix = '', $suffix = '')
+    {
+        if (\Ease\Functions::cfg('DEBUG') === true) {
+            $suffix .= ' Loggers: ' . \Ease\Functions::cfg('EASE_LOGGER');
         }
         $this->addStatusMessage(
                 trim($prefix . ' PHP v' . phpversion() . ' EasePHP Framework v' . \Ease\Atom::$frameworkVersion . ' ' . $suffix),
