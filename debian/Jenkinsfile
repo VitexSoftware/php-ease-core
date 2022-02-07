@@ -54,14 +54,15 @@ architectures.each {
                         }
                 }
                 stage('Copy artifacts ' + architecture + '/' + distribution ) {
-
-                    step ([$class: 'CopyArtifact',
-                        projectName: '${JOB_NAME}',
-                        filter: '**/*.deb',
-                        target: '/var/tmp/deb',
-                        flatten: true,
-                        selector: specific('${BUILD_NUMBER}')
-                    ])
+                    buildImage.inside {
+                        step ([$class: 'CopyArtifact',
+                            projectName: '${JOB_NAME}',
+                            filter: '**/*.deb',
+                            target: '/var/tmp/deb',
+                            flatten: true,
+                            selector: specific('${BUILD_NUMBER}')
+                        ])
+                    }
                 }
             }
         }
