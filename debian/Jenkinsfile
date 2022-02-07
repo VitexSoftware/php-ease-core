@@ -5,7 +5,7 @@ String[] distributions = ['debian:buster', 'debian:bullseye', 'debian:bookworm',
 String vendor = 'vitexsoftware'
 String distribution = ''
 String architecture = ''
-String dist[] str
+String dist[]
 String buildArgs = ''
 String distroFamily = ''
 String distroCodename = ''
