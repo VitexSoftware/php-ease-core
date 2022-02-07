@@ -25,7 +25,7 @@ architectures.each {
             ansiColor('xterm') {
                 stage('Checkout ' + architecture + '/' + distribution) {
                     dir('build'){
-                        sh 'ls -la'
+                        sh 'ls -la ..'
                         sh 'sudo chown jenkins:jenkins .. -Rv'
                         checkout scm
                         buildImage = docker.image(vendor + '/' + distribution)
