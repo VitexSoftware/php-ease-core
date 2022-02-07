@@ -5,7 +5,6 @@ String[] distributions = ['debian:buster', 'debian:bullseye', 'debian:bookworm',
 String vendor = 'vitexsoftware'
 String distribution = ''
 String architecture = ''
-String dist[]
 String buildArgs = ''
 String distroFamily = ''
 String distroCodename = ''
@@ -16,7 +15,7 @@ architectures.each {
     distributions.each {
         distribution = it
 
-        dist = distribution.split(':')
+        def dist = distribution.split(':')
         distroFamily = dist[0]
         distroCodename = dist[1]
 
@@ -36,7 +35,7 @@ architectures.each {
                         returnStdout: true
                     ).trim()
 
-                    ver = VERSION + '~' + distroCodename + '~' + env.BUILD_NUMBER
+                    def ver = VERSION + '~' + distroCodename + '~' + env.BUILD_NUMBER
 
                 }
                 stage('Build ' + architecture + '/' + distribution) {
