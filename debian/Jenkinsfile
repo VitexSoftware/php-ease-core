@@ -5,7 +5,6 @@ String[] distributions = ['debian:buster', 'debian:bullseye', 'debian:bookworm',
 String vendor = 'vitexsoftware'
 String distribution = ''
 String architecture = ''
-String buildArgs = ''
 String distroFamily = ''
 String distroCodename = ''
 String ver = ''
@@ -19,8 +18,6 @@ architectures.each {
         distroFamily = dist[0]
         distroCodename = dist[1]
 
-        buildArgs = ' --platform linux/' + architecture + ' -t ' + vendor + '/' + distribution
-
         def buildImage = ''
 
 
@@ -28,7 +25,7 @@ architectures.each {
             ansiColor('xterm') {
                 stage('Checkout ' + architecture + '/' + distribution) {
                     checkout scm
-                    buildImage = docker.image(vendor + '/' + distribution, buildArgs)
+                    buildImage = docker.image(vendor + '/' + distribution)
 
                     def VERSION = sh (
                         script: 'dpkg-parsechangelog --show-field Version',
