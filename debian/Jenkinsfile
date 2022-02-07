@@ -35,10 +35,7 @@ architectures.each {
                     buildImage.inside {
                         sh 'dch -b -v ' + ver  + ' "' + env.BUILD_TAG  + '"'
                         sh 'sudo apt-get update'
-                        sh 'pwd'
-                        sh 'ls -la'
-                        sh 'ls -la ..'
-                        sh 'sudo chown:jenkins .. -Rv'
+                        sh 'sudo chown jenkins:jenkins .. -Rv'
                         sh 'debuild-pbuilder  -i -us -uc -b'
                         sh 'mkdir -p $WORKSPACE/dist/debian/ ; rm -rf $WORKSPACE/dist/debian/* ; for deb in $(cat debian/files | awk \'{print $1}\'); do mv "../$deb" $WORKSPACE/dist/debian/; done'
                     }
