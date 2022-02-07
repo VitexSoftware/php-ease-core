@@ -35,7 +35,6 @@ architectures.each {
                     buildImage.inside {
                         sh 'dch -b -v ' + ver  + ' "' + env.BUILD_TAG  + '"'
                         sh 'sudo apt-get update'
-                        sh 'sudo chown jenkins:jenkins .. -Rv'
                         sh 'debuild-pbuilder  -i -us -uc -b'
                         sh 'mkdir -p $WORKSPACE/dist/debian/ ; rm -rf $WORKSPACE/dist/debian/* ; for deb in $(cat debian/files | awk \'{print $1}\'); do mv "../$deb" $WORKSPACE/dist/debian/; done'
                     }
@@ -57,7 +56,7 @@ architectures.each {
                         dir(env.WORKSPACE + '/dist/debian/') {
                             step ([$class: 'CopyArtifact',
                                 projectName: '${JOB_NAME}',
-                                filter: '*.deb',
+                                filter: '**/*.deb',
                                 target: '/var/tmp/deb',
                                 flatten: true,
                                 selector: specific('${BUILD_NUMBER}')
