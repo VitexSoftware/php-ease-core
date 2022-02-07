@@ -1,6 +1,7 @@
 /nbproject/
 /debian/ease-core.sh
 /tests/build/
+.php_cs.cache
 /vendor/
 composer.lock
 /build/
