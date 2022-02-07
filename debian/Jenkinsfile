@@ -35,7 +35,7 @@ architectures.each {
                         returnStdout: true
                     ).trim()
 
-                    def ver = VERSION + '~' + distroCodename + '~' + env.BUILD_NUMBER
+                    ver = VERSION + '~' + distroCodename + '~' + env.BUILD_NUMBER
 
                 }
                 stage('Build ' + architecture + '/' + distribution) {
