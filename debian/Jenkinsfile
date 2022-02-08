@@ -60,7 +60,7 @@ architectures.each {
                 stage('Copy artifacts ' + architecture + '/' + distribution ) {
                     buildImage.inside {
                         dir(env.WORKSPACE + '/dist/debian/') {
-                            copyArtifact( projectName: '${JOB_NAME}', filter: '*.deb', target: '/var/tmp/deb', flatten: true, selector: specific('${BUILD_NUMBER}'))
+                            copyArtifacts( projectName: '${JOB_NAME}', filter: '*.deb', target: '/var/tmp/deb', flatten: true, selector: specific('${BUILD_NUMBER}'))
                         }
                     }
                 }
