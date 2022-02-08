@@ -62,8 +62,6 @@ architectures.each {
                         dir(env.WORKSPACE + '/dist/debian/') {
                             sh 'ls -la '
 
-
-
                             step ([$class: 'CopyArtifact',
                                 projectName: '${JOB_NAME}',
                                 filter: '*',
