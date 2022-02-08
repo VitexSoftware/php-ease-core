@@ -1,4 +1,5 @@
 #!groovy
+
 String[] architectures = ['amd64', 'armhf', 'aarch64']
 String[] distributions = ['debian:buster', 'debian:bullseye', 'debian:bookworm', 'ubuntu:focal', 'ubuntu:hirsute', 'ubuntu:impish']
 
@@ -8,6 +9,10 @@ String architecture = ''
 //String distroFamily = ''
 String distroCodename = ''
 String ver = ''
+
+properties([
+    copyArtifactPermission('*'),
+])
 
 architectures.each {
     architecture = it
@@ -58,7 +63,7 @@ architectures.each {
                             sh 'ls -la '
                             step ([$class: 'CopyArtifact',
                                 projectName: '${JOB_NAME}',
-                                filter: '**/*.deb',
+                                filter: '*.deb',
                                 target: '/var/tmp/deb',
                                 flatten: true,
                                 selector: specific('${BUILD_NUMBER}')
