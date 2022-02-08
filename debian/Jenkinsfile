@@ -11,7 +11,7 @@ String distroCodename = ''
 String ver = ''
 
 properties([
-    ansiColor('xterm')
+    ansiColor('xterm'),
     copyArtifactPermission('*')
 ])
 
