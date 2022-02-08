@@ -11,6 +11,7 @@ String distroCodename = ''
 String ver = ''
 
 properties([
+    ansiColor('xterm')
     copyArtifactPermission('*'),
 ])
 
@@ -45,7 +46,7 @@ architectures.each {
                         sh 'mkdir -p $WORKSPACE/dist/debian/ ; rm -rf $WORKSPACE/dist/debian/* ; for deb in $(cat debian/files | awk \'{print $1}\'); do mv "../$deb" $WORKSPACE/dist/debian/; done'
                     }
                 }
-                
+
                 stage('Test ' + architecture + '/' + distribution) {
                     buildImage.inside {
                         def debconf_debug = 0 //Set to "5" or "developer" to debug debconf
