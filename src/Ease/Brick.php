@@ -18,9 +18,9 @@ class Brick extends Sand
     use RecordKey;
 
     /**
-     * Nastavuje jméno objektu
-     * Je li známý, doplní jméno objektu hodnotu klíče např User#vitex
-     * nebo ProductInCart#4542.
+     * Sets the object name.
+     * If it is known, the name of the object completes the value of the key, e.g. User#vitex
+     * or ProductInCart#4542.
      *
      * @param string $objectName
      *
