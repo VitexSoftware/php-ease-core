@@ -25,7 +25,7 @@ class Molecule extends Atom
 {
 
     /**
-     * Object name place
+     * Object name
      *
      * @var string
      */
@@ -36,7 +36,7 @@ class Molecule extends Atom
      *
      * @param string $objectName
      *
-     * @return string Jméno objektu
+     * @return string Object name
      */
     public function setObjectName($objectName = null)
     {
@@ -50,7 +50,7 @@ class Molecule extends Atom
     }
 
     /**
-     * Vrací jméno objektu.
+     * Returns the name of the object.
      *
      * @return string
      */
@@ -60,7 +60,7 @@ class Molecule extends Atom
     }
 
     /**
-     * Set up one of properties by 1) array 2) ENV 3) Constant
+     * Set up one of the properties by 1) array 2) ENV 3) Constant
      *
      * @param array  $options  array of given availble properties
      * @param string $name     name of property to set up
