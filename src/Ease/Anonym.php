@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Anonymousous user class.
+ * Anonymous user class.
  *
  * @author    Vítězslav Dvořák <vitex@hippy.cz>
  * @copyright 2009-2021 Vitex@hippy.cz (G)
@@ -28,10 +28,10 @@ class Anonym extends Brick implements Person
      *
      * @var string
      */
-    public $type = 'Anonymousous';
+    public $type = 'Anonymous';
 
     /**
-     * An Anonymousous user ID is always null
+     * An Anonymous user ID is always null
      *
      * @var null
      */
