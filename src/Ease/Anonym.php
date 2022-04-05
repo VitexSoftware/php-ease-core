@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Anonymous user class.
+ * Anonymousous user class.
  *
  * @author    Vítězslav Dvořák <vitex@hippy.cz>
  * @copyright 2009-2021 Vitex@hippy.cz (G)
@@ -24,21 +24,21 @@ class Anonym extends Brick implements Person
 {
 
     /**
-     * Druh uživatele.
+     * User type.
      *
      * @var string
      */
-    public $type = 'anonymous';
+    public $type = 'Anonymousous';
 
     /**
-     * Anonymní uživatel má vždy ID null.
+     * An Anonymousous user ID is always null
      *
      * @var null
      */
     public $userID = null;
 
     /**
-     * Indikátor přihlášení.
+     * Login indicator.
      *
      * @var bool
      */
@@ -52,9 +52,9 @@ class Anonym extends Brick implements Person
     public $settings = [];
 
     /**
-     * Nastavení jména objektu uživatele.
+     * User object name setting.
      *
-     * @param string $objectName vynucené jméno objektu
+     * @param string $objectName forced object name
      *
      * @return string
      */
@@ -84,7 +84,7 @@ class Anonym extends Brick implements Person
     }
 
     /**
-     * Anonym má level.
+     * Anonymous has a level
      *
      * @return int
      */
@@ -94,7 +94,7 @@ class Anonym extends Brick implements Person
     }
 
     /**
-     * Anonym nema ID.
+     * Anonymous has no ID.
      */
     public function getUserID()
     {
@@ -102,7 +102,7 @@ class Anonym extends Brick implements Person
     }
 
     /**
-     * Anonym nemá login.
+     * Anonymous has no login.
      */
     public function getUserLogin()
     {
@@ -110,7 +110,7 @@ class Anonym extends Brick implements Person
     }
 
     /**
-     * Anonym nemůže být přihlášený.
+     * Anonymous cannot be logged.
      *
      * @return bool FALSE
      */
@@ -120,7 +120,7 @@ class Anonym extends Brick implements Person
     }
 
     /**
-     * Anonym nemá nastavení.
+     * Anonymous nemá nastavení.
      *
      * @param string $settingName jméno klíče nastavení
      */
@@ -130,10 +130,10 @@ class Anonym extends Brick implements Person
     }
 
     /**
-     * Nastaví položku nastavení.
+     * Sets to: has no settings.
      *
-     * @param string $settingName  klíčové slovo pro nastavení
-     * @param mixed  $settingValue hodnota nastavení
+     * @param string $settingName  settings keyword (name)
+     * @param mixed  $settingValue setting value
      */
     public function setSettingValue($settingName, $settingValue)
     {
@@ -141,7 +141,7 @@ class Anonym extends Brick implements Person
     }
 
     /**
-     * Anonym nemá mail.
+     * Anonymous has no mail.
      */
     public function getUserEmail()
     {
