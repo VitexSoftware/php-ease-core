@@ -120,9 +120,9 @@ class Anonym extends Brick implements Person
     }
 
     /**
-     * Anonymous nemá nastavení.
+     * Anonymous has no settings.
      *
-     * @param string $settingName jméno klíče nastavení
+     * @param string $settingName settings-key name
      */
     public function getSettingValue(/** @scrutinizer ignore-unused */ $settingName = null)
     {
