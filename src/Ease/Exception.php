@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Ease Exeption
+ * Ease Exception
  *
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2018 Vitex@hippy.cz (G)
@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Ease;
 
 /**
- * Exeption use EaseLogger to keep message
+ * Exceptional use of EaseLogger to keep the message
  *
  * @author vitex
  */
@@ -24,7 +24,7 @@ class Exception extends \Exception
     /**
      * Ease Framework Exception
      * 
-     * @param string          $message  of exeption
+     * @param string          $message  of exception
      * @param int             $code     error code
      * @param \Ease\Exception $previous
      */
