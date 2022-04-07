@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Třídy pro odesílání Mailu ✉.
+ * Classes for sending Mail ✉.
  *
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2012 Vitex@hippy.cz (G)
@@ -15,7 +15,7 @@ namespace Ease;
 
 /**
  * Build & Send email
- * Sestaví a odešle mail.
+ * Builds and sends the email.
  *
  * @author Vitex <vitex@hippy.cz>
  */
@@ -23,7 +23,7 @@ class Mailer extends Sand
 {
 
     /**
-     * Objekt pro odesílání pošty.
+     * Object for mail sending.
      *
      * @var \Mail
      */
@@ -76,7 +76,7 @@ class Mailer extends Sand
     public $finalized = false;
 
     /**
-     * Adresa odesilatele zprávy.
+     * The sender's address.
      *
      * @var string
      */
@@ -90,39 +90,39 @@ class Mailer extends Sand
     public $emailSubject = null;
 
     /**
-     * Emailová adresa odesilatele.
+     * The sender's email address.
      *
      * @var string
      */
     public $fromEmailAddress = null;
 
     /**
-     * Zobrazovat uživateli informaci o odeslání zprávy ?
+     * Show information about sending the message to the user?
      *
      * @var bool
      */
     public $notify = true;
 
     /**
-     * Byla již zpráva odeslána ?
+     * Has the message already been sent?
      *
      * @var bool
      */
     public $sendResult = false;
 
     /**
-     * Parametry odchozí pošty.
+     * Outgoing mail parameters.
      *
      * @var array
      */
     public $parameters = [];
 
     /**
-     * Ease Mail - sestaví a odešle.
+     * Ease Mail - builds and sends.
      *
-     * @param string $emailAddress  adresa
-     * @param string $mailSubject   předmět
-     * @param mixed  $emailContents tělo - libovolný mix textu a EaseObjektů
+     * @param string $emailAddress  address
+     * @param string $mailSubject   subject
+     * @param mixed  $emailContents body - any text mix and EaseObjects
      */
     public function __construct(string $emailAddress, string $mailSubject,
             $emailContents = null
@@ -156,7 +156,7 @@ class Mailer extends Sand
     }
 
     /**
-     * Set mail text body
+     * Sets mail's text body
      * 
      * @param string $text
      * 
@@ -168,7 +168,7 @@ class Mailer extends Sand
     }
 
     /**
-     * Obtain mail header content
+     * Obtains mail header's content
      *
      * @param string $headername requested header name
      *
@@ -180,11 +180,11 @@ class Mailer extends Sand
     }
 
     /**
-     * Nastaví hlavičky mailu.
+     * Sets mail headers.
      *
-     * @param mixed $mailHeaders asociativní pole hlaviček
+     * @param mixed $mailHeaders associative header array
      *
-     * @return bool true pokud byly hlavičky nastaveny
+     * @return bool true if the headers have been set
      */
     public function setMailHeaders(array $mailHeaders)
     {
@@ -207,10 +207,10 @@ class Mailer extends Sand
     }
 
     /**
-     * Attach file to mail
+     * Attaches file to mail
      *
-     * @param string $filename cesta/název souboru k přiložení
-     * @param string $mimeType MIME typ přílohy
+     * @param string $filename path / file name to attach
+     * @param string $mimeType MIME attachment type
      * 
      * @return boolean|\PEAR_Error
      */
@@ -220,7 +220,7 @@ class Mailer extends Sand
     }
 
     /**
-     * Send mail.
+     * Sends mail.
      */
     public function send()
     {
@@ -260,9 +260,9 @@ class Mailer extends Sand
     }
 
     /**
-     * Nastaví návěští uživatelské notifikace.
+     * Sets the user notification label.
      *
-     * @param bool $notify požadovaný stav notifikace
+     * @param bool $notify required notification status
      */
     public function setUserNotification(bool $notify)
     {
