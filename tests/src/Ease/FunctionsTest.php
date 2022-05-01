@@ -160,12 +160,12 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase {
      */
     public function testHumanFilesize() {
         $this->assertEquals('1.18 MB',
-                str_replace(',', '.', Functions::humanFilesize((int)1234545)));
+                str_replace(',', '.', Functions::humanFilesize(1234545)));
         $this->assertEquals('11.5 GB',
-                str_replace(',', '.', Functions::humanFilesize((int)12345453453)));
+                str_replace(',', '.', Functions::humanFilesize(12345453453)));
         $this->assertEquals('1.1 PB',
-                str_replace(',', '.', Functions::humanFilesize((int)1234545345332235)));
-        $this->assertEquals('0 Byte', Functions::humanFilesize((int)0));
+                str_replace(',', '.', Functions::humanFilesize(1234545345332235)));
+        $this->assertEquals('0 Byte', Functions::humanFilesize(0));
     }
 
     /**
