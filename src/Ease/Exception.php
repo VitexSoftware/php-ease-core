@@ -6,7 +6,7 @@ declare(strict_types=1);
  * Ease Exeption
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2018 Vitex@hippy.cz (G)
+ * @copyright 2009-2022 Vitex@hippy.cz (G)
  * 
  * PHP 7
  */
@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Ease;
 
 /**
- * Exeption use EaseLogger to keep message
+ * Exception use EaseLogger to keep message
  *
  * @author vitex
  */
