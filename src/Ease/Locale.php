@@ -490,7 +490,7 @@ class Locale
     ];
 
     /**
-     * Prepare use of localization
+     * Use of the localization preparation.
      * 
      * @param string $setLocale  en_US|cs_CZ|..
      * @param string $i18n       directory ( /usr/lib/locale/ in Debian )
@@ -563,7 +563,7 @@ class Locale
     }
 
     /**
-     * Locale code by browser default language
+     * Locale code by browser's default language
      * 
      * @return string locale code
      */
@@ -627,7 +627,7 @@ class Locale
     }
 
     /**
-     * Find Locale Code for browser language
+     * Locale Code language from browser language
      * 
      * @param string $lang browser lan en|cs|..
      * 

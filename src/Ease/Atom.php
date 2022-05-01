@@ -32,14 +32,14 @@ class Atom
     public static $frameworkVersion = '0.5';
 
     /**
-     * Flag debugovacího režimu.
+     * Debug mode flag.
      *
      * @var bool
      */
     public $debug = false;
 
     /**
-     * Vrací jméno objektu.
+     * Returns object name
      *
      * @return string
      */
@@ -49,7 +49,7 @@ class Atom
     }
 
     /**
-     * Magická funkce pro všechny potomky.
+     * Magical function for all descendants (childern).
      *
      * @return string
      */
@@ -59,7 +59,7 @@ class Atom
     }
 
     /**
-     * Default Draw method.
+     * Default draw method.
      *
      * @return string
      */
