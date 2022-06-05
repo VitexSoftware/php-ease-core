@@ -33,7 +33,7 @@ class Regent extends \Ease\Atom implements Loggingable
 
     /**
      * Keep All messages here
-     * @var array 
+     * @var array<Message>
      */
     private $messages = [];
 

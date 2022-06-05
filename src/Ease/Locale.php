@@ -549,7 +549,7 @@ class Locale
      */
     public static function requestLocale()
     {
-        return isset($_REQUEST) && array_key_exists('locale', $_REQUEST) ? $_REQUEST['locale'] : null;
+        return array_key_exists('locale', $_REQUEST) ? $_REQUEST['locale'] : null;
     }
 
     /**
@@ -678,6 +678,7 @@ class Locale
             $_SESSION['locale'] = $localeCode;
         }
         self::$localeUsed = $localeCode;
+        return $localeCode;
     }
 
     /**

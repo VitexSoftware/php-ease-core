@@ -21,8 +21,7 @@ namespace Ease\Logger;
  *
  * @author vitex
  */
-class Message
-{
+class Message {
 
     /**
      * Message body
@@ -59,10 +58,7 @@ class Message
      * @param \Ease\Atom|string $caller  Origin of message
      * @param int               $when    Timestamp
      */
-    public function __construct($message, $type = 'info', $caller = null,
-            $when = null
-    )
-    {
+    public function __construct($message, $type = 'info', $caller = null, $when = null) {
         $this->body = $message;
         $this->type = $type;
         $this->caller = $caller;
@@ -80,10 +76,8 @@ class Message
      * 
      * @return string
      */
-    public static function getTypeUnicodeSymbol($type)
-    {
-        switch ($type)
-        {
+    public static function getTypeUnicodeSymbol($type) {
+        switch ($type) {
             case 'mail':                       // Envelope
                 $symbol = '✉';
                 break;
