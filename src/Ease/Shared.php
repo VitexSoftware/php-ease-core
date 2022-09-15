@@ -236,7 +236,7 @@ class Shared extends Atom
                 foreach (file($configFile) as $cfgRow)
                 {
                     if (strchr($cfgRow, '=')) {
-                        list($key, $value) = explode('=', $cfgRow);
+                        list($key, $value) = preg_split('/=/', $cfgRow, 2);
                         $configuration[$key] = trim($value, " \t\n\r\0\x0B'\"");
                     }
                 }
