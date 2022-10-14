@@ -8,7 +8,7 @@ declare(strict_types=1);
  * @category Common
  * 
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2019 Vitex@hippy.cz (G)
+ * @copyright 2019-2022 Vitex@hippy.cz (G)
  * @license https://opensource.org/licenses/MIT GPL-2
  * 
  * PHP 7
@@ -21,8 +21,7 @@ namespace Ease;
  *
  * @author Vítězslav Dvořák <info@vitexsoftware.cz>
  */
-class Functions
-{
+class Functions {
 
     /**
      * Returns PATH modified for current operating system.
@@ -31,8 +30,7 @@ class Functions
      *
      * @return string
      */
-    public static function sysFilename($path)
-    {
+    public static function sysFilename($path) {
         return str_replace(['\\', '/'], constant('DIRECTORY_SEPARATOR'), $path);
     }
 
@@ -46,8 +44,7 @@ class Functions
      * @return string url with parameters added
      */
     public static function addUrlParams($url, array $addParams,
-            $override = false)
-    {
+            $override = false) {
         $urlParts = parse_url($url);
         $urlFinal = '';
         if (array_key_exists('scheme', $urlParts)) {
@@ -86,12 +83,10 @@ class Functions
      * @return string
      */
     public static function linkify($value, $protocols = array('http', 'mail'),
-            array $attributes = array())
-    {
+            array $attributes = array()) {
         // Link attributes
         $attr = '';
-        foreach ($attributes as $key => $val)
-        {
+        foreach ($attributes as $key => $val) {
             $attr = ' ' . strval($key) . '="' . htmlentities(strval($val)) . '"';
         }
 
@@ -99,20 +94,16 @@ class Functions
 
         // Extract existing links and tags
         $value = preg_replace_callback('~(<a .*?>.*?</a>|<.*?>)~i',
-                function ($match) use (&$links)
-                {
+                function ($match) use (&$links) {
                     return '<' . array_push($links, $match[1]) . '>';
                 }, $value);
 
         // Extract text links for each protocol
-        foreach ((array) $protocols as $protocol)
-        {
-            switch ($protocol)
-            {
+        foreach ((array) $protocols as $protocol) {
+            switch ($protocol) {
                 case 'http':
                 case 'https': $value = preg_replace_callback('~(?:(https?)://([^\s<]+)|(www\.[^\s<]+?\.[^\s<]+))(?<![\.,:])~i',
-                            function ($match) use ($protocol, &$links, $attr)
-                            {
+                            function ($match) use ($protocol, &$links, $attr) {
                                 if ($match[1])
                                     $protocol = $match[1];
                                 $link = $match[2] ?: $match[3];
@@ -121,16 +112,14 @@ class Functions
                             }, $value);
                     break;
                 case 'mail': $value = preg_replace_callback('~([^\s<]+?@[^\s<]+?\.[^\s<]+)(?<![\.,:])~',
-                            function ($match) use (&$links, $attr)
-                            {
+                            function ($match) use (&$links, $attr) {
                                 return '<' . array_push($links,
                                         "<a $attr href=\"mailto:{$match[1]}\">{$match[1]}</a>") . '>';
                             }, $value);
                     break;
                 default: $value = preg_replace_callback('~' . preg_quote($protocol,
                                     '~') . '://([^\s<]+?)(?<![\.,:])~i',
-                            function ($match) use ($protocol, &$links, $attr)
-                            {
+                            function ($match) use ($protocol, &$links, $attr) {
                                 return '<' . array_push($links,
                                         "<a $attr href=\"$protocol://{$match[1]}\">{$match[1]}</a>") . '>';
                             }, $value);
@@ -140,8 +129,7 @@ class Functions
 
         // Insert all link
         return preg_replace_callback('/<(\d+)>/',
-                function ($match) use (&$links)
-                {
+                function ($match) use (&$links) {
                     return $links[$match[1] - 1];
                 }, $value);
     }
@@ -154,8 +142,7 @@ class Functions
      * @param string $columName        item to move
      */
     public static function divDataArray(&$sourceArray, &$destinationArray,
-            $columName)
-    {
+            $columName) {
         $result = false;
         if (array_key_exists($columName, $sourceArray)) {
             $destinationArray[$columName] = $sourceArray[$columName];
@@ -174,8 +161,7 @@ class Functions
      *
      * @return bool
      */
-    public static function isAssoc(array $arr)
-    {
+    public static function isAssoc(array $arr) {
         return array_keys($arr) !== range(0, count($arr) - 1);
     }
 
@@ -184,8 +170,7 @@ class Functions
      *
      * @param string $text
      */
-    public static function rip($text)
-    {
+    public static function rip($text) {
         $convertTable = [
             'ä' => 'a',
             'Ä' => 'A',
@@ -285,8 +270,7 @@ class Functions
      *
      * @return string encrypted text
      */
-    public static function easeEncrypt($textToEncrypt, $encryptKey)
-    {
+    public static function easeEncrypt($textToEncrypt, $encryptKey) {
         $encryptionKey = base64_decode($encryptKey);
         $ivec = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
         $encrypted = openssl_encrypt($textToEncrypt, 'aes-256-cbc', $encryptionKey, 0, $ivec);
@@ -301,8 +285,7 @@ class Functions
      *
      * @return string
      */
-    public static function easeDecrypt($textToDecrypt, $encryptKey)
-    {
+    public static function easeDecrypt($textToDecrypt, $encryptKey) {
         $encryptionKey = base64_decode($encryptKey);
         list($encryptedData, $ivec ) = explode('::', base64_decode($textToDecrypt), 2);
         return openssl_decrypt($encryptedData, 'aes-256-cbc', $encryptionKey, 0, $ivec);
@@ -316,8 +299,7 @@ class Functions
      *
      * @return float
      */
-    public static function randomNumber($minimal = null, $maximal = null)
-    {
+    public static function randomNumber($minimal = null, $maximal = null) {
         if (isset($minimal) && isset($maximal)) {
             if ($minimal >= $maximal) {
                 throw new Exception('Minimum cannot be bigger than maximum');
@@ -338,8 +320,7 @@ class Functions
      *
      * @return string
      */
-    public static function randomString($length = 6)
-    {
+    public static function randomString($length = 6) {
         return substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
                 0, $length);
     }
@@ -353,8 +334,7 @@ class Functions
      *
      * @return array array recoded
      */
-    public static function recursiveIconv(string $inCharset, string $outCharset, $arr)
-    {
+    public static function recursiveIconv(string $inCharset, string $outCharset, $arr) {
         if (!is_array($arr)) {
             return \iconv($inCharset, $outCharset, $arr);
         }
@@ -375,8 +355,7 @@ class Functions
      * @param mixed  $encodings
      */
     public static function arrayIconv(&$val, /** @scrutinizer ignore-unused */
-            $key, $encodings)
-    {
+            $key, $encodings) {
         $val = iconv($encodings[0], $encodings[1], $val);
     }
 
@@ -387,14 +366,12 @@ class Functions
      *
      * @return string
      */
-    public static function humanFilesize(int $filesize)
-    {
+    public static function humanFilesize(int $filesize) {
         $decr = 1024;
         $step = 0;
         $prefix = ['Byte', 'KB', 'MB', 'GB', 'TB', 'PB'];
 
-        while (($filesize / $decr) > 0.9)
-        {
+        while (($filesize / $decr) > 0.9) {
             $filesize = $filesize / $decr;
             ++$step;
         }
@@ -410,12 +387,10 @@ class Functions
      *
      * @return array
      */
-    public static function reindexArrayBy(array $data, string $indexBy = null)
-    {
+    public static function reindexArrayBy(array $data, string $indexBy = null) {
         $reindexedData = [];
 
-        foreach ($data as $dataRow)
-        {
+        foreach ($data as $dataRow) {
             if (array_key_exists($indexBy, $dataRow)) {
                 $reindexedData[(string) $dataRow[$indexBy]] = $dataRow;
             } else {
@@ -433,8 +408,7 @@ class Functions
      *
      * @return string text bez zvláštních znaků
      */
-    public static function lettersOnly($text)
-    {
+    public static function lettersOnly($text) {
         return preg_replace('/[^(a-zA-Z0-9)]*/', '', $text);
     }
 
@@ -445,8 +419,7 @@ class Functions
      *
      * @return boolean
      */
-    public static function isSerialized(string $data)
-    {
+    public static function isSerialized(string $data) {
         $data = trim($data);
         if ('N;' == $data) {
             return true;
@@ -454,8 +427,7 @@ class Functions
         if (!\preg_match('/^([adObis]):/', $data, $badions)) {
             return false;
         }
-        switch ($badions[1])
-        {
+        switch ($badions[1]) {
             case 'a' :
             case 'O' :
             case 's' :
@@ -481,8 +453,7 @@ class Functions
      * 
      * @return string
      */
-    static public function baseClassName($object)
-    {
+    static public function baseClassName($object) {
         return is_object($object) ? basename(str_replace('\\', '/',
                                 get_class($object))) : null;
     }
@@ -494,8 +465,7 @@ class Functions
      * 
      * @return string
      */
-    public static function formatBytes($bytes)
-    {
+    public static function formatBytes($bytes) {
         $bytes = doubleval($bytes);
 
         if ($bytes < 1024) {
@@ -524,12 +494,11 @@ class Functions
      * Get configuration from constant or environment
      * 
      * @param string $constant
+     * @param mixed $cfg Default value
      * 
      * @return string
      */
-    public static function cfg($constant)
-    {
-        $cfg = null;
+    public static function cfg($constant, $cfg = null) {
         if (!empty($constant) && defined($constant)) {
             $cfg = constant($constant);
         } elseif (isset($_ENV) && array_key_exists($constant, $_ENV)) {

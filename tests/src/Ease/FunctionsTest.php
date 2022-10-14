@@ -240,6 +240,7 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase {
      * @covers Ease\Functions::cfg
      */
     public function testCfg() {
+        $this->assertEquals('x', Functions::cfg('EASE_TEST','x'));
         putenv('EASE_TEST=a');
         $this->assertEquals('a', Functions::cfg('EASE_TEST'));
         define('EASE_TEST', 'b');
