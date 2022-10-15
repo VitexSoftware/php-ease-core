@@ -113,7 +113,7 @@ class ToConsole extends ToMemory implements Loggingable
                 ' ' . Message::getTypeUnicodeSymbol($type) . ' ' . strip_tags(strval($message)),
                 self::getTypeColor($type)
         );
-        $logLine = strftime("%D %T") . ' •' . (is_object($caller) ? get_class($caller) : $caller) . '‣ ' . $ansiMessage;
+        $logLine = strftime("%D %T") . ' •' . (is_object($caller) ? (method_exists($caller, 'getObjectName') ? $caller->getObjectName() : get_class($caller) )  : $caller) . '‣ ' . $ansiMessage;
         $written = 0;
         switch ($type)
         {
