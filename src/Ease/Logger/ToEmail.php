@@ -116,7 +116,7 @@ class ToEmail extends ToMemory implements Loggingable
             $class = __CLASS__;
             if (\Ease\Shared::appName()) {
                 self::$_instance = new $class(
-                        \Ease\Functions::cfg('EASE_EMAILTO'),
+                        \Ease\Functions::cfg('EASE_EMAILTO',''),
                         \Ease\Shared::appName()
                 );
             } else {
