@@ -530,4 +530,33 @@ class Functions {
         return $theClasses;
     }
 
+    /**
+     * Load all files found for given namespace
+     * (based on composer files)
+     * 
+     * @param string $namespace
+     * 
+     * @return array of loaded files
+     */
+    public static function loadClassesInNamespace($namespace) {
+        $loaded = [];
+        $autoloader = preg_grep('/autoload\.php$/', get_included_files());
+        if (!empty($autoloader)) {
+            $psr4dirs = include dirname(current($autoloader)) . '/composer/autoload_psr4.php';
+            if (array_key_exists($namespace . '\\', $psr4dirs)) {
+                foreach ($psr4dirs[$namespace . '\\'] as $modulePath) {
+                    $d = dir($modulePath);
+                    while (false !== ($entry = $d->read())) {
+                        if (is_file($modulePath . '/' . $entry) && (pathinfo($entry, PATHINFO_EXTENSION) == 'php')) {
+                            include_once $modulePath . '/' . $entry;
+                            $loaded[] = $modulePath . '/' . $entry;
+                        }
+                    }
+                    $d->close();
+                }
+            }
+        }
+        return $loaded;
+    }
+
 }
