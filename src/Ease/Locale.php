@@ -699,7 +699,12 @@ class Locale
     public function get2Code()
     {
         $localeUsed = $this->getLocaleUsed();
-        return strstr($localeUsed, '_') ? current(explode('_', $localeUsed)) : $localeUsed;
+        if($localeUsed){
+            list($code,) = explode('_', $localeUsed);
+        } else {
+            $code = 'C';
+        }
+        return $code;
     }
 
     /**
