@@ -30,7 +30,7 @@ distributions.each {
 
     def buildImage = ''
 
-    node {
+    node("amd64") {
         ansiColor('xterm') {
             stage('Checkout ' + distribution) {
                 buildImage = docker.image(vendor + '/' + distribution)
