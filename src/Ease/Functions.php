@@ -79,6 +79,8 @@ class Functions {
      * @param array  $protocols  http/https, ftp, mail, twitter
      * @param array  $attributes
      * @param string $mode       normal or all
+     *
+     * @deprecated since version 1.37
      * 
      * @return string
      */
