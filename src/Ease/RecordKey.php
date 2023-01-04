@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 /**
@@ -21,7 +20,6 @@ namespace Ease;
  */
 trait RecordKey
 {
-
     /**
      * Key Column for Current Record
      *
@@ -55,7 +53,8 @@ trait RecordKey
      */
     public function getMyKey($data = null)
     {
-        return is_null($data) ? $this->getDataValue($this->getKeyColumn()) : (array_key_exists($this->getKeyColumn(), $data) ? $data[$this->getKeyColumn()] : null);
+        return is_null($data) ? $this->getDataValue($this->getKeyColumn()) : (array_key_exists($this->getKeyColumn(),
+                $data) ? $data[$this->getKeyColumn()] : null);
     }
 
     /**
@@ -68,7 +67,7 @@ trait RecordKey
     public function setMyKey($myKeyValue)
     {
         return empty($this->getKeyColumn()) ? null : $this->setDataValue($this->getKeyColumn(),
-                        $myKeyValue);
+                $myKeyValue);
     }
 
     /**
@@ -90,5 +89,4 @@ trait RecordKey
     {
         $this->keyColumn = $keyColumn;
     }
-
 }

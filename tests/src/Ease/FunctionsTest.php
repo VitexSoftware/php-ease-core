@@ -177,7 +177,6 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
             str_replace(',', '.', Functions::humanFilesize(1234545)));
 
         if (php_uname('m') != 'armv7l') {  #TODO #6 fix better
-
             $this->assertEquals('11.5 GB',
                 str_replace(',', '.', Functions::humanFilesize(12345453453)));
             $this->assertEquals('1.1 PB',
