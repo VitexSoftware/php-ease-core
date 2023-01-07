@@ -24,6 +24,7 @@ class BrickTest extends SandTest
         $this->object = new Brick();
         $this->object->setupProperty(['nameColumn' => 'name'], 'nameColumn');
         $this->object->setKeyColumn('id');
+        $this->object->nameColumn = 'name';
     }
 
     /**
@@ -38,7 +39,7 @@ class BrickTest extends SandTest
     /**
      * Test Constructor
      *
-     * @covers Ease\SQL\Engine::__construct
+     * @covers Ease\Brick::__construct
      */
     public function testConstructor()
     {
@@ -79,10 +80,10 @@ class BrickTest extends SandTest
         $this->object->useIdentifier(['key' => 'value']);
         $this->assertEquals(['key' => 'value', 'id' => 123],
             $this->object->getData());
-
+        $this->object->dataReset();
         $this->object->useIdentifier('name');
-        $this->assertEquals(['key' => 'value', 'id' => 123, 'name' => 'name'],
-            $this->object->getData());
+        $this->object->setDataValue('name', 'name');
+        $this->assertEquals(['name' => 'name'], $this->object->getData());
     }
 
     /**
@@ -95,6 +96,7 @@ class BrickTest extends SandTest
             $this->object->howToProcess(['key' => 'value']));
         $this->assertEquals('reuse', $this->object->howToProcess($this->object));
         $this->assertEquals('unknown', $this->object->howToProcess(false));
+        $this->object->nameColumn = 'name';
         $this->assertEquals('name', $this->object->howToProcess('name'));
         $this->assertEquals('unknown', $this->object->howToProcess(null));
     }
