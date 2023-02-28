@@ -55,12 +55,20 @@ class User extends Anonym
     public $loginColumn = 'login';
 
     /**
-     * Sloupeček s heslem.
+     * Password Column.
      *
      * @var string
      */
     public $passwordColumn = 'password';
 
+    /**
+     * Plaintext Form input name.
+     *
+     * @var string
+     */
+    public $plaintextField = 'password';
+    
+    
     /**
      * Sloupecek pro docasne zablokovani uctu.
      *
@@ -154,13 +162,11 @@ class User extends Anonym
     public function tryToLogin($formData)
     {
         $login = array_key_exists($this->loginColumn, $formData) ? $formData[$this->loginColumn] : null;
-        $password = array_key_exists($this->passwordColumn, $formData) ? $formData[$this->passwordColumn] : null;
+        $password = array_key_exists($this->plaintextField, $formData) ? $formData[$this->plaintextField] : null;
         if (empty($login)) {
             $this->addStatusMessage(_('missing login'), 'error');
 
             return;
-        } else {
-            $this->setDataValue($this->loginColumn, $login);
         }
         if (empty($password)) {
             $this->addStatusMessage(_('missing password'), 'error');
