@@ -6,7 +6,7 @@ declare(strict_types=1);
  * Internationalization helpers
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2019 Vitex@hippy.cz (G)
+ * @copyright 2019-2023 Vitex@hippy.cz (G)
  * 
  * PHP 7
  */
@@ -613,7 +613,7 @@ class Locale {
     ) {
         self::$i18n = $i18n;
         self::setTextDomain($appname);
-        return self::useLocale($defaultLocale);
+        return self::useLocale( empty(strval($defaultLocale)) ? 'en_US' : strval($defaultLocale) );
     }
 
     /**
