@@ -16,7 +16,7 @@ use Ease\Functions;
 /**
  * Common shared object
  *
- * @copyright 2009-2021 Vitex@hippy.cz (G)
+ * @copyright 2009-2023 Vitex@hippy.cz (G)
  * @author    Vitex <vitex@hippy.cz>
  */
 class Shared extends Atom
@@ -56,6 +56,28 @@ class Shared extends Atom
      */
     public static $statusMessages = [];
 
+    /**
+     * Load required Initial Configuration
+     * 
+     * @param array  $configKeys
+     * @param string $envFile
+     */
+    public static function init($configKeys = [], $envFile = '.env') {
+        if (file_exists($envFile)) {
+            \Ease\Shared::singleton()->loadConfig($envFile, true);
+        }
+        $configured = true;
+        foreach ($configKeys as $cfgKey) {
+            if (empty(\Ease\Functions::cfg($cfgKey))) {
+                fwrite(STDERR, 'Requied configuration ' . $cfgKey . " is not set." . PHP_EOL);
+                $configured = false;
+            }
+        }
+        if ($configured === false) {
+            exit(1);
+        }
+    }
+    
     /**
      * Application name or "EaseFramework" fallback
      * 
