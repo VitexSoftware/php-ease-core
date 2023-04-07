@@ -98,9 +98,17 @@ class SharedTest extends AtomTest {
      * @covers Ease\Shared::loadConfig
      */
     public function testLoadConfig() {
-        $this->object->loadConfig('tests/.env', true);
+        if(file_exists('.env')){
+            $env = '.env';
+            $json = 'configtest.json';
+        } else {
+            $env = 'tests/.env';
+            $json = 'tests/configtest.json';
+        }
+       
+        $this->object->loadConfig($env, true);
         $this->assertEquals(['KEY' => 'VALUE','FOO' => 'BAR','debug' => 'true','test'=>true], $this->object->configuration);
-        $this->object->loadConfig('tests/configtest.json', true);
+        $this->object->loadConfig($json, true);
         $this->assertArrayHasKey('opt', $this->object->configuration);
         $this->assertTrue(defined('KEY'));
         $this->expectException('Ease\Exception');
