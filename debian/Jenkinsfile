@@ -1,6 +1,8 @@
 #!groovy
 
-String[] distributions = ['debian:buster', 'debian:bullseye', 'debian:bookworm', 'ubuntu:focal', 'ubuntu:jammy', 'ubuntu:kinetic']
+// Jammy's php is broken now
+
+String[] distributions = ['debian:buster', 'debian:bullseye', 'debian:bookworm', 'ubuntu:focal', 'ubuntu:kinetic']
 
 String vendor = 'vitexsoftware'
 String distribution = ''
