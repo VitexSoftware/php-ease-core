@@ -24,7 +24,11 @@ class LocaleTest extends \PHPUnit\Framework\TestCase
         if (file_exists('i18n')) {
             $locales = 'i18n';
         } else {
-            $locales = '../i18n';
+            if (file_exists('../i18n')) {
+                $locales = '../i18n';
+            } else {
+                $locales = '/usr/share/locale';
+            }
         }
         $this->object = new Locale('cs_CZ', $locales, 'php-vitexsoftware-ease-core');
     }
