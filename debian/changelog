@@ -1,4 +1,4 @@
-php-vitexsoftware-ease-core (1.38.0) UNRELEASED; urgency=medium
+php-vitexsoftware-ease-core (1.39.0) UNRELEASED; urgency=medium
 
   [ Vítězslav Dvořák ]
   * all unit tests pass
@@ -73,8 +73,9 @@ php-vitexsoftware-ease-core (1.38.0) UNRELEASED; urgency=medium
   * v1.37 release
   * fix
   * Init Added
+  * appVersion added
 
- -- vitex <info@vitexsoftware.cz>  Sat, 29 Apr 2023 20:03:14 +0200
+ -- vitex <info@vitexsoftware.cz>  Tue, 11 Jul 2023 00:14:55 +0200
 
 php-vitexsoftware-ease-core (0.12) UNRELEASED; urgency=medium
 
