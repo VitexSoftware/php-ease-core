@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 /**
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2021 Vitex@hippy.cz (G)
+ * @copyright 2009-2023 Vitex@hippy.cz (G)
  * 
  * PHP 7
+ * PHP 8
  */
 
 namespace Ease;
@@ -62,7 +63,8 @@ class Shared extends Atom
      * @param array  $configKeys
      * @param string $envFile
      */
-    public static function init($configKeys = [], $envFile = '.env') {
+    public static function init($configKeys = [], $envFile = '.env')
+    {
         if (file_exists($envFile)) {
             \Ease\Shared::singleton()->loadConfig($envFile, true);
         }
@@ -77,15 +79,27 @@ class Shared extends Atom
             exit(1);
         }
     }
-    
+
     /**
-     * Application name or "EaseFramework" fallback
+     * Application name or "Composer project Name" fallback
      * 
      * @return string
      */
     static public function appName()
     {
-        return (Functions::cfg('EASE_APPNAME') ? Functions::cfg('EASE_APPNAME') : (Functions::cfg('APP_NAME') ? Functions::cfg('APP_NAME') : 'EaseFramework' ));
+        $package = \Composer\InstalledVersions::getRootPackage();
+        return (Functions::cfg('EASE_APPNAME') ? Functions::cfg('EASE_APPNAME') : (Functions::cfg('APP_NAME') ? Functions::cfg('APP_NAME') : $package['name']));
+    }
+
+    /**
+     * Application version or "0.0.0" fallback
+     * 
+     * @return string
+     */
+    static public function appVersion()
+    {
+        $package = \Composer\InstalledVersions::getRootPackage();
+        return array_key_exists('version', $package) ? $package['version'] : '0.0.0';
     }
 
     /**
@@ -111,7 +125,7 @@ class Shared extends Atom
      */
     public static function msgFile($sessID = 'EaseStatusMessages')
     {
-        $uid = (function_exists('posix_getuid') ? posix_getuid() : ( function_exists('posix_getpwuid') ? posix_getpwuid(posix_getuid()) : '' ));
+        $uid = (function_exists('posix_getuid') ? posix_getuid() : (function_exists('posix_getpwuid') ? posix_getpwuid(posix_getuid()) : ''));
         return Functions::sysFilename(sys_get_temp_dir() . '/' . self::appName() . $sessID . $uid . '.ser');
     }
 
@@ -244,19 +258,17 @@ class Shared extends Atom
     {
         if (!file_exists($configFile)) {
             throw new Exception(
-                            'Config file ' . (realpath($configFile) ? realpath($configFile) : $configFile) . ' does not exist'
+                'Config file ' . (realpath($configFile) ? realpath($configFile) : $configFile) . ' does not exist'
             );
         }
 
-        switch (strtolower(pathinfo($configFile, constant('PATHINFO_EXTENSION'))))
-        {
+        switch (strtolower(pathinfo($configFile, constant('PATHINFO_EXTENSION')))) {
             case 'json':
                 $configuration = json_decode(file_get_contents($configFile), true);
                 break;
             case 'env':
                 $configuration = [];
-                foreach (file($configFile) as $cfgRow)
-                {
+                foreach (file($configFile) as $cfgRow) {
                     if (strchr($cfgRow, '=')) {
                         list($key, $value) = preg_split('/=/', $cfgRow, 2);
                         $configuration[$key] = trim($value, " \t\n\r\0\x0B'\"");
@@ -268,8 +280,7 @@ class Shared extends Atom
                 break;
         }
 
-        foreach ($configuration as $configKey => $configValue)
-        {
+        foreach ($configuration as $configKey => $configValue) {
             if ($defineConstants && (strtoupper($configKey) == $configKey) && (!defined($configKey))) {
                 define($configKey, $configValue);
             } else {
