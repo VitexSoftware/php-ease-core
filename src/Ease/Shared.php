@@ -69,7 +69,7 @@ class Shared extends Atom
         }
         $configured = true;
         foreach ($configKeys as $cfgKey) {
-            if (empty(\Ease\Functions::cfg($cfgKey))) {
+            if (empty(Functions::cfg($cfgKey))) {
                 fwrite(STDERR, 'Requied configuration ' . $cfgKey . " is not set." . PHP_EOL);
                 $configured = false;
             }
@@ -283,7 +283,6 @@ class Shared extends Atom
                 break;
             default:
                 throw new Exception('unsupported config type: ' . $configFile);
-                break;
         }
 
         foreach ($configuration as $configKey => $configValue) {

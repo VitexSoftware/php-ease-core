@@ -7,7 +7,7 @@
 
 namespace Test\Ease;
 
-use Ease\Functions;
+use Functions;
 
 /**
  * Description of FunctionsTest
@@ -18,7 +18,7 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
 {
 
     /**
-     * @covers Ease\Functions::sysFilename
+     * @covers Functions::sysFilename
      */
     public function testsysFilename()
     {
@@ -35,7 +35,7 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Ease\Functions::addUrlParams
+     * @covers Functions::addUrlParams
      */
     public function testAddUrlParams()
     {
@@ -48,28 +48,28 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Ease\Functions::linkify
+     * @covers Functions::linkify
      */
     public function testLinkify()
     {
         $this->assertEquals('<a  href="https://v.s.cz/">v.s.cz/</a>',
-            \Ease\Functions::linkify('https://v.s.cz/'));
+            \Functions::linkify('https://v.s.cz/'));
         $this->assertEquals('<a  a="1" href="mailto:info@vitexsoftware.cz">info@vitexsoftware.cz</a>',
-            \Ease\Functions::linkify('info@vitexsoftware.cz', ['mail'],
+            \Functions::linkify('info@vitexsoftware.cz', ['mail'],
                 ['a' => 1]));
     }
 
     /**
-     * @covers Ease\Functions::divDataArray
+     * @covers Functions::divDataArray
      */
     public function testDivDataArray()
     {
         $sourceArray = ['a' => 1, 'b' => 2, 'c' => 3];
         $destinationArray = [];
 
-        $this->assertTrue(\Ease\Functions::divDataArray($sourceArray,
+        $this->assertTrue(\Functions::divDataArray($sourceArray,
                 $destinationArray, 'b'));
-        $this->assertFalse(\Ease\Functions::divDataArray($sourceArray,
+        $this->assertFalse(\Functions::divDataArray($sourceArray,
                 $destinationArray, 'b'));
 
         $this->assertEquals(['a' => 1, 'c' => 3], $sourceArray);
@@ -77,16 +77,16 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Ease\Functions::isAssoc
+     * @covers Functions::isAssoc
      */
     public function testIsAssoc()
     {
-        $this->assertTrue(\Ease\Functions::isAssoc(['a' => 'b']));
-        $this->assertFalse(\Ease\Functions::isAssoc(['a', 'b']));
+        $this->assertTrue(\Functions::isAssoc(['a' => 'b']));
+        $this->assertFalse(\Functions::isAssoc(['a', 'b']));
     }
 
     /**
-     * @covers Ease\Functions::rip
+     * @covers Functions::rip
      */
     public function testRip()
     {
@@ -94,7 +94,7 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Ease\Functions::easeEncrypt
+     * @covers Functions::easeEncrypt
      */
     public function testEaseEncrypt()
     {
@@ -103,7 +103,7 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Ease\Functions::easeDecrypt
+     * @covers Functions::easeDecrypt
      */
     public function testEaseDecrypt()
     {
@@ -112,7 +112,7 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Ease\Functions::randomNumber
+     * @covers Functions::randomNumber
      */
     public function testRandomNumber()
     {
@@ -132,7 +132,7 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Ease\Functions::randomString
+     * @covers Functions::randomString
      */
     public function testRandomString()
     {
@@ -142,7 +142,7 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Ease\Functions::recursiveIconv
+     * @covers Functions::recursiveIconv
      */
     public function testRecursiveIconv()
     {
@@ -156,7 +156,7 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Ease\Functions::arrayIconv
+     * @covers Functions::arrayIconv
      */
     public function testArrayIconv()
     {
@@ -167,7 +167,7 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Ease\Functions::humanFilesize
+     * @covers Functions::humanFilesize
      *
      * @todo   Implement testHumanFilesize().
      */
@@ -187,7 +187,7 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Ease\Functions::reindexArrayBy
+     * @covers Functions::reindexArrayBy
      */
     public function testReindexArrayBy()
     {
@@ -210,7 +210,7 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Ease\Functions::isSerialized
+     * @covers Functions::isSerialized
      */
     public function testIsSerialized()
     {
@@ -226,7 +226,7 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Ease\Functions::baseClassName
+     * @covers Functions::baseClassName
      */
     public function testBaseClassName()
     {
@@ -235,7 +235,7 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Ease\Functions::lettersOnly
+     * @covers Functions::lettersOnly
      */
     public function testLettersOnly()
     {
@@ -243,7 +243,7 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Ease\Functions::formatBytes
+     * @covers Functions::formatBytes
      */
     public function testFormatBytes()
     {
@@ -262,7 +262,7 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Ease\Functions::cfg
+     * @covers Functions::cfg
      */
     public function testCfg()
     {
@@ -276,10 +276,10 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Ease\Functions::classesInNamespace
+     * @covers Functions::classesInNamespace
      */
     public function testclassesInNamespace()
     {
-        $this->assertIsArray(\Ease\Functions::classesInNamespace('Ease'));
+        $this->assertIsArray(\Functions::classesInNamespace('Ease'));
     }
 }
