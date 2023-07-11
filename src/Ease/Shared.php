@@ -1,7 +1,6 @@
 <?php
 
 declare(strict_types=1);
-
 /**
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2023 Vitex@hippy.cz (G)
@@ -87,7 +86,11 @@ class Shared extends Atom
      */
     static public function appName()
     {
-        $package = \Composer\InstalledVersions::getRootPackage();
+        if (method_exists('Composer\InstalledVersions', 'getRootPackage')) {
+            $package = \Composer\InstalledVersions::getRootPackage();
+        } else {
+            $package['name'] = 'Unnamed';
+        }
         return (Functions::cfg('EASE_APPNAME') ? Functions::cfg('EASE_APPNAME') : (Functions::cfg('APP_NAME') ? Functions::cfg('APP_NAME') : $package['name']));
     }
 
@@ -98,7 +101,11 @@ class Shared extends Atom
      */
     static public function appVersion()
     {
-        $package = \Composer\InstalledVersions::getRootPackage();
+        if (method_exists('Composer\InstalledVersions', 'getRootPackage')) {
+            $package = \Composer\InstalledVersions::getRootPackage();
+        } else {
+            $package = [];
+        }
         return array_key_exists('version', $package) ? $package['version'] : '0.0.0';
     }
 
@@ -182,7 +189,6 @@ class Shared extends Atom
     public static function &instanced()
     {
         $easeShared = self::singleton();
-
         return $easeShared;
     }
 
@@ -258,7 +264,7 @@ class Shared extends Atom
     {
         if (!file_exists($configFile)) {
             throw new Exception(
-                'Config file ' . (realpath($configFile) ? realpath($configFile) : $configFile) . ' does not exist'
+                            'Config file ' . (realpath($configFile) ? realpath($configFile) : $configFile) . ' does not exist'
             );
         }
 
@@ -295,5 +301,4 @@ class Shared extends Atom
 
         return $this->configuration;
     }
-
 }
