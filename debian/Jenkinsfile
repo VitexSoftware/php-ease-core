@@ -31,11 +31,11 @@ distributions.each {
 
     println  'Dist:' + distribution
 
-    def String dist = distribution.split(':')
+    dist = distribution.split(':')
     //      distroFamily = dist[0]
     distroCodename = dist[1]
 
-    def String buildImage = ''
+    buildImage = ''
 
     node('amd64') {
         ansiColor('xterm') {
