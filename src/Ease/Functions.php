@@ -8,10 +8,11 @@ declare(strict_types=1);
  * @category Common
  * 
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2019-2022 Vitex@hippy.cz (G)
+ * @copyright 2019-2023 Vitex@hippy.cz (G)
  * @license https://opensource.org/licenses/MIT GPL-2
  * 
  * PHP 7
+ * PHP 8
  */
 
 namespace Ease;

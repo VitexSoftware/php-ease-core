@@ -7,7 +7,8 @@
 
 namespace Test\Ease;
 
-use Functions;
+
+use Ease\Functions;
 
 /**
  * Description of FunctionsTest
@@ -53,9 +54,9 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
     public function testLinkify()
     {
         $this->assertEquals('<a  href="https://v.s.cz/">v.s.cz/</a>',
-            \Functions::linkify('https://v.s.cz/'));
+            Functions::linkify('https://v.s.cz/'));
         $this->assertEquals('<a  a="1" href="mailto:info@vitexsoftware.cz">info@vitexsoftware.cz</a>',
-            \Functions::linkify('info@vitexsoftware.cz', ['mail'],
+            Functions::linkify('info@vitexsoftware.cz', ['mail'],
                 ['a' => 1]));
     }
 
@@ -67,9 +68,9 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
         $sourceArray = ['a' => 1, 'b' => 2, 'c' => 3];
         $destinationArray = [];
 
-        $this->assertTrue(\Functions::divDataArray($sourceArray,
+        $this->assertTrue(Functions::divDataArray($sourceArray,
                 $destinationArray, 'b'));
-        $this->assertFalse(\Functions::divDataArray($sourceArray,
+        $this->assertFalse(Functions::divDataArray($sourceArray,
                 $destinationArray, 'b'));
 
         $this->assertEquals(['a' => 1, 'c' => 3], $sourceArray);
@@ -81,8 +82,8 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
      */
     public function testIsAssoc()
     {
-        $this->assertTrue(\Functions::isAssoc(['a' => 'b']));
-        $this->assertFalse(\Functions::isAssoc(['a', 'b']));
+        $this->assertTrue(Functions::isAssoc(['a' => 'b']));
+        $this->assertFalse(Functions::isAssoc(['a', 'b']));
     }
 
     /**
@@ -280,6 +281,6 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
      */
     public function testclassesInNamespace()
     {
-        $this->assertIsArray(\Functions::classesInNamespace('Ease'));
+        $this->assertIsArray(Functions::classesInNamespace('Ease'));
     }
 }
