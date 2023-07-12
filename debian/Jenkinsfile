@@ -53,7 +53,7 @@ distributions.each {
                     sh 'dch -b -v ' + ver  + ' "' + env.BUILD_TAG  + '"'
                     sh 'sudo apt-get update --allow-releaseinfo-change'
                     sh 'sudo chown jenkins:jenkins ..'
-                    sh 'sudo apt -y install composer/backports'
+                    sh 'sudo apt -y install composer'
                     sh 'composer --version'
                     sh 'sudo apt -y remove php8.1-common || true'
                     sh 'debuild-pbuilder  -i -us -uc -b'
