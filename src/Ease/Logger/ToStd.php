@@ -74,6 +74,26 @@ class ToStd extends ToMemory implements Loggingable
     }
 
     /**
+     * Obtain object name from caller object
+     * 
+     * @param object|string $caller
+     * 
+     * @return string
+     */
+    public static function getCallerName($caller) {
+        if (is_object($caller)) {
+            if (method_exists($caller, 'getObjectName')) {
+                $callerName = $caller->getObjectName();
+            } else {
+                $callerName =  get_class($caller);
+            }
+        } else {
+            $callerName = strval($caller);
+        }        
+        return $callerName;
+    }
+
+    /**
      * Zapise zapravu do logu.
      *
      * @param string $caller  název volajícího objektu
@@ -97,7 +117,7 @@ class ToStd extends ToMemory implements Loggingable
             } else {
                 $person = $user->getObjectName();
             }
-            $caller = $person . ' ' . (is_object($caller) ? get_class($caller) : $caller);
+            $caller = $person . ' ' . self::getCallerName($caller);
         }
 
         $logLine = ' `' . $caller . '` ' . str_replace(
