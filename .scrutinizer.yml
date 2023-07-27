@@ -36,7 +36,7 @@ build:
                     - rm -rf debian
             tests:
                 override:
-                    - php-scrutinizer-run
+                    - php-scrutinizer-run --sub-project-dir=/home/scrutinizer/build/
                     - command: './vendor/bin/phpunit --whitelist catalog --coverage-clover /home/scrutinizer/build/coverage.xml tests'
                       coverage:
                           file: coverage.xml
