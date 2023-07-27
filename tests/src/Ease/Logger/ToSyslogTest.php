@@ -67,7 +67,7 @@ class ToSyslogTest extends ToMemoryTest {
      * @covers Ease\Logger\ToSyslog::__destruct
      */
     public function test__destruct() {
-        $this->assertTrue($this->object->__destruct());
+        $this->assertNull($this->object->__destruct());
     }
 
     /**
