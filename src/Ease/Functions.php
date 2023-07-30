@@ -539,7 +539,7 @@ class Functions {
      * 
      * @param string $namespace
      * 
-     * @return array of loaded files
+     * @return array of loaded files className=>filePath
      */
     public static function loadClassesInNamespace($namespace) {
         $loaded = [];
@@ -551,8 +551,13 @@ class Functions {
                     $d = dir($modulePath);
                     while (false !== ($entry = $d->read())) {
                         if (is_file($modulePath . '/' . $entry) && (pathinfo($entry, PATHINFO_EXTENSION) == 'php')) {
+                            $classesBefore = get_declared_classes();
                             include_once $modulePath . '/' . $entry;
-                            $loaded[] = $modulePath . '/' . $entry;
+                            $diff = array_diff(get_declared_classes(),$classesBefore);
+                            $load = preg_grep('/'. addslashes($namespace).'/', $diff);
+                            foreach ($load as $class) {
+                                $loaded[$class] = $modulePath . '/' . $entry;
+                            }
                         }
                     }
                     $d->close();
