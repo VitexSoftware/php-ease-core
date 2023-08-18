@@ -68,6 +68,12 @@ class Shared extends Atom
             \Ease\Shared::singleton()->loadConfig($envFile, true);
         }
         $configured = true;
+        if(strstr($configKeys['DB_CONNECTION'],'sqlite')){
+            unset($configKeys['DB_PASSWORD']);
+            unset($configKeys['DB_USERNAME']);
+            unset($configKeys['DB_HOST']);
+            unset($configKeys['DB_PORT']);
+        }
         foreach ($configKeys as $cfgKey) {
             if (empty(Functions::cfg($cfgKey))) {
                 fwrite(STDERR, 'Requied configuration ' . $cfgKey . " is not set." . PHP_EOL);
