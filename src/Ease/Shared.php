@@ -68,7 +68,7 @@ class Shared extends Atom
             \Ease\Shared::singleton()->loadConfig($envFile, true);
         }
         $configured = true;
-        if(array_key_exists('DB_CONNECTION', $configKeys) && strstr($configKeys['DB_CONNECTION'],'sqlite')){
+        if(array_key_exists('DB_CONNECTION', $configKeys) && strstr(Functions::cfg('DB_CONNECTION'),'sqlite')){
             unset($configKeys['DB_PASSWORD']);
             unset($configKeys['DB_USERNAME']);
             unset($configKeys['DB_HOST']);
