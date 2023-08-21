@@ -173,8 +173,6 @@ class Shared extends Atom
      * Pri vytvareni objektu pomoci funkce singleton (ma stejne parametry, jako konstruktor)
      * se bude v ramci behu programu pouzivat pouze jedna jeho Instance (ta prvni).
      *
-     * @param string $class název třídy jenž má být zinstancována
-     *
      * @link http://docs.php.net/en/language.oop5.patterns.html Dokumentace a priklad
      *
      * @return \Ease\Shared

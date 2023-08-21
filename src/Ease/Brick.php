@@ -59,7 +59,7 @@ class Brick extends Sand
     /**
      * How to process
      *
-     * @param \Ease\SQL\Engine $identifer
+     * @param mixed $identifer
      *
      * @return string id|name|values|reuse|unknown
      */

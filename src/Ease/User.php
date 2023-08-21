@@ -29,14 +29,14 @@ class User extends Anonym
     /**
      * ID prave nacteneho uzivatele.
      *
-     * @var int unsigned
+     * @var int|null unsigned
      */
     public $userID = null;
 
     /**
      * Přihlašovací jméno uživatele.
      *
-     * @var string
+     * @var string|null
      */
     public $userLogin = null;
 

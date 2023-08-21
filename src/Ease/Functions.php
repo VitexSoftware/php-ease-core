@@ -501,12 +501,10 @@ class Functions {
      * 
      * @return string
      */
-    public static function cfg($constant, $cfg = null) {
+    public static function cfg(/*string*/ $constant, $cfg = null) {
         if (!empty($constant) && defined($constant)) {
             $cfg = constant($constant);
-        } elseif (isset($_ENV) && array_key_exists($constant, $_ENV)) {
-            $cfg = $_ENV[$constant];
-        } elseif (($env = getenv($constant)) && !empty($env)) {
+        } elseif (array_key_exists($constant, $_ENV)) {
             $cfg = getenv($constant);
         }
         return $cfg;

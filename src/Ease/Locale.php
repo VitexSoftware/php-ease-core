@@ -606,11 +606,9 @@ class Locale {
      * @param string $defaultLocale locale of source code localstring
      * @param string $i18n          directory base localisation directory
      *
-     * @return
+     * @return string code of locale used
      */
-    public static function initializeGetText($appname, $defaultLocale = 'en_US',
-            $i18n = '../i18n'
-    ) {
+    public static function initializeGetText($appname, $defaultLocale = 'en_US', $i18n = '../i18n') {
         self::$i18n = $i18n;
         self::setTextDomain($appname);
         return self::useLocale( empty(strval($defaultLocale)) ? 'en_US' : strval($defaultLocale) );

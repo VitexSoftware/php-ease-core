@@ -101,9 +101,9 @@ class ToConsole extends ToMemory implements Loggingable
     /**
      * Zapise zapravu do logu.
      *
-     * @param string $caller  název volajícího objektu
-     * @param string $message zpráva
-     * @param string $type    typ zprávy (success|info|error|warning|*)
+     * @param string|object $caller  název volajícího objektu
+     * @param string        $message zpráva
+     * @param string        $type    typ zprávy (success|info|error|warning|*)
      *
      * @return int written message length
      */

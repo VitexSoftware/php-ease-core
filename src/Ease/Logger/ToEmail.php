@@ -128,11 +128,11 @@ class ToEmail extends ToMemory implements Loggingable
     }
 
     /**
-     * Zapise zapravu do logu.
+     * Write message into log
      *
-     * @param string $caller  název volajícího objektu
-     * @param string $message zpráva
-     * @param string $type    typ zprávy (success|info|error|warning|*)
+     * @param string|object $caller  name of message's source
+     * @param string        $message body
+     * @param string        $type    of message (success|info|error|warning|*)
      *
      * @return null|boolean byl report zapsán ?
      */

@@ -90,7 +90,7 @@ class ToMemory extends \Ease\Atom implements Loggingable
     /**
      * Zapise zapravu do logu.
      *
-     * @param string $caller  název volajícího objektu
+     * @param string|object $caller  název volajícího objektu
      * @param string $message zpráva
      * @param string $type    typ zprávy (success|info|error|warning|*)
      *

@@ -177,7 +177,7 @@ class Mailer extends Sand {
     /**
      * Sets mail headers.
      *
-     * @param mixed $mailHeaders associative header array
+     * @param array $mailHeaders associative header array
      *
      * @return bool true if the headers have been set
      */

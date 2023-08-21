@@ -56,7 +56,7 @@ class Regent extends \Ease\Atom implements Loggingable
     /**
      * Allow to write logs to multiplete logging destinations
      * 
-     * @param string $logger class name
+     * @param string|array $logger class name
      */
     public function __construct($logger = null)
     {
@@ -111,7 +111,7 @@ class Regent extends \Ease\Atom implements Loggingable
      * @param string $message message to log
      * @param string $type    info|succes|warning|error|email|...
      * 
-     * @return boolean At least one logger takes message
+     * @return int How many loggers takes message
      */
     public function addToLog($caller, $message, $type = 'info')
     {
