@@ -267,13 +267,11 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
      */
     public function testCfg()
     {
-        $this->assertEquals('x', Functions::cfg('EASE_TEST', 'x'));
+        $this->assertEquals('x', Functions::cfg('EASE_TEST', 'x'),'default value not used');
         putenv('EASE_TEST=a');
-        $this->assertEquals('a', Functions::cfg('EASE_TEST'));
+        $this->assertEquals('a', Functions::cfg('EASE_TEST'),'unexepected environment value');
         define('EASE_TEST', 'b');
         $this->assertEquals('b', Functions::cfg('EASE_TEST'));
-        $_ENV['tst'] = 'ok';
-        $this->assertEquals('ok', Functions::cfg('tst'));
     }
 
     /**

@@ -505,6 +505,8 @@ class Functions {
         if (!empty($constant) && defined($constant)) {
             $cfg = constant($constant);
         } elseif (array_key_exists($constant, $_ENV)) {
+            $cfg = getenv($constant,true);
+        } elseif (($env = getenv($constant)) && !empty($env)) {
             $cfg = getenv($constant);
         }
         return $cfg;
