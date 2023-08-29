@@ -76,7 +76,7 @@ class Shared extends Atom
         }
         foreach ($configKeys as $cfgKey) {
             if (empty(Functions::cfg($cfgKey))) {
-                fwrite(STDERR, 'Requied configuration ' . $cfgKey . " is not set." . PHP_EOL);
+                fwrite(fopen('php://stderr', 'wb'), 'Requied configuration ' . $cfgKey . " is not set." . PHP_EOL);
                 $configured = false;
             }
         }
