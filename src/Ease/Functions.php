@@ -72,72 +72,6 @@ class Functions {
     }
 
     /**
-     * Turn all URLs in clickable links.
-     * 
-     * @author Arnold Daniels <arnold@jasny.net>
-     * 
-     * @param string $value
-     * @param array  $protocols  http/https, ftp, mail, twitter
-     * @param array  $attributes
-     * @param string $mode       normal or all
-     *
-     * @deprecated since version 1.37
-     * 
-     * @return string
-     */
-    public static function linkify($value, $protocols = array('http', 'mail'),
-            array $attributes = array()) {
-        // Link attributes
-        $attr = '';
-        foreach ($attributes as $key => $val) {
-            $attr = ' ' . strval($key) . '="' . htmlentities(strval($val)) . '"';
-        }
-
-        $links = array();
-
-        // Extract existing links and tags
-        $value = preg_replace_callback('~(<a .*?>.*?</a>|<.*?>)~i',
-                function ($match) use (&$links) {
-                    return '<' . array_push($links, $match[1]) . '>';
-                }, $value);
-
-        // Extract text links for each protocol
-        foreach ((array) $protocols as $protocol) {
-            switch ($protocol) {
-                case 'http':
-                case 'https': $value = preg_replace_callback('~(?:(https?)://([^\s<]+)|(www\.[^\s<]+?\.[^\s<]+))(?<![\.,:])~i',
-                            function ($match) use ($protocol, &$links, $attr) {
-                                if ($match[1])
-                                    $protocol = $match[1];
-                                $link = $match[2] ?: $match[3];
-                                return '<' . array_push($links,
-                                        "<a $attr href=\"$protocol://$link\">$link</a>") . '>';
-                            }, $value);
-                    break;
-                case 'mail': $value = preg_replace_callback('~([^\s<]+?@[^\s<]+?\.[^\s<]+)(?<![\.,:])~',
-                            function ($match) use (&$links, $attr) {
-                                return '<' . array_push($links,
-                                        "<a $attr href=\"mailto:{$match[1]}\">{$match[1]}</a>") . '>';
-                            }, $value);
-                    break;
-                default: $value = preg_replace_callback('~' . preg_quote($protocol,
-                                    '~') . '://([^\s<]+?)(?<![\.,:])~i',
-                            function ($match) use ($protocol, &$links, $attr) {
-                                return '<' . array_push($links,
-                                        "<a $attr href=\"$protocol://{$match[1]}\">{$match[1]}</a>") . '>';
-                            }, $value);
-                    break;
-            }
-        }
-
-        // Insert all link
-        return preg_replace_callback('/<(\d+)>/',
-                function ($match) use (&$links) {
-                    return $links[$match[1] - 1];
-                }, $value);
-    }
-
-    /**
      * Move data field $columName from $sourceArray to $destinationArray.
      *
      * @param array  $sourceArray      source
@@ -411,8 +345,8 @@ class Functions {
      *
      * @return string text bez zvláštních znaků
      */
-    public static function lettersOnly($text) {
-        return preg_replace('/[^(a-zA-Z0-9)]*/', '', $text);
+    public static function lettersOnly($text): string {
+        return preg_replace('/[^(a-zA-Z0-9)]*/', '', strval($text));
     }
 
     /**
@@ -422,7 +356,7 @@ class Functions {
      *
      * @return boolean
      */
-    public static function isSerialized(string $data) {
+    public static function isSerialized(string $data): bool {
         $data = trim($data);
         if ('N;' == $data) {
             return true;
@@ -499,7 +433,7 @@ class Functions {
      * @param string $constant
      * @param mixed $cfg Default value
      * 
-     * @return string
+     * @return string|int|boolean
      */
     public static function cfg(/*string*/ $constant, $cfg = null) {
         if (!empty($constant) && defined($constant)) {
