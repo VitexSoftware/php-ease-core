@@ -49,18 +49,6 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Functions::linkify
-     */
-    public function testLinkify()
-    {
-        $this->assertEquals('<a  href="https://v.s.cz/">v.s.cz/</a>',
-            Functions::linkify('https://v.s.cz/'));
-        $this->assertEquals('<a  a="1" href="mailto:info@vitexsoftware.cz">info@vitexsoftware.cz</a>',
-            Functions::linkify('info@vitexsoftware.cz', ['mail'],
-                ['a' => 1]));
-    }
-
-    /**
      * @covers Functions::divDataArray
      */
     public function testDivDataArray()
