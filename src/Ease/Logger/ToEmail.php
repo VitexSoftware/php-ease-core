@@ -70,7 +70,7 @@ class ToEmail extends ToMemory implements Loggingable
     /**
      * Handle to mailer.
      *
-     * @var resource
+     * @var \Ease\Mailer
      */
     public $mailer = null;
 

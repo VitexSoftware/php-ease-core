@@ -440,8 +440,11 @@ class Functions {
             $cfg = constant($constant);
         } elseif (array_key_exists($constant, $_ENV)) {
             $cfg = getenv($constant,true);
-        } elseif (($env = getenv($constant)) && !empty($env)) {
-            $cfg = getenv($constant);
+        } else {
+            $env = getenv($constant);
+            if (!empty($env)) {
+                $cfg = $env;
+            }
         }
         return $cfg;
     }

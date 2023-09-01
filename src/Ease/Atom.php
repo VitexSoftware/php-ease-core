@@ -11,7 +11,7 @@ declare(strict_types=1);
  * @copyright 2009-2021 Vitex@hippy.cz (G)
  * @license   https://opensource.org/licenses/MIT
  * 
- * PHP 7
+ * PHP 8
  */
 
 namespace Ease;
@@ -23,14 +23,6 @@ namespace Ease;
  */
 class Atom
 {
-
-    /**
-     * Version of EasePHP Framework
-     *
-     * @var string
-     */
-    public static $frameworkVersion = '0.5';
-
     /**
      * Debug mode flag.
      *

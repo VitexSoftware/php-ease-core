@@ -1,7 +1,6 @@
 <?php
 
 declare(strict_types=1);
-
 /**
  * Logging trait
  * 
@@ -83,7 +82,7 @@ trait Logging
     /**
      * Add Info about used PHP and EasePHP Library
      *
-     * @param string $prefix banner prefix text
+     * @param string $prefix banner prefix text (default is APPName)
      * @param string $suffix banner suffix text
      */
     public function logBanner($prefix = '', $suffix = '')
@@ -91,10 +90,16 @@ trait Logging
         if (\Ease\Functions::cfg('DEBUG') === true) {
             $suffix .= ' Loggers: ' . \Ease\Functions::cfg('EASE_LOGGER');
         }
+
+        if (method_exists('Composer\InstalledVersions', 'getPrettyVersion')) {
+            $version = \Composer\InstalledVersions::getPrettyVersion('vitexsoftware/ease-core');
+        } else {
+            $version = 'n/a';
+        }
+
         $this->addStatusMessage(
-                trim($prefix . ' PHP v' . phpversion() . ' EasePHP Framework v' . \Ease\Atom::$frameworkVersion . ' ' . $suffix),
+                trim(($prefix ? $prefix : \Ease\Shared::appName()) . ' PHP v' . phpversion() . ' EasePHP Framework v' . $version . ' ' . $suffix),
                 'debug'
         );
     }
-
 }

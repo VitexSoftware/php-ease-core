@@ -29,14 +29,14 @@ class ToConsole extends ToMemory implements Loggingable
      *
      * @var resource|false
      */
-    public $stdout = false;
+    public $stdout;
 
     /**
      * Standard error handle
      *
      * @var resource
      */
-    public $stderr = false;
+    public $stderr;
 
     /**
      * Ansi Codes

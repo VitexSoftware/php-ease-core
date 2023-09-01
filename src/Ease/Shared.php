@@ -230,9 +230,9 @@ class Shared extends Atom
     }
 
     /**
-     * Vrací, případně i založí objekt uživatele.
+     * Gives you shared User object. Create it first if not exist yet.
      *
-     * @param User|Anonym|string $user objekt nového uživatele nebo
+     * @param Person|User|Anonym|string $user objekt nového uživatele nebo
      *                                 název třídy
      *
      * @return User
