@@ -430,23 +430,15 @@ class Functions {
     /**
      * Get configuration from constant or environment
      * 
+     * @deprecated since version 1.40.1 use \Ease\Shared::cfg() instead
+     * 
      * @param string $constant
      * @param mixed $cfg Default value
      * 
-     * @return string|int|boolean
+     * @return string|int|boolean|null
      */
     public static function cfg(/*string*/ $constant, $cfg = null) {
-        if (!empty($constant) && defined($constant)) {
-            $cfg = constant($constant);
-        } elseif (array_key_exists($constant, $_ENV)) {
-            $cfg = getenv($constant,true);
-        } else {
-            $env = getenv($constant);
-            if (!empty($env)) {
-                $cfg = $env;
-            }
-        }
-        return $cfg;
+        return \Ease\Shared::cfg($constant, $cfg);
     }
 
     /**

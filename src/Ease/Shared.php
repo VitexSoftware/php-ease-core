@@ -86,6 +86,29 @@ class Shared extends Atom
     }
 
     /**
+     * Get configuration from constant or environment
+     * 
+     * @param string $constant
+     * @param mixed $cfg Default value
+     * 
+     * @return string|int|boolean|null
+     */
+    public static function cfg(/*string*/ $constant, $cfg = null) {
+        if (!empty($constant) && defined($constant)) {
+            $cfg = constant($constant);
+        } elseif (array_key_exists($constant, $_ENV)) {
+            $cfg = getenv($constant,true);
+        } else {
+            $env = getenv($constant);
+            if (!empty($env)) {
+                $cfg = $env;
+            }
+        }
+        return $cfg;
+    }
+    
+    
+    /**
      * Application name or "Composer project Name" fallback
      * 
      * @return string
