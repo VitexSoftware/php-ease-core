@@ -2,7 +2,7 @@
 
 // Jammy's php is broken now
 
-String[] distributions = ['debian:buster', 'debian:bullseye', 'debian:bookworm', 'ubuntu:focal', 'ubuntu:jammy']
+String[] distributions = ['debian:bullseye', 'debian:bookworm', 'ubuntu:focal', 'ubuntu:jammy']
 
 String vendor = 'vitexsoftware'
 String distribution = ''
@@ -46,7 +46,7 @@ distributions.each {
                     script: 'dpkg-parsechangelog --show-field Version',
                     returnStdout: true
                 ).trim()
-                ver = version + '~' + distroCodename + '~' + env.BUILD_NUMBER
+                ver = version + '.' + env.BUILD_NUMBER  + '~' + distroCodename
             }
             stage('Build ' + distribution) {
                 buildImage.inside {
