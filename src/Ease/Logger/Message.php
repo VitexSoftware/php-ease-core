@@ -1,14 +1,13 @@
 <?php
 
 declare(strict_types=1);
-
 /**
  * Message Classs
  * 
  * @category Logging
  * 
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2019 Vitex@hippy.cz (G)
+ * @copyright 2019-2023 Vitex@hippy.cz (G)
  * @license   https://opensource.org/licenses/MIT MIT
  * 
  * PHP 7
@@ -21,7 +20,8 @@ namespace Ease\Logger;
  *
  * @author vitex
  */
-class Message {
+class Message
+{
 
     /**
      * Message body
@@ -58,7 +58,8 @@ class Message {
      * @param \Ease\Atom|string $caller  Origin of message
      * @param int               $when    Timestamp
      */
-    public function __construct($message, $type = 'info', $caller = null, $when = null) {
+    public function __construct($message, $type = 'info', $caller = null, $when = null)
+    {
         $this->body = $message;
         $this->type = $type;
         $this->caller = $caller;
@@ -76,28 +77,58 @@ class Message {
      * 
      * @return string
      */
-    public static function getTypeUnicodeSymbol($type) {
-        switch ($type) {
-            case 'mail':                       // Envelope
-                $symbol = '✉';
-                break;
-            case 'warning':                    // Vykřičník v trojůhelníku
-                $symbol = '⚠';
-                break;
-            case 'error':                      // Lebka
-                $symbol = '☠';
-                break;
-            case 'success':                    // Kytička
-                $symbol = '❁';
-                break;
-            case 'debug':                      // Gear
-                $symbol = '⚙';
-                break;
-            default:                           // i v kroužku
-                $symbol = 'ⓘ';
-                break;
+    public static function getTypeUnicodeSymbol($type, $color = true)
+    {
+        if ($color === true) {
+            switch ($type) {
+                case 'mail':                       // Envelope
+                    $symbol = '✉️';
+                    break;
+                case 'warning':                    // Vykřičník v trojůhelníku
+                    $symbol = '⚠️';
+                    break;
+                case 'error':                      // Lebka
+                    $symbol = '☠️';
+                    break;
+                case 'success':                    // Kytička
+                    $symbol = '🌼';
+                    break;
+                case 'debug':                      // Gear
+                    $symbol = '⚙️';
+                    break;
+                case 'info':
+                    $symbol = 'ℹ️';
+                    break;
+                default:                           // i v kroužku
+                    $symbol = '🤔';
+                    break;
+            }
+        } else {
+            switch ($type) {
+                case 'mail':                       // Envelope
+                    $symbol = '✉';
+                    break;
+                case 'warning':                    // Vykřičník v trojůhelníku
+                    $symbol = '⚠';
+                    break;
+                case 'error':                      // Lebka
+                    $symbol = '☠';
+                    break;
+                case 'success':                    // Kytička
+                    $symbol = '❁';
+                    break;
+                case 'debug':                      // Gear
+                    $symbol = '⚙';
+                    break;
+                case 'info':                      // Gear
+                    $symbol = 'ⓘ';
+                    break;
+                default:                           // Squared Question
+                    $symbol = '🯄';
+                    break;
+                
+            }
         }
         return $symbol;
     }
-
 }
