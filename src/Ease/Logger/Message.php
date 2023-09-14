@@ -126,9 +126,29 @@ class Message
                 default:                           // Squared Question
                     $symbol = '🯄';
                     break;
-                
             }
         }
         return $symbol;
+    }
+
+    /**
+     * Obtain object name from caller object
+     * 
+     * @param object|string $caller
+     * 
+     * @return string
+     */
+    public static function getCallerName($caller)
+    {
+        if (is_object($caller)) {
+            if (method_exists($caller, 'getObjectName')) {
+                $callerName = $caller->getObjectName();
+            } else {
+                $callerName = get_class($caller);
+            }
+        } else {
+            $callerName = strval($caller);
+        }
+        return $callerName;
     }
 }

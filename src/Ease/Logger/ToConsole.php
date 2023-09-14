@@ -1,12 +1,11 @@
 <?php
 
 declare(strict_types=1);
-
 /**
  * Class to Log messages to Console.
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2016 Vitex@hippy.cz (G)
+ * @copyright 2016-2023 Vitex@hippy.cz (G)
  */
 
 namespace Ease\Logger;
@@ -90,8 +89,7 @@ class ToConsole extends ToMemory implements Loggingable
     {
         $colorAttrs = explode("+", $color);
         $ansi_str = "";
-        foreach ($colorAttrs as $attr)
-        {
+        foreach ($colorAttrs as $attr) {
             $ansi_str .= "\033[" . self::$ansiCodes[$attr] . "m";
         }
         $ansi_str .= $str . "\033[" . self::$ansiCodes["off"] . "m";
@@ -109,14 +107,10 @@ class ToConsole extends ToMemory implements Loggingable
      */
     public function addToLog($caller, $message, $type = 'message')
     {
-        $ansiMessage = $this->set(
-                ' ' . Message::getTypeUnicodeSymbol($type) . ' ' . strip_tags(strval($message)),
-                self::getTypeColor($type)
-        );
-        $logLine = strftime("%D %T") . ' •' . (is_object($caller) ? (method_exists($caller, 'getObjectName') ? $caller->getObjectName() : get_class($caller) )  : $caller) . '‣ ' . $ansiMessage;
+        $ansiMessage = $this->set(strip_tags(strval($message)), self::getTypeColor($type));
+        $logLine = strftime("%D %T") . ' ' . Message::getTypeUnicodeSymbol($type) . ' •' . Message::getCallerName($caller)  . '‣ ' . $ansiMessage;
         $written = 0;
-        switch ($type)
-        {
+        switch ($type) {
             case 'error':
                 $written += fputs($this->stderr, $logLine . "\n");
                 break;
@@ -130,12 +124,11 @@ class ToConsole extends ToMemory implements Loggingable
     /**
      * Get color code for given message 
      * 
-     * @param string $type  mail|warning|error|debug|success
+     * @param string $type  mail|warning|error|debug|success|info
      */
     public static function getTypeColor($type)
     {
-        switch ($type)
-        {
+        switch ($type) {
             case 'mail':                       // Envelope
                 $color = 'blue';
                 break;
@@ -150,6 +143,9 @@ class ToConsole extends ToMemory implements Loggingable
                 break;
             case 'success':                    // Kytička
                 $color = 'green';
+                break;
+            case 'info':                    // Kytička
+                $color = 'blue';
                 break;
             default:                           // i v kroužku
                 $color = 'white';
@@ -173,5 +169,4 @@ class ToConsole extends ToMemory implements Loggingable
         }
         return self::$instance;
     }
-
 }
