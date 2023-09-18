@@ -3,6 +3,10 @@
 declare(strict_types=1);
 /**
  * Class to Log messages to Console.
+ * 
+ * Output format:
+ * 
+ * [datum] [time] [severity icon] •ObjectNamespace\Object@ID‣ message in severity color
  *
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2016-2023 Vitex@hippy.cz (G)
