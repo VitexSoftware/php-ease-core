@@ -82,10 +82,10 @@ class Message
         if ($color === true) {
             switch ($type) {
                 case 'mail':                       // Envelope
-                    $symbol = '✉️';
+                    $symbol = '✉';
                     break;
                 case 'warning':                    // Vykřičník v trojůhelníku
-                    $symbol = '⚠️';
+                    $symbol = '⚠';
                     break;
                 case 'error':                      // Lebka
                     $symbol = '💀';
@@ -94,10 +94,10 @@ class Message
                     $symbol = '🌼';
                     break;
                 case 'debug':                      // Gear
-                    $symbol = '⚙️';
+                    $symbol = '⚙';
                     break;
                 case 'info':
-                    $symbol = 'ℹ️';
+                    $symbol = 'ℹ';
                     break;
                 default:                           // i v kroužku
                     $symbol = '🤔';

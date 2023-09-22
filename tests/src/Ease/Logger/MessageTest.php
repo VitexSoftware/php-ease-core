@@ -49,18 +49,18 @@ class MessageTest extends \PHPUnit\Framework\TestCase
     {
         $this->assertEquals('✉', Message::getTypeUnicodeSymbol('mail',false));
         $this->assertEquals('⚠', Message::getTypeUnicodeSymbol('warning',false));
-        $this->assertEquals('💀', Message::getTypeUnicodeSymbol('error',false));
+        $this->assertEquals('☠', Message::getTypeUnicodeSymbol('error',false));
         $this->assertEquals('❁', Message::getTypeUnicodeSymbol('success',false));
         $this->assertEquals('⚙', Message::getTypeUnicodeSymbol('debug',false));
         $this->assertEquals('ⓘ', Message::getTypeUnicodeSymbol('info',false));
         $this->assertEquals('🯄', Message::getTypeUnicodeSymbol('anythingelse',false));
        
-        $this->assertEquals('✉️', Message::getTypeUnicodeSymbol('mail'));
-        $this->assertEquals('⚠️', Message::getTypeUnicodeSymbol('warning'));
-        $this->assertEquals('☠️', Message::getTypeUnicodeSymbol('error'));
+        $this->assertEquals('✉', Message::getTypeUnicodeSymbol('mail'));
+        $this->assertEquals('⚠', Message::getTypeUnicodeSymbol('warning'));
+        $this->assertEquals('💀', Message::getTypeUnicodeSymbol('error'));
         $this->assertEquals('🌼', Message::getTypeUnicodeSymbol('success'));
-        $this->assertEquals('⚙️', Message::getTypeUnicodeSymbol('debug'));
-        $this->assertEquals('ℹ️', Message::getTypeUnicodeSymbol('info'));
+        $this->assertEquals('⚙', Message::getTypeUnicodeSymbol('debug'));
+        $this->assertEquals('ℹ', Message::getTypeUnicodeSymbol('info'));
         $this->assertEquals('🤔', Message::getTypeUnicodeSymbol('anythingelse'));
         
     }
