@@ -49,7 +49,7 @@ class MessageTest extends \PHPUnit\Framework\TestCase
     {
         $this->assertEquals('✉', Message::getTypeUnicodeSymbol('mail',false));
         $this->assertEquals('⚠', Message::getTypeUnicodeSymbol('warning',false));
-        $this->assertEquals('☠', Message::getTypeUnicodeSymbol('error',false));
+        $this->assertEquals('💀', Message::getTypeUnicodeSymbol('error',false));
         $this->assertEquals('❁', Message::getTypeUnicodeSymbol('success',false));
         $this->assertEquals('⚙', Message::getTypeUnicodeSymbol('debug',false));
         $this->assertEquals('ⓘ', Message::getTypeUnicodeSymbol('info',false));
