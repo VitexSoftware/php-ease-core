@@ -88,7 +88,7 @@ class Message
                     $symbol = '⚠️';
                     break;
                 case 'error':                      // Lebka
-                    $symbol = '☠️';
+                    $symbol = '💀';
                     break;
                 case 'success':                    // Kytička
                     $symbol = '🌼';
