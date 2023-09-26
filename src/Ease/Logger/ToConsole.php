@@ -111,8 +111,17 @@ class ToConsole extends ToMemory implements Loggingable
      */
     public function addToLog($caller, $message, $type = 'message')
     {
+        $fmt = datefmt_create(
+                \Ease\Locale::$localeUsed,
+                \IntlDateFormatter::FULL,
+                \IntlDateFormatter::FULL,
+                date_default_timezone_get(),
+                \IntlDateFormatter::GREGORIAN,
+                'MM/dd/yyyy'
+        );
+        
         $ansiMessage = $this->set(strip_tags(strval($message)), self::getTypeColor($type));
-        $logLine = strftime("%D %T") . ' ' . Message::getTypeUnicodeSymbol($type) . ' •' . Message::getCallerName($caller)  . '‣ ' . $ansiMessage;
+        $logLine = datefmt_format($fmt, 0) . ' ' . Message::getTypeUnicodeSymbol($type) . ' •' . Message::getCallerName($caller) . '‣ ' . $ansiMessage;
         $written = 0;
         switch ($type) {
             case 'error':
