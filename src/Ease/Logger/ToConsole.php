@@ -121,7 +121,7 @@ class ToConsole extends ToMemory implements Loggingable
         );
         
         $ansiMessage = $this->set(strip_tags(strval($message)), self::getTypeColor($type));
-        $logLine = datefmt_format($fmt, 0) . ' ' . Message::getTypeUnicodeSymbol($type) . ' •' . Message::getCallerName($caller) . '‣ ' . $ansiMessage;
+        $logLine = datefmt_format($fmt, new \DateTime) . ' ' . Message::getTypeUnicodeSymbol($type) . ' •' . Message::getCallerName($caller) . '‣ ' . $ansiMessage;
         $written = 0;
         switch ($type) {
             case 'error':
