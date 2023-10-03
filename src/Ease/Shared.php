@@ -68,14 +68,14 @@ class Shared extends Atom
             \Ease\Shared::singleton()->loadConfig($envFile, true);
         }
         $configured = true;
-        if(array_key_exists('DB_CONNECTION', $configKeys) && strstr(Functions::cfg('DB_CONNECTION'),'sqlite')){
+        if(array_key_exists('DB_CONNECTION', $configKeys) && strstr(self::cfg('DB_CONNECTION'),'sqlite')){
             unset($configKeys['DB_PASSWORD']);
             unset($configKeys['DB_USERNAME']);
             unset($configKeys['DB_HOST']);
             unset($configKeys['DB_PORT']);
         }
         foreach ($configKeys as $cfgKey) {
-            if (empty(Functions::cfg($cfgKey))) {
+            if (empty(self::cfg($cfgKey))) {
                 fwrite(fopen('php://stderr', 'wb'), 'Requied configuration ' . $cfgKey . " is not set." . PHP_EOL);
                 $configured = false;
             }
@@ -120,7 +120,7 @@ class Shared extends Atom
         } else {
             $package['name'] = 'Unnamed';
         }
-        return (Functions::cfg('EASE_APPNAME') ? Functions::cfg('EASE_APPNAME') : (Functions::cfg('APP_NAME') ? Functions::cfg('APP_NAME') : $package['name']));
+        return (self::cfg('EASE_APPNAME') ? self::cfg('EASE_APPNAME') : (self::cfg('APP_NAME') ? self::cfg('APP_NAME') : $package['name']));
     }
 
     /**
@@ -323,8 +323,10 @@ class Shared extends Atom
 
         if (array_key_exists('debug', $this->configuration)) {
             $this->debug = boolval($this->configuration['debug']);
+            if ($this->debug === true) {
+                $this->logger()->addToLog($this,'Loaded configuration from ' . $configFile, 'debug');
+            }
         }
-
         return $this->configuration;
     }
 }
