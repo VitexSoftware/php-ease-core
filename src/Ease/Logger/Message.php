@@ -1,17 +1,18 @@
 <?php
 
-declare(strict_types=1);
 /**
  * Message Classs
- * 
+ *
  * @category Logging
- * 
+ *
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2019-2023 Vitex@hippy.cz (G)
  * @license   https://opensource.org/licenses/MIT MIT
- * 
+ *
  * PHP 7
  */
+
+declare(strict_types=1);
 
 namespace Ease\Logger;
 
@@ -22,7 +23,6 @@ namespace Ease\Logger;
  */
 class Message
 {
-
     /**
      * Message body
      *
@@ -38,7 +38,7 @@ class Message
     public $type;
 
     /**
-     * 
+     *
      * @var \Ease\Atom
      */
     public $caller;
@@ -52,7 +52,7 @@ class Message
 
     /**
      * Basic Message class
-     * 
+     *
      * @param string            $message text
      * @param string            $type    One of info|notice|debug|error
      * @param \Ease\Atom|string $caller  Origin of message
@@ -74,7 +74,7 @@ class Message
      * Unicode Symbol for given message type
      *
      * @param  string $type
-     * 
+     *
      * @return string
      */
     public static function getTypeUnicodeSymbol($type, $color = true)
@@ -133,9 +133,9 @@ class Message
 
     /**
      * Obtain object name from caller object
-     * 
+     *
      * @param object|string $caller
-     * 
+     *
      * @return string
      */
     public static function getCallerName($caller)

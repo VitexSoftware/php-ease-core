@@ -1,17 +1,18 @@
 <?php
 
-declare(strict_types=1);
 /**
  * Logging trait
- * 
+ *
  * @category Logging
- * 
+ *
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2019 Vitex@hippy.cz (G)
  * @license   https://opensource.org/licenses/MIT MIT
- * 
+ *
  * PHP 7
  */
+
+declare(strict_types=1);
 
 namespace Ease\Logger;
 
@@ -21,11 +22,10 @@ namespace Ease\Logger;
  */
 trait Logging
 {
-
     /**
      * Objekt pro logování.
      *
-     * @var Regent
+     * @var Regent|null
      */
     public $logger = null;
 
@@ -36,12 +36,12 @@ trait Logging
      * @param string $message text zpravy
      * @param string $type    fronta
      * @param object $caller  Message source name
-     * 
+     *
      * @return boolean message added
      */
     public function addStatusMessage($message, $type = 'info', $caller = null)
     {
-        return $this->getLogger()->addToLog((empty($caller) ? $this : $caller), $message, $type);
+        return boolval($this->getLogger()->addToLog((empty($caller) ? $this : $caller), $message, $type));
     }
 
     /**
@@ -56,7 +56,7 @@ trait Logging
 
     /**
      * Erase all status messages
-     * 
+     *
      * @return boolean
      */
     public function cleanSatatusMessages()
@@ -66,9 +66,9 @@ trait Logging
 
     /**
      * Provide logger object
-     * 
+     *
      * @param string|array $options
-     * 
+     *
      * @return Regent
      */
     public function getLogger($options = null)
@@ -87,8 +87,8 @@ trait Logging
      */
     public function logBanner($prefix = '', $suffix = '')
     {
-        if (\Ease\Functions::cfg('DEBUG') === true) {
-            $suffix .= ' Loggers: ' . \Ease\Functions::cfg('EASE_LOGGER');
+        if (\Ease\Shared::cfg('DEBUG') === true) {
+            $suffix .= ' Loggers: ' . \Ease\Shared::cfg('EASE_LOGGER');
         }
 
         if (method_exists('Composer\InstalledVersions', 'getPrettyVersion')) {
@@ -98,8 +98,9 @@ trait Logging
         }
 
         $this->addStatusMessage(
-                trim(($prefix ? $prefix : \Ease\Shared::appName()) . ' PHP v' . phpversion() . ' EasePHP Framework v' . $version . ' ' . $suffix),
-                'debug'
+            trim(($prefix ? $prefix : \Ease\Shared::appName()) .
+            ' PHP v' . phpversion() . ' EasePHP Framework v' . $version . ' ' . $suffix),
+            'debug'
         );
     }
 }

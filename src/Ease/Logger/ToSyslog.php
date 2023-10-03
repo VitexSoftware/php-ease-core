@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * Syslog logger handler
  *
@@ -9,17 +7,18 @@ declare(strict_types=1);
  * @copyright 2009-2021 Vitex@hippy.cz (G)
  */
 
+declare(strict_types=1);
+
 namespace Ease\Logger;
 
 /**
  * Log to syslog.
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2021 Vitex@hippy.cz (G)
+ * @copyright 2009-2023 Vitex@hippy.cz (G)
  */
 class ToSyslog extends ToStd implements Loggingable
 {
-
     /**
      * Předvolená metoda logování.
      *
@@ -34,7 +33,7 @@ class ToSyslog extends ToStd implements Loggingable
 
     /**
      * Logovací třída.
-     * 
+     *
      * @see https://www.php.net/manual/en/function.openlog.php
      *
      * @param string $logName syslog log source identifier
@@ -42,12 +41,13 @@ class ToSyslog extends ToStd implements Loggingable
     public function __construct($logName = null)
     {
         parent::__construct($logName);
-        openlog(empty($this->logName) ? \Ease\Shared::appName() : $this->logName, intval(\Ease\Functions::cfg('LOG_FLAG')), intval(\Ease\Functions::cfg('LOG_FACILITY')));
+        openlog(empty($this->logName) ? \Ease\Shared::appName() :
+            $this->logName, intval(\Ease\Shared::cfg('LOG_FLAG')), intval(\Ease\Shared::cfg('LOG_FACILITY')));
     }
 
     /**
      * Obtain instance of Syslog loger
-     * 
+     *
      * @return ToSyslog
      */
     public static function singleton()
@@ -63,10 +63,13 @@ class ToSyslog extends ToStd implements Loggingable
      *
      * @param string $type    message type 'error' or anything else
      * @param string $logLine message to output
+     *
+     * @return int written message length
      */
     public function output($type, $logLine)
     {
-        return syslog($type == 'error' ? constant('LOG_ERR') : constant('LOG_INFO'), $this->finalizeMessage($logLine));
+        return syslog($type == 'error' ? constant('LOG_ERR') : constant('LOG_INFO'), $this->finalizeMessage($logLine)) ?
+                strlen($logLine) : 0;
     }
 
     /**
@@ -88,5 +91,4 @@ class ToSyslog extends ToStd implements Loggingable
     {
         closelog();
     }
-
 }

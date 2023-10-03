@@ -1,16 +1,17 @@
 <?php
 
-declare(strict_types=1);
 /**
  * Class to Log messages to Console.
- * 
+ *
  * Output format:
- * 
+ *
  * [datum] [time] [severity icon] •ObjectNamespace\Object@ID‣ message in severity color
  *
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2016-2023 Vitex@hippy.cz (G)
  */
+
+declare(strict_types=1);
 
 namespace Ease\Logger;
 
@@ -21,7 +22,6 @@ namespace Ease\Logger;
  */
 class ToConsole extends ToMemory implements Loggingable
 {
-
     /**
      * Saves obejct instace (singleton...).
      */
@@ -83,10 +83,10 @@ class ToConsole extends ToMemory implements Loggingable
 
     /**
      * Set Ansi Color
-     * 
+     *
      * @param string $str   string to colorize
      * @param string $color color name
-     * 
+     *
      * @return string
      */
     public static function set($str, $color)
@@ -112,16 +112,19 @@ class ToConsole extends ToMemory implements Loggingable
     public function addToLog($caller, $message, $type = 'message')
     {
         $fmt = datefmt_create(
-                \Ease\Locale::$localeUsed,
-                \IntlDateFormatter::FULL,
-                \IntlDateFormatter::FULL,
-                date_default_timezone_get(),
-                \IntlDateFormatter::GREGORIAN,
-                'MM/dd/yyyy'
+            \Ease\Locale::$localeUsed,
+            \IntlDateFormatter::FULL,
+            \IntlDateFormatter::FULL,
+            date_default_timezone_get(),
+            \IntlDateFormatter::GREGORIAN,
+            'MM/dd/yyyy'
         );
-        
+
         $ansiMessage = $this->set(strip_tags(strval($message)), self::getTypeColor($type));
-        $logLine = datefmt_format($fmt, new \DateTime) . ' ' . Message::getTypeUnicodeSymbol($type) . ' •' . Message::getCallerName($caller) . '‣ ' . $ansiMessage;
+        $logLine = datefmt_format($fmt, new \DateTime()) . ' ' .
+                Message::getTypeUnicodeSymbol($type) . ' •' .
+                Message::getCallerName($caller) . '‣ ' .
+                $ansiMessage;
         $written = 0;
         switch ($type) {
             case 'error':
@@ -135,8 +138,8 @@ class ToConsole extends ToMemory implements Loggingable
     }
 
     /**
-     * Get color code for given message 
-     * 
+     * Get color code for given message
+     *
      * @param string $type  mail|warning|error|debug|success|info
      */
     public static function getTypeColor($type)

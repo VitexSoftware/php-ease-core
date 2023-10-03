@@ -1,23 +1,24 @@
 <?php
+
+/**
+ * Main Ease Class
+ *
+ * @author    Vitex <vitex@hippy.cz>
+ * @copyright 2009-2023 Vitex@hippy.cz (G)
+ *
+ * PHP 7
+ */
+
 declare(strict_types=1);
 
 namespace Ease;
 
-/**
- * 
- *
- * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2023 Vitex@hippy.cz (G)
- * 
- * PHP 7
- */
 class Brick extends Sand
 {
-
     use RecordKey;
+
     /**
-     * Name Column
-     * @var string
+     * @var string Name Column
      */
     public $nameColumn = null;
 
@@ -86,7 +87,7 @@ class Brick extends Sand
                     $recognizedAs = 'reuse';
                 }
                 break;
-            default :
+            default:
             case "boolean":
             case "NULL":
                 $recognizedAs = 'unknown';
@@ -109,7 +110,7 @@ class Brick extends Sand
         if (is_null($objectName)) {
             $key = $this->getMyKey($this->data);
             if ($key) {
-                $result = parent::setObjectName(get_class($this).'@'.$key);
+                $result = parent::setObjectName(get_class($this) . '@' . $key);
             } else {
                 $result = parent::setObjectName();
             }
@@ -126,16 +127,14 @@ class Brick extends Sand
      */
     public function setInit($init)
     {
-
     }
 
     /**
      * Set/override object properties stub
-     * 
+     *
      * @param array $properties
      */
     public function setProperties($properties)
     {
-
     }
 }

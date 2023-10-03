@@ -1,18 +1,18 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * Loggingable interface
- * 
+ *
  * @category Logging
- * 
+ *
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2019-2021 Vitex@hippy.cz (G)
  * @license   https://opensource.org/licenses/MIT MIT
- * 
+ *
  * PHP 7
  */
+
+declare(strict_types=1);
 
 namespace Ease\Logger;
 
@@ -22,6 +22,5 @@ namespace Ease\Logger;
  */
 interface Loggingable
 {
-
     public function addToLog($caller, $message, $type = 'message');
 }

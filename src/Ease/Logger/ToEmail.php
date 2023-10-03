@@ -1,13 +1,13 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * Send logs by email
  *
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2021 Vitex@hippy.cz (G)
  */
+
+declare(strict_types=1);
 
 namespace Ease\Logger;
 
@@ -19,7 +19,6 @@ namespace Ease\Logger;
  */
 class ToEmail extends ToMemory implements Loggingable
 {
-
     /**
      * Předvolená metoda logování.
      *
@@ -65,7 +64,7 @@ class ToEmail extends ToMemory implements Loggingable
     /**
      * Saves obejct instace (singleton...).
      */
-    private static $_instance = null;
+    private static $instance = null;
 
     /**
      * Handle to mailer.
@@ -96,7 +95,7 @@ class ToEmail extends ToMemory implements Loggingable
      */
     public function __construct($recipient = '', $subject = null)
     {
-        $this->recipient = empty($recipient) ? \Ease\Functions::cfg('EASE_EMAILTO') : $recipient;
+        $this->recipient = empty($recipient) ? \Ease\Shared::cfg('EASE_EMAILTO') : $recipient;
         $this->subject = empty($subject) ? $_SERVER['PHP_SELF'] : $subject;
         $this->mailer = new \Ease\Mailer($this->recipient, $this->subject);
         $this->mailer->setUserNotification(false);
@@ -112,19 +111,19 @@ class ToEmail extends ToMemory implements Loggingable
      */
     public static function singleton()
     {
-        if (!isset(self::$_instance)) {
+        if (!isset(self::$instance)) {
             $class = __CLASS__;
             if (\Ease\Shared::appName()) {
-                self::$_instance = new $class(
-                        \Ease\Functions::cfg('EASE_EMAILTO',''),
-                        \Ease\Shared::appName()
+                self::$instance = new $class(
+                    \Ease\Shared::cfg('EASE_EMAILTO', ''),
+                    \Ease\Shared::appName()
                 );
             } else {
-                self::$_instance = new $class('EaseFramework');
+                self::$instance = new $class('EaseFramework');
             }
         }
 
-        return self::$_instance;
+        return self::$instance;
     }
 
     /**
@@ -134,25 +133,24 @@ class ToEmail extends ToMemory implements Loggingable
      * @param string        $message body
      * @param string        $type    of message (success|info|error|warning|*)
      *
-     * @return null|boolean byl report zapsán ?
+     * @return int logged message size ?
      */
     public function addToLog($caller, $message, $type = 'notice')
     {
-
         ++$this->messageID;
         if (($this->logLevel == 'silent') && ($type != 'error')) {
-            return;
+            return 0;
         }
         if (($this->logLevel != 'debug') && ($type == 'debug')) {
-            return;
+            return 0;
         }
 
         self::$statusMessages[$type][$this->messageID] = $message;
 
-        $logLine = strftime("%D %T") . ' `' . is_object($caller) ? get_class($caller) : $caller . '`: ' . $message;
+        $logLine = strftime("%D %T") . ' `' . Message::getCallerName($caller) . '`: ' . $message;
 
         $this->mailer->textBody .= "\n" . $logLine;
-        return true;
+        return strlen($message);
     }
 
     /**
@@ -164,5 +162,4 @@ class ToEmail extends ToMemory implements Loggingable
             $this->mailer->send();
         }
     }
-
 }

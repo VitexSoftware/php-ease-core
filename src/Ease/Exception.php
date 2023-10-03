@@ -1,15 +1,15 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * Ease Exception
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2022 Vitex@hippy.cz (G)
- * 
+ * @copyright 2009-2023 Vitex@hippy.cz (G)
+ *
  * PHP 7
  */
+
+declare(strict_types=1);
 
 namespace Ease;
 
@@ -20,10 +20,9 @@ namespace Ease;
  */
 class Exception extends \Exception
 {
-
     /**
      * Ease Framework Exception
-     * 
+     *
      * @param string          $message  of exception
      * @param int             $code     error code
      * @param \Ease\Exception $previous
@@ -41,5 +40,4 @@ class Exception extends \Exception
         \Ease\Shared::logger()->addStatusObject(new Logger\Message($message, 'error', $caller));
         parent::__construct($message, $code, $previous);
     }
-
 }

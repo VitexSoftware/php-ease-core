@@ -1,19 +1,19 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * Anonymous user class.
  *
  * @author    Vítězslav Dvořák <vitex@hippy.cz>
- * @copyright 2009-2021 Vitex@hippy.cz (G)
- * 
+ * @copyright 2009-2023 Vitex@hippy.cz (G)
+ *
  * @category User Classes
  * @package EasePHP
- * 
+ *
  * PHP 7
- * 
+ *
  */
+
+declare(strict_types=1);
 
 namespace Ease;
 
@@ -22,7 +22,6 @@ namespace Ease;
  */
 class Anonym extends Brick implements Person
 {
-
     /**
      * User type.
      *
@@ -33,7 +32,7 @@ class Anonym extends Brick implements Person
     /**
      * An Anonymous user ID is always null
      *
-     * @var null
+     * @var int|null
      */
     public $userID = null;
 
@@ -169,5 +168,4 @@ class Anonym extends Brick implements Person
 
         return true;
     }
-
 }

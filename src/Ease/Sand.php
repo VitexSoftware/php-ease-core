@@ -1,15 +1,15 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * Zakladni objekt urceny k rodicovstvi pokročilým objektum.
  *
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2021 Vitex@hippy.cz (G)
- * 
+ *
  * PHP 7
  */
+
+declare(strict_types=1);
 
 namespace Ease;
 
@@ -17,11 +17,10 @@ namespace Ease;
  * Zakladni objekt urceny k rodicovstvi vsem pouzivanym objektum.
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2012 Vitex@hippy.cz (G)
+ * @copyright 2009-2023 Vitex@hippy.cz (G)
  */
 class Sand extends Molecule
 {
-
     use Logger\Logging;
 
     /**
@@ -111,7 +110,8 @@ class Sand extends Molecule
      */
     public function getDataValue($columnName)
     {
-        return !empty($columnName) && is_array($this->data) && array_key_exists($columnName, $this->data) ? $this->data[$columnName] : null;
+        return !empty($columnName) && is_array($this->data) &&
+            array_key_exists($columnName, $this->data) ? $this->data[$columnName] : null;
     }
 
     /**
@@ -164,5 +164,4 @@ class Sand extends Molecule
 
         return empty($data) ? null : count($data);
     }
-
 }

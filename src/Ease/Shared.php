@@ -1,13 +1,14 @@
 <?php
 
-declare(strict_types=1);
 /**
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2023 Vitex@hippy.cz (G)
- * 
+ *
  * PHP 7
  * PHP 8
  */
+
+declare(strict_types=1);
 
 namespace Ease;
 
@@ -58,7 +59,7 @@ class Shared extends Atom
 
     /**
      * Load required Initial Configuration
-     * 
+     *
      * @param array  $configKeys
      * @param string $envFile
      */
@@ -68,7 +69,7 @@ class Shared extends Atom
             \Ease\Shared::singleton()->loadConfig($envFile, true);
         }
         $configured = true;
-        if(array_key_exists('DB_CONNECTION', $configKeys) && strstr(self::cfg('DB_CONNECTION'),'sqlite')){
+        if (array_key_exists('DB_CONNECTION', $configKeys) && strstr(self::cfg('DB_CONNECTION'), 'sqlite') ){
             unset($configKeys['DB_PASSWORD']);
             unset($configKeys['DB_USERNAME']);
             unset($configKeys['DB_HOST']);
@@ -87,17 +88,18 @@ class Shared extends Atom
 
     /**
      * Get configuration from constant or environment
-     * 
+     *
      * @param string $constant
      * @param mixed $cfg Default value
-     * 
+     *
      * @return string|int|boolean|null
      */
-    public static function cfg(/*string*/ $constant, $cfg = null) {
+    public static function cfg(/*string*/ $constant, $cfg = null)
+    {
         if (!empty($constant) && defined($constant)) {
             $cfg = constant($constant);
         } elseif (array_key_exists($constant, $_ENV)) {
-            $cfg = getenv($constant,true);
+            $cfg = getenv($constant, true);
         } else {
             $env = getenv($constant);
             if (!empty($env)) {
@@ -106,14 +108,13 @@ class Shared extends Atom
         }
         return $cfg;
     }
-    
-    
+
     /**
      * Application name or "Composer project Name" fallback
-     * 
+     *
      * @return string
      */
-    static public function appName()
+    public static function appName()
     {
         if (method_exists('Composer\InstalledVersions', 'getRootPackage')) {
             $package = \Composer\InstalledVersions::getRootPackage();
@@ -125,10 +126,10 @@ class Shared extends Atom
 
     /**
      * Application version or "0.0.0" fallback
-     * 
+     *
      * @return string
      */
-    static public function appVersion()
+    public static function appVersion()
     {
         if (method_exists('Composer\InstalledVersions', 'getRootPackage')) {
             $package = \Composer\InstalledVersions::getRootPackage();
@@ -154,9 +155,9 @@ class Shared extends Atom
 
     /**
      * File with stored messages
-     * 
+     *
      * @param string $sessID
-     * 
+     *
      * @return string
      */
     public static function msgFile($sessID = 'EaseStatusMessages')
@@ -166,9 +167,10 @@ class Shared extends Atom
     }
 
     /**
-     * 
+     * Load status Messages from session
+     *
      * @param string $sessID
-     * 
+     *
      * @return array
      */
     public static function loadStatusMessages($sessID = 'EaseStatusMessages')
@@ -184,7 +186,7 @@ class Shared extends Atom
 
     /**
      * Write remaining messages to temporary file.
-     * 
+     *
      * @return int bytes saved
      */
     public function saveStatusMessages($sessID = 'EaseStatusMessages')
@@ -266,14 +268,16 @@ class Shared extends Atom
         if (empty($user) && isset($_SESSION[$efprefix][self::$userSessionName])) {
             return $_SESSION[$efprefix][self::$userSessionName];
         }
-        if (!is_null($userSessionName)) {
+        if (!empty($userSessionName)) {
             self::$userSessionName = $userSessionName;
         }
         if (is_object($user)) {
             $_SESSION[$efprefix][self::$userSessionName] = clone $user;
         } else {
             if (!empty($candidat)) {
-                $_SESSION[$efprefix][self::$userSessionName] = method_exists($candidat, 'singleton') ? $candidat::singleton() : new $candidat();
+                $_SESSION[$efprefix][self::$userSessionName] = method_exists($candidat, 'singleton') ?
+                    $candidat::singleton() :
+                    new $candidat();
             }
         }
         return $_SESSION[$efprefix][self::$userSessionName];
@@ -324,7 +328,7 @@ class Shared extends Atom
         if (array_key_exists('debug', $this->configuration)) {
             $this->debug = boolval($this->configuration['debug']);
             if ($this->debug === true) {
-                $this->logger()->addToLog($this,'Loaded configuration from ' . $configFile, 'debug');
+                $this->logger()->addToLog($this, 'Loaded configuration from ' . $configFile, 'debug');
             }
         }
         return $this->configuration;

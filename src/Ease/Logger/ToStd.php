@@ -1,13 +1,13 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * Log to stdout/stderr
  *
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2023 Vitex@hippy.cz (G)
  */
+
+declare(strict_types=1);
 
 namespace Ease\Logger;
 
@@ -19,7 +19,6 @@ namespace Ease\Logger;
  */
 class ToStd extends ToMemory implements Loggingable
 {
-
     /**
      * ID naposledy ulozene zpravy.
      *
@@ -80,7 +79,7 @@ class ToStd extends ToMemory implements Loggingable
      * @param string $message zpráva
      * @param string $type    typ zprávy (success|info|error|warning|*)
      *
-     * @return null|boolean byl report zapsán ?
+     * @return null|int logged message length ?
      */
     public function addToLog($caller, $message, $type = 'message')
     {
@@ -101,17 +100,16 @@ class ToStd extends ToMemory implements Loggingable
         }
 
         $logLine = ' `' . $caller . '` ' . str_replace(
-                        ['notice', 'message', 'debug', 'report',
-                            'error', 'warning', 'success', 'info', 'mail',],
-                        ['**', '##', '@@', '::'], $type
-                ) . ' ' . $message . "\n";
+            ['notice', 'message', 'debug', 'report',
+            'error', 'warning', 'success', 'info', 'mail',],
+            ['**', '##', '@@', '::'],
+            $type
+        ) . ' ' . $message . "\n";
         if (!isset($this->logStyles[$type])) {
             $type = 'notice';
         }
 
-        $this->output($type, $logLine);
-
-        return true;
+        return $this->output($type, $logLine);
     }
 
     /**
@@ -119,14 +117,13 @@ class ToStd extends ToMemory implements Loggingable
      *
      * @param string $type    message type 'error' or anything else
      * @param string $logLine message to output
-     * 
+     *
      * @return int bytes written
      */
     public function output($type, $logLine)
     {
         $written = 0;
-        switch ($type)
-        {
+        switch ($type) {
             case 'error':
                 $stderr = fopen('php://stderr', 'w');
                 $written += fwrite($stderr, $this->logName . ': ' . $logLine);
@@ -152,5 +149,4 @@ class ToStd extends ToMemory implements Loggingable
     {
         return trim($messageRaw) . PHP_EOL;
     }
-
 }

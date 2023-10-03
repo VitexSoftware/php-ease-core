@@ -5,7 +5,7 @@
  *
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2021 Vitex@hippy.cz (G)
- * 
+ *
  * PHP 7
  */
 
@@ -17,7 +17,6 @@ namespace Ease;
  */
 interface Person
 {
-
     /**
      * Anonym má level.
      *

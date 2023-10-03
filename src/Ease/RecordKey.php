@@ -1,16 +1,17 @@
 <?php
-declare(strict_types=1);
 
 /**
  * Record Key methods
  *
  * @author    Vítězslav Dvořák <vitex@hippy.cz>
  * @copyright 2019 Vitex@hippy.cz (G)
- * 
+ *
  * @package EasePHP
- * 
+ *
  * PHP 7
  */
+
+declare(strict_types=1);
 
 namespace Ease;
 
@@ -32,7 +33,7 @@ trait RecordKey
      *
      * @return array
      */
-    public abstract function getData();
+    abstract public function getData();
 
     /**
      * Set data filed value
@@ -42,7 +43,7 @@ trait RecordKey
      *
      * @return bool Success
      */
-    public abstract function setDataValue(string $columnName, $value);
+    abstract public function setDataValue(string $columnName, $value);
 
     /**
      * Gives you value of KEY Column
@@ -53,8 +54,9 @@ trait RecordKey
      */
     public function getMyKey($data = null)
     {
-        return is_null($data) ? $this->getDataValue($this->getKeyColumn()) : (array_key_exists($this->getKeyColumn(),
-                $data) ? $data[$this->getKeyColumn()] : null);
+        return is_null($data) ? $this->getDataValue($this->getKeyColumn()) :
+            (array_key_exists($this->getKeyColumn(), $data) ?
+                $data[$this->getKeyColumn()] : null);
     }
 
     /**
@@ -66,8 +68,7 @@ trait RecordKey
      */
     public function setMyKey($myKeyValue)
     {
-        return empty($this->getKeyColumn()) ? null : $this->setDataValue($this->getKeyColumn(),
-                $myKeyValue);
+        return empty($this->getKeyColumn()) ? null : $this->setDataValue($this->getKeyColumn(), $myKeyValue);
     }
 
     /**

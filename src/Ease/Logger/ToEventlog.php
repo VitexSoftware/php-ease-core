@@ -1,13 +1,13 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * Log to Windows Event Log.
  *
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2016 Vitex@hippy.cz (G)
  */
+
+declare(strict_types=1);
 
 namespace Ease\Logger;
 
@@ -19,7 +19,6 @@ namespace Ease\Logger;
  */
 class ToEventlog extends ToSyslog implements Loggingable
 {
-
     /**
      * Předvolená metoda logování.
      *
@@ -28,7 +27,7 @@ class ToEventlog extends ToSyslog implements Loggingable
     public $logType = 'eventlog';
 
     /**
-     * @var ToEventlog Saves obejct instace (singleton...).
+     * @var ToEventlog|null Saves obejct instace (singleton...).
      */
     private static $instance = null;
 
@@ -46,12 +45,12 @@ class ToEventlog extends ToSyslog implements Loggingable
 
     /**
      * Obtain instance of Syslog loger
-     * 
+     *
      * @return ToSyslog
      */
     public static function singleton()
     {
-        return is_object(self::$instance) ? self::$instance : new self(\Ease\Shared::appName() ? \Ease\Shared::appName() : 'EaseFramework');
+        return is_object(self::$instance) ? self::$instance :
+                new self(\Ease\Shared::appName() ? \Ease\Shared::appName() : 'EaseFramework');
     }
-
 }

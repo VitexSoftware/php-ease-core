@@ -1,15 +1,15 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * Something between Atom and Sand
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2021 Vitex@hippy.cz (G)
- * 
- * PHP 7
+ * @copyright 2009-2023 Vitex@hippy.cz (G)
+ *
+ * PHP 8
  */
+
+declare(strict_types=1);
 
 namespace Ease;
 
@@ -23,7 +23,6 @@ use Ease\Functions;
  */
 class Molecule extends Atom
 {
-
     /**
      * Object name
      *
@@ -78,5 +77,4 @@ class Molecule extends Atom
             }
         }
     }
-
 }

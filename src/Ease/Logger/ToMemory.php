@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * Class to Log messages.
  *
@@ -9,11 +7,12 @@ declare(strict_types=1);
  * @copyright 2009-2021 Vitex@hippy.cz (G)
  */
 
+declare(strict_types=1);
+
 namespace Ease\Logger;
 
 class ToMemory extends \Ease\Atom implements Loggingable
 {
-
     /**
      * Předvolená metoda logování.
      *
@@ -94,13 +93,13 @@ class ToMemory extends \Ease\Atom implements Loggingable
      * @param string $message zpráva
      * @param string $type    typ zprávy (success|info|error|warning|*)
      *
-     * @return bool byl report zapsán ?
+     * @return int logged message length
      */
     public function addToLog($caller, $message, $type = 'message')
     {
         ++$this->messageID;
-        self::$statusMessages[$type][$this->messageID] = $message;
-        return true;
+        self::$statusMessages[$type][Message::getCallerName($caller) . $this->messageID] = $message;
+        return strlen($message);
     }
 
     /**
@@ -118,5 +117,4 @@ class ToMemory extends \Ease\Atom implements Loggingable
             return '';
         }
     }
-
 }

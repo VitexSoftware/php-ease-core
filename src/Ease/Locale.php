@@ -1,15 +1,15 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * Internationalization helpers
  *
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2019-2023 Vitex@hippy.cz (G)
- * 
+ *
  * PHP 7
  */
+
+declare(strict_types=1);
 
 namespace Ease;
 
@@ -18,31 +18,31 @@ namespace Ease;
  *
  * @author vitex
  */
-class Locale {
-
+class Locale
+{
     /**
-     * @var Locale Singleton is stored here
+     * @var Locale|null Singleton is stored here
      */
     public static $instance;
 
     /**
      * Current Used locale code
      *
-     * @var string 
+     * @var string
      */
     public static $localeUsed = null;
 
     /**
      * i18n files location
      *
-     * @var string dirpath 
+     * @var string dirpath
      */
     public static $i18n = null;
 
     /**
      * GetText Domain
      *
-     * @var string 
+     * @var string
      */
     public static $textDomain = '';
 
@@ -490,14 +490,13 @@ class Locale {
 
     /**
      * Use of the localization preparation.
-     * 
+     *
      * @param string $setLocale  en_US|cs_CZ|..
      * @param string $i18n       directory ( /usr/lib/locale/ in Debian )
      * @param string $textDomain we want use $i18n/$setLocale/LC_ALL/$textDomain.mo
      */
-    public function __construct($setLocale = null, $i18n = '../i18n',
-            $textDomain = null
-    ) {
+    public function __construct($setLocale = null, $i18n = '../i18n', $textDomain = null)
+    {
         if (empty($setLocale)) {
             $setLocale = self::getPreferedLocale();
         }
@@ -514,15 +513,17 @@ class Locale {
     /**
      * Prefered Locale Code - 1) Requested 2) Session 3) Browser for WebPage or
      *                        getenv('LC_ALL') for CLI
-     * 
+     *
      * @param $allowCli boolean Allow use in cli mode (set false for testing)
-     * 
-     * @return string locale code 
+     *
+     * @return string locale code
      */
-    public static function getPreferedLocale($allowCli = true) {
-        //        $locale = Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']); 
+    public static function getPreferedLocale($allowCli = true)
+    {
+        //        $locale = Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']);
         if (\php_sapi_name() === 'cli' && $allowCli) {
-            $locale = (\Ease\Functions::cfg('LANG') ? \Ease\Functions::cfg('LANG') : (\Ease\Functions::cfg('LC_ALL') ? \Ease\Functions::cfg('LC_ALL') : null ));
+            $locale = (\Ease\Shared::cfg('LANG') ? \Ease\Shared::cfg('LANG') :
+                (\Ease\Shared::cfg('LC_ALL') ? \Ease\Shared::cfg('LC_ALL') : null ));
         } else {
             $reqLocale = self::requestLocale();
             if (is_null($reqLocale)) {
@@ -541,37 +542,41 @@ class Locale {
 
     /**
      * Session by page GET or POST request with 'locale' field
-     * 
+     *
      * @return string|null Locale Code
      */
-    public static function requestLocale() {
+    public static function requestLocale()
+    {
         return array_key_exists('locale', $_REQUEST) ? $_REQUEST['locale'] : null;
     }
 
     /**
      * Locale code saved to session field $_SESSION['locale']
-     * 
+     *
      * @return string|null locale code
      */
-    public static function sessionLocale() {
+    public static function sessionLocale()
+    {
         return isset($_SESSION) && array_key_exists('locale', $_SESSION) ? $_SESSION['locale'] : null;
     }
 
     /**
      * Locale code by browser's default language
-     * 
+     *
      * @return string locale code
      */
-    public static function browserLocale() {
+    public static function browserLocale()
+    {
         return self::langToLocale(self::autodetected());
     }
 
     /**
      * List of availble locales
-     * 
+     *
      * @return array locales availble
      */
-    public function availble() {
+    public function availble()
+    {
         $locales = [];
         $directory = dir(self::$i18n);
         while (false !== ($entry = $directory->read())) {
@@ -593,7 +598,8 @@ class Locale {
      *
      * @param string $textDomain
      */
-    public static function setTextDomain($textDomain) {
+    public static function setTextDomain($textDomain)
+    {
         self::$textDomain = $textDomain;
     }
 
@@ -608,27 +614,30 @@ class Locale {
      *
      * @return string code of locale used
      */
-    public static function initializeGetText($appname, $defaultLocale = 'en_US', $i18n = '../i18n') {
+    public static function initializeGetText($appname, $defaultLocale = 'en_US', $i18n = '../i18n')
+    {
         self::$i18n = $i18n;
         self::setTextDomain($appname);
-        return self::useLocale( empty(strval($defaultLocale)) ? 'en_US' : strval($defaultLocale) );
+        return self::useLocale(empty(strval($defaultLocale)) ? 'en_US' : strval($defaultLocale));
     }
 
     /**
      * Locale Code language from browser language
-     * 
+     *
      * @param string $lang browser lan en|cs|..
-     * 
+     *
      * @return string locale code
      */
-    public static function langToLocale($lang) {
+    public static function langToLocale($lang)
+    {
         $defaultLocale = 'C';
         $langs = [];
         foreach (self::$alllngs as $langCode => $language) {
             $langs[$langCode] = [strstr($langCode, '_') ? substr(
-                        $langCode, 0,
-                        strpos($langCode, '_')
-                ) : $langCode, $language];
+                $langCode,
+                0,
+                strpos($langCode, '_')
+            ) : $langCode, $language];
         }
         foreach ($langs as $code => $langInfo) {
             if ($lang == $langInfo[0]) {
@@ -641,12 +650,13 @@ class Locale {
 
     /**
      * Use Effective locale to requested
-     * 
+     *
      * @param string $localeCode locale code to use
-     * 
+     *
      * @return string used locale code
      */
-    public static function useLocale(string $localeCode) {
+    public static function useLocale(string $localeCode)
+    {
         \putenv("LC_ALL=$localeCode");
         \putenv("LANGUAGUE=$localeCode");
         \putenv("LANG=$localeCode");
@@ -667,19 +677,23 @@ class Locale {
 
     /**
      * Try to autodetect default language
-     * 
-     * @return string lang code 
+     *
+     * @return string lang code
      */
-    public static function autodetected() {
-        return array_key_exists('HTTP_ACCEPT_LANGUAGE', $_SERVER) && function_exists('\locale_accept_from_http') ? \locale_accept_from_http($_SERVER['HTTP_ACCEPT_LANGUAGE']) : null;
+    public static function autodetected()
+    {
+        return array_key_exists('HTTP_ACCEPT_LANGUAGE', $_SERVER) &&
+                function_exists('\locale_accept_from_http') ?
+                \locale_accept_from_http($_SERVER['HTTP_ACCEPT_LANGUAGE']) : null;
     }
 
     /**
      * obtain ISO 639-1 language code
-     * 
+     *
      * @return string
      */
-    public function get2Code() {
+    public function get2Code()
+    {
         $localeUsed = $this->getLocaleUsed();
         if ($localeUsed && strstr($localeUsed, '_')) {
             list($code, ) = explode('_', $localeUsed);
@@ -691,29 +705,28 @@ class Locale {
 
     /**
      * get Current Used locale code
-     * 
+     *
      * @return string
      */
-    public static function getLocaleUsed() {
+    public static function getLocaleUsed()
+    {
         return isset(self::$localeUsed) ? self::$localeUsed : '';
     }
 
     /**
      * Common instance of Locale class
-     * 
+     *
      * @param string $setLocale  en_US|cs_CZ|..
      * @param string $i18n       directory ( /usr/lib/locale/ in Debian )
      * @param string $textDomain we want use $i18n/$setLocale/LC_ALL/$textDomain.mo
-     * 
+     *
      * @return \Ease\Locale
      */
-    public static function singleton($setLocale = null, $i18n = '../i18n',
-            $textDomain = null
-    ) {
+    public static function singleton($setLocale = null, $i18n = '../i18n', $textDomain = null)
+    {
         if (!isset(self::$instance)) {
             self::$instance = new self($setLocale, $i18n, $textDomain);
         }
         return self::$instance;
     }
-
 }
