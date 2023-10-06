@@ -523,7 +523,7 @@ class Locale
         //        $locale = Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']);
         if (\php_sapi_name() === 'cli' && $allowCli) {
             $locale = (\Ease\Shared::cfg('LANG') ? \Ease\Shared::cfg('LANG') :
-                (\Ease\Shared::cfg('LC_ALL') ? \Ease\Shared::cfg('LC_ALL') : null ));
+                (\Ease\Shared::cfg('LC_ALL') ? \Ease\Shared::cfg('LC_ALL') : null));
         } else {
             $reqLocale = self::requestLocale();
             if (is_null($reqLocale)) {

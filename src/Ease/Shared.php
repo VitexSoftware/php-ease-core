@@ -22,7 +22,6 @@ use Ease\Functions;
  */
 class Shared extends Atom
 {
-
     /**
      * Pole konfigurací.
      *
@@ -69,7 +68,7 @@ class Shared extends Atom
             \Ease\Shared::singleton()->loadConfig($envFile, true);
         }
         $configured = true;
-        if (array_key_exists('DB_CONNECTION', $configKeys) && strstr(self::cfg('DB_CONNECTION'), 'sqlite') ){
+        if (array_key_exists('DB_CONNECTION', $configKeys) && strstr(self::cfg('DB_CONNECTION'), 'sqlite')) {
             unset($configKeys['DB_PASSWORD']);
             unset($configKeys['DB_USERNAME']);
             unset($configKeys['DB_HOST']);
@@ -295,7 +294,7 @@ class Shared extends Atom
     {
         if (!file_exists($configFile)) {
             throw new Exception(
-                            'Config file ' . (realpath($configFile) ? realpath($configFile) : $configFile) . ' does not exist'
+                'Config file ' . (realpath($configFile) ? realpath($configFile) : $configFile) . ' does not exist'
             );
         }
 

@@ -130,7 +130,7 @@ class Mailer extends Sand
         }
 
         $this->setMailHeaders(
-                [
+            [
                     'To' => $emailAddress,
                     'From' => $this->fromEmailAddress,
                     'Reply-To' => $this->fromEmailAddress,

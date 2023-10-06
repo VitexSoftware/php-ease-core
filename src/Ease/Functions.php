@@ -229,7 +229,7 @@ class Functions
     public static function easeDecrypt($textToDecrypt, $encryptKey)
     {
         $encryptionKey = base64_decode($encryptKey);
-        list($encryptedData, $ivec ) = explode('::', base64_decode($textToDecrypt), 2);
+        list($encryptedData, $ivec) = explode('::', base64_decode($textToDecrypt), 2);
         return openssl_decrypt($encryptedData, 'aes-256-cbc', $encryptionKey, 0, $ivec);
     }
 

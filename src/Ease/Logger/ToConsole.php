@@ -92,12 +92,12 @@ class ToConsole extends ToMemory implements Loggingable
     public static function set($str, $color)
     {
         $colorAttrs = explode("+", $color);
-        $ansi_str = "";
+        $ansiStr = "";
         foreach ($colorAttrs as $attr) {
-            $ansi_str .= "\033[" . self::$ansiCodes[$attr] . "m";
+            $ansiStr .= "\033[" . self::$ansiCodes[$attr] . "m";
         }
-        $ansi_str .= $str . "\033[" . self::$ansiCodes["off"] . "m";
-        return $ansi_str;
+        $ansiStr .= $str . "\033[" . self::$ansiCodes["off"] . "m";
+        return $ansiStr;
     }
 
     /**
