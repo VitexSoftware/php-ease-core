@@ -13,7 +13,7 @@ namespace Test\Ease\Local;
  *
  * @author vitex
  */
-class LoggingTester {
-
+class LoggingTester
+{
     use \Ease\Logger\Logging;
 }

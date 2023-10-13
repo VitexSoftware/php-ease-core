@@ -9,7 +9,6 @@ use Ease\Locale;
  */
 class LocaleTest extends \PHPUnit\Framework\TestCase
 {
-
     /**
      * @var Locale
      */
@@ -39,7 +38,6 @@ class LocaleTest extends \PHPUnit\Framework\TestCase
      */
     protected function tearDown(): void
     {
-        
     }
 
     /**

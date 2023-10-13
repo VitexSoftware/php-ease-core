@@ -1,4 +1,5 @@
 <?php
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -6,7 +7,6 @@
  */
 
 namespace Test\Ease;
-
 
 use Ease\Functions;
 
@@ -17,7 +17,6 @@ use Ease\Functions;
  */
 class FunctionsTest extends \PHPUnit\Framework\TestCase
 {
-
     /**
      * @covers Functions::sysFilename
      */
@@ -25,12 +24,15 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
     {
         if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
             $this->assertContains(
-                '\\\\', Functions::sysFilename('/'),
+                '\\\\',
+                Functions::sysFilename('/'),
                 _('Windows Files conversion')
             );
         } else {
             $this->assertStringContainsString(
-                '/', Functions::sysFilename('\\\\'), _('Unix File Conversion')
+                '/',
+                Functions::sysFilename('\\\\'),
+                _('Unix File Conversion')
             );
         }
     }
@@ -40,12 +42,22 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
      */
     public function testAddUrlParams()
     {
-        $this->assertEquals('http://vitexsoftware.cz/path?a=b&id=1',
-            Functions::addUrlParams('http://vitexsoftware.cz/path?a=b',
-                ['id' => 1], TRUE));
-        $this->assertEquals('http://vitexsoftware.cz:80?id=1',
-            Functions::addUrlParams('http://vitexsoftware.cz:80', ['id' => 1],
-                TRUE));
+        $this->assertEquals(
+            'http://vitexsoftware.cz/path?a=b&id=1',
+            Functions::addUrlParams(
+                'http://vitexsoftware.cz/path?a=b',
+                ['id' => 1],
+                true
+            )
+        );
+        $this->assertEquals(
+            'http://vitexsoftware.cz:80?id=1',
+            Functions::addUrlParams(
+                'http://vitexsoftware.cz:80',
+                ['id' => 1],
+                true
+            )
+        );
     }
 
     /**
@@ -56,10 +68,16 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
         $sourceArray = ['a' => 1, 'b' => 2, 'c' => 3];
         $destinationArray = [];
 
-        $this->assertTrue(Functions::divDataArray($sourceArray,
-                $destinationArray, 'b'));
-        $this->assertFalse(Functions::divDataArray($sourceArray,
-                $destinationArray, 'b'));
+        $this->assertTrue(Functions::divDataArray(
+            $sourceArray,
+            $destinationArray,
+            'b'
+        ));
+        $this->assertFalse(Functions::divDataArray(
+            $sourceArray,
+            $destinationArray,
+            'b'
+        ));
 
         $this->assertEquals(['a' => 1, 'c' => 3], $sourceArray);
         $this->assertEquals(['b' => 2], $destinationArray);
@@ -137,11 +155,15 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
     {
         $original = ["\x80", "\x95"];
         $exepted = ["\xe2\x82\xac", "\xe2\x80\xa2"];
-        $this->assertEquals($exepted,
-            Functions::recursiveIconv('cp1252', 'utf-8', $original));
+        $this->assertEquals(
+            $exepted,
+            Functions::recursiveIconv('cp1252', 'utf-8', $original)
+        );
 
-        $this->assertEquals($exepted[0],
-            Functions::recursiveIconv('cp1252', 'utf-8', $original[0]));
+        $this->assertEquals(
+            $exepted[0],
+            Functions::recursiveIconv('cp1252', 'utf-8', $original[0])
+        );
     }
 
     /**
@@ -162,14 +184,20 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
      */
     public function testHumanFilesize()
     {
-        $this->assertEquals('1.18 MB',
-            str_replace(',', '.', Functions::humanFilesize(1234545)));
+        $this->assertEquals(
+            '1.18 MB',
+            str_replace(',', '.', Functions::humanFilesize(1234545))
+        );
 
         if (php_uname('m') != 'armv7l') {  #TODO #6 fix better
-            $this->assertEquals('11.5 GB',
-                str_replace(',', '.', Functions::humanFilesize(12345453453)));
-            $this->assertEquals('1.1 PB',
-                str_replace(',', '.', Functions::humanFilesize(1234545345332235)));
+            $this->assertEquals(
+                '11.5 GB',
+                str_replace(',', '.', Functions::humanFilesize(12345453453))
+            );
+            $this->assertEquals(
+                '1.1 PB',
+                str_replace(',', '.', Functions::humanFilesize(1234545345332235))
+            );
         }
 
         $this->assertEquals('0 Byte', Functions::humanFilesize(0));
@@ -219,8 +247,10 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
      */
     public function testBaseClassName()
     {
-        $this->assertEquals('ToMemory',
-            Functions::baseClassName(new \Ease\Logger\ToMemory()));
+        $this->assertEquals(
+            'ToMemory',
+            Functions::baseClassName(new \Ease\Logger\ToMemory())
+        );
     }
 
     /**
@@ -244,10 +274,14 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('1 TiB', Functions::formatBytes(1099511627776));
         $this->assertEquals('1 PiB', Functions::formatBytes(1125899906842624));
         $this->assertEquals('1 EiB', Functions::formatBytes(1152921504606846976));
-        $this->assertEquals('1 ZiB',
-            Functions::formatBytes(1180591620717411303424));
-        $this->assertEquals('1 YiB',
-            Functions::formatBytes(1208925819614629174706176));
+        $this->assertEquals(
+            '1 ZiB',
+            Functions::formatBytes(1180591620717411303424)
+        );
+        $this->assertEquals(
+            '1 YiB',
+            Functions::formatBytes(1208925819614629174706176)
+        );
     }
 
     /**
@@ -255,9 +289,9 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
      */
     public function testCfg()
     {
-        $this->assertEquals('x', Functions::cfg('EASE_TEST', 'x'),'default value not used');
+        $this->assertEquals('x', Functions::cfg('EASE_TEST', 'x'), 'default value not used');
         putenv('EASE_TEST=a');
-        $this->assertEquals('a', Functions::cfg('EASE_TEST'),'unexepected environment value');
+        $this->assertEquals('a', Functions::cfg('EASE_TEST'), 'unexepected environment value');
         define('EASE_TEST', 'b');
         $this->assertEquals('b', Functions::cfg('EASE_TEST'));
     }

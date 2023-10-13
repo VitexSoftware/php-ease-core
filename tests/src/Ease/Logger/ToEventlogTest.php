@@ -28,7 +28,7 @@ class ToEventlogTest extends ToSyslogTest
     protected function tearDown(): void
     {
     }
-    
+
     /**
      * @covers \Ease\Logger\ToEventlog::finalizeMessage
      */
@@ -36,6 +36,4 @@ class ToEventlogTest extends ToSyslogTest
     {
         $this->assertEquals('zlutoucky kun', $this->object->finalizeMessage('žluťoučký kůň'));
     }
-    
-    
 }

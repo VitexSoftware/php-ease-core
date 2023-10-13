@@ -29,7 +29,6 @@ class AnonymTest extends BrickTest
      */
     protected function tearDown(): void
     {
-
     }
 
     /**
@@ -37,15 +36,21 @@ class AnonymTest extends BrickTest
      */
     public function testSetObjectName()
     {
-        $this->assertEquals(get_class($this->object),
-            $this->object->setObjectName());
+        $this->assertEquals(
+            get_class($this->object),
+            $this->object->setObjectName()
+        );
         $this->assertEquals('Test', $this->object->setObjectName('Test'));
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
-        $this->assertEquals('Ease\Anonym@127.0.0.1',
-            $this->object->setObjectName());
+        $this->assertEquals(
+            'Ease\Anonym@127.0.0.1',
+            $this->object->setObjectName()
+        );
         $_SERVER['REMOTE_USER'] = 'tester';
-        $this->assertEquals('Ease\Anonym@127.0.0.1 [tester]',
-            $this->object->setObjectName());
+        $this->assertEquals(
+            'Ease\Anonym@127.0.0.1 [tester]',
+            $this->object->setObjectName()
+        );
     }
 
     /**
@@ -57,8 +62,10 @@ class AnonymTest extends BrickTest
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $this->assertEquals('127.0.0.1', $this->object->remoteToIdentity());
         $_SERVER['REMOTE_USER'] = 'tester';
-        $this->assertEquals('127.0.0.1 [tester]',
-            $this->object->remoteToIdentity());
+        $this->assertEquals(
+            '127.0.0.1 [tester]',
+            $this->object->remoteToIdentity()
+        );
     }
 
     /**
@@ -106,10 +113,10 @@ class AnonymTest extends BrickTest
      */
     public function testSetSettingValue()
     {
-        $this->object->setSettingValue('test',true);
-        $this->assertEquals(['test'=>true],$this->object->settings);
+        $this->object->setSettingValue('test', true);
+        $this->assertEquals(['test' => true], $this->object->settings);
     }
-    
+
     /**
      * @covers Ease\Anonym::getUserEmail
      */

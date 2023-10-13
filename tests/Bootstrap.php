@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zaváděcí soubor pro provádění PHPUnit testů na EaseFrameworkem.
  *
@@ -15,5 +16,4 @@ if (!defined('EASE_LOGGER')) {
 define('EASE_APPNAME', 'unitTest');
 define('EASE_EMAILTO', 'info@vitexsoftware.cz');
 
-require_once __DIR__.'/../vendor/autoload.php';
-
+require_once __DIR__ . '/../vendor/autoload.php';

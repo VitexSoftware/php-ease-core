@@ -29,7 +29,6 @@ class ToMemoryTest extends \Test\Ease\AtomTest
      */
     protected function tearDown(): void
     {
-        
     }
 
     /**
@@ -45,7 +44,7 @@ class ToMemoryTest extends \Test\Ease\AtomTest
      */
     public function testAddToLog()
     {
-        $this->assertTrue( $this->object->addToLog( get_class($this), 'test') );
+        $this->assertEquals(4, $this->object->addToLog(get_class($this), 'test'));
     }
 
     /**

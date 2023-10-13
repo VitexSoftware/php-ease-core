@@ -1,4 +1,5 @@
 <?php
+
 namespace Test\Ease\Local;
 
 /**
@@ -13,5 +14,4 @@ class BrickTester extends \Ease\Brick
      * @var string
      */
     public $myTable = 'test';
-
 }

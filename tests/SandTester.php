@@ -9,11 +9,10 @@ namespace Test\Ease\Local;
  */
 class SandTester extends \Ease\Sand
 {
-
     use \Ease\RecordKey;
 
 //    /**
-//     * 
+//     *
 //     */
 //    public function __construct()
 //    {

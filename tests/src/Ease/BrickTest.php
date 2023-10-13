@@ -33,7 +33,6 @@ class BrickTest extends SandTest
      */
     protected function tearDown(): void
     {
-        
     }
 
     /**
@@ -62,8 +61,10 @@ class BrickTest extends SandTest
 //        parent::testSetObjectName();
         $this->object->setMyKey(123);
         $this->object->setObjectName();
-        $this->assertEquals(get_class($this->object).'@123',
-            $this->object->getObjectName());
+        $this->assertEquals(
+            get_class($this->object) . '@123',
+            $this->object->getObjectName()
+        );
         $this->object->setObjectName('customBrick');
         $this->assertEquals('customBrick', $this->object->getObjectName());
     }
@@ -75,11 +76,15 @@ class BrickTest extends SandTest
     {
         $this->object->useIdentifier(null);
         $this->object->useIdentifier($this->object);
-        $this->assertEquals($this->object->getMyKey(),
-            $this->object->useIdentifier(123));
+        $this->assertEquals(
+            $this->object->getMyKey(),
+            $this->object->useIdentifier(123)
+        );
         $this->object->useIdentifier(['key' => 'value']);
-        $this->assertEquals(['key' => 'value', 'id' => 123],
-            $this->object->getData());
+        $this->assertEquals(
+            ['key' => 'value', 'id' => 123],
+            $this->object->getData()
+        );
         $this->object->dataReset();
         $this->object->useIdentifier('name');
         $this->object->setDataValue('name', 'name');
@@ -92,8 +97,10 @@ class BrickTest extends SandTest
     public function testhowToProcess()
     {
         $this->assertEquals('id', $this->object->howToProcess(123));
-        $this->assertEquals('values',
-            $this->object->howToProcess(['key' => 'value']));
+        $this->assertEquals(
+            'values',
+            $this->object->howToProcess(['key' => 'value'])
+        );
         $this->assertEquals('reuse', $this->object->howToProcess($this->object));
         $this->assertEquals('unknown', $this->object->howToProcess(false));
         $this->object->nameColumn = 'name';

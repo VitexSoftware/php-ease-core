@@ -14,4 +14,3 @@ $logger->addStatusMessage('Default Message', 'info');
 $logger->addStatusMessage('Warning Message', 'warning');
 $logger->addStatusMessage('Success Message', 'success');
 $logger->addStatusMessage('Error Message', 'error');
-

@@ -1,5 +1,6 @@
 #!/usr/bin/php -f
 <?php
+
 /**
  * Example Mailer.
  *
@@ -12,8 +13,11 @@ namespace Example\Ease;
 require_once '../vendor/autoload.php';
 define('EASE_LOGGER', 'console');
 
-$testMail = new \Ease\Mailer(isset($argv[1]) ? $argv[1] : constant('EASE_EMAILTO'),
-        'Příliš žluťoučký kůň úpěl ďábelské ódy', 'Test mail body');
+$testMail = new \Ease\Mailer(
+    isset($argv[1]) ? $argv[1] : constant('EASE_EMAILTO'),
+    'Příliš žluťoučký kůň úpěl ďábelské ódy',
+    'Test mail body'
+);
 
 $testMail->addFile(__FILE__);
 

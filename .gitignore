@@ -37,3 +37,4 @@ composer.lock
 /debian/php-vitexsoftware-ease-core-doc.debhelper.log
 /debian/php-vitexsoftware-ease-core-doc.substvars
 /tests/.phpunit.result.cache
+/.php-cs-fixer.cache

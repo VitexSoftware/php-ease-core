@@ -47,6 +47,5 @@ class ExceptionTest extends \PHPUnit\Framework\TestCase
      */
     protected function tearDown(): void
     {
-        
     }
 }
