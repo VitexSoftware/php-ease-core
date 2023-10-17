@@ -122,9 +122,9 @@ class ToConsole extends ToMemory implements Loggingable
 
         $ansiMessage = $this->set(strip_tags(strval($message)), self::getTypeColor($type));
         $logLine = datefmt_format($fmt, new \DateTime()) . ' ' .
-                Message::getTypeUnicodeSymbol($type) . ' •' .
-                '❲'. \Ease\Shared::appName() .'❳' .
-                Message::getCallerName($caller) . '‣ ' .
+                Message::getTypeUnicodeSymbol($type) . ' ❲' .
+                \Ease\Shared::appName() .'⁞' .
+                Message::getCallerName($caller) . '❳ ' .
                 $ansiMessage;
         $written = 0;
         switch ($type) {
