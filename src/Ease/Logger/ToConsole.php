@@ -5,7 +5,7 @@
  *
  * Output format:
  *
- * [datum] [time] [severity icon] •ObjectNamespace\Object@ID‣ message in severity color
+ * [datum] [time] [severity icon] ❲AppName❳ •ObjectNamespace\Object@ID‣ message in severity color
  *
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2016-2023 Vitex@hippy.cz (G)
@@ -123,6 +123,7 @@ class ToConsole extends ToMemory implements Loggingable
         $ansiMessage = $this->set(strip_tags(strval($message)), self::getTypeColor($type));
         $logLine = datefmt_format($fmt, new \DateTime()) . ' ' .
                 Message::getTypeUnicodeSymbol($type) . ' •' .
+                '❲'. \Ease\Shared::appName() .'❳' .
                 Message::getCallerName($caller) . '‣ ' .
                 $ansiMessage;
         $written = 0;
