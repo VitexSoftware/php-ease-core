@@ -66,7 +66,7 @@ class Mailer extends Sand
      *
      * @var array
      */
-    public $mailBody = null;
+    public $mailBody = '';
 
     /**
      *
@@ -229,10 +229,9 @@ class Mailer extends Sand
         }
         $this->sendResult = $this->mailer->send(
             $this->emailAddress,
-            (empty($this->mailHeadersDone) ? $this->mailHeaders : $this->mailHeadersDone),
-            $this->mailBody
+            $this->mimer->headers($this->mailHeaders),
+            $this->mimer->get()
         );
-
         if ($this->notify === true) {
             $mailStripped = str_replace(['<', '>'], '', $this->emailAddress);
             if ($this->sendResult === true) {
