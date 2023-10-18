@@ -132,7 +132,7 @@ class Mailer extends Sand
         $this->setMailHeaders(
             [
                     'To' => $emailAddress,
-                    'From' => $this->fromEmailAddress,
+                    'From' => empty($this->fromEmailAddress) ? \Ease\Shared::cfg('EASE_FROM') : $this->fromEmailAddress,
                     'Reply-To' => $this->fromEmailAddress,
                     'Subject' => $mailSubject,
                     'Content-Type' => 'text/plain; charset=utf-8',

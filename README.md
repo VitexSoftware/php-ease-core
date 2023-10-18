@@ -84,6 +84,7 @@ Framework Constants
   * EASE_LOGGER   - one of memory,console,file,syslog,email,std,eventlog or combination eg. "console|syslog"
   * EASE_EMAILTO  - recipient email address for Ease/Logger/ToMail
   * EASE_SMTP     - Custom [SMTP Settings](https://pear.php.net/manual/en/package.mail.mail.factory.php) (JSON Encoded) 
+  * EASE_FROM     - Sent mail sender address
   * LOG_DIRECTORY - destination for ToFile logger
   * LOG_OPTION    - syslog option argument
   * LOG_FACILITY  - syslog facility argument
