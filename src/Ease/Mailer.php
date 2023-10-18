@@ -229,7 +229,7 @@ class Mailer extends Sand
         }
         $this->sendResult = $this->mailer->send(
             $this->emailAddress,
-            $this->mailHeadersDone,
+            (empty($this->mailHeadersDone) ? $this->mailHeaders : $this->mailHeadersDone),
             $this->mailBody
         );
 
