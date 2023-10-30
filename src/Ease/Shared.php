@@ -296,12 +296,6 @@ class Shared extends Atom
      */
     public function loadConfig($configFile, $defineConstants = false)
     {
-        if (!file_exists($configFile)) {
-            throw new Exception(
-                'Config file ' . (realpath($configFile) ? realpath($configFile) : $configFile) . ' does not exist'
-            );
-        }
-
         switch (strtolower(pathinfo($configFile, constant('PATHINFO_EXTENSION')))) {
             case 'json':
                 $configuration = json_decode(file_get_contents($configFile), true);
