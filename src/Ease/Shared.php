@@ -62,10 +62,14 @@ class Shared extends Atom
      * @param array  $configKeys
      * @param string $envFile
      */
-    public static function init($configKeys = [], $envFile = '.env')
+    public static function init($configKeys = [], $envFile = '')
     {
-        if (file_exists($envFile)) {
-            \Ease\Shared::singleton()->loadConfig($envFile, true);
+        if (empty($envFile) === false) {
+            if (file_exists($envFile)) {
+                \Ease\Shared::singleton()->loadConfig($envFile, true);
+            } else {
+                fwrite(fopen('php://stderr', 'wb'), 'Specified config file ' . $envFile . ' does not exists. (cwd: ' . getcwd() . ')' . PHP_EOL);
+            }
         }
         $configured = true;
         if (array_key_exists('DB_CONNECTION', $configKeys) && strstr(self::cfg('DB_CONNECTION'), 'sqlite')) {
