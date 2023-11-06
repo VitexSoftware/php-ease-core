@@ -99,7 +99,7 @@ trait Logging
 
         $this->addStatusMessage(
             trim(($prefix ? $prefix : \Ease\Shared::appName()) .
-            ' PHP v' . phpversion() . ' EasePHP Framework v' . $version . ' ' . $suffix),
+            ' PHP v' . phpversion() . ' EasePHP Framework ' . $version . ' ' . $suffix),
             'debug'
         );
     }
