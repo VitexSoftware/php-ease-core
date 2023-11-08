@@ -15,7 +15,7 @@ namespace Ease\Logger;
  * Log to EventLog.
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2021 Vitex@hippy.cz (G)
+ * @copyright 2009-2023 Vitex@hippy.cz (G)
  */
 class ToEventlog extends ToSyslog implements Loggingable
 {
@@ -50,7 +50,6 @@ class ToEventlog extends ToSyslog implements Loggingable
      */
     public static function singleton()
     {
-        return is_object(self::$instance) ? self::$instance :
-                new self(\Ease\Shared::appName() ? \Ease\Shared::appName() : 'EaseFramework');
+        return is_object(self::$instance) ? self::$instance : new self(\Ease\Shared::appName());
     }
 }

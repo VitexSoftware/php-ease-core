@@ -72,7 +72,7 @@ class Shared extends Atom
             }
         }
         $configured = true;
-        if (array_key_exists('DB_CONNECTION', $configKeys) && strstr(self::cfg('DB_CONNECTION'), 'sqlite')) {
+        if (array_key_exists('DB_CONNECTION', $configKeys) && (substr(self::cfg('DB_CONNECTION', ''), 0, 6) === 'sqlite')) {
             unset($configKeys['DB_PASSWORD']);
             unset($configKeys['DB_USERNAME']);
             unset($configKeys['DB_HOST']);
@@ -97,7 +97,7 @@ class Shared extends Atom
      *
      * @return string|int|boolean|null
      */
-    public static function cfg(/*string*/ $constant, $cfg = null)
+    public static function cfg(/* string */ $constant, $cfg = null)
     {
         if (!empty($constant) && defined($constant)) {
             $cfg = constant($constant);
@@ -279,8 +279,8 @@ class Shared extends Atom
         } else {
             if (!empty($candidat)) {
                 $_SESSION[$efprefix][self::$userSessionName] = method_exists($candidat, 'singleton') ?
-                    $candidat::singleton() :
-                    new $candidat();
+                        $candidat::singleton() :
+                        new $candidat();
             }
         }
         return $_SESSION[$efprefix][self::$userSessionName];
