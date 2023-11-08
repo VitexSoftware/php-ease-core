@@ -127,6 +127,15 @@ class SharedTest extends AtomTest
     }
 
     /**
+     * @covers Ease\Shared::init
+     */
+    public function testInit()
+    {
+        putenv('DB_CONNECTION=sqlite3');
+        $this->assertTrue(\Ease\Shared::init(['DB_CONNECTION'], null, false));
+    }
+
+    /**
      * @covers Ease\Shared::saveStatusMessages
      */
     public function testSaveStatusMessages()

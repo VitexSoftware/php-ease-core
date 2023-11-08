@@ -61,8 +61,11 @@ class Shared extends Atom
      *
      * @param array  $configKeys
      * @param string $envFile
+     * @param boolean $exit do exit(1) when unsuccessful ?
+     *
+     * @return boolean Configuration success
      */
-    public static function init($configKeys = [], $envFile = '')
+    public static function init($configKeys = [], $envFile = '', $exit = true)
     {
         if (empty($envFile) === false) {
             if (file_exists($envFile)) {
@@ -72,7 +75,7 @@ class Shared extends Atom
             }
         }
         $configured = true;
-        if (array_key_exists('DB_CONNECTION', $configKeys) && preg_match('/^sqlite/', self::cfg('DB_CONNECTION', ''))) {
+        if ((array_search('DB_CONNECTION', $configKeys) !== false) && preg_match('/^sqlite/', self::cfg('DB_CONNECTION', ''))) {
             unset($configKeys['DB_PASSWORD']);
             unset($configKeys['DB_USERNAME']);
             unset($configKeys['DB_HOST']);
@@ -84,9 +87,10 @@ class Shared extends Atom
                 $configured = false;
             }
         }
-        if ($configured === false) {
+        if ($exit && ($configured === false)) {
             exit(1);
         }
+        return $configured;
     }
 
     /**
