@@ -87,8 +87,13 @@ class Shared extends Atom
                 $configured = false;
             }
         }
-        if ($exit && ($configured === false)) {
-            exit(1);
+        if ($configured === false) {
+            if ($envFile) {
+                fwrite(fopen('php://stderr', 'wb'), self::appName() . ': (using ' . $envFile . ')' . PHP_EOL);
+            }
+            if ($exit) {
+                exit(1);
+            }
         }
         return $configured;
     }
