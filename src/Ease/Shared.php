@@ -76,10 +76,10 @@ class Shared extends Atom
         }
         $configured = true;
         if ((array_search('DB_CONNECTION', $configKeys) !== false) && preg_match('/^sqlite/', self::cfg('DB_CONNECTION', ''))) {
-            unset($configKeys['DB_PASSWORD']);
-            unset($configKeys['DB_USERNAME']);
-            unset($configKeys['DB_HOST']);
-            unset($configKeys['DB_PORT']);
+            unset($configKeys[array_search('DB_PASSWORD', $configKeys)]);
+            unset($configKeys[array_search('DB_USERNAME', $configKeys)]);
+            unset($configKeys[array_search('DB_HOST', $configKeys)]);
+            unset($configKeys[array_search('DB_PORT', $configKeys)]);
         }
         foreach ($configKeys as $cfgKey) {
             if (empty(self::cfg($cfgKey))) {
