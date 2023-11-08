@@ -33,7 +33,7 @@ class Message
     /**
      * Message type
      *
-     * @var string info|succes|warning|danger|mail
+     * @var string info|succes|warning|error|mail|debug|event
      */
     public $type;
 
@@ -99,6 +99,9 @@ class Message
                 case 'info':
                     $symbol = 'ℹ';
                     break;
+                case 'event':
+                    $ymbol = '👻';
+                    break;
                 default:                           // i v kroužku
                     $symbol = '🤔';
                     break;
@@ -119,6 +122,9 @@ class Message
                     break;
                 case 'debug':                      // Gear
                     $symbol = '⚙';
+                    break;
+                case 'event':
+                    $symbol = '✋';
                     break;
                 case 'info':                      // Gear
                     $symbol = 'ⓘ';

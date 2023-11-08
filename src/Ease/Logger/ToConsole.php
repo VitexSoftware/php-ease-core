@@ -164,6 +164,9 @@ class ToConsole extends ToMemory implements Loggingable
             case 'info':                    // Kytička
                 $color = 'blue';
                 break;
+            case 'event':
+                $color = 'cyan';
+                break;
             default:                           // i v kroužku
                 $color = 'white';
                 break;
