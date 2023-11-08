@@ -72,7 +72,7 @@ class Shared extends Atom
             }
         }
         $configured = true;
-        if (array_key_exists('DB_CONNECTION', $configKeys) && (substr(self::cfg('DB_CONNECTION', ''), 0, 6) === 'sqlite')) {
+        if (array_key_exists('DB_CONNECTION', $configKeys) && preg_match('/^sqlite/', self::cfg('DB_CONNECTION', ''))) {
             unset($configKeys['DB_PASSWORD']);
             unset($configKeys['DB_USERNAME']);
             unset($configKeys['DB_HOST']);
@@ -80,7 +80,7 @@ class Shared extends Atom
         }
         foreach ($configKeys as $cfgKey) {
             if (empty(self::cfg($cfgKey))) {
-                fwrite(fopen('php://stderr', 'wb'), 'Requied configuration ' . $cfgKey . " is not set." . PHP_EOL);
+                fwrite(fopen('php://stderr', 'wb'), self::appName() . ': Requied configuration ' . $cfgKey . " is not set." . PHP_EOL);
                 $configured = false;
             }
         }
