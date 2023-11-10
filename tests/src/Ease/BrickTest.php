@@ -62,7 +62,7 @@ class BrickTest extends SandTest
         $this->object->setMyKey(123);
         $this->object->setObjectName();
         $this->assertEquals(
-            get_class($this->object) . '@123',
+            '123@' . get_class($this->object),
             $this->object->getObjectName()
         );
         $this->object->setObjectName('customBrick');
