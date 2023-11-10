@@ -6,7 +6,7 @@
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2023 Vitex@hippy.cz (G)
  *
- * PHP 7
+ * PHP 7,8
  */
 
 declare(strict_types=1);
@@ -108,9 +108,14 @@ class Brick extends Sand
     public function setObjectName($objectName = null)
     {
         if (is_null($objectName)) {
-            $key = $this->getMyKey($this->data);
+            $recordId = $this->getMyKey($this->data);
+            if ($this->nameColumn && $this->getDataValue($this->nameColumn)) {
+                $key = '(' . $recordId . ')' . $this->getDataValue($this->nameColumn);
+            } else {
+                $key = $recordId;
+            }
             if ($key) {
-                $result = parent::setObjectName(get_class($this) . '@' . $key);
+                $result = parent::setObjectName($key . '@' . \Ease\Logger\Message::getCallerName($this));
             } else {
                 $result = parent::setObjectName();
             }
