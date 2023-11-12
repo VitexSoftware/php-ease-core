@@ -86,7 +86,7 @@ class LoggingTest extends \PHPUnit\Framework\TestCase
         $this->object->logBanner();
         $statuses = $this->object->getStatusMessages();
         $this->assertStringContainsString(
-            'EasePHP Framework',
+            'EaseCore',
             end($statuses)->body
         );
     }
