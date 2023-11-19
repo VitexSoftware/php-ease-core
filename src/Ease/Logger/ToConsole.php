@@ -5,7 +5,7 @@
  *
  * Output format:
  *
- * [datum] [time] [severity icon] ❲AppName❳ •ObjectNamespace\Object@ID‣ message in severity color
+ * [datum] [time] [severity icon] ❲AppName⦒ObjectNamespace\Object@ID❳ message in severity color
  *
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2016-2023 Vitex@hippy.cz (G)
@@ -117,7 +117,7 @@ class ToConsole extends ToMemory implements Loggingable
             \IntlDateFormatter::FULL,
             date_default_timezone_get(),
             \IntlDateFormatter::GREGORIAN,
-            'MM/dd/yyyy'
+            'MM/dd/yyyy H:m:s'
         );
 
         $ansiMessage = $this->set(strip_tags(strval($message)), self::getTypeColor($type));
