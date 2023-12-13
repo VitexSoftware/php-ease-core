@@ -216,6 +216,16 @@ class Mailer extends Sand
     }
 
     /**
+     * Add Text to mail
+     *
+     * @param string $text
+     */
+    public function addText($text)
+    {
+        $this->textBody .= $text;
+    }
+
+    /**
      * Sends mail.
      */
     public function send()
