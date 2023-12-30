@@ -61,7 +61,7 @@ class Regent extends \Ease\Atom implements Loggingable
     {
         if (empty($logger)) {
             $loggers = empty(\Ease\Shared::cfg('EASE_LOGGER')) ? ['syslog'] :
-                explode('|', \Ease\Shared::cfg('EASE_LOGGER'));
+                    explode('|', \Ease\Shared::cfg('EASE_LOGGER'));
         } else {
             $loggers = is_array($logger) ? $logger : [$logger];
         }
@@ -156,7 +156,7 @@ class Regent extends \Ease\Atom implements Loggingable
     public static function singleton($logger = null)
     {
         if (!isset(self::$instance)) {
-            self::$instance = new self($logger);
+            self::$instance = new self(empty($logger) ? \Ease\Shared::cfg('EASE_LOGGER') : $logger);
         }
         return self::$instance;
     }
