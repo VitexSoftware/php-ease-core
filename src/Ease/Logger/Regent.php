@@ -153,10 +153,10 @@ class Regent extends \Ease\Atom implements Loggingable
     /**
      * Get The Regent
      */
-    public static function singleton($logger = null)
+    public static function singleton($loggers = [])
     {
         if (!isset(self::$instance)) {
-            self::$instance = new self(empty($logger) ? \Ease\Shared::cfg('EASE_LOGGER') : $logger);
+            self::$instance = new self($loggers);
         }
         return self::$instance;
     }
