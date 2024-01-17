@@ -29,15 +29,17 @@ class Exception extends \Exception
      */
     public function __construct($message, $code = 0, Exception $previous = null)
     {
-        $trace = $this->getTrace();
-        $caller = new Molecule();
-        $where = $trace[0]['class'] . '::' . $trace[0]['function'];
-        if (isset($trace[0]['line'])) {
-            $caller->setObjectName($where . ':' . $trace[0]['line']);
-        } else {
-            $caller->setObjectName($where);
+        if (\Ease\Shared::cfg('DEBUG', false)) {
+            $trace = $this->getTrace();
+            $caller = new Molecule();
+            $where = $trace[0]['class'] . '::' . $trace[0]['function'];
+            if (isset($trace[0]['line'])) {
+                $caller->setObjectName($where . ':' . $trace[0]['line']);
+            } else {
+                $caller->setObjectName($where);
+            }
+            \Ease\Shared::logger()->addStatusObject(new Logger\Message($message, 'error', $caller));
         }
-        \Ease\Shared::logger()->addStatusObject(new Logger\Message($message, 'error', $caller));
         parent::__construct($message, $code, $previous);
     }
 }

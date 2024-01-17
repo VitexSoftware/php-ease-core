@@ -259,11 +259,13 @@ class Shared extends Atom
     /**
      * Vrací instanci objektu logování.
      *
+     * @param array|null $logger Override inital loggers
+     *
      * @return Logger\Regent
      */
-    public static function logger()
+    public static function logger($loggers = null)
     {
-        return Logger\Regent::singleton();
+        return Logger\Regent::singleton($loggers);
     }
 
     /**
