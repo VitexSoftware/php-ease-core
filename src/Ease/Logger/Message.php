@@ -73,7 +73,7 @@ class Message
     /**
      * Unicode Symbol for given message type
      *
-     * @param  string $type
+     * @param  string $type Type of message
      *
      * @return string
      */
