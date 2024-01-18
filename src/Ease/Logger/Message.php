@@ -100,7 +100,10 @@ class Message
                     $symbol = 'ℹ';
                     break;
                 case 'event':
-                    $ymbol = '👻';
+                    $symbol = '👻';
+                    break;
+                case 'report':
+                    $symbol = '📃';
                     break;
                 default:                           // i v kroužku
                     $symbol = '🤔';
@@ -125,6 +128,9 @@ class Message
                     break;
                 case 'event':
                     $symbol = '✋';
+                    break;
+                case 'report':
+                    $symbol = '➿';
                     break;
                 case 'info':                      // Gear
                     $symbol = 'ⓘ';

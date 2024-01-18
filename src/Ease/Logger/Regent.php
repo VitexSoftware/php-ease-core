@@ -4,7 +4,7 @@
  * Class to Rule message loggers.
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2016-2023 Vitex@hippy.cz (G)
+ * @copyright 2016-2024 Vitex@hippy.cz (G)
  */
 
 declare(strict_types=1);
@@ -49,6 +49,7 @@ class Regent extends \Ease\Atom implements Loggingable
         'error' => 'color: red;',
         'debug' => 'font-style: italic;',
         'report' => 'font-wight: bold;',
+        'event' => 'color: #996600;',
         'info' => 'color: blue;',
     ];
 
