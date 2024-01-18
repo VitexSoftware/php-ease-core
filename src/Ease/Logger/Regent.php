@@ -49,7 +49,7 @@ class Regent extends \Ease\Atom implements Loggingable
         'error' => 'color: red;',
         'debug' => 'font-style: italic;',
         'report' => 'font-wight: bold;',
-        'event' => 'color: #996600;',
+        'event' => 'color: #996600; animation: animate 1.5s linear infinite; ',
         'info' => 'color: blue;',
     ];
 
