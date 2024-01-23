@@ -28,14 +28,14 @@ class Locale
     /**
      * Current Used locale code
      *
-     * @var string
+     * @var string|null
      */
     public static $localeUsed = null;
 
     /**
      * i18n files location
      *
-     * @var string dirpath
+     * @var string|null dirpath
      */
     public static $i18n = null;
 

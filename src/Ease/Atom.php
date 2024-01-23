@@ -35,7 +35,7 @@ class Atom
      */
     public function getObjectName()
     {
-        return get_class();
+        return get_class($this);
     }
 
     /**

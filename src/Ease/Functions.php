@@ -396,7 +396,7 @@ class Functions
      *
      * @param object $object
      *
-     * @return string|null
+     * @return string|object|null
      */
     public static function baseClassName($object)
     {

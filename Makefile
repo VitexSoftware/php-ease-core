@@ -77,8 +77,9 @@ release:
 	git commit -a -m "Release v$(nextversion)"
 	git tag -a $(nextversion) -m "version $(nextversion)"
 
+phpstan:
+	phpstan analyse --error-format=checkstyle --level=4 src
 
-	
 
 openbuild:
 	
