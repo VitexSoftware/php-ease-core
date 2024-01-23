@@ -303,4 +303,12 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
     {
         $this->assertIsArray(Functions::classesInNamespace('Ease'));
     }
+
+    /**
+     * @covers Functions::guidv4
+     */
+    public function testguidv4()
+    {
+        $this->assertEquals('74657374-7465-4374-b465-737474657374', \Ease\Functions::guidv4('testtesttesttest'));
+    }
 }
