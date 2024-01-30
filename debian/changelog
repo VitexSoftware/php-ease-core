@@ -6,6 +6,7 @@ php-vitexsoftware-ease-core (1.43.0) UNRELEASED; urgency=medium
   * Create compat
   * PHP8 Ready
   * Strict types
+  * Set initial properties objectName and keyColumn
 
 
   [ CyberVitexus ]
@@ -77,9 +78,6 @@ php-vitexsoftware-ease-core (1.43.0) UNRELEASED; urgency=medium
   * Shared::Init for sqlite
   * phpstan
   * Init Improvements
-
-  [  ]
-  * Set initial properties objectName and keyColumn
 
  --  <vitezslav.dvorak@spojenet.cz>  Tue, 30 Jan 2024 13:05:10 +0100
 
