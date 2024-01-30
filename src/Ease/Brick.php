@@ -4,9 +4,9 @@
  * Main Ease Class
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2023 Vitex@hippy.cz (G)
+ * @copyright 2009-2024 Vitex@hippy.cz (G)
  *
- * PHP 7,8
+ * PHP 8
  */
 
 declare(strict_types=1);
@@ -105,9 +105,9 @@ class Brick extends Sand
      *
      * @return string new name
      */
-    public function setObjectName($objectName = null)
+    public function setObjectName($objectName = '')
     {
-        if (is_null($objectName)) {
+        if (empty($objectName)) {
             $recordId = $this->getMyKey($this->data);
             if ($this->nameColumn && $this->getDataValue($this->nameColumn)) {
                 $key = '(' . $recordId . ')' . $this->getDataValue($this->nameColumn);
@@ -128,6 +128,7 @@ class Brick extends Sand
 
     /**
      * Object init value stub
+     *
      * @param mixed $init
      */
     public function setInit($init)
@@ -135,11 +136,20 @@ class Brick extends Sand
     }
 
     /**
-     * Set/override object properties stub
+     * Set/override object properties objectName and keyColumn
      *
      * @param array $properties
      */
-    public function setProperties($properties)
+    public function setProperties(array $properties = [])
     {
+        if (array_key_exists('objectName', $properties)) {
+            $this->setObjectName($properties['objectName']);
+        }
+        if (array_key_exists('keyColumn', $properties)) {
+            $this->setKeyColumn($properties['keyColumn']);
+        }
+        if (array_key_exists('nameColumn', $properties)) {
+            $this->nameColumn = $properties['nameColumn'];
+        }
     }
 }
