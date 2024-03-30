@@ -117,7 +117,7 @@ class ToConsole extends ToMemory implements Loggingable
             \IntlDateFormatter::FULL,
             date_default_timezone_get(),
             \IntlDateFormatter::GREGORIAN,
-            'MM/dd/yyyy H:m:s'
+            'MM/dd/yyyy HH:mm:ss'
         );
 
         $ansiMessage = $this->set(strip_tags(strval($message)), self::getTypeColor($type));
