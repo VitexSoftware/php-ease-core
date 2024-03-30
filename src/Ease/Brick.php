@@ -115,7 +115,8 @@ class Brick extends Sand
                 $key = $recordId;
             }
             if ($key) {
-                $result = parent::setObjectName($key . '@' . \Ease\Logger\Message::getCallerName($this));
+                $oldName = \Ease\Logger\Message::getCallerName($this);
+                $result = parent::setObjectName($key . '@' . substr($oldName, strpos($oldName, '@')+1));
             } else {
                 $result = parent::setObjectName();
             }
