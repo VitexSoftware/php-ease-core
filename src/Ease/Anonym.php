@@ -51,6 +51,12 @@ class Anonym extends Brick implements Person
     public $settings = [];
 
     /**
+     * Where to look for settings
+     * @var string
+     */
+    public $settingsColumn = 'settings';
+
+    /**
      * User object name setting.
      *
      * @param string $objectName forced object name
@@ -155,6 +161,15 @@ class Anonym extends Brick implements Person
     public function getPermission(/** @scrutinizer ignore-unused */ $permKeyword = null)
     {
         return;
+    }
+
+    /**
+     * Annonym cannot be signed in
+     * 
+     * @return bool
+     */
+    public function tryToLogin(){
+        return false;
     }
 
     /**
