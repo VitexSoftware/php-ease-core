@@ -14,6 +14,12 @@ namespace Ease\Logger;
 class ToMemory extends \Ease\Atom implements Loggingable
 {
     /**
+     * Number of messages to keep
+     * @var int
+     */
+    public $capacity = 1024;
+
+    /**
      * Předvolená metoda logování.
      *
      * @var string
@@ -99,6 +105,9 @@ class ToMemory extends \Ease\Atom implements Loggingable
     {
         ++$this->messageID;
         self::$statusMessages[$type][Message::getCallerName($caller) . $this->messageID] = $message;
+        if (count(self::$statusMessages[$type]) > $this->capacity) {
+            self::$statusMessages[$type] = array_slice(self::$statusMessages[$type], $this->capacity);
+        }
         return strlen($message);
     }
 
