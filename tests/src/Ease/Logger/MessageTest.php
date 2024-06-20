@@ -23,6 +23,12 @@ class MessageTest extends \PHPUnit\Framework\TestCase
         $this->object = new Message('test');
     }
 
+    
+    /**
+     * Test Constructor
+     *
+     * @covers Ease\Logger\Message::__construct
+     */
     public function testConstructor()
     {
         $classname = get_class($this->object);
@@ -44,6 +50,11 @@ class MessageTest extends \PHPUnit\Framework\TestCase
     {
     }
 
+    /**
+     * Test getTypeUnicodeSymbol
+     *
+     * @covers Ease\Logger\Message::getTypeUnicodeSymbol
+     */
     public function testGetTypeUnicodeSymbol()
     {
         $this->assertEquals('✉', Message::getTypeUnicodeSymbol('mail', false));

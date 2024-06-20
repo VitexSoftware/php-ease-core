@@ -103,6 +103,7 @@ class MailerTest extends SandTest
      */
     public function testSend()
     {
+        $this->object->setMailBody('test');
         if (file_exists('/usr/sbin/sendmail')) {
             $this->assertTrue($this->object->send());
         } else {

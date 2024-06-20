@@ -179,8 +179,6 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @covers Functions::humanFilesize
-     *
-     * @todo   Implement testHumanFilesize().
      */
     public function testHumanFilesize()
     {
@@ -233,7 +231,7 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
     {
         $this->assertFalse(Functions::isSerialized(1));
         $this->assertTrue(Functions::isSerialized('N;'));
-        Functions::isSerialized(serialize($this));
+        Functions::isSerialized(serialize(new \stdClass()));
         Functions::isSerialized('a:6:{s:1:"a";s:6:"string";s:1:"b";i:1;s:1:"c";d:2.4;s:1:"d";i:2222222222222;s:1:"e";O:8:"stdClass":0:{}s:1:"f";b:1;}');
         $this->assertTrue(Functions::isSerialized('a:1:{s:4:"test";b:1;'));
         $this->assertFalse(Functions::isSerialized('XXXX'));

@@ -65,8 +65,12 @@ class LocaleTest extends \PHPUnit\Framework\TestCase
     public function testGetPreferedLocale()
     {
         global $_REQUEST, $_SESSION;
+        $_SESSION['locale'] = 'C';
+        $_REQUEST['locale'] = 'C';
+        putenv('LOCALE=C');
         $this->assertEquals('C', Locale::getPreferedLocale(false));
         $_SESSION['locale'] = 'en_US';
+        unset($_REQUEST['locale']);
         $this->assertEquals('en_US', Locale::getPreferedLocale(false));
         $this->assertEquals('cs_CZ', Locale::getPreferedLocale(true));
         $_REQUEST['locale'] = 'test';
@@ -89,6 +93,7 @@ class LocaleTest extends \PHPUnit\Framework\TestCase
      */
     public function testSessionLocale()
     {
+        $_SESSION['locale'] = 'cs_CZ';
         $this->assertEquals('cs_CZ', Locale::sessionLocale());
     }
 

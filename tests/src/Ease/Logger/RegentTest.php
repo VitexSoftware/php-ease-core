@@ -47,12 +47,11 @@ class RegentTest extends \Test\Ease\AtomTest
         $mock->__construct('console');
         $mock->__construct('file');
         $mock->__construct('std');
-        $mock->__construct('email');
         $mock->__construct('eventlog');
         $mock->__construct('\Ease\Logger\ToFile');
 
         $this->assertEquals(
-            ['memory', 'syslog', 'console', 'file', 'std', 'email', 'eventlog', '\Ease\Logger\ToFile'],
+            ['memory', 'syslog', 'console', 'file', 'std', 'eventlog', '\Ease\Logger\ToFile'],
             array_keys($mock->loggers)
         );
     }

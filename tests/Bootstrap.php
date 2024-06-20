@@ -17,3 +17,6 @@ define('EASE_APPNAME', 'unitTest');
 define('EASE_EMAILTO', 'info@vitexsoftware.cz');
 
 require_once __DIR__ . '/../vendor/autoload.php';
+
+$_SESSION['locale'] = 'C';
+putenv('LOCALE=C');

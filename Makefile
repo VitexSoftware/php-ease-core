@@ -54,6 +54,7 @@ composer: ## Update PHP dependencies
 	composer update
 
 phpunit: ## Testing by PHPUnit
+	mkdir -p debian/tmp/
 	vendor/bin/phpunit --bootstrap tests/Bootstrap.php --configuration phpunit.xml
 
 deb: ## Build Debian package

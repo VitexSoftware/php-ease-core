@@ -82,8 +82,6 @@ class SandTest extends AtomTest {
 
     /**
      * @covers Ease\Sand::setDataValue
-     *
-     * @todo   Implement testSetDataValue().
      */
     public function testSetDataValue() {
         $this->object->setDataValue('c', 3);

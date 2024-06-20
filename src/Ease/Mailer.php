@@ -149,6 +149,7 @@ class Mailer extends Sand
 
         $this->mimer = new \Mail_mime($mimerParams);
         $this->textBody = $emailContents;
+        $this->mimer->setTXTBody('');
         $this->setObjectName();
     }
 
@@ -161,6 +162,7 @@ class Mailer extends Sand
      */
     public function setMailBody($text)
     {
+        $this->textBody = $text;
         return $this->mimer->setTXTBody($text);
     }
 
