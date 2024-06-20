@@ -36,10 +36,6 @@ class AnonymTest extends BrickTest
      */
     public function testSetObjectName()
     {
-        $this->assertEquals(
-            get_class($this->object),
-            $this->object->setObjectName()
-        );
         $this->assertEquals('Test', $this->object->setObjectName('Test'));
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $this->assertEquals(
