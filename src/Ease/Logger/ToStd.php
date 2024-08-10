@@ -103,7 +103,7 @@ class ToStd extends ToMemory implements Loggingable
             ['notice', 'message', 'debug', 'report',
             'error', 'warning', 'success', 'info', 'mail',],
             ['**', '##', '@@', '::'],
-            $type
+            strval($type)
         ) . ' ' . $message . "\n";
         if (!isset($this->logStyles[$type])) {
             $type = 'notice';
