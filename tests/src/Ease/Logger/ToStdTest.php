@@ -1,5 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+/**
+ * This file is part of the EaseCore package.
+ *
+ * (c) Vítězslav Dvořák <http://vitexsoftware.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Test\Ease\Logger;
 
 use Ease\Logger\ToStd;
@@ -9,10 +20,7 @@ use Ease\Logger\ToStd;
  */
 class ToStdTest extends ToMemoryTest
 {
-    /**
-     * @var ToStd
-     */
-    protected $object;
+    protected ToStd $object;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -32,18 +40,18 @@ class ToStdTest extends ToMemoryTest
     }
 
     /**
-     * Test Constructor
+     * Test Constructor.
      *
      * @covers \Ease\Logger\ToStd::__construct
      */
-    public function testConstructor()
+    public function testConstructor(): void
     {
-        $classname = get_class($this->object);
+        $classname = \get_class($this->object);
 
         // Get mock, without the constructor being called
         $mock = $this->getMockBuilder($classname)
-                ->disableOriginalConstructor()
-                ->getMockForAbstractClass();
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
 
         $mock->__construct();
         $this->assertEquals('unitTest', $mock->logName);
@@ -53,35 +61,35 @@ class ToStdTest extends ToMemoryTest
     }
 
     /**
-     * @covers Ease\Logger\ToStd::singleton
+     * @covers \Ease\Logger\ToStd::singleton
      */
-    public function testSingleton()
+    public function testSingleton(): void
     {
         $this->assertInstanceOf('Ease\Logger\ToStd', ToStd::singleton());
     }
 
     /**
-     * @covers Ease\Logger\ToStd::addToLog
+     * @covers \Ease\Logger\ToStd::addToLog
      */
-    public function testAddToLog()
+    public function testAddToLog(): void
     {
         $this->assertEquals(49, $this->object->addToLog($this, 'test'));
     }
 
     /**
-     * @covers Ease\Logger\ToStd::output
+     * @covers \Ease\Logger\ToStd::output
      */
-    public function testOutput()
+    public function testOutput(): void
     {
         $this->assertIsInt($this->object->output('info', 'test'));
         $this->assertIsInt($this->object->output('error', 'test'));
     }
 
     /**
-     * @covers Ease\Logger\ToStd::finalizeMessage
+     * @covers \Ease\Logger\ToStd::finalizeMessage
      */
-    public function testFinalizeMessage()
+    public function testFinalizeMessage(): void
     {
-        $this->assertEquals('TEST' . PHP_EOL, $this->object->finalizeMessage(' TEST '));
+        $this->assertEquals('TEST'.\PHP_EOL, $this->object->finalizeMessage(' TEST '));
     }
 }

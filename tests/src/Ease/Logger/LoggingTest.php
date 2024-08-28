@@ -1,24 +1,26 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+declare(strict_types=1);
+
+/**
+ * This file is part of the EaseCore package.
+ *
+ * (c) Vítězslav Dvořák <http://vitexsoftware.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Test\Ease\Logger;
 
 /**
- * Description of LoggingTest
+ * Description of LoggingTest.
  *
  * @author vitex
  */
 class LoggingTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var \Test\Ease\Local\LoggingTester
-     */
-    protected $object;
+    protected \Test\Ease\Local\LoggingTester $object;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -38,17 +40,17 @@ class LoggingTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Ease\Logger\Logging::getLogger
+     * @covers \Ease\Logger\Logging::getLogger
      */
-    public function testGetLogger()
+    public function testGetLogger(): void
     {
         $this->assertInstanceOf('\Ease\Logger\Regent', $this->object->getLogger());
     }
 
     /**
-     * @covers Ease\Logger\Logging::addStatusMessage
+     * @covers \Ease\Logger\Logging::addStatusMessage
      */
-    public function testaddStatusMessage()
+    public function testaddStatusMessage(): void
     {
         $this->object->cleanSatatusMessages();
         $this->object->addStatusMessage(_('Status message add test'), 'info');
@@ -56,9 +58,9 @@ class LoggingTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Ease\Logger\Logging::cleanSatatusMessages
+     * @covers \Ease\Logger\Logging::cleanSatatusMessages
      */
-    public function testcleanStatusMessages()
+    public function testcleanStatusMessages(): void
     {
         $this->object->addStatusMessage('Clean Test');
         $this->object->cleanSatatusMessages();
@@ -66,28 +68,28 @@ class LoggingTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Ease\Logger\Logging::getStatusMessages
+     * @covers \Ease\Logger\Logging::getStatusMessages
      */
-    public function testgetstatusMessages()
+    public function testgetstatusMessages(): void
     {
         $this->object->cleanSatatusMessages();
         $this->object->addStatusMessage('Message');
         $this->object->addStatusMessage('Message', 'warning');
         $this->object->addStatusMessage('Message', 'debug');
         $this->object->addStatusMessage('Message', 'error');
-        $this->assertEquals(4, count($this->object->getstatusMessages()));
+        $this->assertCount(4, $this->object->getstatusMessages());
     }
 
     /**
-     * @covers Ease\Logger\Logging::logBanner
+     * @covers \Ease\Logger\Logging::logBanner
      */
-    public function testLogBanner()
+    public function testLogBanner(): void
     {
         $this->object->logBanner();
         $statuses = $this->object->getStatusMessages();
         $this->assertStringContainsString(
             'EaseCore',
-            end($statuses)->body
+            end($statuses)->body,
         );
     }
 }

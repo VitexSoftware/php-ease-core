@@ -1,13 +1,22 @@
 <?php
 
 /**
- * Syslog logger handler
+ * Syslog logger handler.
  *
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2021 Vitex@hippy.cz (G)
  */
 
 declare(strict_types=1);
+
+/**
+ * This file is part of the EaseCore package.
+ *
+ * (c) Vítězslav Dvořák <http://vitexsoftware.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace Ease\Logger;
 
@@ -21,15 +30,13 @@ class ToSyslog extends ToStd implements Loggingable
 {
     /**
      * Předvolená metoda logování.
-     *
-     * @var string
      */
-    public $logType = 'syslog';
+    public string $logType = 'syslog';
 
     /**
      * Saves obejct instace (singleton...).
      */
-    private static $instance = null;
+    private static $instance;
 
     /**
      * Logovací třída.
@@ -42,24 +49,33 @@ class ToSyslog extends ToStd implements Loggingable
     {
         parent::__construct($logName);
         openlog(empty($this->logName) ? \Ease\Shared::appName() :
-            $this->logName, intval(\Ease\Shared::cfg('LOG_FLAG')), intval(\Ease\Shared::cfg('LOG_FACILITY')));
+            $this->logName, (int) \Ease\Shared::cfg('LOG_FLAG'), (int) \Ease\Shared::cfg('LOG_FACILITY'));
     }
 
     /**
-     * Obtain instance of Syslog loger
+     * Close syslog connection.
+     */
+    public function __destruct()
+    {
+        closelog();
+    }
+
+    /**
+     * Obtain instance of Syslog loger.
      *
      * @return ToSyslog
      */
     public static function singleton()
     {
         if (!isset(self::$instance)) {
-            self::$instance = new self(\Ease\Shared::appName() ? \Ease\Shared::appName() : 'EaseFramework');
+            self::$instance = new self(\Ease\Shared::appName() ?: 'EaseFramework');
         }
+
         return self::$instance;
     }
 
     /**
-     * Output logline to syslog/messages by its type
+     * Output logline to syslog/messages by its type.
      *
      * @param string $type    message type 'error' or anything else
      * @param string $logLine message to output
@@ -68,12 +84,12 @@ class ToSyslog extends ToStd implements Loggingable
      */
     public function output($type, $logLine)
     {
-        return syslog($type == 'error' ? \Ease\Shared::cfg('LOG_ERR') : \Ease\Shared::cfg('LOG_INFO'), $this->finalizeMessage($logLine)) ?
-                strlen($logLine) : 0;
+        return syslog($type === 'error' ? \Ease\Shared::cfg('LOG_ERR') : \Ease\Shared::cfg('LOG_INFO'), $this->finalizeMessage($logLine)) ?
+                \strlen($logLine) : 0;
     }
 
     /**
-     * Last message check/modify point before output
+     * Last message check/modify point before output.
      *
      * @param string $messageRaw
      *
@@ -82,13 +98,5 @@ class ToSyslog extends ToStd implements Loggingable
     public function finalizeMessage($messageRaw)
     {
         return trim($messageRaw);
-    }
-
-    /**
-     * Close syslog connection
-     */
-    public function __destruct()
-    {
-        closelog();
     }
 }

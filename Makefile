@@ -85,5 +85,8 @@ phpstan:
 openbuild:
 	
 
-.PHONY : install build
+.PHONY: install build
 	
+
+.PHONY: cs
+	vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --diff --verbose

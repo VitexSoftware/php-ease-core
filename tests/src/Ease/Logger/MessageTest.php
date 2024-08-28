@@ -1,5 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+/**
+ * This file is part of the EaseCore package.
+ *
+ * (c) Vítězslav Dvořák <http://vitexsoftware.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Test\Ease\Logger;
 
 use Ease\Logger\Message;
@@ -9,10 +20,7 @@ use Ease\Logger\Message;
  */
 class MessageTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var Message
-     */
-    protected $object;
+    protected Message $object;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -21,25 +29,6 @@ class MessageTest extends \PHPUnit\Framework\TestCase
     protected function setUp(): void
     {
         $this->object = new Message('test');
-    }
-
-    
-    /**
-     * Test Constructor
-     *
-     * @covers Ease\Logger\Message::__construct
-     */
-    public function testConstructor()
-    {
-        $classname = get_class($this->object);
-
-        // Get mock, without the constructor being called
-        $mock = $this->getMockBuilder($classname)
-            ->disableOriginalConstructor()
-            ->getMockForAbstractClass();
-        $mock->__construct('test');
-        $mock->__construct('test', 'test', 'test', 'now');
-        $this->assertEquals('test', $mock->body);
     }
 
     /**
@@ -51,11 +40,29 @@ class MessageTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * Test getTypeUnicodeSymbol
+     * Test Constructor.
      *
-     * @covers Ease\Logger\Message::getTypeUnicodeSymbol
+     * @covers \Ease\Logger\Message::__construct
      */
-    public function testGetTypeUnicodeSymbol()
+    public function testConstructor(): void
+    {
+        $classname = \get_class($this->object);
+
+        // Get mock, without the constructor being called
+        $mock = $this->getMockBuilder($classname)
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+        $mock->__construct('test');
+        $mock->__construct('test', 'test', 'test', 'now');
+        $this->assertEquals('test', $mock->body);
+    }
+
+    /**
+     * Test getTypeUnicodeSymbol.
+     *
+     * @covers \Ease\Logger\Message::getTypeUnicodeSymbol
+     */
+    public function testGetTypeUnicodeSymbol(): void
     {
         $this->assertEquals('✉', Message::getTypeUnicodeSymbol('mail', false));
         $this->assertEquals('⚠', Message::getTypeUnicodeSymbol('warning', false));

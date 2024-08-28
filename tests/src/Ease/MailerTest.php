@@ -1,5 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+/**
+ * This file is part of the EaseCore package.
+ *
+ * (c) Vítězslav Dvořák <http://vitexsoftware.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Test\Ease;
 
 use Ease\Mailer;
@@ -9,10 +20,7 @@ use Ease\Mailer;
  */
 class MailerTest extends SandTest
 {
-    /**
-     * @var Mailer
-     */
-    protected $object;
+    protected Mailer $object;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -32,16 +40,16 @@ class MailerTest extends SandTest
     }
 
     /**
-     * @covers Ease\Mailer::__construct
+     * @covers \Ease\Mailer::__construct
      */
-    public function testConstructor()
+    public function testConstructor(): void
     {
-        $classname = get_class($this->object);
+        $classname = \get_class($this->object);
 
         // Get mock, without the constructor being called
         $mock = $this->getMockBuilder($classname)
-                ->disableOriginalConstructor()
-                ->getMockForAbstractClass();
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
         $mock->__construct('info@vitexsoftware.cz', 'Unit Test');
 
         $mock->__construct('vitex@hippy.cz', 'Hallo', 'PHPUnit works well!');
@@ -50,60 +58,63 @@ class MailerTest extends SandTest
     }
 
     /**
-     * @covers Ease\Mailer::setMailHeaders
+     * @covers \Ease\Mailer::setMailHeaders
      */
-    public function testSetMailHeaders()
+    public function testSetMailHeaders(): void
     {
         $this->object->mailHeaders['From'] = 'ease@framework.cz';
         $this->object->setMailHeaders(['x-mail' => 'test']);
         $this->assertEquals('test', $this->object->getMailHeader('x-mail'));
         $this->assertEquals(
             'ease@framework.cz',
-            $this->object->getMailHeader('From')
+            $this->object->getMailHeader('From'),
         );
     }
 
     /**
-     * @covers Ease\Mailer::getMailHeader
+     * @covers \Ease\Mailer::getMailHeader
      */
-    public function testGetMailHeader()
+    public function testGetMailHeader(): void
     {
         $this->assertEquals(
             'info@vitexsoftware.cz',
-            $this->object->getMailHeader('To')
+            $this->object->getMailHeader('To'),
         );
     }
 
     /**
-     * @covers Ease\Mailer::setMailBody
+     * @covers \Ease\Mailer::setMailBody
      */
-    public function testSetMailBody()
+    public function testSetMailBody(): void
     {
         $this->assertTrue($this->object->setMailBody('mail body'));
     }
 
     /**
-     * @covers Ease\Mailer::addFile
+     * @covers \Ease\Mailer::addFile
      */
-    public function testAddFile()
+    public function testAddFile(): void
     {
         $this->assertTrue($this->object->addFile(__FILE__, 'text/x-php'));
     }
 
     /**
-     * @covers Ease\Mailer::draw
+     * @covers \Ease\Mailer::draw
+     *
+     * @param null|mixed $whatWant
      */
-    public function testDraw($whatWant = null)
+    public function testDraw($whatWant = null): void
     {
         $this->assertEmpty($this->object->draw());
     }
 
     /**
-     * @covers Ease\Mailer::send
+     * @covers \Ease\Mailer::send
      */
-    public function testSend()
+    public function testSend(): void
     {
         $this->object->setMailBody('test');
+
         if (file_exists('/usr/sbin/sendmail')) {
             $this->assertTrue($this->object->send());
         } else {
@@ -112,9 +123,9 @@ class MailerTest extends SandTest
     }
 
     /**
-     * @covers Ease\Mailer::setUserNotification
+     * @covers \Ease\Mailer::setUserNotification
      */
-    public function testSetUserNotification()
+    public function testSetUserNotification(): void
     {
         $this->object->setUserNotification(true);
         $this->assertTrue($this->object->notify);

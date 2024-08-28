@@ -11,6 +11,15 @@
 
 declare(strict_types=1);
 
+/**
+ * This file is part of the EaseCore package.
+ *
+ * (c) Vítězslav Dvořák <http://vitexsoftware.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Test\Ease;
 
 use Ease\Atom;
@@ -22,18 +31,16 @@ use Ease\Atom;
  * @author     Vitex <vitex@hippy.cz>
  * @copyright  2009-2023 Vitex@hippy.cz (G)
  */
-class AtomTest extends \PHPUnit\Framework\TestCase {
-
-    /**
-     * @var Atom
-     */
-    protected $object;
+class AtomTest extends \PHPUnit\Framework\TestCase
+{
+    protected Atom $object;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp(): void {
+    protected function setUp(): void
+    {
         $this->object = new Atom();
     }
 
@@ -41,31 +48,35 @@ class AtomTest extends \PHPUnit\Framework\TestCase {
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown(): void {
-        
+    protected function tearDown(): void
+    {
     }
 
     /**
-     * @covers Ease\Atom::getObjectName
+     * @covers \Ease\Atom::getObjectName
      */
-    public function testgetObjectName() {
+    public function testgetObjectName(): void
+    {
         $this->assertNotEmpty($this->object->getObjectName());
     }
 
     /**
-     * @covers Ease\Atom::__toString
+     * @covers \Ease\Atom::__toString
      */
-    public function test__toString() {
+    public function testToString(): void
+    {
         $this->assertEmpty($this->object->__toString());
     }
 
     /**
-     * @covers Ease\Atom::draw
+     * @covers \Ease\Atom::draw
+     *
+     * @param null|mixed $whatWant
      */
-    public function testDraw($whatWant = null) {
+    public function testDraw($whatWant = null): void
+    {
         $this->assertEquals('', $this->object->draw());
     }
-
 }
 
 // @codeCoverageIgnoreEnd

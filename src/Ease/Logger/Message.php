@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Message Classs
+ * Message Classs.
  *
  * @category Logging
  *
@@ -14,44 +14,44 @@
 
 declare(strict_types=1);
 
+/**
+ * This file is part of the EaseCore package.
+ *
+ * (c) Vítězslav Dvořák <http://vitexsoftware.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Ease\Logger;
 
 /**
- * Description of Message
+ * Description of Message.
  *
  * @author vitex
  */
 class Message
 {
     /**
-     * Message body
-     *
-     * @var string
+     * Message body.
      */
-    public $body;
+    public string $body;
 
     /**
-     * Message type
+     * Message type.
      *
      * @var string info|succes|warning|error|mail|debug|event
      */
-    public $type;
+    public string $type;
+    public \Ease\Atom $caller;
 
     /**
-     *
-     * @var \Ease\Atom
+     * Message Timestamp.
      */
-    public $caller;
+    public int $when;
 
     /**
-     * Message Timestamp
-     *
-     * @var int
-     */
-    public $when;
-
-    /**
-     * Basic Message class
+     * Basic Message class.
      *
      * @param string            $message text
      * @param string            $type    One of info|notice|debug|error
@@ -63,7 +63,8 @@ class Message
         $this->body = $message;
         $this->type = $type;
         $this->caller = $caller;
-        if (is_null($when)) {
+
+        if (null === $when) {
             $this->when = time();
         } else {
             $this->when = $when;
@@ -71,9 +72,10 @@ class Message
     }
 
     /**
-     * Unicode Symbol for given message type
+     * Unicode Symbol for given message type.
      *
-     * @param  string $type Type of message
+     * @param string $type  Type of message
+     * @param mixed  $color
      *
      * @return string
      */
@@ -83,68 +85,89 @@ class Message
             switch ($type) {
                 case 'mail':                       // Envelope
                     $symbol = '✉';
+
                     break;
                 case 'warning':                    // Vykřičník v trojůhelníku
                     $symbol = '⚠';
+
                     break;
                 case 'error':                      // Lebka
                     $symbol = '💀';
+
                     break;
                 case 'success':                    // Kytička
                     $symbol = '🌼';
+
                     break;
                 case 'debug':                      // Gear
                     $symbol = '⚙';
+
                     break;
                 case 'info':
                     $symbol = 'ℹ';
+
                     break;
                 case 'event':
                     $symbol = '👻';
+
                     break;
                 case 'report':
                     $symbol = '📃';
+
                     break;
+
                 default:                           // i v kroužku
                     $symbol = '🤔';
+
                     break;
             }
         } else {
             switch ($type) {
                 case 'mail':                       // Envelope
                     $symbol = '✉';
+
                     break;
                 case 'warning':                    // Vykřičník v trojůhelníku
                     $symbol = '⚠';
+
                     break;
                 case 'error':                      // Lebka
                     $symbol = '☠';
+
                     break;
                 case 'success':                    // Kytička
                     $symbol = '❁';
+
                     break;
                 case 'debug':                      // Gear
                     $symbol = '⚙';
+
                     break;
                 case 'event':
                     $symbol = '✋';
+
                     break;
                 case 'report':
                     $symbol = '➿';
+
                     break;
                 case 'info':                      // Gear
                     $symbol = 'ⓘ';
+
                     break;
+
                 default:                           // Squared Question
                     $symbol = '🯄';
+
                     break;
             }
         }
+
         return $symbol;
     }
 
     /**
-     * Obtain object name from caller object
+     * Obtain object name from caller object.
      *
      * @param object|string $caller
      *
@@ -152,15 +175,16 @@ class Message
      */
     public static function getCallerName($caller)
     {
-        if (is_object($caller)) {
+        if (\is_object($caller)) {
             if (method_exists($caller, 'getObjectName')) {
                 $callerName = $caller->getObjectName();
             } else {
-                $callerName = get_class($caller);
+                $callerName = \get_class($caller);
             }
         } else {
-            $callerName = strval($caller);
+            $callerName = (string) $caller;
         }
+
         return $callerName;
     }
 }

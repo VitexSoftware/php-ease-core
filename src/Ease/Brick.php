@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Main Ease Class
+ * Main Ease Class.
  *
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2024 Vitex@hippy.cz (G)
@@ -10,6 +10,15 @@
  */
 
 declare(strict_types=1);
+
+/**
+ * This file is part of the EaseCore package.
+ *
+ * (c) Vítězslav Dvořák <http://vitexsoftware.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace Ease;
 
@@ -20,10 +29,13 @@ class Brick extends Sand
     /**
      * @var string Name Column
      */
-    public $nameColumn = null;
+    public string $nameColumn = null;
 
     /**
-     * Ease Brick Class
+     * Ease Brick Class.
+     *
+     * @param null|mixed $init
+     * @param mixed      $properties
      */
     public function __construct($init = null, $properties = [])
     {
@@ -33,32 +45,37 @@ class Brick extends Sand
     }
 
     /**
-     * Use Given value as identifier
+     * Use Given value as identifier.
      *
      * @param mixed $identifier
      */
-    public function useIdentifier($identifier)
+    public function useIdentifier($identifier): void
     {
         switch ($this->howToProcess($identifier)) {
             case 'values':
                 $this->takeData($identifier);
+
                 break;
             case 'reuse':
                 $this->takeData($identifier->getData());
+
                 break;
             case 'name':
                 $this->setDataValue($this->nameColumn, $identifier);
+
                 break;
             case 'id':
                 $this->setMyKey($identifier);
+
                 break;
+
             default:
                 break;
         }
     }
 
     /**
-     * How to process
+     * How to process.
      *
      * @param mixed $identifer
      *
@@ -67,32 +84,40 @@ class Brick extends Sand
     public function howToProcess($identifer)
     {
         $recognizedAs = 'unknown';
-        switch (gettype($identifer)) {
-            case "integer":
-            case "double":
+
+        switch (\gettype($identifer)) {
+            case 'integer':
+            case 'double':
                 if ($this->getKeyColumn()) {
                     $recognizedAs = 'id';
                 }
+
                 break;
-            case "string":
+            case 'string':
                 if (!empty($this->nameColumn)) {
                     $recognizedAs = 'name';
                 }
+
                 break;
-            case "array":
+            case 'array':
                 $recognizedAs = 'values';
+
                 break;
-            case "object":
-                if ($identifer instanceof \Ease\Brick) {
+            case 'object':
+                if ($identifer instanceof self) {
                     $recognizedAs = 'reuse';
                 }
+
                 break;
+
             default:
-            case "boolean":
-            case "NULL":
+            case 'boolean':
+            case 'NULL':
                 $recognizedAs = 'unknown';
+
                 break;
         }
+
         return $recognizedAs;
     }
 
@@ -109,14 +134,16 @@ class Brick extends Sand
     {
         if (empty($objectName)) {
             $recordId = $this->getMyKey($this->data);
+
             if ($this->nameColumn && $this->getDataValue($this->nameColumn)) {
-                $key = '(' . $recordId . ')' . $this->getDataValue($this->nameColumn);
+                $key = '('.$recordId.')'.$this->getDataValue($this->nameColumn);
             } else {
                 $key = $recordId;
             }
+
             if ($key) {
                 $oldName = \Ease\Logger\Message::getCallerName($this);
-                $result = parent::setObjectName($key . '@' . substr($oldName, strpos($oldName, '@') ? strpos($oldName, '@') + 1 : 0));
+                $result = parent::setObjectName($key.'@'.substr($oldName, strpos($oldName, '@') ? strpos($oldName, '@') + 1 : 0));
             } else {
                 $result = parent::setObjectName();
             }
@@ -128,28 +155,28 @@ class Brick extends Sand
     }
 
     /**
-     * Object init value stub
+     * Object init value stub.
      *
      * @param mixed $init
      */
-    public function setInit($init)
+    public function setInit($init): void
     {
     }
 
     /**
-     * Set/override object properties objectName and keyColumn
-     *
-     * @param array $properties
+     * Set/override object properties objectName and keyColumn.
      */
-    public function setProperties(array $properties = [])
+    public function setProperties(array $properties = []): void
     {
-        if (array_key_exists('objectName', $properties)) {
+        if (\array_key_exists('objectName', $properties)) {
             $this->setObjectName($properties['objectName']);
         }
-        if (array_key_exists('keyColumn', $properties)) {
+
+        if (\array_key_exists('keyColumn', $properties)) {
             $this->setKeyColumn($properties['keyColumn']);
         }
-        if (array_key_exists('nameColumn', $properties)) {
+
+        if (\array_key_exists('nameColumn', $properties)) {
             $this->nameColumn = $properties['nameColumn'];
         }
     }

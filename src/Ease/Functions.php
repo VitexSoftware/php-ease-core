@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Misc functions holder
+ * Misc functions holder.
  *
  * @category Common
  *
@@ -15,10 +15,19 @@
 
 declare(strict_types=1);
 
+/**
+ * This file is part of the EaseCore package.
+ *
+ * (c) Vítězslav Dvořák <http://vitexsoftware.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Ease;
 
 /**
- * Description of Functions
+ * Description of Functions.
  *
  * @author Vítězslav Dvořák <info@vitexsoftware.cz>
  */
@@ -33,15 +42,15 @@ class Functions
      */
     public static function sysFilename($path)
     {
-        return str_replace(['\\', '/'], constant('DIRECTORY_SEPARATOR'), $path);
+        return str_replace(['\\', '/'], \constant('DIRECTORY_SEPARATOR'), $path);
     }
 
     /**
-     * Add params to url
+     * Add params to url.
      *
-     * @param string  $url      originall url
-     * @param array   $addParams   value to add
-     * @param boolean $override replace already existing values ?
+     * @param string $url       originall url
+     * @param array  $addParams value to add
+     * @param bool   $override  replace already existing values ?
      *
      * @return string url with parameters added
      */
@@ -49,16 +58,20 @@ class Functions
     {
         $urlParts = parse_url($url);
         $urlFinal = '';
-        if (array_key_exists('scheme', $urlParts)) {
-            $urlFinal .= $urlParts['scheme'] . '://' . $urlParts['host'];
+
+        if (\array_key_exists('scheme', $urlParts)) {
+            $urlFinal .= $urlParts['scheme'].'://'.$urlParts['host'];
         }
-        if (array_key_exists('port', $urlParts)) {
-            $urlFinal .= ':' . $urlParts['port'];
+
+        if (\array_key_exists('port', $urlParts)) {
+            $urlFinal .= ':'.$urlParts['port'];
         }
-        if (array_key_exists('path', $urlParts)) {
+
+        if (\array_key_exists('path', $urlParts)) {
             $urlFinal .= $urlParts['path'];
         }
-        if (array_key_exists('query', $urlParts)) {
+
+        if (\array_key_exists('query', $urlParts)) {
             parse_str($urlParts['query'], $queryUrlParams);
             $urlParams = $override ? array_merge($queryUrlParams, $addParams) :
                     array_merge($addParams, $queryUrlParams);
@@ -67,8 +80,9 @@ class Functions
         }
 
         if (!empty($urlParams)) {
-            $urlFinal .= '?' . http_build_query($urlParams);
+            $urlFinal .= '?'.http_build_query($urlParams);
         }
+
         return $urlFinal;
     }
 
@@ -82,7 +96,8 @@ class Functions
     public static function divDataArray(&$sourceArray, &$destinationArray, $columName)
     {
         $result = false;
-        if (array_key_exists($columName, $sourceArray)) {
+
+        if (\array_key_exists($columName, $sourceArray)) {
             $destinationArray[$columName] = $sourceArray[$columName];
             unset($sourceArray[$columName]);
 
@@ -95,13 +110,11 @@ class Functions
     /**
      * Test for associative array.
      *
-     * @param array $arr
-     *
      * @return bool
      */
     public static function isAssoc(array $arr)
     {
-        return array_keys($arr) !== range(0, count($arr) - 1);
+        return array_keys($arr) !== range(0, \count($arr) - 1);
     }
 
     /**
@@ -212,14 +225,15 @@ class Functions
      */
     public static function easeEncrypt($textToEncrypt, $encryptKey)
     {
-        $encryptionKey = base64_decode($encryptKey);
+        $encryptionKey = base64_decode($encryptKey, true);
         $ivec = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
         $encrypted = openssl_encrypt($textToEncrypt, 'aes-256-cbc', $encryptionKey, 0, $ivec);
-        return base64_encode($encrypted . '::' . $ivec);
+
+        return base64_encode($encrypted.'::'.$ivec);
     }
 
     /**
-     * Decryptor
+     * Decryptor.
      *
      * @param string $textToDecrypt šifrovaný text
      * @param string $encryptKey    šifrovací klíč
@@ -228,13 +242,14 @@ class Functions
      */
     public static function easeDecrypt($textToDecrypt, $encryptKey)
     {
-        $encryptionKey = base64_decode($encryptKey);
-        list($encryptedData, $ivec) = explode('::', base64_decode($textToDecrypt), 2);
+        $encryptionKey = base64_decode($encryptKey, true);
+        [$encryptedData, $ivec] = explode('::', base64_decode($textToDecrypt, true), 2);
+
         return openssl_decrypt($encryptedData, 'aes-256-cbc', $encryptionKey, 0, $ivec);
     }
 
     /**
-     * Random number generator
+     * Random number generator.
      *
      * @param int $minimal
      * @param int $maximal
@@ -243,12 +258,12 @@ class Functions
      */
     public static function randomNumber($minimal = null, $maximal = null)
     {
-        if (isset($minimal) && isset($maximal)) {
+        if (isset($minimal, $maximal)) {
             if ($minimal >= $maximal) {
                 throw new Exception('Minimum cannot be bigger than maximum');
-            } else {
-                $rand = mt_rand($minimal, $maximal);
             }
+
+            $rand = mt_rand($minimal, $maximal);
         } else {
             $rand = mt_rand();
         }
@@ -269,19 +284,18 @@ class Functions
     }
 
     /**
-     * Array content recusrsive recode
+     * Array content recusrsive recode.
      *
-     * @param string        $inCharset
-     * @param string        $outCharset
-     * @param array|string  $arr         original array
+     * @param array|string $arr original array
      *
      * @return array array recoded
      */
     public static function recursiveIconv(string $inCharset, string $outCharset, $arr)
     {
-        if (!is_array($arr)) {
+        if (!\is_array($arr)) {
             return \iconv($inCharset, $outCharset, $arr);
         }
+
         $ret = $arr;
         array_walk_recursive($ret, '\Ease\Functions::arrayIconv', [$inCharset, $outCharset, $arr]);
 
@@ -297,7 +311,7 @@ class Functions
      * @param string $key
      * @param mixed  $encodings
      */
-    public static function arrayIconv(&$val, /** @scrutinizer ignore-unused */ $key, $encodings)
+    public static function arrayIconv(&$val, /** @scrutinizer ignore-unused */ $key, $encodings): void
     {
         $val = iconv($encodings[0], $encodings[1], $val);
     }
@@ -316,11 +330,11 @@ class Functions
         $prefix = ['Byte', 'KB', 'MB', 'GB', 'TB', 'PB'];
 
         while (($filesize / $decr) > 0.9) {
-            $filesize = $filesize / $decr;
+            $filesize /= $decr;
             ++$step;
         }
 
-        return round($filesize, 2) . ' ' . $prefix[$step];
+        return round($filesize, 2).' '.$prefix[$step];
     }
 
     /**
@@ -331,12 +345,12 @@ class Functions
      *
      * @return array
      */
-    public static function reindexArrayBy(array $data, string $indexBy = null)
+    public static function reindexArrayBy(array $data, ?string $indexBy = null)
     {
         $reindexedData = [];
 
         foreach ($data as $dataRow) {
-            if (array_key_exists($indexBy, $dataRow)) {
+            if (\array_key_exists($indexBy, $dataRow)) {
                 $reindexedData[(string) $dataRow[$indexBy]] = $dataRow;
             } else {
                 throw new \Exception(sprintf('Data row does not contain column %s for reindexing', $indexBy));
@@ -349,29 +363,30 @@ class Functions
     /**
      * Filter Only letters from string.
      *
+     * @param mixed $text
+     *
      * @return string text bez zvláštních znaků
      */
     public static function lettersOnly($text): string
     {
-        return preg_replace('/[^(a-zA-Z0-9)]*/', '', strval($text));
+        return preg_replace('/[^(a-zA-Z0-9)]*/', '', (string) $text);
     }
 
     /**
-     * Confirm that string is serialized
-     *
-     * @param string $data
-     *
-     * @return boolean
+     * Confirm that string is serialized.
      */
     public static function isSerialized(string $data): bool
     {
         $data = trim($data);
-        if ('N;' == $data) {
+
+        if ('N;' === $data) {
             return true;
         }
+
         if (!\preg_match('/^([adObis]):/', $data, $badions)) {
             return false;
         }
+
         switch ($badions[1]) {
             case 'a':
             case 'O':
@@ -379,6 +394,7 @@ class Functions
                 if (preg_match("/^{$badions[1]}:[0-9]+:.*[;}]\$/s", $data)) {
                     return true;
                 }
+
                 break;
             case 'b':
             case 'i':
@@ -386,65 +402,68 @@ class Functions
                 if (preg_match("/^{$badions[1]}:[0-9.E-]+;\$/", $data)) {
                     return true;
                 }
+
                 break;
         }
+
         return false;
     }
 
     /**
-     * Get Classname without namespace prefix
+     * Get Classname without namespace prefix.
      *
      * @param object $object
      *
-     * @return string|object|null
+     * @return null|object|string
      */
     public static function baseClassName($object)
     {
-        return is_object($object) ? basename(str_replace('\\', '/', get_class($object))) : null;
+        return \is_object($object) ? basename(str_replace('\\', '/', \get_class($object))) : null;
     }
 
     /**
-     * Human readable bytes repersentation
+     * Human readable bytes repersentation.
      *
-     * @param int|double $dbytes
+     * @param float|int $dbytes
      *
      * @return string
      */
     public static function formatBytes($dbytes)
     {
-        $bytes = doubleval($dbytes);
+        $bytes = (float) $dbytes;
 
         if ($bytes < 1024) {
-            $humanReadable = $bytes . ' B';
+            $humanReadable = $bytes.' B';
         } elseif ($bytes < 1048576) {
-            $humanReadable = round($bytes / 1024, 2) . ' KiB';
+            $humanReadable = round($bytes / 1024, 2).' KiB';
         } elseif ($bytes < 1073741824) {
-            $humanReadable = round($bytes / 1048576, 2) . ' MiB';
+            $humanReadable = round($bytes / 1048576, 2).' MiB';
         } elseif ($bytes < 1099511627776) {
-            $humanReadable = round($bytes / 1073741824, 2) . ' GiB';
+            $humanReadable = round($bytes / 1073741824, 2).' GiB';
         } elseif ($bytes < 1125899906842624) {
-            $humanReadable = round($bytes / 1099511627776, 2) . ' TiB';
+            $humanReadable = round($bytes / 1099511627776, 2).' TiB';
         } elseif ($bytes < 1152921504606846976) {
-            $humanReadable = round($bytes / 1125899906842624, 2) . ' PiB';
+            $humanReadable = round($bytes / 1125899906842624, 2).' PiB';
         } elseif ($bytes < 1180591620717411303424) {
-            $humanReadable = round($bytes / 1152921504606846976, 2) . ' EiB';
+            $humanReadable = round($bytes / 1152921504606846976, 2).' EiB';
         } elseif ($bytes < 1208925819614629174706176) {
-            $humanReadable = round($bytes / 1180591620717411303424, 2) . ' ZiB';
+            $humanReadable = round($bytes / 1180591620717411303424, 2).' ZiB';
         } else {
-            $humanReadable = round($bytes / 1208925819614629174706176, 2) . ' YiB';
+            $humanReadable = round($bytes / 1208925819614629174706176, 2).' YiB';
         }
+
         return $humanReadable;
     }
 
     /**
-     * Get configuration from constant or environment
+     * Get configuration from constant or environment.
      *
      * @deprecated since version 1.40.1 use \Ease\Shared::cfg() instead
      *
      * @param string $constant
-     * @param mixed $cfg Default value
+     * @param mixed  $cfg      Default value
      *
-     * @return string|int|boolean|null
+     * @return null|bool|int|string
      */
     public static function cfg(/* string */ $constant, $cfg = null)
     {
@@ -452,7 +471,7 @@ class Functions
     }
 
     /**
-     * Get All Classes in namespace
+     * Get All Classes in namespace.
      *
      * @param string $namespace
      *
@@ -462,20 +481,22 @@ class Functions
     {
         $namespace .= '\\';
 
-        $myClasses = array_filter(get_declared_classes(), function ($item) use ($namespace) {
-            return substr($item, 0, strlen($namespace)) === $namespace;
+        $myClasses = array_filter(get_declared_classes(), static function ($item) use ($namespace) {
+            return substr($item, 0, \strlen($namespace)) === $namespace;
         });
         $theClasses = [];
-        foreach ($myClasses as $class) :
+
+        foreach ($myClasses as $class) {
             $theParts = explode('\\', $class);
             $theClasses[] = end($theParts);
-        endforeach;
+        }
+
         return $theClasses;
     }
 
     /**
      * Load all files found for given namespace
-     * (based on composer files)
+     * (based on composer files).
      *
      * @param string $namespace
      *
@@ -485,26 +506,33 @@ class Functions
     {
         $loaded = [];
         $autoloader = preg_grep('/autoload\.php$/', get_included_files());
+
         if (!empty($autoloader)) {
-            $psr4dirs = include dirname(current($autoloader)) . '/composer/autoload_psr4.php';
-            if (array_key_exists($namespace . '\\', $psr4dirs)) {
-                foreach ($psr4dirs[$namespace . '\\'] as $modulePath) {
+            $psr4dirs = include \dirname(current($autoloader)).'/composer/autoload_psr4.php';
+
+            if (\array_key_exists($namespace.'\\', $psr4dirs)) {
+                foreach ($psr4dirs[$namespace.'\\'] as $modulePath) {
                     $d = dir($modulePath);
+
                     while (false !== ($entry = $d->read())) {
-                        if (is_file($modulePath . '/' . $entry) && (pathinfo($entry, PATHINFO_EXTENSION) == 'php')) {
+                        if (is_file($modulePath.'/'.$entry) && (pathinfo($entry, \PATHINFO_EXTENSION) === 'php')) {
                             $classesBefore = get_declared_classes();
-                            include_once $modulePath . '/' . $entry;
+
+                            include_once $modulePath.'/'.$entry;
                             $diff = array_diff(get_declared_classes(), $classesBefore);
-                            $load = preg_grep('/' . addslashes($namespace) . '/', $diff);
+                            $load = preg_grep('/'.addslashes($namespace).'/', $diff);
+
                             foreach ($load as $class) {
-                                $loaded[$class] = $modulePath . '/' . $entry;
+                                $loaded[$class] = $modulePath.'/'.$entry;
                             }
                         }
                     }
+
                     $d->close();
                 }
             }
         }
+
         return $loaded;
     }
 
@@ -518,13 +546,13 @@ class Functions
     public static function guidv4($data = null)
     {
         // Generate 16 bytes (128 bits) of random data or use the data passed into the function.
-        $data = $data ?? random_bytes(16);
-        assert(strlen($data) == 16);
+        $data ??= random_bytes(16);
+        \assert(\strlen($data) === 16);
 
         // Set version to 0100
-        $data[6] = chr(ord($data[6]) & 0x0f | 0x40);
+        $data[6] = \chr(\ord($data[6]) & 0x0F | 0x40);
         // Set bits 6-7 to 10
-        $data[8] = chr(ord($data[8]) & 0x3f | 0x80);
+        $data[8] = \chr(\ord($data[8]) & 0x3F | 0x80);
 
         // Output the 36 character UUID.
         return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));

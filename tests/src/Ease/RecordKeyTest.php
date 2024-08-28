@@ -1,24 +1,26 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+declare(strict_types=1);
+
+/**
+ * This file is part of the EaseCore package.
+ *
+ * (c) Vítězslav Dvořák <http://vitexsoftware.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Test\Ease;
 
 /**
- * Description of RecordKeyTest
+ * Description of RecordKeyTest.
  *
  * @author Vítězslav Dvořák <info@vitexsoftware.cz>
  */
 class RecordKeyTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var SandTest
-     */
-    protected $object;
+    protected SandTest $object;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -30,9 +32,9 @@ class RecordKeyTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Ease\RecordKey::getMyKey
+     * @covers \Ease\RecordKey::getMyKey
      */
-    public function testGetMyKey()
+    public function testGetMyKey(): void
     {
         $this->object->setmyKey('test');
         $this->assertEquals('test', $this->object->getmyKey());
@@ -40,27 +42,27 @@ class RecordKeyTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Ease\RecordKey::setMyKey
+     * @covers \Ease\RecordKey::setMyKey
      */
-    public function testSetMyKey()
+    public function testSetMyKey(): void
     {
         $this->object->setmyKey('test');
         $this->assertEquals('test', $this->object->getmyKey());
     }
 
     /**
-     * @covers Ease\RecordKey::getkeyColumn
+     * @covers \Ease\RecordKey::getkeyColumn
      */
-    public function testGetkeyColumn()
+    public function testGetkeyColumn(): void
     {
         $this->object->setkeyColumn('test');
         $this->assertEquals('test', $this->object->getKeyColumn());
     }
 
     /**
-     * @covers Ease\RecordKey::setkeyColumn
+     * @covers \Ease\RecordKey::setkeyColumn
      */
-    public function testSetkeyColumn()
+    public function testSetkeyColumn(): void
     {
         $this->object->setkeyColumn('test');
         $this->assertEquals('test', $this->object->getKeyColumn());

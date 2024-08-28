@@ -1,5 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+/**
+ * This file is part of the EaseCore package.
+ *
+ * (c) Vítězslav Dvořák <http://vitexsoftware.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Test\Ease\Logger;
 
 use Ease\Logger\ToConsole;
@@ -9,10 +20,7 @@ use Ease\Logger\ToConsole;
  */
 class ToConsoleTest extends ToMemoryTest
 {
-    /**
-     * @var ToConsole
-     */
-    protected $object;
+    protected ToConsole $object;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -32,18 +40,18 @@ class ToConsoleTest extends ToMemoryTest
     }
 
     /**
-     * Test Constructor
+     * Test Constructor.
      *
      * @covers \Ease\Logger\ToConsole::__construct
      */
-    public function testConstructor()
+    public function testConstructor(): void
     {
-        $classname = get_class($this->object);
+        $classname = \get_class($this->object);
 
         // Get mock, without the constructor being called
         $mock = $this->getMockBuilder($classname)
-                ->disableOriginalConstructor()
-                ->getMockForAbstractClass();
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
 
         $mock->__construct();
 
@@ -52,18 +60,18 @@ class ToConsoleTest extends ToMemoryTest
     }
 
     /**
-     * @covers Ease\Logger\ToConsole::set
+     * @covers \Ease\Logger\ToConsole::set
      */
-    public function testSet()
+    public function testSet(): void
     {
         $this->assertEquals("\033[31mred\033[0m", $this->object->set('red', 'red'));
     }
 
     /**
-     * @covers Ease\Logger\ToConsole::addToLog
-     * @covers Ease\Logger\Loggingable::addToLog
+     * @covers \Ease\Logger\Loggingable::addToLog
+     * @covers \Ease\Logger\ToConsole::addToLog
      */
-    public function testAddToLog()
+    public function testAddToLog(): void
     {
         $this->assertIsInt($this->object->addToLog($this, 'test'));
         $this->assertIsInt($this->object->addToLog($this, 'test', 'success'));
@@ -71,9 +79,9 @@ class ToConsoleTest extends ToMemoryTest
     }
 
     /**
-     * @covers Ease\Logger\ToConsole::getTypeColor
+     * @covers \Ease\Logger\ToConsole::getTypeColor
      */
-    public function testGetTypeColor()
+    public function testGetTypeColor(): void
     {
         $this->assertEquals('blue', \Ease\Logger\ToConsole::getTypeColor('mail'));
         $this->assertEquals('yellow', \Ease\Logger\ToConsole::getTypeColor('warning'));
@@ -84,9 +92,9 @@ class ToConsoleTest extends ToMemoryTest
     }
 
     /**
-     * @covers Ease\Logger\ToConsole::singleton
+     * @covers \Ease\Logger\ToConsole::singleton
      */
-    public function testSingleton()
+    public function testSingleton(): void
     {
         $this->assertInstanceOf('\Ease\Logger\ToConsole', \Ease\Logger\ToConsole::singleton());
     }

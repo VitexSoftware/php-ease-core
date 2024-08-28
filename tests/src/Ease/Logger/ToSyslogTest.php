@@ -1,5 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+/**
+ * This file is part of the EaseCore package.
+ *
+ * (c) Vítězslav Dvořák <http://vitexsoftware.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Test\Ease\Logger;
 
 use Ease\Logger\ToSyslog;
@@ -9,10 +20,7 @@ use Ease\Logger\ToSyslog;
  */
 class ToSyslogTest extends ToMemoryTest
 {
-    /**
-     * @var Ease\Logger\ToSyslog
-     */
-    protected $object;
+    protected Ease\Logger\ToSyslog $object;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -32,19 +40,19 @@ class ToSyslogTest extends ToMemoryTest
     }
 
     /**
-     * Test Constructor
+     * Test Constructor.
      *
      * @covers \Ease\Logger\ToSyslog::__construct
      */
-    public function testConstructor()
+    public function testConstructor(): void
     {
         global $_SESSION;
-        $classname = get_class($this->object);
+        $classname = \get_class($this->object);
 
         // Get mock, without the constructor being called
         $mock = $this->getMockBuilder($classname)
-                ->disableOriginalConstructor()
-                ->getMockForAbstractClass();
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
 
         $_SESSION['testApp']['EaseMessages'] = [];
         $mock->__construct();
@@ -52,41 +60,41 @@ class ToSyslogTest extends ToMemoryTest
     }
 
     /**
-     * @covers Ease\Logger\ToSyslog::addToLog
+     * @covers \Ease\Logger\ToSyslog::addToLog
      */
-    public function testAddToLog()
+    public function testAddToLog(): void
     {
         $this->assertIsNumeric($this->object->addToLog($this, 'test'));
     }
 
     /**
-     * @covers Ease\Logger\ToSyslog::singleton
+     * @covers \Ease\Logger\ToSyslog::singleton
      */
-    public function testSingleton()
+    public function testSingleton(): void
     {
         $this->assertInstanceOf('Ease\Logger\ToSyslog', ToSyslog::singleton());
     }
 
     /**
-     * @covers Ease\Logger\ToSyslog::__destruct
+     * @covers \Ease\Logger\ToSyslog::__destruct
      */
-    public function test__destruct()
+    public function testDestruct(): void
     {
         $this->assertNull($this->object->__destruct());
     }
 
     /**
-     * @covers Ease\Logger\ToSyslog::output
+     * @covers \Ease\Logger\ToSyslog::output
      */
-    public function testOutput()
+    public function testOutput(): void
     {
         $this->assertEquals(8, $this->object->output('info', 'UnitTest'));
     }
 
     /**
-     * @covers Ease\Logger\ToSyslog::finalizeMessage
+     * @covers \Ease\Logger\ToSyslog::finalizeMessage
      */
-    public function testFinalizeMessage()
+    public function testFinalizeMessage(): void
     {
         $this->assertEquals('test', $this->object->finalizeMessage(' test '));
     }
