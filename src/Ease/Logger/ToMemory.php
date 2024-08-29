@@ -3,8 +3,8 @@
 /**
  * Class to Log messages.
  *
- * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2021 Vitex@hippy.cz (G)
+ * @author    Vitex <info@vitexsoftware.cz>
+ * @copyright 2009-2021 info@vitexsoftware.cz (G)
  */
 
 declare(strict_types=1);
@@ -12,7 +12,7 @@ declare(strict_types=1);
 /**
  * This file is part of the EaseCore package.
  *
- * (c) Vítězslav Dvořák <http://vitexsoftware.com>
+ * (c) Vítězslav Dvořák <info@vitexsoftware.cz>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -26,27 +26,13 @@ class ToMemory extends \Ease\Atom implements Loggingable
      * Number of messages to keep.
      */
     public int $capacity = 1024;
-
-    /**
-     * Předvolená metoda logování.
-     */
     public string $logType = 'memory';
-
-    /**
-     * Adresář do kterého se zapisují logy.
-     *
-     * @var string dirpath
-     */
-    public string $logPrefix = null;
+    public string $logPrefix;
 
     /**
      * Messages live here.
      */
     public static array $statusMessages = [];
-
-    /**
-     * Hodnoty pro obarvování logu.
-     */
     public array $logStyles = [
         'notice' => 'color: black;',
         'success' => 'color: #2C5F23;',
@@ -57,14 +43,10 @@ class ToMemory extends \Ease\Atom implements Loggingable
         'report' => 'font-wight: bold;',
         'info' => 'color: blue;',
     ];
+    public \Ease\Sand $parentObject;
 
     /**
-     * Odkaz na vlastnící objekt.
-     */
-    public \Ease\Sand $parentObject = null;
-
-    /**
-     * ID naposledy ulozene zpravy.
+     * Last stored message ID .
      *
      * @var int unsigned
      */

@@ -86,7 +86,7 @@ Object oriented PHP Framework for easy&fast writing small/middle sized apps.
 
 %if 0%{?el6}
 # For old PHPUnit
-for test in $(find test -name \*Test.php); do
+for test in $(find tests -name \*Test.php); do
   sed -e '/assertNotFalse/s/);/, false);/;s/assertNotFalse/assertNotSame/' -i $test
 done
 %endif

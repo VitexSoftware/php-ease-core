@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * This file is part of the EaseCore package.
  *
- * (c) Vítězslav Dvořák <http://vitexsoftware.com>
+ * (c) Vítězslav Dvořák <info@vitexsoftware.cz>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -13,11 +13,14 @@ declare(strict_types=1);
 
 namespace Test\Ease\Logger;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+
 /**
  * Description of LoggingTest.
  *
  * @author vitex
  */
+#[CoversClass(\Ease\Logger\Logging::class)]
 class LoggingTest extends \PHPUnit\Framework\TestCase
 {
     protected \Test\Ease\Local\LoggingTester $object;

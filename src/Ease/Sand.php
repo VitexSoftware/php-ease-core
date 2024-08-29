@@ -3,8 +3,8 @@
 /**
  * Zakladni objekt urceny k rodicovstvi pokročilým objektum.
  *
- * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2021 Vitex@hippy.cz (G)
+ * @author    Vitex <info@vitexsoftware.cz>
+ * @copyright 2009-2021 info@vitexsoftware.cz (G)
  *
  * PHP 7
  */
@@ -14,7 +14,7 @@ declare(strict_types=1);
 /**
  * This file is part of the EaseCore package.
  *
- * (c) Vítězslav Dvořák <http://vitexsoftware.com>
+ * (c) Vítězslav Dvořák <info@vitexsoftware.cz>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -25,8 +25,8 @@ namespace Ease;
 /**
  * Zakladni objekt urceny k rodicovstvi vsem pouzivanym objektum.
  *
- * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2023 Vitex@hippy.cz (G)
+ * @author    Vitex <info@vitexsoftware.cz>
+ * @copyright 2009-2023 info@vitexsoftware.cz (G)
  */
 class Sand extends Molecule
 {
@@ -35,7 +35,7 @@ class Sand extends Molecule
     /**
      * Default Language Code.
      */
-    public string $langCode = null;
+    public ?string $langCode = null;
 
     /**
      * Common object data holder.
@@ -52,7 +52,7 @@ class Sand extends Molecule
     /**
      * Sdílený objekt frameworku.
      */
-    public Shared $easeShared = null;
+    public Shared $easeShared;
 
     /**
      * Vynuluje všechny pole vlastností objektu.

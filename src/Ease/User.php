@@ -3,8 +3,8 @@
 /**
  * User objects.
  *
- * @author    Vítězslav Dvořák <vitex@hippy.cz>
- * @copyright 2009-2023 Vitex@hippy.cz (G)
+ * @author    Vítězslav Dvořák <info@vitexsoftware.cz>
+ * @copyright 2009-2023 info@vitexsoftware.cz (G)
  *
  * PHP 7
  */
@@ -14,7 +14,7 @@ declare(strict_types=1);
 /**
  * This file is part of the EaseCore package.
  *
- * (c) Vítězslav Dvořák <http://vitexsoftware.com>
+ * (c) Vítězslav Dvořák <info@vitexsoftware.cz>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -25,7 +25,7 @@ namespace Ease;
 /**
  * User Class.
  *
- * @author  Vítězslav Dvořák <vitex@hippy.cz>
+ * @author  Vítězslav Dvořák <info@vitexsoftware.cz>
  */
 class User extends Anonym
 {
@@ -69,7 +69,7 @@ class User extends Anonym
     /**
      * Sloupecek pro docasne zablokovani uctu.
      */
-    public string $disableColumn = null;
+    public string $disableColumn;
 
     /**
      * Column for user mail.
@@ -79,7 +79,7 @@ class User extends Anonym
     /**
      * Sloupeček obsahující serializované rozšířené informace.
      */
-    public string $settingsColumn = null;
+    public string $settingsColumn;
 
     /**
      * Store of user permissions.
@@ -119,17 +119,15 @@ class User extends Anonym
     }
 
     /**
-     * Retrun user's mail address.
-     *
-     * @return string
+     * user's mail address.
      */
-    public function getUserEmail()
+    public function getUserEmail(): string
     {
         return $this->getDataValue($this->mailColumn);
     }
 
     /**
-     * Vykreslí GrAvatara uživatele.
+     * Embed helper for \Ease\Embedable.
      */
     public function draw()
     {
@@ -137,11 +135,9 @@ class User extends Anonym
     }
 
     /**
-     * Vrací odkaz na url ikony.
-     *
-     * @return string url ikony
+     * User Icon URL.
      */
-    public function getIcon()
+    public function getIcon(): string
     {
         $email = $this->getUserEmail();
 
@@ -368,21 +364,19 @@ class User extends Anonym
     }
 
     /**
-     * Vraci ID přihlášeného uživatele.
+     * ID Of signed user.
      *
-     * @return int ID uživatele
+     * @return int UserID
      */
-    public function getUserID()
+    public function getUserID(): int
     {
         return isset($this->userID) ? (int) $this->userID : (int) $this->getMyKey();
     }
 
     /**
-     * Vrací login uživatele.
-     *
-     * @return string
+     * User Login.
      */
-    public function getUserLogin()
+    public function getUserLogin(): string
     {
         return $this->userLogin ?? $this->getDataValue($this->loginColumn);
     }
@@ -405,10 +399,8 @@ class User extends Anonym
      * Vrací hodnotu uživatelského oprávnění.
      *
      * @param string $permKeyword klíčové slovo oprávnění
-     *
-     * @return mixed
      */
-    public function getPermission($permKeyword = null)
+    public function getPermission($permKeyword = null): mixed
     {
         if (isset($this->permissions[$permKeyword])) {
             return $this->permissions[$permKeyword];
@@ -416,7 +408,7 @@ class User extends Anonym
     }
 
     /**
-     * Provede odhlášení uživatele.
+     * Sign out.
      */
     public function logout()
     {
@@ -430,10 +422,8 @@ class User extends Anonym
      * Vrací hodnotu nastavení.
      *
      * @param string $settingName jméno nastavení
-     *
-     * @return mixed
      */
-    public function getSettingValue($settingName = null)
+    public function getSettingValue($settingName = null): mixed
     {
         if (isset($this->settings[$settingName])) {
             return $this->settings[$settingName];
@@ -441,7 +431,7 @@ class User extends Anonym
     }
 
     /**
-     * Nastavuje nastavení.
+     * Set User Settings.
      *
      * @param array $settings asociativní pole nastavení
      */
@@ -451,10 +441,10 @@ class User extends Anonym
     }
 
     /**
-     * Nastaví položku nastavení.
+     * Set Settings item.
      *
-     * @param string $settingName  klíčové slovo pro nastavení
-     * @param mixed  $settingValue hodnota nastavení
+     * @param string $settingName
+     * @param mixed  $settingValue
      */
     public function setSettingValue($settingName, $settingValue): void
     {

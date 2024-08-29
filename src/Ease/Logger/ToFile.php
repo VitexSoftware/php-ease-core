@@ -3,8 +3,8 @@
 /**
  * File Logging class.
  *
- * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2023 Vitex@hippy.cz (G)
+ * @author    Vitex <info@vitexsoftware.cz>
+ * @copyright 2009-2023 info@vitexsoftware.cz (G)
  */
 
 declare(strict_types=1);
@@ -12,7 +12,7 @@ declare(strict_types=1);
 /**
  * This file is part of the EaseCore package.
  *
- * (c) Vítězslav Dvořák <http://vitexsoftware.com>
+ * (c) Vítězslav Dvořák <info@vitexsoftware.cz>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -30,7 +30,7 @@ class ToFile extends ToMemory implements Loggingable
      *
      * @var string dirpath
      */
-    public string $logPrefix = null;
+    public string $logPrefix;
 
     /**
      * Soubor s do kterého se zapisuje log.
@@ -40,12 +40,12 @@ class ToFile extends ToMemory implements Loggingable
     /**
      * Odkaz na vlastnící objekt.
      */
-    public \Ease\Sand $parentObject = null;
+    public \Ease\Sand $parentObject;
 
     /**
      * Obecné konfigurace frameworku.
      */
-    public \Ease\Shared $easeShared = null;
+    public \Ease\Shared $easeShared;
 
     /**
      * Filedescriptor Logu.

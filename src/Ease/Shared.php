@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2023 Vitex@hippy.cz (G)
+ * @author    Vitex <info@vitexsoftware.cz>
+ * @copyright 2009-2023 info@vitexsoftware.cz (G)
  *
  * PHP 7
  * PHP 8
@@ -13,7 +13,7 @@ declare(strict_types=1);
 /**
  * This file is part of the EaseCore package.
  *
- * (c) Vítězslav Dvořák <http://vitexsoftware.com>
+ * (c) Vítězslav Dvořák <info@vitexsoftware.cz>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -24,8 +24,8 @@ namespace Ease;
 /**
  * Common shared object.
  *
- * @copyright 2009-2023 Vitex@hippy.cz (G)
- * @author    Vitex <vitex@hippy.cz>
+ * @copyright 2009-2023 info@vitexsoftware.cz (G)
+ * @author    Vitex <info@vitexsoftware.cz>
  */
 class Shared extends Atom
 {
@@ -54,7 +54,7 @@ class Shared extends Atom
     /**
      * Saves obejct instace (singleton...).
      */
-    private static Shared $instance = null;
+    private static Shared $instance;
 
     /**
      * Inicializace sdílené třídy.

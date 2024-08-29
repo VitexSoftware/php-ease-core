@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * This file is part of the EaseCore package.
  *
- * (c) Vítězslav Dvořák <http://vitexsoftware.com>
+ * (c) Vítězslav Dvořák <info@vitexsoftware.cz>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -13,14 +13,19 @@ declare(strict_types=1);
 
 namespace Test\Ease;
 
+use PHPUnit\Framework\Attributes\CoversTrait;
+use Test\Ease\Local\SandTester;
+use \Ease\RecordKey;
+
 /**
  * Description of RecordKeyTest.
  *
  * @author Vítězslav Dvořák <info@vitexsoftware.cz>
  */
+#[CoversTrait('RecordKey')]
 class RecordKeyTest extends \PHPUnit\Framework\TestCase
 {
-    protected SandTest $object;
+    protected SandTester $sand;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -28,7 +33,7 @@ class RecordKeyTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp(): void
     {
-        $this->object = new Local\SandTester();
+        $this->sand = new SandTester();
     }
 
     /**
@@ -36,9 +41,9 @@ class RecordKeyTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetMyKey(): void
     {
-        $this->object->setmyKey('test');
-        $this->assertEquals('test', $this->object->getmyKey());
-        $this->assertEquals('X', $this->object->getmyKey(['id' => 'X']));
+        $this->sand->setmyKey('test');
+        $this->assertEquals('test', $this->sand->getmyKey());
+        $this->assertEquals('X', $this->sand->getmyKey(['id' => 'X']));
     }
 
     /**
@@ -46,8 +51,8 @@ class RecordKeyTest extends \PHPUnit\Framework\TestCase
      */
     public function testSetMyKey(): void
     {
-        $this->object->setmyKey('test');
-        $this->assertEquals('test', $this->object->getmyKey());
+        $this->sand->setmyKey('test');
+        $this->assertEquals('test', $this->sand->getmyKey());
     }
 
     /**
@@ -55,8 +60,8 @@ class RecordKeyTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetkeyColumn(): void
     {
-        $this->object->setkeyColumn('test');
-        $this->assertEquals('test', $this->object->getKeyColumn());
+        $this->sand->setkeyColumn('test');
+        $this->assertEquals('test', $this->sand->getKeyColumn());
     }
 
     /**
@@ -64,7 +69,7 @@ class RecordKeyTest extends \PHPUnit\Framework\TestCase
      */
     public function testSetkeyColumn(): void
     {
-        $this->object->setkeyColumn('test');
-        $this->assertEquals('test', $this->object->getKeyColumn());
+        $this->sand->setkeyColumn('test');
+        $this->assertEquals('test', $this->sand->getKeyColumn());
     }
 }

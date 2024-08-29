@@ -4,7 +4,7 @@ Binary: ease-core
 Architecture: all
 Version: 1.16
 Maintainer: Vítězslav Dvořák <info@vitexsoftware.cz>
-Uploaders: Vitex <vitex@hippy.cz>
+Uploaders: Vitex <info@vitexsoftware.cz>
 Homepage: https://github.com/VitexSoftware/ease-core
 Standards-Version: 3.9.8
 Build-Depends: debhelper (>= 7.0.50~)

@@ -3,7 +3,7 @@ Build-Depends: debhelper (>= 10), moreutils, jq, composer, phpdocumentor, php-mb
 Section: web
 Standards-Version: 3.9.8
 Maintainer: Vítězslav Dvořák <info@vitexsoftware.cz>
-Uploaders: Vitex <vitex@hippy.cz>
+Uploaders: Vitex <info@vitexsoftware.cz>
 Priority: optional
 Homepage: https://github.com/VitexSoftware/php-ease-core
 

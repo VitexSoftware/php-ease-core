@@ -3,8 +3,8 @@
 /**
  * Classes for sending Mail ✉.
  *
- * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2023 Vitex@hippy.cz (G)
+ * @author    Vitex <info@vitexsoftware.cz>
+ * @copyright 2009-2023 info@vitexsoftware.cz (G)
  *
  * PHP 7
  */
@@ -14,7 +14,7 @@ declare(strict_types=1);
 /**
  * This file is part of the EaseCore package.
  *
- * (c) Vítězslav Dvořák <http://vitexsoftware.com>
+ * (c) Vítězslav Dvořák <info@vitexsoftware.cz>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -26,20 +26,20 @@ namespace Ease;
  * Build & Send email
  * Builds and sends the email.
  *
- * @author Vitex <vitex@hippy.cz>
+ * @author Vitex <info@vitexsoftware.cz>
  */
 class Mailer extends Sand
 {
     /**
      * Object for mail sending.
      */
-    public \Mail $mailer = null;
+    public \Mail $mailer;
 
     /**
      * MIME Helper.
      */
-    public \Mail_mime $mimer = null;
-    public string $textBody = null;
+    public \Mail_mime $mimer;
+    public string $textBody;
 
     /**
      * Mail Headers.
@@ -55,7 +55,7 @@ class Mailer extends Sand
      * Line divider.
      */
     public string $crLf = "\n";
-    public array $mailBody = '';
+    public array $mailBody = [''];
     public bool $finalized = false;
 
     /**
@@ -66,12 +66,12 @@ class Mailer extends Sand
     /**
      * Email subject holder.
      */
-    public string $emailSubject = null;
+    public string $emailSubject;
 
     /**
      * The sender's email address.
      */
-    public string $fromEmailAddress = null;
+    public string $fromEmailAddress;
 
     /**
      * Show information about sending the message to the user?

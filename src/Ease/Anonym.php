@@ -3,8 +3,8 @@
 /**
  * Anonymous user class.
  *
- * @author    Vítězslav Dvořák <vitex@hippy.cz>
- * @copyright 2009-2023 Vitex@hippy.cz (G)
+ * @author    Vítězslav Dvořák <info@vitexsoftware.cz>
+ * @copyright 2009-2023 info@vitexsoftware.cz (G)
  *
  * @category User Classes
  */
@@ -14,7 +14,7 @@ declare(strict_types=1);
 /**
  * This file is part of the EaseCore package.
  *
- * (c) Vítězslav Dvořák <http://vitexsoftware.com>
+ * (c) Vítězslav Dvořák <info@vitexsoftware.cz>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -88,10 +88,8 @@ class Anonym extends Brick implements Person
 
     /**
      * Anonymous has a level.
-     *
-     * @return int
      */
-    public function getUserLevel()
+    public function getUserLevel(): int
     {
         return -1;
     }
@@ -99,15 +97,17 @@ class Anonym extends Brick implements Person
     /**
      * Anonymous has no ID.
      */
-    public function getUserID(): void
+    public function getUserID(): int
     {
+        return -1;
     }
 
     /**
      * Anonymous has no login.
      */
-    public function getUserLogin(): void
+    public function getUserLogin(): string
     {
+        return '';
     }
 
     /**
@@ -125,7 +125,7 @@ class Anonym extends Brick implements Person
      *
      * @param string $settingName settings-key name
      */
-    public function getSettingValue(/** @scrutinizer ignore-unused */ $settingName = null): void
+    public function getSettingValue(/** @scrutinizer ignore-unused */ $settingName = null): mixed
     {
     }
 
@@ -143,8 +143,9 @@ class Anonym extends Brick implements Person
     /**
      * Anonymous has no mail.
      */
-    public function getUserEmail(): void
+    public function getUserEmail(): string
     {
+        return '';
     }
 
     /**
@@ -152,8 +153,9 @@ class Anonym extends Brick implements Person
      *
      * @param string $permKeyword permission keyword
      */
-    public function getPermission(/** @scrutinizer ignore-unused */ $permKeyword = null): void
+    public function getPermission(/** @scrutinizer ignore-unused */ $permKeyword = null): mixed
     {
+        return null;
     }
 
     /**
