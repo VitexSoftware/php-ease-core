@@ -17,10 +17,6 @@
             <directory>tests</directory>
         </testsuite>
     </testsuites>
-    <report>
-        <html outputDirectory="debian/tmp/html-coverage" lowUpperBound="50" highLowerBound="90"/>
-        <text outputFile="debian/tmp/coverage.txt" showUncoveredFiles="false" showOnlySummary="true"/>
-    </report> 
     <coverage cacheDirectory=".phpunit.cache/code-coverage"
               processUncoveredFiles="true">
         <include>
