@@ -97,4 +97,25 @@ class Molecule extends Atom
             }
         }
     }
+    
+    /**
+     * Set up one of the properties by 1) array 2) ENV 3) Constant to bool value
+     *
+     * @param array  $options  array of given availble properties
+     * @param string $name     name of property to set up
+     * @param string $constant load default property value from constant / ENV
+     */
+    public function setupBoolProperty($options, $name, $constant = '')
+    {
+        if (array_key_exists($name, $options)) {
+            $this->$name = (bool) $options[$name];
+        } elseif (array_key_exists($constant, $options)) {
+            $this->$name = (bool) $options[$constant];
+        } else { // If No values specified we must use constants or environment
+            if ($constant && (empty(Functions::cfg($constant)) === false)) {
+                $this->$name = (bool) Functions::cfg($constant);
+            }
+        }
+    }
+    
 }
