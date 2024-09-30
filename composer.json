@@ -40,5 +40,10 @@
     },
     "type": "library",
     "homepage": "http://v.s.cz/ease.php",
-    "license": "MIT"
+    "license": "MIT",
+    "config": {
+        "allow-plugins": {
+            "ergebnis/composer-normalize": true
+        }
+    }
 }

@@ -1,33 +1,28 @@
-repoversion=$(shell LANG=C aptitude show php-vitexsoftware-ease-core | grep Version: | awk '{print $$2}')
-nextversion=$(shell echo $(repoversion) | perl -ne 'chomp; print join(".", splice(@{[split/\./,$$_]}, 0, -1), map {++$$_} pop @{[split/\./,$$_]}), "\n";')
+# vim: set tabstop=8 softtabstop=8 noexpandtab:
+.PHONY: help
+help: ## Displays this list of targets with descriptions
+	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}'
 
-#DESTDIR ?= debian/php-ease-core/DEBIAN
-#libdir  ?= /usr/share/php/Ease
-#docdir  ?= /doc/ease-core/html
+.PHONY: cs
+cs: vendor ## Normalizes composer.json with ergebnis/composer-normalize and fixes code style issues with friendsofphp/php-cs-fixer
+	mkdir -p .build/php-cs-fixer
+	vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --diff --verbose
 
-all: build install
+.PHONY: static-code-analysis
+static-code-analysis: check-symfony vendor ## Runs a static code analysis with phpstan/phpstan
+	vendor/bin/phpstan analyse --configuration=phpstan-default.neon.dist --memory-limit=-1
 
-help:
-	@awk 'BEGIN {FS = ":.*?## "} /^[0-9a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+.PHONY: static-code-analysis-baseline
+static-code-analysis-baseline: check-symfony vendor ## Generates a baseline for static code analysis with phpstan/phpstan
+	venndor/bin/phpstan analyze --configuration=phpstan-default.neon.dist --generate-baseline=phpstan-default-baseline.neon --memory-limit=-1
 
-fresh: ## Update source code
-	git pull origin master
-	PACKAGE=`cat debian/composer.json | grep '"name"' | head -n 1 |  awk -F'"' '{print $4}'`; \
-	VERSION=`cat debian/composer.json | grep version | awk -F'"' '{print $4}'`; \
-	dch -b -v "${VERSION}" --package ${PACKAGE} "$CHANGES" \
+.PHONY: tests
+tests: vendor
+	vendor/bin/phpunit tests
+
+.PHONY: vendor
+vendor: composer.json ## Installs composer dependencies
 	composer install
-	
-#install:
-#	mkdir -p $(DESTDIR)$(libdir)
-#	cp -r src/Ease/ $(DESTDIR)$(libdir)
-#	cp -r debian/composer.json $(DESTDIR)$(libdir)
-#	mkdir -p $(DESTDIR)$(docdir)
-#	cp -r docs $(DESTDIR)$(docdir)
-
-#build: doc
-#	echo build;	
-
-doc:	phpdoc
 
 clean: ## remove unneeded files
 	rm -rf vendor composer.lock
@@ -40,8 +35,6 @@ phpdoc: clean
 	mkdir -p docs
 	phpdoc --defaultpackagename=MainPackage
 	mv .phpdoc/build/* docs
-
-
 
 apigen: ## Build Apigen documentation
 	rm -rfv docs ; mkdir docs
@@ -82,8 +75,3 @@ phpstan:
 	phpstan analyse --error-format=checkstyle --level=4 src
 
 
-openbuild:
-	
-
-.PHONY : install build
-	
