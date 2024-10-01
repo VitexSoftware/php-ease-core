@@ -66,13 +66,13 @@ class Mailer extends Sand
      *
      * @var array
      */
-    public $mailBody = '';
+    public $mailBody;
 
     /**
      *
      * @var boolean
      */
-    public $finalized = false;
+    public bool $finalized = false;
 
     /**
      * The sender's address.

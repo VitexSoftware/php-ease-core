@@ -34,7 +34,7 @@ class Shared extends Atom
      *
      * @var Shared
      */
-    private static $instance = null;
+    private static $instance;
 
     /**
      * Array of Status Messages
@@ -259,7 +259,7 @@ class Shared extends Atom
     /**
      * Vrací instanci objektu logování.
      *
-     * @param array|null $logger Override inital loggers
+     * @param array|null $loggers Override inital loggers
      *
      * @return Logger\Regent
      */
@@ -271,12 +271,11 @@ class Shared extends Atom
     /**
      * Gives you shared User object. Create it first if not exist yet.
      *
-     * @param Person|User|Anonym|string $user objekt nového uživatele nebo
-     *                                 název třídy
+     * @param Person|User|Anonym|string $user objekt nového uživatele nebo název třídy
      *
      * @return User
      */
-    public static function &user(Person $user = null, string $candidat = 'User', string $userSessionName = 'User')
+    public static function &user(?Person $user = null, string $candidat = 'User', string $userSessionName = 'User')
     {
         $efprefix = self::appName();
         if (empty($user) && isset($_SESSION[$efprefix][self::$userSessionName])) {

@@ -77,9 +77,6 @@ class Regent extends \Ease\Atom implements Loggingable
                 case 'memory':
                     $this->loggers[$logger] = ToMemory::singleton();
                     break;
-                case 'email':
-                    $this->loggers[$logger] = ToEmail::singleton();
-                    break;
                 case 'std':
                     $this->loggers[$logger] = ToStd::singleton();
                     break;
