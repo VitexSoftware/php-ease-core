@@ -52,7 +52,7 @@ class UserTest extends AnonymTest
         $mock = $this->getMockBuilder($classname)
             ->disableOriginalConstructor()
             ->getMockForAbstractClass();
-        $mock->__construct('test', ['debug' => false]);
+        $mock->__construct(0, ['debug' => false]);
 
         $this->assertEmpty($mock->getData());
     }
@@ -104,7 +104,7 @@ class UserTest extends AnonymTest
         $this->assertEmpty($this->object->tryToLogin([]));
         $this->assertEmpty($this->object->tryToLogin(['login' => 'noone']));
         $this->assertEmpty($this->object->tryToLogin(['login' => '', 'password' => '']));
-        $this->assertFalse($this->object->logged, $this->object->tryToLogin(['login' => 'vitex', 'password' => 'secret']));
+        $this->assertFalse($this->object->tryToLogin(['login' => 'vitex', 'password' => 'secret']));
     }
 
     /**

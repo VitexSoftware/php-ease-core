@@ -78,7 +78,7 @@ class MoleculeTest extends AtomTest
         $this->object->setupProperty(['OBJNAME' => 'Copy'], 'objectName', 'OBJNAME');
         $this->assertEquals('Copy', $this->object->objectName);
 
-        $this->object->objectName = null;
+        $this->object->objectName = '';
         $this->object->setupProperty(['key' => 'value'], 'objectName', 'OBJNAME');
         $this->assertEquals('CONSTATNT', $this->object->objectName);
 

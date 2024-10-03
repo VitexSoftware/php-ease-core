@@ -30,7 +30,7 @@ class ToFile extends ToMemory implements Loggingable
      *
      * @var string dirpath
      */
-    public string $logPrefix = null;
+    public string $logPrefix = '';
 
     /**
      * Soubor s do kterého se zapisuje log.
@@ -40,12 +40,12 @@ class ToFile extends ToMemory implements Loggingable
     /**
      * Odkaz na vlastnící objekt.
      */
-    public \Ease\Sand $parentObject = null;
+    public \Ease\Sand $parentObject;
 
     /**
      * Obecné konfigurace frameworku.
      */
-    public \Ease\Shared $easeShared = null;
+    public \Ease\Shared $easeShared;
 
     /**
      * Filedescriptor Logu.

@@ -35,7 +35,7 @@ class Sand extends Molecule
     /**
      * Default Language Code.
      */
-    public string $langCode = null;
+    public ?string $langCode = null;
 
     /**
      * Common object data holder.
@@ -52,7 +52,7 @@ class Sand extends Molecule
     /**
      * Sdílený objekt frameworku.
      */
-    public Shared $easeShared = null;
+    public Shared $easeShared;
 
     /**
      * Vynuluje všechny pole vlastností objektu.

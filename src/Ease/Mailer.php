@@ -38,9 +38,9 @@ class Mailer extends Sand
     /**
      * MIME Helper.
      */
-    public \Mail_mime $mimer = null;
+    public \Mail_mime $mimer;
 
-    public string $textBody = null;
+    public string $textBody = '';
 
     /**
      * Mail Headers.
@@ -69,12 +69,12 @@ class Mailer extends Sand
     /**
      * Email subject holder.
      */
-    public string $emailSubject = null;
+    public string $emailSubject = '';
 
     /**
      * The sender's email address.
      */
-    public string $fromEmailAddress = null;
+    public string $fromEmailAddress = '';
 
     /**
      * Show information about sending the message to the user?
@@ -123,7 +123,7 @@ class Mailer extends Sand
         ];
 
         $this->mimer = new \Mail_mime($mimerParams);
-        $this->textBody = $emailContents;
+        $this->textBody = (string)$emailContents;
         $this->mimer->setTXTBody('');
         $this->setObjectName();
     }

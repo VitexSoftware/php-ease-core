@@ -59,7 +59,7 @@ class Anonym extends Brick implements Person
      *
      * @return string
      */
-    public function setObjectName($objectName = null)
+    public function setObjectName($objectName = null): string
     {
         if (null === $objectName && isset($_SERVER['REMOTE_ADDR'])) {
             $name = parent::setObjectName(\get_class($this).'@'.self::remoteToIdentity());
@@ -91,7 +91,7 @@ class Anonym extends Brick implements Person
      *
      * @return int
      */
-    public function getUserLevel()
+    public function getUserLevel(): int
     {
         return -1;
     }
@@ -99,15 +99,17 @@ class Anonym extends Brick implements Person
     /**
      * Anonymous has no ID.
      */
-    public function getUserID(): void
+    public function getUserID(): int
     {
+        return 0;
     }
 
     /**
      * Anonymous has no login.
      */
-    public function getUserLogin(): void
+    public function getUserLogin(): string
     {
+        return '';
     }
 
     /**
@@ -125,26 +127,26 @@ class Anonym extends Brick implements Person
      *
      * @param string $settingName settings-key name
      */
-    public function getSettingValue(/** @scrutinizer ignore-unused */ $settingName = null): void
+    public function getSettingValue($settingName): ?string
     {
+        return $settingName ? null : '';
     }
 
     /**
      * Sets to: has no settings.
-     *
-     * @param string $settingName  settings keyword (name)
-     * @param mixed  $settingValue setting value
      */
-    public function setSettingValue($settingName, $settingValue): void
+    public function setSettingValue($settingName, $settingValue): bool
     {
         $this->settings[$settingName] = $settingValue;
+        return true;
     }
 
     /**
      * Anonymous has no mail.
      */
-    public function getUserEmail(): void
+    public function getUserEmail(): string
     {
+        return '';
     }
 
     /**
@@ -152,8 +154,9 @@ class Anonym extends Brick implements Person
      *
      * @param string $permKeyword permission keyword
      */
-    public function getPermission(/** @scrutinizer ignore-unused */ $permKeyword = null): void
+    public function getPermission(string $permKeyword): ?string
     {
+        return $permKeyword ? null : '' ;
     }
 
     /**

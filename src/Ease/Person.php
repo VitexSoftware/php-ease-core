@@ -43,11 +43,9 @@ interface Person
     public function isLogged();
 
     /**
-     * Anonym nemá nastavení.
-     *
-     * @param string $settingName jméno klíče nastavení
+     * Setting getter.
      */
-    public function getSettingValue(/** @scrutinizer ignore-unused */ $settingName = null);
+    public function getSettingValue(string $settingName): ?string;
 
     /**
      * Nastaví položku nastavení.
@@ -55,19 +53,19 @@ interface Person
      * @param string $settingName  klíčové slovo pro nastavení
      * @param mixed  $settingValue hodnota nastavení
      */
-    public function setSettingValue($settingName, $settingValue);
+    public function setSettingValue($settingName, $settingValue):bool;
 
     /**
      * Anonym nemá mail.
      */
-    public function getUserEmail();
+    public function getUserEmail():string;
 
     /**
      * Fake permissions.
      *
      * @param string $permKeyword permission keyword
      */
-    public function getPermission(/** @scrutinizer ignore-unused */ $permKeyword = null);
+    public function getPermission(string $permKeyword): ?string;
 
     /**
      * Just fake.

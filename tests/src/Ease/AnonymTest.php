@@ -86,7 +86,7 @@ class AnonymTest extends BrickTest
      */
     public function testGetUserID(): void
     {
-        $this->assertNull($this->object->getUserID());
+        $this->assertEquals(0,$this->object->getUserID());
     }
 
     /**
@@ -94,7 +94,7 @@ class AnonymTest extends BrickTest
      */
     public function testGetUserLogin(): void
     {
-        $this->assertNull($this->object->getUserLogin());
+        $this->assertEmpty($this->object->getUserLogin());
     }
 
     /**
@@ -127,7 +127,7 @@ class AnonymTest extends BrickTest
      */
     public function testGetUserEmail(): void
     {
-        $this->assertNull($this->object->getUserEmail());
+        $this->assertEmpty($this->object->getUserEmail());
     }
 
     /**
@@ -135,7 +135,7 @@ class AnonymTest extends BrickTest
      */
     public function testGetPermission(): void
     {
-        $this->assertNull($this->object->getPermission());
+        $this->assertNull($this->object->getPermission('test'));
     }
 
     /**

@@ -36,7 +36,7 @@ class ToStd extends ToMemory implements Loggingable
     /**
      * Log Name.
      */
-    public string $logName = null;
+    public string $logName = '';
 
     /**
      * ID naposledy ulozene zpravy.

@@ -69,17 +69,17 @@ class User extends Anonym
     /**
      * Sloupecek pro docasne zablokovani uctu.
      */
-    public string $disableColumn = null;
+    public ?string $disableColumn = null;
 
     /**
      * Column for user mail.
      */
-    public string $mailColumn = 'email';
+    public ?string $mailColumn = 'email';
 
     /**
      * Sloupeček obsahující serializované rozšířené informace.
      */
-    public string $settingsColumn = null;
+    public string $settingsColumn = '';
 
     /**
      * Store of user permissions.
@@ -99,7 +99,7 @@ class User extends Anonym
     }
 
     /**
-     * Pro serializaci připraví vše.
+     * Prepare for serialization
      *
      * @return array
      */
@@ -119,19 +119,17 @@ class User extends Anonym
     }
 
     /**
-     * Retrun user's mail address.
-     *
-     * @return string
+     * Return user's mail address.
      */
-    public function getUserEmail()
+    public function getUserEmail(): string
     {
-        return $this->getDataValue($this->mailColumn);
+        return (string)$this->getDataValue($this->mailColumn);
     }
 
     /**
      * Vykreslí GrAvatara uživatele.
      */
-    public function draw()
+    public function draw(): string
     {
         return '<img class="avatar" src="'.$this->getIcon().'">';
     }
@@ -141,7 +139,7 @@ class User extends Anonym
      *
      * @return string url ikony
      */
-    public function getIcon()
+    public function getIcon(): string
     {
         $email = $this->getUserEmail();
 
@@ -302,7 +300,7 @@ class User extends Anonym
     public function loginSuccess()
     {
         $this->userID = (int) $this->getMyKey();
-        $this->setUserLogin($this->getDataValue($this->loginColumn));
+        $this->setUserLogin((string)$this->getDataValue($this->loginColumn));
         $this->logged = true;
         $this->addStatusMessage(sprintf(_('Signed in as %s'), $this->userLogin), 'success');
         $this->setObjectName();
@@ -372,29 +370,23 @@ class User extends Anonym
      *
      * @return int ID uživatele
      */
-    public function getUserID()
+    public function getUserID() : int
     {
         return isset($this->userID) ? (int) $this->userID : (int) $this->getMyKey();
     }
 
     /**
      * Vrací login uživatele.
-     *
-     * @return string
      */
-    public function getUserLogin()
+    public function getUserLogin() : string
     {
-        return $this->userLogin ?? $this->getDataValue($this->loginColumn);
+        return $this->userLogin ?? (string)$this->getDataValue($this->loginColumn);
     }
 
     /**
-     * Nastavuje login uživatele.
-     *
-     * @param mixed $login
-     *
-     * @return bool
+     * Set User Login name.
      */
-    public function setUserLogin($login)
+    public function setUserLogin(string $login): bool
     {
         $this->userLogin = $login;
 
@@ -402,23 +394,17 @@ class User extends Anonym
     }
 
     /**
-     * Vrací hodnotu uživatelského oprávnění.
-     *
-     * @param string $permKeyword klíčové slovo oprávnění
-     *
-     * @return mixed
+     * Set user's permission value.
      */
-    public function getPermission($permKeyword = null)
+    public function getPermission(string $permKeyword = null): ?string
     {
-        if (isset($this->permissions[$permKeyword])) {
-            return $this->permissions[$permKeyword];
-        }
+        return isset($this->permissions[$permKeyword]) ? $this->permissions[$permKeyword] : null ;
     }
 
     /**
-     * Provede odhlášení uživatele.
+     * Sign off.
      */
-    public function logout()
+    public function logout(): bool
     {
         $this->logged = false;
         $this->addStatusMessage(_('Sign Out successful'), 'success');
@@ -427,13 +413,9 @@ class User extends Anonym
     }
 
     /**
-     * Vrací hodnotu nastavení.
-     *
-     * @param string $settingName jméno nastavení
-     *
-     * @return mixed
+     * Get Setting
      */
-    public function getSettingValue($settingName = null)
+    public function getSettingValue($settingName): string
     {
         if (isset($this->settings[$settingName])) {
             return $this->settings[$settingName];
@@ -445,9 +427,10 @@ class User extends Anonym
      *
      * @param array $settings asociativní pole nastavení
      */
-    public function setSettings($settings): void
+    public function setSettings($settings): bool
     {
         $this->settings = array_merge($this->settings, $settings);
+        return true;
     }
 
     /**
@@ -456,9 +439,10 @@ class User extends Anonym
      * @param string $settingName  klíčové slovo pro nastavení
      * @param mixed  $settingValue hodnota nastavení
      */
-    public function setSettingValue($settingName, $settingValue): void
+    public function setSettingValue($settingName, $settingValue): bool
     {
         $this->settings[$settingName] = $settingValue;
+        return true;
     }
 
     /**
@@ -475,7 +459,7 @@ class User extends Anonym
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->getObjectName();
     }
@@ -493,7 +477,7 @@ class User extends Anonym
      *
      * @source http://gravatar.com/site/implement/images/php/
      */
-    public static function getGravatar($email, $size = 80, $default = 'mm', $maxRating = 'g')
+    public static function getGravatar($email, $size = 80, $default = 'mm', $maxRating = 'g'): string
     {
         $url = 'http://www.gravatar.com/avatar/';
         $url .= md5(strtolower(trim($email)));
@@ -504,12 +488,8 @@ class User extends Anonym
 
     /**
      * Nastavení jména objektu uživatele.
-     *
-     * @param string $objectName vynucené jméno objektu
-     *
-     * @return string
      */
-    public function setObjectName($objectName = null)
+    public function setObjectName($objectName = null): string
     {
         if (empty($objectName) && isset($_SERVER['REMOTE_ADDR'])) {
             $name = parent::setObjectName(\get_class($this).':'.$this->getUserName().'@'.

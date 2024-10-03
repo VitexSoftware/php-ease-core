@@ -61,7 +61,7 @@ class ToMemory extends \Ease\Atom implements Loggingable
     /**
      * Odkaz na vlastnící objekt.
      */
-    public \Ease\Sand $parentObject = null;
+    public \Ease\Sand $parentObject;
 
     /**
      * ID naposledy ulozene zpravy.

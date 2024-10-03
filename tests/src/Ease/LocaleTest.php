@@ -64,7 +64,7 @@ class LocaleTest extends \PHPUnit\Framework\TestCase
         $mock->__construct();
         $mock->__construct('cs_CZ', './i18n', 'php-vitexsoftware-ease-core');
         $this->assertEquals('cs_CZ', $mock->getLocaleUsed());
-        \Ease\Locale::$textDomain = null;
+        \Ease\Locale::$textDomain = '';
         $mock->__construct('cs_CZ', './i18n');
     }
 

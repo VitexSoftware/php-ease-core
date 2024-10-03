@@ -44,7 +44,7 @@ class Message
      */
     public string $type;
 
-    public \Ease\Atom $caller;
+    public $caller;
 
     /**
      * Message Timestamp.
