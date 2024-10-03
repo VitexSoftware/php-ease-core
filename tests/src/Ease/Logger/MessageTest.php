@@ -1,5 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+/**
+ * This file is part of the EaseCore package.
+ *
+ * (c) Vítězslav Dvořák <info@vitexsoftware.cz>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Test\Ease\Logger;
 
 use Ease\Logger\Message;
@@ -9,9 +20,6 @@ use Ease\Logger\Message;
  */
 class MessageTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var Message
-     */
     protected $object;
 
     /**
@@ -23,15 +31,22 @@ class MessageTest extends \PHPUnit\Framework\TestCase
         $this->object = new Message('test');
     }
 
-    
     /**
-     * Test Constructor
-     *
-     * @covers Ease\Logger\Message::__construct
+     * Tears down the fixture, for example, closes a network connection.
+     * This method is called after a test is executed.
      */
-    public function testConstructor()
+    protected function tearDown(): void
     {
-        $classname = get_class($this->object);
+    }
+
+    /**
+     * Test Constructor.
+     *
+     * @covers \Ease\Logger\Message::__construct
+     */
+    public function testConstructor(): void
+    {
+        $classname = \get_class($this->object);
 
         // Get mock, without the constructor being called
         $mock = $this->getMockBuilder($classname)
@@ -43,19 +58,11 @@ class MessageTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
-     */
-    protected function tearDown(): void
-    {
-    }
-
-    /**
-     * Test getTypeUnicodeSymbol
+     * Test getTypeUnicodeSymbol.
      *
-     * @covers Ease\Logger\Message::getTypeUnicodeSymbol
+     * @covers \Ease\Logger\Message::getTypeUnicodeSymbol
      */
-    public function testGetTypeUnicodeSymbol()
+    public function testGetTypeUnicodeSymbol(): void
     {
         $this->assertEquals('✉', Message::getTypeUnicodeSymbol('mail', false));
         $this->assertEquals('⚠', Message::getTypeUnicodeSymbol('warning', false));

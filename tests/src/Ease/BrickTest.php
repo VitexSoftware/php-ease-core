@@ -1,5 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+/**
+ * This file is part of the EaseCore package.
+ *
+ * (c) Vítězslav Dvořák <info@vitexsoftware.cz>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Test\Ease;
 
 use Ease\Brick;
@@ -9,9 +20,6 @@ use Ease\Brick;
  */
 class BrickTest extends SandTest
 {
-    /**
-     * @var Brick
-     */
     protected $object;
 
     /**
@@ -36,13 +44,13 @@ class BrickTest extends SandTest
     }
 
     /**
-     * Test Constructor
+     * Test Constructor.
      *
-     * @covers Ease\Brick::__construct
+     * @covers \Ease\Brick::__construct
      */
-    public function testConstructor()
+    public function testConstructor(): void
     {
-        $classname = get_class($this->object);
+        $classname = \get_class($this->object);
 
         // Get mock, without the constructor being called
         $mock = $this->getMockBuilder($classname)
@@ -50,40 +58,40 @@ class BrickTest extends SandTest
             ->getMockForAbstractClass();
         $mock->__construct(null, ['debug' => true]);
         $mock->__construct(1, ['autoload' => true, 'myTable' => 'test']);
-        $this->assertEquals(null, $mock->getMyKey());
+        $this->assertNull($mock->getMyKey());
     }
 
     /**
-     * @covers Ease\Brick::setObjectName
+     * @covers \Ease\Brick::setObjectName
      */
-    public function testSetObjectName()
+    public function testSetObjectName(): void
     {
-//        parent::testSetObjectName();
+        //        parent::testSetObjectName();
         $this->object->setMyKey(123);
         $this->object->setObjectName();
         $this->assertEquals(
-            '123@' . get_class($this->object),
-            $this->object->getObjectName()
+            '123@'.\get_class($this->object),
+            $this->object->getObjectName(),
         );
         $this->object->setObjectName('customBrick');
         $this->assertEquals('customBrick', $this->object->getObjectName());
     }
 
     /**
-     * @covers Ease\Brick::useIdentifier
+     * @covers \Ease\Brick::useIdentifier
      */
-    public function testuseIdentifier()
+    public function testuseIdentifier(): void
     {
         $this->object->useIdentifier(null);
         $this->object->useIdentifier($this->object);
         $this->assertEquals(
             $this->object->getMyKey(),
-            $this->object->useIdentifier(123)
+            $this->object->useIdentifier(123),
         );
         $this->object->useIdentifier(['key' => 'value']);
         $this->assertEquals(
             ['key' => 'value', 'id' => 123],
-            $this->object->getData()
+            $this->object->getData(),
         );
         $this->object->dataReset();
         $this->object->useIdentifier('name');
@@ -92,14 +100,14 @@ class BrickTest extends SandTest
     }
 
     /**
-     * @covers Ease\Brick::howToProcess
+     * @covers \Ease\Brick::howToProcess
      */
-    public function testhowToProcess()
+    public function testhowToProcess(): void
     {
         $this->assertEquals('id', $this->object->howToProcess(123));
         $this->assertEquals(
             'values',
-            $this->object->howToProcess(['key' => 'value'])
+            $this->object->howToProcess(['key' => 'value']),
         );
         $this->assertEquals('reuse', $this->object->howToProcess($this->object));
         $this->assertEquals('unknown', $this->object->howToProcess(false));

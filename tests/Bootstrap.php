@@ -1,22 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 /**
- * Zaváděcí soubor pro provádění PHPUnit testů na EaseFrameworkem.
+ * This file is part of the EaseCore package.
  *
- * @author     Vitex <vitex@hippy.cz>
- * @copyright  2012-2021 Vitex@hippy.cz (G)
+ * (c) Vítězslav Dvořák <info@vitexsoftware.cz>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Test\Ease;
 
-if (!defined('EASE_LOGGER')) {
-    define('EASE_LOGGER', 'memory');
+if (!\defined('EASE_LOGGER')) {
+    \define('EASE_LOGGER', 'memory');
 }
 
-define('EASE_APPNAME', 'unitTest');
-define('EASE_EMAILTO', 'info@vitexsoftware.cz');
+\define('EASE_APPNAME', 'unitTest');
+\define('EASE_EMAILTO', 'info@vitexsoftware.cz');
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__.'/../vendor/autoload.php';
 
 $_SESSION['locale'] = 'C';
 putenv('LOCALE=C');

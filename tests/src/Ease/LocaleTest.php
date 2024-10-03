@@ -1,5 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+/**
+ * This file is part of the EaseCore package.
+ *
+ * (c) Vítězslav Dvořák <info@vitexsoftware.cz>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Test\Ease;
 
 use Ease\Locale;
@@ -9,9 +20,6 @@ use Ease\Locale;
  */
 class LocaleTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var Locale
-     */
     protected $object;
 
     /**
@@ -29,6 +37,7 @@ class LocaleTest extends \PHPUnit\Framework\TestCase
                 $locales = '/usr/share/locale';
             }
         }
+
         $this->object = new Locale('cs_CZ', $locales, 'php-vitexsoftware-ease-core');
     }
 
@@ -41,17 +50,17 @@ class LocaleTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * Test Constructor
+     * Test Constructor.
      *
-     * @covers Ease\Locale::__construct
+     * @covers \Ease\Locale::__construct
      */
-    public function testConstructor()
+    public function testConstructor(): void
     {
-        $classname = get_class($this->object);
+        $classname = \get_class($this->object);
         // Get mock, without the constructor being called
         $mock = $this->getMockBuilder($classname)
-                ->disableOriginalConstructor()
-                ->getMockForAbstractClass();
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
         $mock->__construct();
         $mock->__construct('cs_CZ', './i18n', 'php-vitexsoftware-ease-core');
         $this->assertEquals('cs_CZ', $mock->getLocaleUsed());
@@ -60,9 +69,9 @@ class LocaleTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Ease\Locale::getPreferedLocale
+     * @covers \Ease\Locale::getPreferedLocale
      */
-    public function testGetPreferedLocale()
+    public function testGetPreferedLocale(): void
     {
         global $_REQUEST, $_SESSION;
         $_SESSION['locale'] = 'C';
@@ -78,9 +87,9 @@ class LocaleTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Ease\Locale::requestLocale
+     * @covers \Ease\Locale::requestLocale
      */
-    public function testRequestLocale()
+    public function testRequestLocale(): void
     {
         unset($_REQUEST['locale']);
         $this->assertNull(Locale::requestLocale());
@@ -89,81 +98,81 @@ class LocaleTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Ease\Locale::sessionLocale
+     * @covers \Ease\Locale::sessionLocale
      */
-    public function testSessionLocale()
+    public function testSessionLocale(): void
     {
         $_SESSION['locale'] = 'cs_CZ';
         $this->assertEquals('cs_CZ', Locale::sessionLocale());
     }
 
     /**
-     * @covers Ease\Locale::browserLocale
+     * @covers \Ease\Locale::browserLocale
      */
-    public function testBrowserLocale()
+    public function testBrowserLocale(): void
     {
         $this->assertEquals('C', Locale::browserLocale());
     }
 
     /**
-     * @covers Ease\Locale::availble
+     * @covers \Ease\Locale::availble
      */
-    public function testAvalilble()
+    public function testAvalilble(): void
     {
         $this->assertEquals([
             'en_US' => 'English (United States)',
             'cs_CZ' => 'Czech (Czech Republic)',
             'eo' => 'Esperanto',
-                ], $this->object->availble(), 'Cannot find locales ?!? in ' . Locale::$i18n);
+        ], $this->object->availble(), 'Cannot find locales ?!? in '.Locale::$i18n);
     }
 
     /**
-     * @covers Ease\Locale::setTextDomain
+     * @covers \Ease\Locale::setTextDomain
      */
-    public function testSetTextDomain()
+    public function testSetTextDomain(): void
     {
         Locale::setTextDomain('some');
         $this->assertEquals('some', Locale::$textDomain);
     }
 
     /**
-     * @covers Ease\Locale::initializeGetText
+     * @covers \Ease\Locale::initializeGetText
      */
-    public function testInitializeGetText()
+    public function testInitializeGetText(): void
     {
         Locale::initializeGetText('EaseTest', 'en_US', './i18n');
         $this->assertEquals(Locale::$i18n, './i18n');
     }
 
     /**
-     * @covers Ease\Locale::langToLocale
+     * @covers \Ease\Locale::langToLocale
      */
-    public function testLangToLocal()
+    public function testLangToLocal(): void
     {
         $this->assertEquals('cs_CZ', Locale::langToLocale('cs'));
     }
 
     /**
-     * @covers Ease\Locale::useLocale
+     * @covers \Ease\Locale::useLocale
      */
-    public function testUseLocale()
+    public function testUseLocale(): void
     {
         Locale::useLocale('en_US');
         $this->assertEquals('en_US', Locale::getLocaleUsed());
     }
 
     /**
-     * @covers Ease\Locale::autodetected
+     * @covers \Ease\Locale::autodetected
      */
-    public function testAutodetected()
+    public function testAutodetected(): void
     {
-        $this->assertEquals(null, Locale::autodetected());
+        $this->assertNull(Locale::autodetected());
     }
 
     /**
-     * @covers Ease\Locale::get2code
+     * @covers \Ease\Locale::get2code
      */
-    public function testGet2code()
+    public function testGet2code(): void
     {
         $this->assertEquals('cs', $this->object->get2Code());
         Locale::useLocale('');
@@ -171,17 +180,17 @@ class LocaleTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Ease\Locale::getLocaleUsed
+     * @covers \Ease\Locale::getLocaleUsed
      */
-    public function testGetLocaleUsed()
+    public function testGetLocaleUsed(): void
     {
         $this->assertEquals('cs_CZ', $this->object->getLocaleUsed());
     }
 
     /**
-     * @covers Ease\Locale::singleton
+     * @covers \Ease\Locale::singleton
      */
-    public function testSingleton()
+    public function testSingleton(): void
     {
         $this->assertInstanceOf('\Ease\Locale', \Ease\Locale::singleton());
     }

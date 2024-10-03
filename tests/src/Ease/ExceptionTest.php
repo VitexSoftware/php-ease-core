@@ -1,5 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+/**
+ * This file is part of the EaseCore package.
+ *
+ * (c) Vítězslav Dvořák <info@vitexsoftware.cz>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Test\Ease;
 
 use Ease\Exception;
@@ -9,9 +20,6 @@ use Ease\Exception;
  */
 class ExceptionTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var Exception
-     */
     protected $object;
 
     /**
@@ -24,11 +32,19 @@ class ExceptionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Ease\Exception::__construct
+     * Tears down the fixture, for example, closes a network connection.
+     * This method is called after a test is executed.
      */
-    public function testConstructor()
+    protected function tearDown(): void
     {
-        $classname = get_class($this->object);
+    }
+
+    /**
+     * @covers \Ease\Exception::__construct
+     */
+    public function testConstructor(): void
+    {
+        $classname = \get_class($this->object);
 
         $this->expectException('\Ease\Exception');
         $this->expectExceptionMessage('test');
@@ -38,14 +54,7 @@ class ExceptionTest extends \PHPUnit\Framework\TestCase
             ->disableOriginalConstructor()
             ->getMockForAbstractClass();
         $mock->__construct('test');
-        throw new Exception('test');
-    }
 
-    /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
-     */
-    protected function tearDown(): void
-    {
+        throw new Exception('test');
     }
 }

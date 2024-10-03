@@ -1,9 +1,14 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+declare(strict_types=1);
+
+/**
+ * This file is part of the EaseCore package.
+ *
+ * (c) Vítězslav Dvořák <info@vitexsoftware.cz>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Test\Ease;
@@ -11,59 +16,59 @@ namespace Test\Ease;
 use Ease\Functions;
 
 /**
- * Description of FunctionsTest
+ * Description of FunctionsTest.
  *
  * @author Vítězslav Dvořák <info@vitexsoftware.cz>
  */
 class FunctionsTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers Functions::sysFilename
+     * @covers \Functions::sysFilename
      */
-    public function testsysFilename()
+    public function testsysFilename(): void
     {
-        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
+        if (strtoupper(substr(\PHP_OS, 0, 3)) === 'WIN') {
             $this->assertContains(
                 '\\\\',
                 Functions::sysFilename('/'),
-                _('Windows Files conversion')
+                _('Windows Files conversion'),
             );
         } else {
             $this->assertStringContainsString(
                 '/',
                 Functions::sysFilename('\\\\'),
-                _('Unix File Conversion')
+                _('Unix File Conversion'),
             );
         }
     }
 
     /**
-     * @covers Functions::addUrlParams
+     * @covers \Functions::addUrlParams
      */
-    public function testAddUrlParams()
+    public function testAddUrlParams(): void
     {
         $this->assertEquals(
             'http://vitexsoftware.cz/path?a=b&id=1',
             Functions::addUrlParams(
                 'http://vitexsoftware.cz/path?a=b',
                 ['id' => 1],
-                true
-            )
+                true,
+            ),
         );
         $this->assertEquals(
             'http://vitexsoftware.cz:80?id=1',
             Functions::addUrlParams(
                 'http://vitexsoftware.cz:80',
                 ['id' => 1],
-                true
-            )
+                true,
+            ),
         );
     }
 
     /**
-     * @covers Functions::divDataArray
+     * @covers \Functions::divDataArray
      */
-    public function testDivDataArray()
+    public function testDivDataArray(): void
     {
         $sourceArray = ['a' => 1, 'b' => 2, 'c' => 3];
         $destinationArray = [];
@@ -71,12 +76,12 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(Functions::divDataArray(
             $sourceArray,
             $destinationArray,
-            'b'
+            'b',
         ));
         $this->assertFalse(Functions::divDataArray(
             $sourceArray,
             $destinationArray,
-            'b'
+            'b',
         ));
 
         $this->assertEquals(['a' => 1, 'c' => 3], $sourceArray);
@@ -84,48 +89,48 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Functions::isAssoc
+     * @covers \Functions::isAssoc
      */
-    public function testIsAssoc()
+    public function testIsAssoc(): void
     {
         $this->assertTrue(Functions::isAssoc(['a' => 'b']));
         $this->assertFalse(Functions::isAssoc(['a', 'b']));
     }
 
     /**
-     * @covers Functions::rip
+     * @covers \Functions::rip
      */
-    public function testRip()
+    public function testRip(): void
     {
         $this->assertEquals('kuprikladu', Functions::rip('kupříkladu'));
     }
 
     /**
-     * @covers Functions::easeEncrypt
+     * @covers \Functions::easeEncrypt
      */
-    public function testEaseEncrypt()
+    public function testEaseEncrypt(): void
     {
         $enc = Functions::easeEncrypt('secret', 'key');
         $this->assertEquals(Functions::easeDecrypt($enc, 'key'), 'secret');
     }
 
     /**
-     * @covers Functions::easeDecrypt
+     * @covers \Functions::easeDecrypt
      */
-    public function testEaseDecrypt()
+    public function testEaseDecrypt(): void
     {
         $enc = Functions::easeEncrypt('secret', 'key');
         $this->assertEquals(Functions::easeDecrypt($enc, 'key'), 'secret');
     }
 
     /**
-     * @covers Functions::randomNumber
+     * @covers \Functions::randomNumber
      */
-    public function testRandomNumber()
+    public function testRandomNumber(): void
     {
         $a = Functions::randomNumber();
         $b = Functions::randomNumber();
-        $this->assertFalse($a == $b);
+        $this->assertFalse($a === $b);
 
         $c = Functions::randomNumber(10, 20);
         $this->assertLessThan(21, $c);
@@ -139,37 +144,37 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Functions::randomString
+     * @covers \Functions::randomString
      */
-    public function testRandomString()
+    public function testRandomString(): void
     {
         $a = Functions::randomString(22);
         $b = Functions::randomString();
-        $this->assertFalse($a == $b);
+        $this->assertFalse($a === $b);
     }
 
     /**
-     * @covers Functions::recursiveIconv
+     * @covers \Functions::recursiveIconv
      */
-    public function testRecursiveIconv()
+    public function testRecursiveIconv(): void
     {
         $original = ["\x80", "\x95"];
         $exepted = ["\xe2\x82\xac", "\xe2\x80\xa2"];
         $this->assertEquals(
             $exepted,
-            Functions::recursiveIconv('cp1252', 'utf-8', $original)
+            Functions::recursiveIconv('cp1252', 'utf-8', $original),
         );
 
         $this->assertEquals(
             $exepted[0],
-            Functions::recursiveIconv('cp1252', 'utf-8', $original[0])
+            Functions::recursiveIconv('cp1252', 'utf-8', $original[0]),
         );
     }
 
     /**
-     * @covers Functions::arrayIconv
+     * @covers \Functions::arrayIconv
      */
-    public function testArrayIconv()
+    public function testArrayIconv(): void
     {
         $original = "\x80";
         $exepted = "\xe2\x82\xac";
@@ -178,23 +183,23 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Functions::humanFilesize
+     * @covers \Functions::humanFilesize
      */
-    public function testHumanFilesize()
+    public function testHumanFilesize(): void
     {
         $this->assertEquals(
             '1.18 MB',
-            str_replace(',', '.', Functions::humanFilesize(1234545))
+            str_replace(',', '.', Functions::humanFilesize(1234545)),
         );
 
-        if (php_uname('m') != 'armv7l') {  #TODO #6 fix better
+        if (php_uname('m') !== 'armv7l') {  // TODO #6 fix better
             $this->assertEquals(
                 '11.5 GB',
-                str_replace(',', '.', Functions::humanFilesize(12345453453))
+                str_replace(',', '.', Functions::humanFilesize(12345453453)),
             );
             $this->assertEquals(
                 '1.1 PB',
-                str_replace(',', '.', Functions::humanFilesize(1234545345332235))
+                str_replace(',', '.', Functions::humanFilesize(1234545345332235)),
             );
         }
 
@@ -202,9 +207,9 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Functions::reindexArrayBy
+     * @covers \Functions::reindexArrayBy
      */
-    public function testReindexArrayBy()
+    public function testReindexArrayBy(): void
     {
         $a = [
             ['id' => '2', 'name' => 'b'],
@@ -225,9 +230,9 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Functions::isSerialized
+     * @covers \Functions::isSerialized
      */
-    public function testIsSerialized()
+    public function testIsSerialized(): void
     {
         $this->assertFalse(Functions::isSerialized(1));
         $this->assertTrue(Functions::isSerialized('N;'));
@@ -241,28 +246,28 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Functions::baseClassName
+     * @covers \Functions::baseClassName
      */
-    public function testBaseClassName()
+    public function testBaseClassName(): void
     {
         $this->assertEquals(
             'ToMemory',
-            Functions::baseClassName(new \Ease\Logger\ToMemory())
+            Functions::baseClassName(new \Ease\Logger\ToMemory()),
         );
     }
 
     /**
-     * @covers Functions::lettersOnly
+     * @covers \Functions::lettersOnly
      */
-    public function testLettersOnly()
+    public function testLettersOnly(): void
     {
         $this->assertEquals('1a2b3', Functions::lettersOnly('1a2b_3'));
     }
 
     /**
-     * @covers Functions::formatBytes
+     * @covers \Functions::formatBytes
      */
-    public function testFormatBytes()
+    public function testFormatBytes(): void
     {
         $this->assertEquals('0 B', Functions::formatBytes(0));
         $this->assertEquals('1 B', Functions::formatBytes(1));
@@ -274,38 +279,38 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('1 EiB', Functions::formatBytes(1152921504606846976));
         $this->assertEquals(
             '1 ZiB',
-            Functions::formatBytes(1180591620717411303424)
+            Functions::formatBytes(1180591620717411303424),
         );
         $this->assertEquals(
             '1 YiB',
-            Functions::formatBytes(1208925819614629174706176)
+            Functions::formatBytes(1208925819614629174706176),
         );
     }
 
     /**
-     * @covers Functions::cfg
+     * @covers \Functions::cfg
      */
-    public function testCfg()
+    public function testCfg(): void
     {
         $this->assertEquals('x', Functions::cfg('EASE_TEST', 'x'), 'default value not used');
         putenv('EASE_TEST=a');
         $this->assertEquals('a', Functions::cfg('EASE_TEST'), 'unexepected environment value');
-        define('EASE_TEST', 'b');
+        \define('EASE_TEST', 'b');
         $this->assertEquals('b', Functions::cfg('EASE_TEST'));
     }
 
     /**
-     * @covers Functions::classesInNamespace
+     * @covers \Functions::classesInNamespace
      */
-    public function testclassesInNamespace()
+    public function testclassesInNamespace(): void
     {
         $this->assertIsArray(Functions::classesInNamespace('Ease'));
     }
 
     /**
-     * @covers Functions::guidv4
+     * @covers \Functions::guidv4
      */
-    public function testguidv4()
+    public function testguidv4(): void
     {
         $this->assertEquals('74657374-7465-4374-b465-737474657374', \Ease\Functions::guidv4('testtesttesttest'));
     }

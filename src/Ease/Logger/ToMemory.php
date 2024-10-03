@@ -9,42 +9,45 @@
 
 declare(strict_types=1);
 
+/**
+ * This file is part of the EaseCore package.
+ *
+ * (c) Vítězslav Dvořák <info@vitexsoftware.cz>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Ease\Logger;
 
 class ToMemory extends \Ease\Atom implements Loggingable
 {
     /**
-     * Number of messages to keep
-     * @var int
+     * Number of messages to keep.
      */
-    public $capacity = 1024;
+    public int $capacity = 1024;
 
     /**
      * Předvolená metoda logování.
-     *
-     * @var string
      */
-    public $logType = 'memory';
+    public string $logType = 'memory';
 
     /**
      * Adresář do kterého se zapisují logy.
      *
      * @var string dirpath
      */
-    public $logPrefix = null;
+    public string $logPrefix = '';
 
     /**
-     * Messages live here
-     * @var array
+     * Messages live here.
      */
-    public static $statusMessages = [];
+    public static array $statusMessages = [];
 
     /**
      * Hodnoty pro obarvování logu.
-     *
-     * @var array
      */
-    public $logStyles = [
+    public array $logStyles = [
         'notice' => 'color: black;',
         'success' => 'color: #2C5F23;',
         'message' => 'color: #2C5F23;',
@@ -57,29 +60,27 @@ class ToMemory extends \Ease\Atom implements Loggingable
 
     /**
      * Odkaz na vlastnící objekt.
-     *
-     * @var \Ease\Sand
      */
-    public $parentObject = null;
+    public \Ease\Sand $parentObject = null;
 
     /**
      * ID naposledy ulozene zpravy.
      *
      * @var int unsigned
      */
-    private $messageID = 0;
+    private int $messageID = 0;
 
     /**
      * Saves obejct instace (singleton...).
      */
-    private static $instance = null;
+    private static $instance;
 
     /**
      * Pri vytvareni objektu pomoci funkce singleton (ma stejne parametry, jako
      * konstruktor) se bude v ramci behu programu pouzivat pouze jedna jeho
      * instance (ta prvni).
      *
-     * @link http://docs.php.net/en/language.oop5.patterns.html Dokumentace a
+     * @see http://docs.php.net/en/language.oop5.patterns.html Dokumentace a
      * priklad
      */
     public static function singleton()
@@ -95,20 +96,22 @@ class ToMemory extends \Ease\Atom implements Loggingable
     /**
      * Zapise zapravu do logu.
      *
-     * @param string|object $caller  název volajícího objektu
-     * @param string $message zpráva
-     * @param string $type    typ zprávy (success|info|error|warning|*)
+     * @param object|string $caller  název volajícího objektu
+     * @param string        $message zpráva
+     * @param string        $type    typ zprávy (success|info|error|warning|*)
      *
      * @return int logged message length
      */
     public function addToLog($caller, $message, $type = 'message')
     {
         ++$this->messageID;
-        self::$statusMessages[$type][Message::getCallerName($caller) . $this->messageID] = $message;
-        if (count(self::$statusMessages[$type]) > $this->capacity) {
-            self::$statusMessages[$type] = array_slice(self::$statusMessages[$type], $this->capacity);
+        self::$statusMessages[$type][Message::getCallerName($caller).$this->messageID] = $message;
+
+        if (\count(self::$statusMessages[$type]) > $this->capacity) {
+            self::$statusMessages[$type] = \array_slice(self::$statusMessages[$type], $this->capacity);
         }
-        return strlen($message);
+
+        return \strlen($message);
     }
 
     /**
@@ -120,10 +123,10 @@ class ToMemory extends \Ease\Atom implements Loggingable
      */
     public function getLogStyle($logType = 'notice')
     {
-        if (key_exists($logType, $this->logStyles)) {
+        if (\array_key_exists($logType, $this->logStyles)) {
             return $this->logStyles[$logType];
-        } else {
-            return '';
         }
+
+        return '';
     }
 }

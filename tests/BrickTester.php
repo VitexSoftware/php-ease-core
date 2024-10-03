@@ -1,17 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
+/**
+ * This file is part of the EaseCore package.
+ *
+ * (c) Vítězslav Dvořák <info@vitexsoftware.cz>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Test\Ease\Local;
 
 /**
- * Description of BrickTester
+ * Description of BrickTester.
  *
  * @author vitex
  */
 class BrickTester extends \Ease\Brick
 {
     /**
-     * We Work with given table
-     * @var string
+     * We Work with given table.
      */
-    public $myTable = 'test';
+    public string $myTable = 'test';
 }

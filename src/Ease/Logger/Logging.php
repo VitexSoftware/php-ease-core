@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Logging trait
+ * Logging trait.
  *
  * @category Logging
  *
@@ -14,20 +14,26 @@
 
 declare(strict_types=1);
 
+/**
+ * This file is part of the EaseCore package.
+ *
+ * (c) Vítězslav Dvořák <info@vitexsoftware.cz>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Ease\Logger;
 
 /**
- *
  * @author vitex
  */
 trait Logging
 {
     /**
      * Objekt pro logování.
-     *
-     * @var Regent|null
      */
-    public $logger = null;
+    public ?Regent $logger = null;
 
     /**
      * Add message to stack to show or write to file
@@ -37,15 +43,15 @@ trait Logging
      * @param string $type    fronta
      * @param object $caller  Message source name
      *
-     * @return boolean message added
+     * @return bool message added
      */
     public function addStatusMessage($message, $type = 'info', $caller = null)
     {
-        return boolval($this->getLogger()->addToLog((empty($caller) ? $this : $caller), $message, $type));
+        return (bool) $this->getLogger()->addToLog(empty($caller) ? $this : $caller, $message, $type);
     }
 
     /**
-     * Obtain global status messages
+     * Obtain global status messages.
      *
      * @return array
      */
@@ -55,9 +61,9 @@ trait Logging
     }
 
     /**
-     * Erase all status messages
+     * Erase all status messages.
      *
-     * @return boolean
+     * @return bool
      */
     public function cleanSatatusMessages()
     {
@@ -65,30 +71,31 @@ trait Logging
     }
 
     /**
-     * Provide logger object
+     * Provide logger object.
      *
-     * @param string|array $options
+     * @param array|string $options
      *
      * @return Regent
      */
     public function getLogger($options = null)
     {
-        if (is_null($this->logger)) {
+        if (null === $this->logger) {
             $this->logger = Regent::singleton($options);
         }
+
         return $this->logger;
     }
 
     /**
-     * Add Info about used PHP and EasePHP Library
+     * Add Info about used PHP and EasePHP Library.
      *
      * @param string $prefix banner prefix text (default is APPName)
      * @param string $suffix banner suffix text
      */
-    public function logBanner($prefix = '', $suffix = '')
+    public function logBanner($prefix = '', $suffix = ''): void
     {
         if (\Ease\Shared::cfg('DEBUG') === true) {
-            $suffix .= ' Loggers: ' . \Ease\Shared::cfg('EASE_LOGGER');
+            $suffix .= ' Loggers: '.\Ease\Shared::cfg('EASE_LOGGER');
         }
 
         if (method_exists('Composer\InstalledVersions', 'getPrettyVersion')) {
@@ -98,9 +105,9 @@ trait Logging
         }
 
         $this->addStatusMessage(
-            trim(($prefix ? $prefix : \Ease\Shared::appName()) .
-            ' EaseCore ' . $version . ' (PHP ' . phpversion() . ') ' . $suffix),
-            'debug'
+            trim(($prefix ?: \Ease\Shared::appName()).
+            ' EaseCore '.$version.' (PHP '.\PHP_VERSION.') '.$suffix),
+            'debug',
         );
     }
 }

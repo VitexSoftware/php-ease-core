@@ -1,21 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 /**
- * Common EaseFramework class
+ * This file is part of the EaseCore package.
  *
- * @category Common
+ * (c) Vítězslav Dvořák <info@vitexsoftware.cz>
  *
- * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2023 Vitex@hippy.cz (G)
- * @license   https://opensource.org/licenses/MIT
- *
- * PHP 8
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Ease;
 
 /**
- * Basic Class of EasePHP
+ * Basic Class of EasePHP.
  *
  * @author Vítězslav Dvořák <info@vitexsoftware.cz>
  */
@@ -23,20 +22,8 @@ class Atom
 {
     /**
      * Debug mode flag.
-     *
-     * @var bool
      */
-    public $debug = false;
-
-    /**
-     * Returns object name
-     *
-     * @return string
-     */
-    public function getObjectName()
-    {
-        return get_class($this);
-    }
+    public bool $debug = false;
 
     /**
      * Magical function for all descendants (childern).
@@ -46,6 +33,16 @@ class Atom
     public function __toString()
     {
         return '';
+    }
+
+    /**
+     * Returns object name.
+     *
+     * @return string
+     */
+    public function getObjectName()
+    {
+        return \get_class($this);
     }
 
     /**

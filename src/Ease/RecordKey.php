@@ -1,42 +1,44 @@
 <?php
 
 /**
- * Record Key methods
+ * Record Key methods.
  *
  * @author    Vítězslav Dvořák <vitex@hippy.cz>
  * @copyright 2019 Vitex@hippy.cz (G)
- *
- * @package EasePHP
- *
- * PHP 7
  */
 
 declare(strict_types=1);
 
+/**
+ * This file is part of the EaseCore package.
+ *
+ * (c) Vítězslav Dvořák <info@vitexsoftware.cz>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Ease;
 
 /**
- *
  * @author Vítězslav Dvořák <info@vitexsoftware.cz>
  */
 trait RecordKey
 {
     /**
-     * Key Column for Current Record
-     *
-     * @var string
+     * Key Column for Current Record.
      */
-    public $keyColumn = 'id';
+    public string $keyColumn = 'id';
 
     /**
-     * Obtain data holded by object
+     * Obtain data holded by object.
      *
      * @return array
      */
     abstract public function getData();
 
     /**
-     * Set data filed value
+     * Set data filed value.
      *
      * @param string $columnName název datové kolonky
      * @param mixed  $value      hodnota dat
@@ -46,7 +48,7 @@ trait RecordKey
     abstract public function setDataValue(string $columnName, $value);
 
     /**
-     * Gives you value of KEY Column
+     * Gives you value of KEY Column.
      *
      * @param array $data data z nichž se vrací hodnota klíče
      *
@@ -54,8 +56,8 @@ trait RecordKey
      */
     public function getMyKey($data = null)
     {
-        return is_null($data) ? $this->getDataValue($this->getKeyColumn()) :
-            (array_key_exists($this->getKeyColumn(), $data) ?
+        return null === $data ? $this->getDataValue($this->getKeyColumn()) :
+            (\array_key_exists($this->getKeyColumn(), $data) ?
                 $data[$this->getKeyColumn()] : null);
     }
 
@@ -72,7 +74,7 @@ trait RecordKey
     }
 
     /**
-     * Gives you Current KeyColumn Name
+     * Gives you Current KeyColumn Name.
      *
      * @return string
      */
@@ -83,10 +85,8 @@ trait RecordKey
 
     /**
      * Nastaví jméno klíčového sloupečku v shopu.
-     *
-     * @param string $keyColumn
      */
-    public function setKeyColumn(string $keyColumn)
+    public function setKeyColumn(string $keyColumn): void
     {
         $this->keyColumn = $keyColumn;
     }

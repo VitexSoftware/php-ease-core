@@ -1,5 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+/**
+ * This file is part of the EaseCore package.
+ *
+ * (c) Vítězslav Dvořák <info@vitexsoftware.cz>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Test\Ease;
 
 use Ease\Shared;
@@ -9,9 +20,6 @@ use Ease\Shared;
  */
 class SharedTest extends AtomTest
 {
-    /**
-     * @var Shared
-     */
     protected $object;
 
     /**
@@ -32,80 +40,80 @@ class SharedTest extends AtomTest
     }
 
     /**
-     * Test Constructor
+     * Test Constructor.
      *
      * @covers \Ease\Shared::__construct
      */
-    public function testConstructor()
+    public function testConstructor(): void
     {
         global $_SESSION;
-        $classname = get_class($this->object);
+        $classname = \get_class($this->object);
 
         // Get mock, without the constructor being called
         $mock = $this->getMockBuilder($classname)
-                ->disableOriginalConstructor()
-                ->getMockForAbstractClass();
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
 
-        $_SESSION['unitTest']['EaseMessages'] = [0 => 'a',1 => 'b'];
+        $_SESSION['unitTest']['EaseMessages'] = [0 => 'a', 1 => 'b'];
         $mock->__construct();
 
         $this->assertIsArray($mock::$statusMessages);
     }
 
     /**
-     * @covers Ease\Shared::msgFile
+     * @covers \Ease\Shared::msgFile
      */
-    public function testMsgFile()
+    public function testMsgFile(): void
     {
-        $this->assertEquals(sys_get_temp_dir() . '/unitTestEaseStatusMessages' . posix_getuid() . '.ser', \Ease\Shared::msgFile());
+        $this->assertEquals(sys_get_temp_dir().'/unitTestEaseStatusMessages'.posix_getuid().'.ser', \Ease\Shared::msgFile());
     }
 
     /**
-     * @covers Ease\Shared::appName
+     * @covers \Ease\Shared::appName
      */
-    public function testAppName()
+    public function testAppName(): void
     {
         $this->assertEquals('unitTest', \Ease\Shared::appName());
     }
 
     /**
-     * @covers Ease\Shared::singleton
+     * @covers \Ease\Shared::singleton
      */
-    public function testSingleton()
+    public function testSingleton(): void
     {
         $this->assertInstanceOf('\Ease\Shared', \Ease\Shared::singleton());
     }
 
     /**
-     * @covers Ease\Shared::instanced
+     * @covers \Ease\Shared::instanced
      */
-    public function testInstanced()
+    public function testInstanced(): void
     {
         $this->assertInstanceOf('\Ease\Shared', \Ease\Shared::instanced());
     }
 
     /**
-     * @covers Ease\Shared::setConfigValue
-     * @covers Ease\Shared::getConfigValue
+     * @covers \Ease\Shared::getConfigValue
+     * @covers \Ease\Shared::setConfigValue
      */
-    public function testSetConfigValue()
+    public function testSetConfigValue(): void
     {
         $this->object->setConfigValue('test', true);
         $this->assertTrue($this->object->getConfigValue('test'));
     }
 
     /**
-     * @covers Ease\Shared::logger
+     * @covers \Ease\Shared::logger
      */
-    public function testLogger()
+    public function testLogger(): void
     {
         $this->assertInstanceOf('\Ease\Logger\Regent', \Ease\Shared::logger());
     }
 
     /**
-     * @covers Ease\Shared::loadConfig
+     * @covers \Ease\Shared::loadConfig
      */
-    public function testLoadConfig()
+    public function testLoadConfig(): void
     {
         if (file_exists('.env')) {
             $env = '.env';
@@ -116,10 +124,10 @@ class SharedTest extends AtomTest
         }
 
         $this->object->loadConfig($env, true);
-        $this->assertEquals(['KEY' => 'VALUE','FOO' => 'BAR','debug' => 'true','test' => true], $this->object->configuration);
+        $this->assertEquals(['KEY' => 'VALUE', 'FOO' => 'BAR', 'debug' => 'true', 'test' => true], $this->object->configuration);
         $this->object->loadConfig($json, true);
         $this->assertArrayHasKey('opt', $this->object->configuration);
-        $this->assertTrue(defined('KEY'));
+        $this->assertTrue(\defined('KEY'));
         $this->assertEquals('optvalue', $this->object->getConfigValue('opt'));
         $this->assertEquals('keyvalue', $this->object->getConfigValue('KEY'));
         $this->expectException('Exception');
@@ -127,34 +135,34 @@ class SharedTest extends AtomTest
     }
 
     /**
-     * @covers Ease\Shared::init
+     * @covers \Ease\Shared::init
      */
-    public function testInit()
+    public function testInit(): void
     {
         putenv('DB_CONNECTION=sqlite3');
         $this->assertTrue(\Ease\Shared::init(['DB_CONNECTION'], null, false));
     }
 
     /**
-     * @covers Ease\Shared::saveStatusMessages
+     * @covers \Ease\Shared::saveStatusMessages
      */
-    public function testSaveStatusMessages()
+    public function testSaveStatusMessages(): void
     {
         $this->assertIsInt($this->object->saveStatusMessages());
     }
 
     /**
-     * @covers Ease\Shared::saveStatusMessages
+     * @covers \Ease\Shared::saveStatusMessages
      */
-    public function testLoadStatusMessages()
+    public function testLoadStatusMessages(): void
     {
         $this->assertIsArray($this->object->loadStatusMessages());
     }
 
     /**
-     * @covers Ease\Shared::user
+     * @covers \Ease\Shared::user
      */
-    public function testUser()
+    public function testUser(): void
     {
         $this->assertInstanceOf('\Ease\User', \Ease\Shared::user(null, '\Ease\User'));
     }

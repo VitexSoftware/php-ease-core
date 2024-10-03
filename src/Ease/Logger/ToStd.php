@@ -1,13 +1,22 @@
 <?php
 
 /**
- * Log to stdout/stderr
+ * Log to stdout/stderr.
  *
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2023 Vitex@hippy.cz (G)
  */
 
 declare(strict_types=1);
+
+/**
+ * This file is part of the EaseCore package.
+ *
+ * (c) Vítězslav Dvořák <info@vitexsoftware.cz>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace Ease\Logger;
 
@@ -20,30 +29,26 @@ namespace Ease\Logger;
 class ToStd extends ToMemory implements Loggingable
 {
     /**
+     * List of allready flushed messages.
+     */
+    public array $flushed = [];
+
+    /**
+     * Log Name.
+     */
+    public string $logName = null;
+
+    /**
      * ID naposledy ulozene zpravy.
      *
      * @var int unsigned
      */
-    private $messageID = 0;
-
-    /**
-     * List of allready flushed messages.
-     *
-     * @var array
-     */
-    public $flushed = [];
+    private int $messageID = 0;
 
     /**
      * Saves obejct instace (singleton...).
      */
-    private static $instance = null;
-
-    /**
-     * Log Name
-     *
-     * @var string
-     */
-    public $logName = null;
+    private static $instance;
 
     /**
      * Logovací třída.
@@ -60,13 +65,13 @@ class ToStd extends ToMemory implements Loggingable
      * konstruktor) se bude v ramci behu programu pouzivat pouze jedna jeho
      * instance (ta prvni).
      *
-     * @link http://docs.php.net/en/language.oop5.patterns.html Dokumentace a
+     * @see http://docs.php.net/en/language.oop5.patterns.html Dokumentace a
      * priklad
      */
     public static function singleton()
     {
         if (!isset(self::$instance)) {
-            self::$instance = new self(\Ease\Shared::appName() ? \Ease\Shared::appName() : 'EaseFramework');
+            self::$instance = new self(\Ease\Shared::appName() ?: 'EaseFramework');
         }
 
         return self::$instance;
@@ -87,24 +92,27 @@ class ToStd extends ToMemory implements Loggingable
 
         self::$statusMessages[$type][$this->messageID] = $message;
 
-        $message = htmlspecialchars_decode(strip_tags(stripslashes(strval($message))));
+        $message = htmlspecialchars_decode(strip_tags(stripslashes((string) $message)));
 
         $user = \Ease\User::singleton();
-        if (get_class($user) !== 'Ease\\Anonym') {
+
+        if (\get_class($user) !== 'Ease\\Anonym') {
             if (method_exists($user, 'getUserName')) {
                 $person = $user->getUserName();
             } else {
                 $person = $user->getObjectName();
             }
-            $caller = $person . ' ' . Message::getCallerName($caller);
+
+            $caller = $person.' '.Message::getCallerName($caller);
         }
 
-        $logLine = ' `' . $caller . '` ' . str_replace(
+        $logLine = ' `'.$caller.'` '.str_replace(
             ['notice', 'message', 'debug', 'report',
-            'error', 'warning', 'success', 'info', 'mail',],
+                'error', 'warning', 'success', 'info', 'mail', ],
             ['**', '##', '@@', '::'],
-            strval($type)
-        ) . ' ' . $message . "\n";
+            (string) $type,
+        ).' '.$message."\n";
+
         if (!isset($this->logStyles[$type])) {
             $type = 'notice';
         }
@@ -113,7 +121,7 @@ class ToStd extends ToMemory implements Loggingable
     }
 
     /**
-     * Output logline to stderr/stdout by its type
+     * Output logline to stderr/stdout by its type.
      *
      * @param string $type    message type 'error' or anything else
      * @param string $logLine message to output
@@ -123,23 +131,28 @@ class ToStd extends ToMemory implements Loggingable
     public function output($type, $logLine)
     {
         $written = 0;
+
         switch ($type) {
             case 'error':
-                $stderr = fopen('php://stderr', 'w');
-                $written += fwrite($stderr, $this->logName . ': ' . $logLine);
+                $stderr = fopen('php://stderr', 'wb');
+                $written += fwrite($stderr, $this->logName.': '.$logLine);
                 fclose($stderr);
+
                 break;
+
             default:
-                $stdout = fopen('php://stdout', 'w');
-                $written += fwrite($stdout, $this->logName . ': ' . $logLine);
+                $stdout = fopen('php://stdout', 'wb');
+                $written += fwrite($stdout, $this->logName.': '.$logLine);
                 fclose($stdout);
+
                 break;
         }
+
         return $written;
     }
 
     /**
-     * Last message check/modify point before output
+     * Last message check/modify point before output.
      *
      * @param string $messageRaw
      *
@@ -147,6 +160,6 @@ class ToStd extends ToMemory implements Loggingable
      */
     public function finalizeMessage($messageRaw)
     {
-        return trim($messageRaw) . PHP_EOL;
+        return trim($messageRaw).\PHP_EOL;
     }
 }

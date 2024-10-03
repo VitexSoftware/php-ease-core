@@ -9,10 +9,19 @@
 
 declare(strict_types=1);
 
+/**
+ * This file is part of the EaseCore package.
+ *
+ * (c) Vítězslav Dvořák <info@vitexsoftware.cz>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Ease\Logger;
 
 /**
- * @method  methodName(type $paramName) Description
+ * @method methodName(type $paramName) Description
  */
 class ToFile extends ToMemory implements Loggingable
 {
@@ -21,47 +30,41 @@ class ToFile extends ToMemory implements Loggingable
      *
      * @var string dirpath
      */
-    public $logPrefix = null;
+    public string $logPrefix = null;
 
     /**
      * Soubor s do kterého se zapisuje log.
-     *
-     * @var string
      */
-    public $logFileName = 'Ease.log';
+    public string $logFileName = 'Ease.log';
 
     /**
      * Odkaz na vlastnící objekt.
-     *
-     * @var \Ease\Sand
      */
-    public $parentObject = null;
+    public \Ease\Sand $parentObject = null;
+
+    /**
+     * Obecné konfigurace frameworku.
+     */
+    public \Ease\Shared $easeShared = null;
 
     /**
      * Filedescriptor Logu.
      *
-     * @var resource|boolean
+     * @var bool|resource
      */
-    private $logFileHandle = null;
+    private $logFileHandle;
 
     /**
      * ID naposledy ulozene zpravy.
      *
      * @var int unsigned
      */
-    private $messageID = 0;
-
-    /**
-     * Obecné konfigurace frameworku.
-     *
-     * @var \Ease\Shared
-     */
-    public $easeShared = null;
+    private int $messageID = 0;
 
     /**
      * Saves obejct instace (singleton...).
      */
-    private static $instance = null;
+    private static $instance;
 
     /**
      * Logovací třída.
@@ -74,7 +77,17 @@ class ToFile extends ToMemory implements Loggingable
     }
 
     /**
-     * Get instanece of File Logger
+     * Uzavře chybové soubory.
+     */
+    public function __destruct()
+    {
+        if ($this->logFileHandle && \is_resource($this->logFileHandle)) {
+            fclose($this->logFileHandle);
+        }
+    }
+
+    /**
+     * Get instanece of File Logger.
      *
      * @param string $logdir
      *
@@ -94,7 +107,7 @@ class ToFile extends ToMemory implements Loggingable
      *
      * @param string $baseLogDir
      */
-    public function setupLogFiles($baseLogDir = '')
+    public function setupLogFiles($baseLogDir = ''): void
     {
         $baseLogDir = empty($baseLogDir) ? \Ease\Shared::cfg('LOG_DIRECTORY') : $baseLogDir;
 
@@ -104,8 +117,9 @@ class ToFile extends ToMemory implements Loggingable
             $this->logFileName = '';
         } else {
             $this->logPrefix = \Ease\Functions::sysFilename($baseLogDir);
+
             if ($this->testDirectory($this->logPrefix)) {
-                $this->logFileName = $this->logPrefix . $this->logFileName;
+                $this->logFileName = $this->logPrefix.$this->logFileName;
             } else {
                 $this->logPrefix = '';
                 $this->logFileName = '';
@@ -130,17 +144,19 @@ class ToFile extends ToMemory implements Loggingable
 
         $message = htmlspecialchars_decode(strip_tags(stripslashes($message)));
 
-        $logLine = date(DATE_ATOM) . ' (' . Message::getCallerName($caller) . ') ' . str_replace(
+        $logLine = date(\DATE_ATOM).' ('.Message::getCallerName($caller).') '.str_replace(
             ['notice', 'message', 'debug', 'error', 'warning', 'success', 'info', 'mail'],
             ['**', '##', '@@', '::'],
-            $type
-        ) . ' ' . $message . "\n";
+            $type,
+        ).' '.$message."\n";
+
         if (!empty($this->logPrefix)) {
-            if ($this->logType == 'file' || $this->logType == 'both') {
+            if ($this->logType === 'file' || $this->logType === 'both') {
                 if (!empty($this->logFileName)) {
                     if (!$this->logFileHandle) {
-                        $this->logFileHandle = fopen($this->logFileName, 'a+');
+                        $this->logFileHandle = fopen($this->logFileName, 'a+b');
                     }
+
                     if ($this->logFileHandle !== null) {
                         $written += fwrite($this->logFileHandle, $logLine);
                     }
@@ -164,24 +180,17 @@ class ToFile extends ToMemory implements Loggingable
     public static function testDirectory($directoryPath, $isDir = true, $isReadable = true, $isWritable = true)
     {
         if ($isDir && !is_dir($directoryPath)) {
-            throw new \Exception($directoryPath . _(' is not an folder. Current directory:') . ' ' . getcwd());
+            throw new \Exception($directoryPath._(' is not an folder. Current directory:').' '.getcwd());
         }
-        if ($isReadable && !is_readable($directoryPath)) {
-            throw new \Exception($directoryPath . _(' not an readable folder. Current directory:') . ' ' . getcwd());
-        }
-        if ($isWritable && !is_writable($directoryPath)) {
-            throw new \Exception($directoryPath . _(' not an writeable folder. Current directory:') . ' ' . getcwd());
-        }
-        return true;
-    }
 
-    /**
-     * Uzavře chybové soubory.
-     */
-    public function __destruct()
-    {
-        if ($this->logFileHandle && is_resource($this->logFileHandle)) {
-            fclose($this->logFileHandle);
+        if ($isReadable && !is_readable($directoryPath)) {
+            throw new \Exception($directoryPath._(' not an readable folder. Current directory:').' '.getcwd());
         }
+
+        if ($isWritable && !is_writable($directoryPath)) {
+            throw new \Exception($directoryPath._(' not an writeable folder. Current directory:').' '.getcwd());
+        }
+
+        return true;
     }
 }

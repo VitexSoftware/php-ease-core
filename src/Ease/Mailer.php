@@ -11,6 +11,15 @@
 
 declare(strict_types=1);
 
+/**
+ * This file is part of the EaseCore package.
+ *
+ * (c) Vítězslav Dvořák <info@vitexsoftware.cz>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Ease;
 
 /**
@@ -23,98 +32,64 @@ class Mailer extends Sand
 {
     /**
      * Object for mail sending.
-     *
-     * @var \Mail
      */
-    public $mailer = null;
+    public \Mail $mailer;
 
     /**
-     * MIME Helper
-     *
-     * @var \Mail_mime
+     * MIME Helper.
      */
-    public $mimer = null;
+    public \Mail_mime $mimer = null;
+
+    public string $textBody = null;
 
     /**
-     *
-     * @var string
+     * Mail Headers.
      */
-    public $textBody = null;
+    public array $mailHeaders = [];
 
     /**
-     * Mail Headers
-     *
-     * @var array
+     * Processed Headers.
      */
-    public $mailHeaders = [];
+    public array $mailHeadersDone = [];
 
     /**
-     * Processed Headers
-     *
-     * @var array
+     * Line divider.
      */
-    public $mailHeadersDone = [];
+    public string $crLf = "\n";
 
-    /**
-     * Line divider
-     *
-     * @var string
-     */
-    public $crLf = "\n";
+    public array $mailBody;
 
-    /**
-     *
-     * @var array
-     */
-    public $mailBody;
-
-    /**
-     *
-     * @var boolean
-     */
     public bool $finalized = false;
 
     /**
      * The sender's address.
-     *
-     * @var string
      */
-    public $emailAddress = 'postmaster@localhost';
+    public string $emailAddress = 'postmaster@localhost';
 
     /**
-     * Email subject holder
-     *
-     * @var string
+     * Email subject holder.
      */
-    public $emailSubject = null;
+    public string $emailSubject = null;
 
     /**
      * The sender's email address.
-     *
-     * @var string
      */
-    public $fromEmailAddress = null;
+    public string $fromEmailAddress = null;
 
     /**
      * Show information about sending the message to the user?
-     *
-     * @var bool
      */
-    public $notify = true;
+    public bool $notify = true;
 
     /**
      * Has the message already been sent?
-     *
-     * @var bool
      */
-    public $sendResult = false;
+    public bool $sendResult = false;
 
     /**
      * Outgoing mail parameters.
-     *
-     * @var array
      */
-    public $parameters = [];
+    public array $parameters = [];
 
     /**
      * Ease Mail - builds and sends.
@@ -131,21 +106,21 @@ class Mailer extends Sand
 
         $this->setMailHeaders(
             [
-                    'To' => $emailAddress,
-                    'From' => empty($this->fromEmailAddress) ? \Ease\Shared::cfg('EASE_FROM') : $this->fromEmailAddress,
-                    'Reply-To' => $this->fromEmailAddress,
-                    'Subject' => $mailSubject,
-                    'Content-Type' => 'text/plain; charset=utf-8',
-                    'Content-Transfer-Encoding' => '8bit',
-                ]
+                'To' => $emailAddress,
+                'From' => empty($this->fromEmailAddress) ? \Ease\Shared::cfg('EASE_FROM') : $this->fromEmailAddress,
+                'Reply-To' => $this->fromEmailAddress,
+                'Subject' => $mailSubject,
+                'Content-Type' => 'text/plain; charset=utf-8',
+                'Content-Transfer-Encoding' => '8bit',
+            ],
         );
 
-        $mimerParams = array(
+        $mimerParams = [
             'html_charset' => 'utf-8',
             'text_charset' => 'utf-8',
             'head_charset' => 'utf-8',
             'eol' => $this->crLf,
-        );
+        ];
 
         $this->mimer = new \Mail_mime($mimerParams);
         $this->textBody = $emailContents;
@@ -154,28 +129,29 @@ class Mailer extends Sand
     }
 
     /**
-     * Sets mail's text body
+     * Sets mail's text body.
      *
      * @param string $text
      *
-     * @return boolean|\Pear_Err
+     * @return bool|\Pear_Err
      */
     public function setMailBody($text)
     {
         $this->textBody = $text;
+
         return $this->mimer->setTXTBody($text);
     }
 
     /**
-     * Obtains mail header's content
+     * Obtains mail header's content.
      *
      * @param string $headername requested header name
      *
-     * @return string|null requested header value
+     * @return null|string requested header value
      */
     public function getMailHeader($headername)
     {
-        return array_key_exists($headername, $this->mailHeaders) ? $this->mailHeaders[$headername] : null;
+        return \array_key_exists($headername, $this->mailHeaders) ? $this->mailHeaders[$headername] : null;
     }
 
     /**
@@ -188,30 +164,34 @@ class Mailer extends Sand
     public function setMailHeaders(array $mailHeaders)
     {
         $this->mailHeaders = array_merge($this->mailHeaders, $mailHeaders);
+
         if (isset($this->mailHeaders['To'])) {
             $this->emailAddress = $this->mailHeaders['To'];
         }
+
         if (isset($this->mailHeaders['From'])) {
             $this->fromEmailAddress = $this->mailHeaders['From'];
         }
+
         if (isset($this->mailHeaders['Subject'])) {
             if (!strstr($this->mailHeaders['Subject'], '=?UTF-8?B?')) {
                 $this->emailSubject = $this->mailHeaders['Subject'];
-                $this->mailHeaders['Subject'] = '=?UTF-8?B?' . base64_encode($this->mailHeaders['Subject']) . '?=';
+                $this->mailHeaders['Subject'] = '=?UTF-8?B?'.base64_encode($this->mailHeaders['Subject']).'?=';
             }
         }
+
         $this->finalized = false;
 
         return true;
     }
 
     /**
-     * Attaches file to mail
+     * Attaches file to mail.
      *
      * @param string $filename path / file name to attach
      * @param string $mimeType MIME attachment type
      *
-     * @return boolean|\PEAR_Error
+     * @return bool|\PEAR_Error
      */
     public function addFile(string $filename, $mimeType = 'text/plain')
     {
@@ -219,11 +199,11 @@ class Mailer extends Sand
     }
 
     /**
-     * Add Text to mail
+     * Add Text to mail.
      *
      * @param string $text
      */
-    public function addText($text)
+    public function addText($text): void
     {
         $this->textBody .= $text;
     }
@@ -235,26 +215,30 @@ class Mailer extends Sand
     {
         $this->setMailBody($this->textBody);
         $oMail = new \Mail();
-        if (count($this->parameters)) {
+
+        if (\count($this->parameters)) {
             $this->mailer = $oMail->factory('smtp', $this->parameters);
         } else {
             $this->mailer = $oMail->factory('mail');
         }
+
         $this->sendResult = $this->mailer->send(
             $this->emailAddress,
             $this->mimer->headers($this->mailHeaders),
-            $this->mimer->get()
+            $this->mimer->get(),
         );
+
         if ($this->notify === true) {
             $mailStripped = str_replace(['<', '>'], '', $this->emailAddress);
+
             if ($this->sendResult === true) {
                 $this->addStatusMessage(
                     sprintf(
                         _('Message %s was sent to %s'),
                         $this->emailSubject,
-                        $mailStripped
+                        $mailStripped,
                     ),
-                    'success'
+                    'success',
                 );
             } else {
                 $this->addStatusMessage(
@@ -262,9 +246,9 @@ class Mailer extends Sand
                         _('Message %s, for %s was not sent because of %s'),
                         $this->emailSubject,
                         $mailStripped,
-                        $this->sendResult->message
+                        $this->sendResult->message,
                     ),
-                    'warning'
+                    'warning',
                 );
             }
         }
@@ -277,7 +261,7 @@ class Mailer extends Sand
      *
      * @param bool $notify required notification status
      */
-    public function setUserNotification(bool $notify)
+    public function setUserNotification(bool $notify): void
     {
         $this->notify = $notify;
     }

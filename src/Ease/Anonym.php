@@ -7,54 +7,50 @@
  * @copyright 2009-2023 Vitex@hippy.cz (G)
  *
  * @category User Classes
- * @package EasePHP
- *
- * PHP 7
- *
  */
 
 declare(strict_types=1);
 
+/**
+ * This file is part of the EaseCore package.
+ *
+ * (c) Vítězslav Dvořák <info@vitexsoftware.cz>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Ease;
 
 /**
- * Anonymous User Class
+ * Anonymous User Class.
  */
 class Anonym extends Brick implements Person
 {
     /**
      * User type.
-     *
-     * @var string
      */
-    public $type = 'Anonymous';
+    public string $type = 'Anonymous';
 
     /**
-     * An Anonymous user ID is always null
-     *
-     * @var int|null
+     * An Anonymous user ID is always null.
      */
-    public $userID = null;
+    public ?int $userID = null;
 
     /**
      * Login indicator.
-     *
-     * @var bool
      */
-    public $logged = false;
+    public bool $logged = false;
 
     /**
-     * User Settings array
-     *
-     * @var array
+     * User Settings array.
      */
-    public $settings = [];
+    public array $settings = [];
 
     /**
-     * Where to look for settings
-     * @var string
+     * Where to look for settings.
      */
-    public $settingsColumn = 'settings';
+    public string $settingsColumn = 'settings';
 
     /**
      * User object name setting.
@@ -65,31 +61,33 @@ class Anonym extends Brick implements Person
      */
     public function setObjectName($objectName = null)
     {
-        if (is_null($objectName) && isset($_SERVER['REMOTE_ADDR'])) {
-            $name = parent::setObjectName(get_class($this) . '@' . self::remoteToIdentity());
+        if (null === $objectName && isset($_SERVER['REMOTE_ADDR'])) {
+            $name = parent::setObjectName(\get_class($this).'@'.self::remoteToIdentity());
         } else {
             $name = parent::setObjectName($objectName);
         }
+
         return $name;
     }
 
     /**
-     * Returns user identity with logname if logged
+     * Returns user identity with logname if logged.
      *
      * @return string
      */
     public static function remoteToIdentity()
     {
         if (isset($_SERVER['REMOTE_USER'])) {
-            $identity = $_SERVER['REMOTE_ADDR'] . ' [' . $_SERVER['REMOTE_USER'] . ']';
+            $identity = $_SERVER['REMOTE_ADDR'].' ['.$_SERVER['REMOTE_USER'].']';
         } else {
             $identity = $_SERVER['REMOTE_ADDR'];
         }
+
         return $identity;
     }
 
     /**
-     * Anonymous has a level
+     * Anonymous has a level.
      *
      * @return int
      */
@@ -101,17 +99,15 @@ class Anonym extends Brick implements Person
     /**
      * Anonymous has no ID.
      */
-    public function getUserID()
+    public function getUserID(): void
     {
-        return;
     }
 
     /**
      * Anonymous has no login.
      */
-    public function getUserLogin()
+    public function getUserLogin(): void
     {
-        return;
     }
 
     /**
@@ -129,9 +125,8 @@ class Anonym extends Brick implements Person
      *
      * @param string $settingName settings-key name
      */
-    public function getSettingValue(/** @scrutinizer ignore-unused */ $settingName = null)
+    public function getSettingValue(/** @scrutinizer ignore-unused */ $settingName = null): void
     {
-        return;
     }
 
     /**
@@ -140,7 +135,7 @@ class Anonym extends Brick implements Person
      * @param string $settingName  settings keyword (name)
      * @param mixed  $settingValue setting value
      */
-    public function setSettingValue($settingName, $settingValue)
+    public function setSettingValue($settingName, $settingValue): void
     {
         $this->settings[$settingName] = $settingValue;
     }
@@ -148,9 +143,8 @@ class Anonym extends Brick implements Person
     /**
      * Anonymous has no mail.
      */
-    public function getUserEmail()
+    public function getUserEmail(): void
     {
-        return;
     }
 
     /**
@@ -158,13 +152,12 @@ class Anonym extends Brick implements Person
      *
      * @param string $permKeyword permission keyword
      */
-    public function getPermission(/** @scrutinizer ignore-unused */ $permKeyword = null)
+    public function getPermission(/** @scrutinizer ignore-unused */ $permKeyword = null): void
     {
-        return;
     }
 
     /**
-     * Annonym cannot be signed in
+     * Annonym cannot be signed in.
      *
      * @param array $formData FormData
      *

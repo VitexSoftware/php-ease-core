@@ -9,6 +9,15 @@
 
 declare(strict_types=1);
 
+/**
+ * This file is part of the EaseCore package.
+ *
+ * (c) Vítězslav Dvořák <info@vitexsoftware.cz>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Ease\Logger;
 
 /**
@@ -21,18 +30,16 @@ class ToEventlog extends ToSyslog implements Loggingable
 {
     /**
      * Předvolená metoda logování.
-     *
-     * @var string
      */
-    public $logType = 'eventlog';
+    public string $logType = 'eventlog';
 
     /**
-     * @var ToEventlog|null Saves obejct instace (singleton...).
+     * @var null|ToEventlog Saves obejct instace (singleton...).
      */
-    private static $instance = null;
+    private static ?ToEventlog $instance = null;
 
     /**
-     * Encode For Windows event Log
+     * Encode For Windows event Log.
      *
      * @param string $messageRaw
      *
@@ -44,12 +51,12 @@ class ToEventlog extends ToSyslog implements Loggingable
     }
 
     /**
-     * Obtain instance of Syslog loger
+     * Obtain instance of Syslog loger.
      *
      * @return ToSyslog
      */
     public static function singleton()
     {
-        return is_object(self::$instance) ? self::$instance : new self(\Ease\Shared::appName());
+        return \is_object(self::$instance) ? self::$instance : new self(\Ease\Shared::appName());
     }
 }

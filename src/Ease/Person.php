@@ -1,18 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 /**
- * Interface for Anonym, User, Customer, Admin etc ...
+ * This file is part of the EaseCore package.
  *
- * @author    Vitex <vitex@hippy.cz>
- * @copyright 2021 Vitex@hippy.cz (G)
+ * (c) Vítězslav Dvořák <info@vitexsoftware.cz>
  *
- * PHP 7
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Ease;
 
 /**
- *
  * @author vitex
  */
 interface Person

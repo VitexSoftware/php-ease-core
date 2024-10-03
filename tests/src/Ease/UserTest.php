@@ -1,5 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+/**
+ * This file is part of the EaseCore package.
+ *
+ * (c) Vítězslav Dvořák <info@vitexsoftware.cz>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Test\Ease;
 
 use Ease\User;
@@ -9,9 +20,6 @@ use Ease\User;
  */
 class UserTest extends AnonymTest
 {
-    /**
-     * @var User
-     */
     protected $object;
 
     /**
@@ -32,54 +40,56 @@ class UserTest extends AnonymTest
     }
 
     /**
-     * Test Constructor
+     * Test Constructor.
      *
-     * @covers Ease\User::__construct
+     * @covers \Ease\User::__construct
      */
-    public function testConstructor()
+    public function testConstructor(): void
     {
-        $classname = get_class($this->object);
+        $classname = \get_class($this->object);
 
         // Get mock, without the constructor being called
         $mock = $this->getMockBuilder($classname)
-                ->disableOriginalConstructor()
-                ->getMockForAbstractClass();
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
         $mock->__construct('test', ['debug' => false]);
 
         $this->assertEmpty($mock->getData());
     }
 
     /**
-     * @covers Ease\User::getUserName
+     * @covers \Ease\User::getUserName
      */
-    public function testGetUserName()
+    public function testGetUserName(): void
     {
         $this->object->setDataValue('login', 'vitex');
         $this->assertEquals('vitex', $this->object->getUserName());
     }
 
     /**
-     * @covers Ease\User::getUserEmail
-     * @covers Ease\Person::getUserEmail
+     * @covers \Ease\Person::getUserEmail
+     * @covers \Ease\User::getUserEmail
      */
-    public function testGetUserEmail()
+    public function testGetUserEmail(): void
     {
         $this->object->setDataValue('email', 'info@vitexsoftware.cz');
         $this->assertEquals('info@vitexsoftware.cz', $this->object->getUserEmail());
     }
 
     /**
-     * @covers Ease\User::draw
+     * @covers \Ease\User::draw
+     *
+     * @param null|mixed $whatWant
      */
-    public function testDraw($whatWant = null)
+    public function testDraw($whatWant = null): void
     {
         $this->assertEquals('<img class="avatar" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8pIC0tPgo8c3ZnIGlkPSJzdmcyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjAwIiB3aWR0aD0iMjAwIiB2ZXJzaW9uPSIxLjAiPgogPHBhdGggaWQ9InBhdGgyMzgyIiBkPSJtMTY1LjMzIDExMy40NGExMDMuNjEgMTAzLjYxIDAgMSAxIC0yMDcuMjIgMCAxMDMuNjEgMTAzLjYxIDAgMSAxIDIwNy4yMiAweiIgdHJhbnNmb3JtPSJtYXRyaXgoLjkzNzM5IDAgMCAuOTM3MzkgNDIuMTQzIC02LjMzOTIpIiBzdHJva2Utd2lkdGg9IjAiIGZpbGw9IiNmZmYiLz4KIDxnIGlkPSJsYXllcjEiPgogIDxwYXRoIGlkPSJwYXRoMjQxMyIgZD0ibTEwMCAwYy01NS4yIDAtMTAwIDQ0LjgtMTAwIDEwMC01LjA0OTVlLTE1IDU1LjIgNDQuOCAxMDAgMTAwIDEwMHMxMDAtNDQuOCAxMDAtMTAwLTQ0LjgtMTAwLTEwMC0xMDB6bTAgMTIuODEyYzQ4LjEzIDAgODcuMTkgMzkuMDU4IDg3LjE5IDg3LjE4OHMtMzkuMDYgODcuMTktODcuMTkgODcuMTktODcuMTg4LTM5LjA2LTg3LjE4OC04Ny4xOSAzOS4wNTgtODcuMTg4IDg3LjE4OC04Ny4xODh6bTEuNDcgMjEuMjVjLTUuNDUgMC4wMy0xMC42NTMgMC43MzctMTUuMjgyIDIuMDYzLTQuNjk5IDEuMzQ2LTkuMTI2IDMuNDg0LTEyLjg3NiA2LjIxOS0zLjIzOCAyLjM2Mi02LjMzMyA1LjM5MS04LjY4NyA4LjUzMS00LjE1OSA1LjU0OS02LjQ2MSAxMS42NTEtNy4wNjMgMTguNjg3LTAuMDQgMC40NjgtMC4wNyAwLjg2OC0wLjA2MiAwLjg3NiAwLjAxNiAwLjAxNiAyMS43MDIgMi42ODcgMjEuODEyIDIuNjg3IDAuMDUzIDAgMC4xMTMtMC4yMzQgMC4yODItMC45MzcgMS45NDEtOC4wODUgNS40ODYtMTMuNTIxIDEwLjk2OC0xNi44MTMgNC4zMi0yLjU5NCA5LjgwOC0zLjYxMiAxNS43NzgtMi45NjkgMi43NCAwLjI5NSA1LjIxIDAuOTYgNy4zOCAyIDIuNzEgMS4zMDEgNS4xOCAzLjM2MSA2Ljk0IDUuODEzIDEuNTQgMi4xNTYgMi40NiA0LjU4NCAyLjc1IDcuMzEyIDAuMDggMC43NTkgMC4wNSAyLjQ4LTAuMDMgMy4yMTktMC4yMyAxLjgyNi0wLjcgMy4zNzgtMS41IDQuOTY5LTAuODEgMS41OTctMS40OCAyLjUxNC0yLjc2IDMuODEyLTIuMDMgMi4wNzctNS4xOCA0LjgyOS0xMC43OCA5LjQwNy0zLjYgMi45NDQtNi4wNCA1LjE1Ni04LjEyIDcuMzQzLTQuOTQzIDUuMTc5LTcuMTkxIDkuMDY5LTguNTY0IDE0LjcxOS0wLjkwNSAzLjcyLTEuMjU2IDcuNTUtMS4xNTYgMTMuMTkgMC4wMjUgMS40IDAuMDYyIDIuNzMgMC4wNjIgMi45N3YwLjQzaDIxLjU5OGwwLjAzLTIuNGMwLjAzLTMuMjcgMC4yMS01LjM3IDAuNTYtNy40MSAwLjU3LTMuMjcgMS40My01IDMuOTQtNy44MSAxLjYtMS44IDMuNy0zLjc2IDYuOTMtNi40NyA0Ljc3LTMuOTkxIDguMTEtNi45OSAxMS4yNi0xMC4xMjUgNC45MS00LjkwNyA3LjQ2LTguMjYgOS4yOC0xMi4xODcgMS40My0zLjA5MiAyLjIyLTYuMTY2IDIuNDYtOS41MzIgMC4wNi0wLjgxNiAwLjA3LTMuMDMgMC0zLjk2OC0wLjQ1LTcuMDQzLTMuMS0xMy4yNTMtOC4xNS0xOS4wMzItMC44LTAuOTA5LTIuNzgtMi44ODctMy43Mi0zLjcxOC00Ljk2LTQuMzk0LTEwLjY5LTcuMzUzLTE3LjU2LTkuMDk0LTQuMTktMS4wNjItOC4yMy0xLjYtMTMuMzUtMS43NS0wLjc4LTAuMDIzLTEuNTktMC4wMzYtMi4zNy0wLjAzMnptLTEwLjkwOCAxMDMuNnYyMmgyMS45OTh2LTIyaC0yMS45OTh6Ii8+CiA8L2c+Cjwvc3ZnPgo=">', $this->object->draw());
     }
 
     /**
-     * @covers Ease\User::getIcon
+     * @covers \Ease\User::getIcon
      */
-    public function testGetIcon()
+    public function testGetIcon(): void
     {
         $this->assertEquals('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8pIC0tPgo8c3ZnIGlkPSJzdmcyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjAwIiB3aWR0aD0iMjAwIiB2ZXJzaW9uPSIxLjAiPgogPHBhdGggaWQ9InBhdGgyMzgyIiBkPSJtMTY1LjMzIDExMy40NGExMDMuNjEgMTAzLjYxIDAgMSAxIC0yMDcuMjIgMCAxMDMuNjEgMTAzLjYxIDAgMSAxIDIwNy4yMiAweiIgdHJhbnNmb3JtPSJtYXRyaXgoLjkzNzM5IDAgMCAuOTM3MzkgNDIuMTQzIC02LjMzOTIpIiBzdHJva2Utd2lkdGg9IjAiIGZpbGw9IiNmZmYiLz4KIDxnIGlkPSJsYXllcjEiPgogIDxwYXRoIGlkPSJwYXRoMjQxMyIgZD0ibTEwMCAwYy01NS4yIDAtMTAwIDQ0LjgtMTAwIDEwMC01LjA0OTVlLTE1IDU1LjIgNDQuOCAxMDAgMTAwIDEwMHMxMDAtNDQuOCAxMDAtMTAwLTQ0LjgtMTAwLTEwMC0xMDB6bTAgMTIuODEyYzQ4LjEzIDAgODcuMTkgMzkuMDU4IDg3LjE5IDg3LjE4OHMtMzkuMDYgODcuMTktODcuMTkgODcuMTktODcuMTg4LTM5LjA2LTg3LjE4OC04Ny4xOSAzOS4wNTgtODcuMTg4IDg3LjE4OC04Ny4xODh6bTEuNDcgMjEuMjVjLTUuNDUgMC4wMy0xMC42NTMgMC43MzctMTUuMjgyIDIuMDYzLTQuNjk5IDEuMzQ2LTkuMTI2IDMuNDg0LTEyLjg3NiA2LjIxOS0zLjIzOCAyLjM2Mi02LjMzMyA1LjM5MS04LjY4NyA4LjUzMS00LjE1OSA1LjU0OS02LjQ2MSAxMS42NTEtNy4wNjMgMTguNjg3LTAuMDQgMC40NjgtMC4wNyAwLjg2OC0wLjA2MiAwLjg3NiAwLjAxNiAwLjAxNiAyMS43MDIgMi42ODcgMjEuODEyIDIuNjg3IDAuMDUzIDAgMC4xMTMtMC4yMzQgMC4yODItMC45MzcgMS45NDEtOC4wODUgNS40ODYtMTMuNTIxIDEwLjk2OC0xNi44MTMgNC4zMi0yLjU5NCA5LjgwOC0zLjYxMiAxNS43NzgtMi45NjkgMi43NCAwLjI5NSA1LjIxIDAuOTYgNy4zOCAyIDIuNzEgMS4zMDEgNS4xOCAzLjM2MSA2Ljk0IDUuODEzIDEuNTQgMi4xNTYgMi40NiA0LjU4NCAyLjc1IDcuMzEyIDAuMDggMC43NTkgMC4wNSAyLjQ4LTAuMDMgMy4yMTktMC4yMyAxLjgyNi0wLjcgMy4zNzgtMS41IDQuOTY5LTAuODEgMS41OTctMS40OCAyLjUxNC0yLjc2IDMuODEyLTIuMDMgMi4wNzctNS4xOCA0LjgyOS0xMC43OCA5LjQwNy0zLjYgMi45NDQtNi4wNCA1LjE1Ni04LjEyIDcuMzQzLTQuOTQzIDUuMTc5LTcuMTkxIDkuMDY5LTguNTY0IDE0LjcxOS0wLjkwNSAzLjcyLTEuMjU2IDcuNTUtMS4xNTYgMTMuMTkgMC4wMjUgMS40IDAuMDYyIDIuNzMgMC4wNjIgMi45N3YwLjQzaDIxLjU5OGwwLjAzLTIuNGMwLjAzLTMuMjcgMC4yMS01LjM3IDAuNTYtNy40MSAwLjU3LTMuMjcgMS40My01IDMuOTQtNy44MSAxLjYtMS44IDMuNy0zLjc2IDYuOTMtNi40NyA0Ljc3LTMuOTkxIDguMTEtNi45OSAxMS4yNi0xMC4xMjUgNC45MS00LjkwNyA3LjQ2LTguMjYgOS4yOC0xMi4xODcgMS40My0zLjA5MiAyLjIyLTYuMTY2IDIuNDYtOS41MzIgMC4wNi0wLjgxNiAwLjA3LTMuMDMgMC0zLjk2OC0wLjQ1LTcuMDQzLTMuMS0xMy4yNTMtOC4xNS0xOS4wMzItMC44LTAuOTA5LTIuNzgtMi44ODctMy43Mi0zLjcxOC00Ljk2LTQuMzk0LTEwLjY5LTcuMzUzLTE3LjU2LTkuMDk0LTQuMTktMS4wNjItOC4yMy0xLjYtMTMuMzUtMS43NS0wLjc4LTAuMDIzLTEuNTktMC4wMzYtMi4zNy0wLjAzMnptLTEwLjkwOCAxMDMuNnYyMmgyMS45OTh2LTIyaC0yMS45OTh6Ii8+CiA8L2c+Cjwvc3ZnPgo=', $this->object->getIcon());
         $this->object->setDataValue('email', 'info@vitexsoftware.cz');
@@ -87,9 +97,9 @@ class UserTest extends AnonymTest
     }
 
     /**
-     * @covers Ease\User::tryToLogin
+     * @covers \Ease\User::tryToLogin
      */
-    public function testTryToLogin()
+    public function testTryToLogin(): void
     {
         $this->assertEmpty($this->object->tryToLogin([]));
         $this->assertEmpty($this->object->tryToLogin(['login' => 'noone']));
@@ -98,9 +108,9 @@ class UserTest extends AnonymTest
     }
 
     /**
-     * @covers Ease\User::isAccountEnabled
+     * @covers \Ease\User::isAccountEnabled
      */
-    public function testIsAccountEnabled()
+    public function testIsAccountEnabled(): void
     {
         $this->assertTrue($this->object->isAccountEnabled());
         $this->object->disableColumn = 'state';
@@ -111,53 +121,53 @@ class UserTest extends AnonymTest
     }
 
     /**
-     * @covers Ease\User::loginSuccess
+     * @covers \Ease\User::loginSuccess
      */
-    public function testLoginSuccess()
+    public function testLoginSuccess(): void
     {
         $this->object->loginSuccess();
         $this->assertTrue($this->object->logged);
     }
 
     /**
-     * @covers Ease\User::authentize
+     * @covers \Ease\User::authentize
      */
-    public function testAuthentize()
+    public function testAuthentize(): void
     {
         $this->assertFalse($this->object->authentize('pass'));
     }
 
     /**
-     * @covers Ease\User::validatePassword
+     * @covers \Ease\User::validatePassword
      */
-    public function testValidatePassword()
+    public function testValidatePassword(): void
     {
         $this->object->setDataValue('password', '240885b263943a74849aa0b2d3b1285b:2d');
         $this->assertTrue($this->object->validatePassword('password'));
     }
 
     /**
-     * @covers Ease\User::encryptPassword
+     * @covers \Ease\User::encryptPassword
      */
-    public function testEncryptPassword()
+    public function testEncryptPassword(): void
     {
-        $this->assertFalse(empty(\Ease\User::encryptPassword('password')));
+        $this->assertNotEmpty(\Ease\User::encryptPassword('password'));
     }
 
     /**
-     * @covers Ease\User::passwordValidation
+     * @covers \Ease\User::passwordValidation
      */
-    public function testPasswordValidation()
+    public function testPasswordValidation(): void
     {
         $this->assertFalse(\Ease\User::passwordValidation('heslo', '813c98b71749197010bb458facd84021'));
         $this->assertTrue(\Ease\User::passwordValidation('password', '240885b263943a74849aa0b2d3b1285b:2d'));
     }
 
     /**
-     * @covers Ease\User::passwordValidation
-     * @covers Ease\User::encryptPassword
+     * @covers \Ease\User::encryptPassword
+     * @covers \Ease\User::passwordValidation
      */
-    public function testPassword()
+    public function testPassword(): void
     {
         $encrypted = \Ease\User::encryptPassword('password');
         $this->assertNotEmpty($encrypted);
@@ -169,43 +179,43 @@ class UserTest extends AnonymTest
     }
 
     /**
-     * @covers Ease\User::passwordChange
+     * @covers \Ease\User::passwordChange
      */
-    public function testPasswordChange()
+    public function testPasswordChange(): void
     {
         $this->assertFalse($this->object->passwordChange('newpass'));
     }
 
     /**
-     * @covers Ease\User::getUserID
+     * @covers \Ease\User::getUserID
      */
-    public function testGetUserID()
+    public function testGetUserID(): void
     {
         $this->assertEquals(0, $this->object->getUserID());
     }
 
     /**
-     * @covers Ease\User::getUserLogin
-     * @covers Ease\User::setUserLogin
+     * @covers \Ease\User::getUserLogin
+     * @covers \Ease\User::setUserLogin
      */
-    public function testUserLogin()
+    public function testUserLogin(): void
     {
         $this->assertTrue($this->object->setUserLogin('vitex'));
         $this->assertEquals('vitex', $this->object->getUserLogin());
     }
 
     /**
-     * @covers Ease\User::getPermission
+     * @covers \Ease\User::getPermission
      */
-    public function testGetPermission()
+    public function testGetPermission(): void
     {
         $this->assertEquals('', $this->object->getPermission());
     }
 
     /**
-     * @covers Ease\User::logout
+     * @covers \Ease\User::logout
      */
-    public function testLogout()
+    public function testLogout(): void
     {
         $this->assertTrue($this->object->logout());
         $this->assertFalse($this->object->logged);
@@ -213,60 +223,61 @@ class UserTest extends AnonymTest
 
     /**
      * @a
-     * @covers Ease\User::getSettingValue
+     *
+     * @covers \Ease\User::getSettingValue
      */
-    public function testGetSettingValue()
+    public function testGetSettingValue(): void
     {
         $this->object->setSettingValue('test', 'tested');
         $this->assertEquals('tested', $this->object->getSettingValue('test'));
     }
 
     /**
-     * @covers Ease\User::setSettings
+     * @covers \Ease\User::setSettings
      */
-    public function testSetSettings()
+    public function testSetSettings(): void
     {
         $this->object->setSettings(['key' => 'value']);
         $this->assertEquals('value', $this->object->getSettingValue('key'));
     }
 
     /**
-     * @covers Ease\User::setSettingValue
+     * @covers \Ease\User::setSettingValue
      */
-    public function testSetSettingValue()
+    public function testSetSettingValue(): void
     {
         $this->object->setSettingValue('test', 'tested');
         $this->assertEquals('tested', $this->object->getSettingValue('test'));
     }
 
     /**
-     * @covers Ease\User::loadPermissions
+     * @covers \Ease\User::loadPermissions
      */
-    public function testLoadPermissions()
+    public function testLoadPermissions(): void
     {
         $this->assertEquals('', $this->object->loadPermissions());
     }
 
     /**
-     * @covers Ease\User::getName
+     * @covers \Ease\User::getName
      */
-    public function testGetName()
+    public function testGetName(): void
     {
         $this->assertEquals('Ease\User:@127.0.0.1 [tester]', $this->object->getName());
     }
 
     /**
-     * @covers Ease\User::getGravatar
+     * @covers \Ease\User::getGravatar
      */
-    public function testGetGravatar()
+    public function testGetGravatar(): void
     {
         $this->assertEquals('http://www.gravatar.com/avatar/f00226a1c6fe891010a2543531ed432c?s=80&d=mm&r=g', $this->object->getGravatar('info@vitexsoftware.cz'));
     }
 
     /**
-     * @covers Ease\User::setObjectName
+     * @covers \Ease\User::setObjectName
      */
-    public function testSetObjectName()
+    public function testSetObjectName(): void
     {
         $this->assertEquals('Ease\User:@127.0.0.1 [tester]', $this->object->setObjectName());
     }

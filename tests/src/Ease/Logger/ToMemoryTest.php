@@ -1,5 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+/**
+ * This file is part of the EaseCore package.
+ *
+ * (c) Vítězslav Dvořák <info@vitexsoftware.cz>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Test\Ease\Logger;
 
 use Ease\Logger\ToMemory;
@@ -9,9 +20,6 @@ use Ease\Logger\ToMemory;
  */
 class ToMemoryTest extends \Test\Ease\AtomTest
 {
-    /**
-     * @var Logger
-     */
     protected $object;
 
     /**
@@ -32,25 +40,25 @@ class ToMemoryTest extends \Test\Ease\AtomTest
     }
 
     /**
-     * @covers Ease\Logger\ToMemory::singleton
+     * @covers \Ease\Logger\ToMemory::singleton
      */
-    public function testSingleton()
+    public function testSingleton(): void
     {
         $this->assertInstanceOf('Ease\Logger\ToMemory', ToMemory::singleton());
     }
 
     /**
-     * @covers Ease\Logger\ToMemory::addToLog
+     * @covers \Ease\Logger\ToMemory::addToLog
      */
-    public function testAddToLog()
+    public function testAddToLog(): void
     {
-        $this->assertEquals(4, $this->object->addToLog(get_class($this), 'test'));
+        $this->assertEquals(4, $this->object->addToLog(\get_class($this), 'test'));
     }
 
     /**
-     * @covers Ease\Logger\ToMemory::getLogStyle
+     * @covers \Ease\Logger\ToMemory::getLogStyle
      */
-    public function testGetLogStyle()
+    public function testGetLogStyle(): void
     {
         $this->assertEquals('color: black;', $this->object->getLogStyle());
         $this->assertEquals('', $this->object->getLogStyle('unexist'));

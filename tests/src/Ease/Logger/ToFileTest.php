@@ -1,5 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+/**
+ * This file is part of the EaseCore package.
+ *
+ * (c) Vítězslav Dvořák <info@vitexsoftware.cz>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Test\Ease\Logger;
 
 use Ease\Logger\ToFile;
@@ -9,9 +20,6 @@ use Ease\Logger\ToFile;
  */
 class ToFileTest extends ToMemoryTest
 {
-    /**
-     * @var Logger
-     */
     protected $object;
 
     /**
@@ -20,7 +28,7 @@ class ToFileTest extends ToMemoryTest
      */
     protected function setUp(): void
     {
-        $this->object = new ToFile(sys_get_temp_dir() . '/');
+        $this->object = new ToFile(sys_get_temp_dir().'/');
     }
 
     /**
@@ -32,52 +40,52 @@ class ToFileTest extends ToMemoryTest
     }
 
     /**
-     * Test Constructor
+     * Test Constructor.
      *
-     * @covers Ease\Logger\ToFile::__construct
+     * @covers \Ease\Logger\ToFile::__construct
      */
-    public function testConstructor()
+    public function testConstructor(): void
     {
-        $classname = get_class($this->object);
+        $classname = \get_class($this->object);
 
         $mock = $this->getMockBuilder($classname)
-                ->disableOriginalConstructor()
-                ->getMockForAbstractClass();
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
 
-        $mock->__construct(sys_get_temp_dir() . '/');
-        $this->assertEquals(sys_get_temp_dir() . '/Ease.log', $mock->logFileName);
+        $mock->__construct(sys_get_temp_dir().'/');
+        $this->assertEquals(sys_get_temp_dir().'/Ease.log', $mock->logFileName);
     }
 
     /**
-     * @covers Ease\Logger\ToFile::singleton
+     * @covers \Ease\Logger\ToFile::singleton
      */
-    public function testSingleton()
+    public function testSingleton(): void
     {
         $this->assertInstanceOf('Ease\Logger\ToFile', ToFile::singleton());
     }
 
     /**
-     * @covers Ease\Logger\ToFile::setupLogFiles
+     * @covers \Ease\Logger\ToFile::setupLogFiles
      */
-    public function testSetupLogFiles()
+    public function testSetupLogFiles(): void
     {
         $this->expectException('\Exception');
-        $this->assertEquals(sys_get_temp_dir() . '/Ease.log', $this->object->logFileName);
+        $this->assertEquals(sys_get_temp_dir().'/Ease.log', $this->object->logFileName);
         $this->object->setupLogFiles('/var/log');
     }
 
     /**
-     * @covers Ease\Logger\ToFile::addToLog
+     * @covers \Ease\Logger\ToFile::addToLog
      */
-    public function testAddToLog()
+    public function testAddToLog(): void
     {
         $this->assertIsInt($this->object->addToLog($this, 'test'));
     }
 
     /**
-     * @covers Ease\Logger\ToFile::testDirectory
+     * @covers \Ease\Logger\ToFile::testDirectory
      */
-    public function testTestDirectory()
+    public function testTestDirectory(): void
     {
         $this->assertTrue($this->object->testDirectory(sys_get_temp_dir()));
         $this->expectException('\Exception');
@@ -88,11 +96,10 @@ class ToFileTest extends ToMemoryTest
         \Ease\Logger\ToFile::testDirectory('/root', true, true, true);
     }
 
-
     /**
-     * @covers Ease\Logger\ToFile::__destruct
+     * @covers \Ease\Logger\ToFile::__destruct
      */
-    public function test__destruct()
+    public function testDestruct(): void
     {
         $this->assertEmpty($this->object->__destruct());
     }

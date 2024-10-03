@@ -11,6 +11,15 @@
 
 declare(strict_types=1);
 
+/**
+ * This file is part of the EaseCore package.
+ *
+ * (c) Vítězslav Dvořák <info@vitexsoftware.cz>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Ease;
 
 /**
@@ -25,36 +34,30 @@ class Sand extends Molecule
 
     /**
      * Default Language Code.
-     *
-     * @var string
      */
-    public $langCode = null;
+    public string $langCode = null;
 
     /**
      * Common object data holder.
-     *
-     * @var array|null
      */
-    public $data = null;
+    public ?array $data = null;
 
     /**
      * Odkaz na vlastnící objekt.
      *
-     * @var Sand|mixed object
+     * @var mixed|Sand object
      */
-    public $parentObject = null;
+    public $parentObject;
 
     /**
      * Sdílený objekt frameworku.
-     *
-     * @var Shared
      */
-    public $easeShared = null;
+    public Shared $easeShared = null;
 
     /**
      * Vynuluje všechny pole vlastností objektu.
      */
-    public function dataReset()
+    public function dataReset(): void
     {
         $this->data = [];
     }
@@ -70,19 +73,21 @@ class Sand extends Molecule
     public function setData(array $data, $reset = false)
     {
         $ret = 0;
+
         if (!empty($data)) {
             if ($reset) {
                 $this->dataReset();
             }
+
             $this->data = empty($this->data) ? $data : array_merge($this->data, $data);
-            $ret = count($data);
+            $ret = \count($data);
         }
 
         return $ret;
     }
 
     /**
-     * Obtain data holded by object
+     * Obtain data holded by object.
      *
      * @return array
      */
@@ -98,7 +103,7 @@ class Sand extends Molecule
      */
     public function getDataCount()
     {
-        return empty($this->data) ? 0 : count($this->data);
+        return empty($this->data) ? 0 : \count($this->data);
     }
 
     /**
@@ -110,12 +115,12 @@ class Sand extends Molecule
      */
     public function getDataValue($columnName)
     {
-        return !empty($columnName) && is_array($this->data) &&
-            array_key_exists($columnName, $this->data) ? $this->data[$columnName] : null;
+        return !empty($columnName) && \is_array($this->data)
+            && \array_key_exists($columnName, $this->data) ? $this->data[$columnName] : null;
     }
 
     /**
-     * Set data filed value
+     * Set data filed value.
      *
      * @param string $columnName název datové kolonky
      * @param mixed  $value      hodnota dat
@@ -139,7 +144,8 @@ class Sand extends Molecule
     public function unsetDataValue(string $columnName)
     {
         $result = false;
-        if (is_array($this->data) && array_key_exists($columnName, $this->data)) {
+
+        if (\is_array($this->data) && \array_key_exists($columnName, $this->data)) {
             unset($this->data[$columnName]);
             $result = true;
         }
@@ -156,12 +162,12 @@ class Sand extends Molecule
      */
     public function takeData($data)
     {
-        if (is_array($this->data) && is_array($data)) {
+        if (\is_array($this->data) && \is_array($data)) {
             $this->data = array_merge($this->data, $data);
         } else {
             $this->data = $data;
         }
 
-        return empty($data) ? null : count($data);
+        return empty($data) ? null : \count($data);
     }
 }

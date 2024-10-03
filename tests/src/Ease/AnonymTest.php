@@ -1,5 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+/**
+ * This file is part of the EaseCore package.
+ *
+ * (c) Vítězslav Dvořák <info@vitexsoftware.cz>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Test\Ease;
 
 use Ease\Anonym;
@@ -9,9 +20,6 @@ use Ease\Anonym;
  */
 class AnonymTest extends BrickTest
 {
-    /**
-     * @var Anonym
-     */
     protected $object;
 
     /**
@@ -32,28 +40,28 @@ class AnonymTest extends BrickTest
     }
 
     /**
-     * @covers Ease\Anonym::setObjectName
+     * @covers \Ease\Anonym::setObjectName
      */
-    public function testSetObjectName()
+    public function testSetObjectName(): void
     {
         $this->assertEquals('Test', $this->object->setObjectName('Test'));
         unset($_SERVER['REMOTE_USER']);
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $this->assertEquals(
             'Ease\Anonym@127.0.0.1',
-            $this->object->setObjectName()
+            $this->object->setObjectName(),
         );
         $_SERVER['REMOTE_USER'] = 'tester';
         $this->assertEquals(
             'Ease\Anonym@127.0.0.1 [tester]',
-            $this->object->setObjectName()
+            $this->object->setObjectName(),
         );
     }
 
     /**
-     * @covers Ease\Anonym::remoteToIdentity
+     * @covers \Ease\Anonym::remoteToIdentity
      */
-    public function testRemoteToIdentity()
+    public function testRemoteToIdentity(): void
     {
         $_SERVER['REMOTE_USER'] = null;
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
@@ -61,79 +69,79 @@ class AnonymTest extends BrickTest
         $_SERVER['REMOTE_USER'] = 'tester';
         $this->assertEquals(
             '127.0.0.1 [tester]',
-            $this->object->remoteToIdentity()
+            $this->object->remoteToIdentity(),
         );
     }
 
     /**
-     * @covers Ease\Anonym::getUserLevel
+     * @covers \Ease\Anonym::getUserLevel
      */
-    public function testGetUserLevel()
+    public function testGetUserLevel(): void
     {
         $this->assertEquals(-1, $this->object->getUserLevel());
     }
 
     /**
-     * @covers Ease\Anonym::getUserID
+     * @covers \Ease\Anonym::getUserID
      */
-    public function testGetUserID()
+    public function testGetUserID(): void
     {
         $this->assertNull($this->object->getUserID());
     }
 
     /**
-     * @covers Ease\Anonym::getUserLogin
+     * @covers \Ease\Anonym::getUserLogin
      */
-    public function testGetUserLogin()
+    public function testGetUserLogin(): void
     {
         $this->assertNull($this->object->getUserLogin());
     }
 
     /**
-     * @covers Ease\Anonym::isLogged
+     * @covers \Ease\Anonym::isLogged
      */
-    public function testIsLogged()
+    public function testIsLogged(): void
     {
         $this->assertFalse($this->object->isLogged());
     }
 
     /**
-     * @covers Ease\Anonym::getSettingValue
+     * @covers \Ease\Anonym::getSettingValue
      */
-    public function testGetSettingValue()
+    public function testGetSettingValue(): void
     {
         $this->assertNull($this->object->getSettingValue('test'));
     }
 
     /**
-     * @covers Ease\Anonym::setSettingValue
+     * @covers \Ease\Anonym::setSettingValue
      */
-    public function testSetSettingValue()
+    public function testSetSettingValue(): void
     {
         $this->object->setSettingValue('test', true);
         $this->assertEquals(['test' => true], $this->object->settings);
     }
 
     /**
-     * @covers Ease\Anonym::getUserEmail
+     * @covers \Ease\Anonym::getUserEmail
      */
-    public function testGetUserEmail()
+    public function testGetUserEmail(): void
     {
         $this->assertNull($this->object->getUserEmail());
     }
 
     /**
-     * @covers Ease\Anonym::getPermission
+     * @covers \Ease\Anonym::getPermission
      */
-    public function testGetPermission()
+    public function testGetPermission(): void
     {
         $this->assertNull($this->object->getPermission());
     }
 
     /**
-     * @covers Ease\Anonym::logout
+     * @covers \Ease\Anonym::logout
      */
-    public function testLogout()
+    public function testLogout(): void
     {
         $this->assertTrue($this->object->logout());
     }

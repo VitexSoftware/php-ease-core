@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Something between Atom and Sand
+ * Something between Atom and Sand.
  *
  * @author    Vitex <vitex@hippy.cz>
  * @copyright 2009-2024 Vitex@hippy.cz (G)
@@ -11,27 +11,31 @@
 
 declare(strict_types=1);
 
+/**
+ * This file is part of the EaseCore package.
+ *
+ * (c) Vítězslav Dvořák <info@vitexsoftware.cz>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Ease;
 
-use Ease\Atom;
-use Ease\Functions;
-
 /**
- * Description of Molecule
+ * Description of Molecule.
  *
  * @author vitex
  */
 class Molecule extends Atom
 {
     /**
-     * Object name
-     *
-     * @var string
+     * Object name.
      */
-    public $objectName = 'Molecule';
+    public string $objectName = 'Molecule';
 
     /**
-     * Set object name
+     * Set object name.
      *
      * @param string $objectName
      *
@@ -40,7 +44,7 @@ class Molecule extends Atom
     public function setObjectName($objectName = null)
     {
         if (empty($objectName)) {
-            $this->objectName = get_class($this);
+            $this->objectName = \get_class($this);
         } else {
             $this->objectName = $objectName;
         }
@@ -59,63 +63,62 @@ class Molecule extends Atom
     }
 
     /**
-     * Set up one of the properties by 1) array 2) ENV 3) Constant
+     * Set up one of the properties by 1) array 2) ENV 3) Constant.
      *
      * @param array  $options  array of given availble properties
      * @param string $name     name of property to set up
      * @param string $constant load default property value from constant / ENV
      */
-    public function setupProperty($options, $name, $constant = '')
+    public function setupProperty($options, $name, $constant = ''): void
     {
-        if (array_key_exists($name, $options)) {
-            $this->$name = $options[$name];
-        } elseif (array_key_exists($constant, $options)) {
-            $this->$name = $options[$constant];
+        if (\array_key_exists($name, $options)) {
+            $this->{$name} = $options[$name];
+        } elseif (\array_key_exists($constant, $options)) {
+            $this->{$name} = $options[$constant];
         } else { // If No values specified we must use constants or environment
             if ($constant && (empty(Functions::cfg($constant)) === false)) {
-                $this->$name = Functions::cfg($constant);
+                $this->{$name} = Functions::cfg($constant);
             }
         }
     }
 
     /**
-     * Set up one of the properties by 1) array 2) ENV 3) Constant to int value
+     * Set up one of the properties by 1) array 2) ENV 3) Constant to int value.
      *
      * @param array  $options  array of given availble properties
      * @param string $name     name of property to set up
      * @param string $constant load default property value from constant / ENV
      */
-    public function setupIntProperty($options, $name, $constant = '')
+    public function setupIntProperty($options, $name, $constant = ''): void
     {
-        if (array_key_exists($name, $options)) {
-            $this->$name = (int) $options[$name];
-        } elseif (array_key_exists($constant, $options)) {
-            $this->$name = (int) $options[$constant];
+        if (\array_key_exists($name, $options)) {
+            $this->{$name} = (int) $options[$name];
+        } elseif (\array_key_exists($constant, $options)) {
+            $this->{$name} = (int) $options[$constant];
         } else { // If No values specified we must use constants or environment
             if ($constant && (empty(Functions::cfg($constant)) === false)) {
-                $this->$name = (int) Functions::cfg($constant);
+                $this->{$name} = (int) Functions::cfg($constant);
             }
         }
     }
-    
+
     /**
-     * Set up one of the properties by 1) array 2) ENV 3) Constant to bool value
+     * Set up one of the properties by 1) array 2) ENV 3) Constant to bool value.
      *
      * @param array  $options  array of given availble properties
      * @param string $name     name of property to set up
      * @param string $constant load default property value from constant / ENV
      */
-    public function setupBoolProperty($options, $name, $constant = '')
+    public function setupBoolProperty($options, $name, $constant = ''): void
     {
-        if (array_key_exists($name, $options)) {
-            $this->$name = (bool) $options[$name];
-        } elseif (array_key_exists($constant, $options)) {
-            $this->$name = (bool) $options[$constant];
+        if (\array_key_exists($name, $options)) {
+            $this->{$name} = (bool) $options[$name];
+        } elseif (\array_key_exists($constant, $options)) {
+            $this->{$name} = (bool) $options[$constant];
         } else { // If No values specified we must use constants or environment
             if ($constant && (empty(Functions::cfg($constant)) === false)) {
-                $this->$name = (bool) Functions::cfg($constant);
+                $this->{$name} = (bool) Functions::cfg($constant);
             }
         }
     }
-    
 }

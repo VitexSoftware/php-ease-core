@@ -1,5 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+/**
+ * This file is part of the EaseCore package.
+ *
+ * (c) Vítězslav Dvořák <info@vitexsoftware.cz>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Test\Ease\Logger;
 
 use Ease\Logger\Regent;
@@ -9,9 +20,6 @@ use Ease\Logger\Regent;
  */
 class RegentTest extends \Test\Ease\AtomTest
 {
-    /**
-     * @var Regent
-     */
     protected $object;
 
     /**
@@ -32,16 +40,16 @@ class RegentTest extends \Test\Ease\AtomTest
     }
 
     /**
-     * @covers Ease\Logger\Regent::__construct
+     * @covers \Ease\Logger\Regent::__construct
      */
-    public function testConstructor()
+    public function testConstructor(): void
     {
-        $classname = get_class($this->object);
+        $classname = \get_class($this->object);
 
         // Get mock, without the constructor being called
         $mock = $this->getMockBuilder($classname)
-                ->disableOriginalConstructor()
-                ->getMockForAbstractClass();
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
         $mock->__construct();
         $mock->__construct('syslog');
         $mock->__construct('console');
@@ -52,62 +60,62 @@ class RegentTest extends \Test\Ease\AtomTest
 
         $this->assertEquals(
             ['memory', 'syslog', 'console', 'file', 'std', 'eventlog', '\Ease\Logger\ToFile'],
-            array_keys($mock->loggers)
+            array_keys($mock->loggers),
         );
     }
 
     /**
-     * @covers Ease\Logger\Regent::takeMessage
+     * @covers \Ease\Logger\Regent::takeMessage
      */
-    public function testTakeMessage()
+    public function testTakeMessage(): void
     {
         $this->assertEmpty($this->object->takeMessage());
     }
 
     /**
-     * @covers Ease\Logger\Regent::getMessages
+     * @covers \Ease\Logger\Regent::getMessages
      */
-    public function testgetMessages()
+    public function testgetMessages(): void
     {
-        $this->assertTrue(is_array($this->object->getMessages()));
+        $this->assertIsArray($this->object->getMessages());
     }
 
     /**
-     * @covers Ease\Logger\Regent::cleanMessages
+     * @covers \Ease\Logger\Regent::cleanMessages
      */
-    public function testcleanMessages()
+    public function testcleanMessages(): void
     {
         $this->object->cleanMessages();
         $this->assertEmpty($this->object->getMessages());
     }
 
     /**
-     * @covers Ease\Logger\Regent::addToLog
-     * @covers Ease\Logger\Loggingable::addToLog
+     * @covers \Ease\Logger\Loggingable::addToLog
+     * @covers \Ease\Logger\Regent::addToLog
      */
-    public function testAddToLog()
+    public function testAddToLog(): void
     {
         $this->object->cleanMessages();
-        $this->object->addToLog(get_class($this), 'Unit Test');
-        $this->object->addToLog(get_class($this), 'Code Coverage', 'debug');
-        $this->assertEquals(2, count($this->object->getMessages()));
+        $this->object->addToLog(\get_class($this), 'Unit Test');
+        $this->object->addToLog(\get_class($this), 'Code Coverage', 'debug');
+        $this->assertCount(2, $this->object->getMessages());
     }
 
     /**
-     * @covers Ease\Logger\Regent::addStatusObject
+     * @covers \Ease\Logger\Regent::addStatusObject
      */
-    public function testAddStatusObject()
+    public function testAddStatusObject(): void
     {
         $this->object->cleanMessages();
         $message = 'Regent::addStatusObject Unit Test';
         $this->object->addStatusObject(new \Ease\Logger\Message($message), 'info');
-        $this->assertEquals(1, count($this->object->getMessages()));
+        $this->assertCount(1, $this->object->getMessages());
     }
 
     /**
-     * @covers Ease\Logger\Regent::singleton
+     * @covers \Ease\Logger\Regent::singleton
      */
-    public function testSingleton()
+    public function testSingleton(): void
     {
         $this->assertInstanceOf('Ease\Logger\Regent', Regent::singleton());
     }
