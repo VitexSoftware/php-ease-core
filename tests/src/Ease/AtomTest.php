@@ -57,7 +57,7 @@ class AtomTest extends \PHPUnit\Framework\TestCase
      */
     public function testgetObjectName(): void
     {
-        $this->assertNotEmpty($this->object->getObjectName());
+        $this->assertNotEmpty($this->object->getObjectName(),'Object does not provide its name');
     }
 
     /**
@@ -65,7 +65,7 @@ class AtomTest extends \PHPUnit\Framework\TestCase
      */
     public function testToString(): void
     {
-        $this->assertIsString($this->object->__toString());
+        $this->assertIsString($this->object->__toString(),'Object does not provide its textual representation');
     }
 
     /**
