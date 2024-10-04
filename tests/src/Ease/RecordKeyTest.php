@@ -12,7 +12,7 @@ declare(strict_types=1);
  */
 
 namespace Test\Ease;
-
+use PHPUnit\Framework\Attributes\CoversClass;
 /**
  * Description of RecordKeyTest.
  *
