@@ -4,9 +4,9 @@
  * User objects.
  *
  * @author    Vítězslav Dvořák <vitex@hippy.cz>
- * @copyright 2009-2023 Vitex@hippy.cz (G)
+ * @copyright 2009-2024 Vitex@hippy.cz (G)
  *
- * PHP 7
+ * PHP 8
  */
 
 declare(strict_types=1);
@@ -113,9 +113,9 @@ class User extends Anonym
      *
      * @return string
      */
-    public function getUserName()
+    public function getUserName(): string
     {
-        return $this->getDataValue($this->loginColumn);
+        return (string)$this->getDataValue($this->loginColumn);
     }
 
     /**
