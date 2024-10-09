@@ -65,7 +65,7 @@ class Molecule extends Atom
     /**
      * Set up one of the properties by 1) array 2) ENV 3) Constant.
      *
-     * @param array  $options  array of given availble properties
+     * @param array  $options  array of given available properties
      * @param string $name     name of property to set up
      * @param string $constant load default property value from constant / ENV
      */
@@ -76,8 +76,29 @@ class Molecule extends Atom
         } elseif (\array_key_exists($constant, $options)) {
             $this->{$name} = $options[$constant];
         } else { // If No values specified we must use constants or environment
-            if ($constant && (empty(Functions::cfg($constant)) === false)) {
-                $this->{$name} = Functions::cfg($constant);
+            $value = Functions::cfg($constant);
+            if ($constant && (empty($value) === false)) {
+                switch (gettype($this->{$name})) {
+                    case 'boolean':
+                        switch (strtolower($value)) {
+                            case 'true':
+                                $this->{$name} = true;
+                                break;
+                            case 'false':
+                                $this->{$name} = false;
+                                break;
+                            default:
+                                $this->{$name} = (bool)Functions::cfg($constant);
+                                break;
+                        }
+                        break;
+                    case 'string':
+                        $this->{$name} = (string)Functions::cfg($constant);
+                        break;
+                    default:
+                        $this->{$name} = Functions::cfg($constant);
+                        break;
+                }
             }
         }
     }
@@ -85,7 +106,7 @@ class Molecule extends Atom
     /**
      * Set up one of the properties by 1) array 2) ENV 3) Constant to int value.
      *
-     * @param array  $options  array of given availble properties
+     * @param array  $options  array of given available properties
      * @param string $name     name of property to set up
      * @param string $constant load default property value from constant / ENV
      */
