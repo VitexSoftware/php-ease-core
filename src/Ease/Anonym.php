@@ -160,13 +160,9 @@ class Anonym extends Brick implements Person
     }
 
     /**
-     * Annonym cannot be signed in.
-     *
-     * @param array $formData FormData
-     *
-     * @return bool
+     * Anonym cannot be signed in.
      */
-    public function tryToLogin($formData)
+    public function tryToLogin(array $formData): bool
     {
         return false;
     }
