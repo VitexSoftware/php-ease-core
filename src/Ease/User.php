@@ -48,6 +48,7 @@ class User extends Anonym
 
     /**
      * Pole uživatelských nastavení.
+     * @var array<string, mixed>
      */
     public array $settings = [];
 
@@ -193,14 +194,13 @@ class User extends Anonym
     }
 
     /**
-     * Pokusí se o přihlášení.
      * Try to Sign in.
      *
      * @param array $formData pole dat z přihlaš. formuláře např. $_REQUEST
      *
-     * @return null|bool
+     * @return bool
      */
-    public function tryToLogin($formData)
+    public function tryToLogin(array $formData): bool
     {
         $login = \array_key_exists($this->loginColumn, $formData) ? $formData[$this->loginColumn] : null;
         $password = \array_key_exists($this->plaintextField, $formData) ? $formData[$this->plaintextField] : null;
@@ -208,13 +208,13 @@ class User extends Anonym
         if (empty($login)) {
             $this->addStatusMessage(_('missing login'), 'error');
 
-            return null;
+            return false;
         }
 
         if (empty($password)) {
             $this->addStatusMessage(_('missing password'), 'error');
 
-            return null;
+            return false;
         }
 
         if ($this->authentize($password)) {
