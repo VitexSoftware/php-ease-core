@@ -1,8 +1,14 @@
-php-vitexsoftware-ease-core (1.44.0) UNRELEASED; urgency=medium
+php-vitexsoftware-ease-core (1.44.1) UNRELEASED; urgency=medium
+
+  * user strict types fix
+
+ -- vitex <info@vitexsoftware.cz>  Fri, 11 Oct 2024 06:58:57 +0200
+
+php-vitexsoftware-ease-core (1.44.0) unstable; urgency=medium
 
   * v1.44.0 release
 
- -- vitex <info@vitexsoftware.cz>  Fri, 04 Oct 2024 06:55:39 +0200
+ -- vitex <info@vitexsoftware.cz>  Fri, 11 Oct 2024 06:58:35 +0200
 
 php-vitexsoftware-ease-core (1.43.0) unstable; urgency=medium
 
