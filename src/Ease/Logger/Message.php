@@ -43,7 +43,6 @@ class Message
      * @var string info|succes|warning|error|mail|debug|event
      */
     public string $type;
-
     public $caller;
 
     /**

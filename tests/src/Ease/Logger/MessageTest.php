@@ -53,7 +53,7 @@ class MessageTest extends \PHPUnit\Framework\TestCase
             ->disableOriginalConstructor()
             ->getMockForAbstractClass();
         $mock->__construct('test');
-        $mock->__construct('test', 'test',  new \Ease\Atom() , time());
+        $mock->__construct('test', 'test', new \Ease\Atom(), time());
         $this->assertEquals('test', $mock->body);
     }
 

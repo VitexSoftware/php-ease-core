@@ -39,7 +39,6 @@ class Mailer extends Sand
      * MIME Helper.
      */
     public \Mail_mime $mimer;
-
     public string $textBody = '';
 
     /**
@@ -56,9 +55,7 @@ class Mailer extends Sand
      * Line divider.
      */
     public string $crLf = "\n";
-
     public array $mailBody;
-
     public bool $finalized = false;
 
     /**
@@ -123,7 +120,7 @@ class Mailer extends Sand
         ];
 
         $this->mimer = new \Mail_mime($mimerParams);
-        $this->textBody = (string)$emailContents;
+        $this->textBody = (string) $emailContents;
         $this->mimer->setTXTBody('');
         $this->setObjectName();
     }

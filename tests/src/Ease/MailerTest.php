@@ -21,7 +21,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
  */
 #[CoversClass(Mailer::class)]
 
- class MailerTest extends SandTest
+class MailerTest extends SandTest
 {
     protected $object;
 

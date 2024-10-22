@@ -20,9 +20,7 @@ override_dh_auto_test:
 
 
 override_dh_install:
-	jq '.version = "'`dpkg-parsechangelog | sed -n 's/^Version: //p'| sed 's/~.*//'`'"'  debian/composer.json |sponge debian/composer.json
 	dh_install
-	./debian/fixversion.sh
 	echo "require_once 'Mail.php';"  >> debian/php-vitexsoftware-ease-core/usr/share/php/EaseCore/Mailer.php
 	echo "require_once 'Mail/mime.php';" >> debian/php-vitexsoftware-ease-core/usr/share/php/EaseCore/Mailer.php
 	sed -i -e 's/..\/vendor/\/var\/lib\/php-vitexsoftware-ease-core/g' 	debian/php-vitexsoftware-ease-core-dev/usr/share/doc/php-vitexsoftware-ease-core-dev/SendTestMail.php
@@ -31,3 +29,4 @@ override_dh_install:
 	sed -i -e 's/tests\/.env/\/usr\/share\/php\/EaseCore\/Test\/.env/g' debian/php-vitexsoftware-ease-core-dev/usr/share/php/EaseCore/Test/Ease/SharedTest.php
 	sed -i -e 's/tests\/configtest.json/\/usr\/share\/php\/EaseCore\/Test\/configtest.json/g' debian/php-vitexsoftware-ease-core-dev/usr/share/php/EaseCore/Test/Ease/SharedTest.php
 	sed -i 's/vitexsoftware/deb/' debian/php-vitexsoftware-ease-core/usr/share/php/EaseCore/Logger/Logging.php
+	jq '.version = "'`dpkg-parsechangelog | sed -n 's/^Version: //p'| sed 's/~.*//'`'"'  debian/composer.json |sponge debian/php-vitexsoftware-ease-core/usr/share/php/EaseCore/composer.json

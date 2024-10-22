@@ -15,13 +15,14 @@ namespace Test\Ease;
 
 use Ease\Functions;
 use PHPUnit\Framework\Attributes\CoversClass;
+
 /**
  * Description of FunctionsTest.
  *
  * @author Vítězslav Dvořák <info@vitexsoftware.cz>
  */
 #[CoversClass(Functions::class)]
- class FunctionsTest extends \PHPUnit\Framework\TestCase
+class FunctionsTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Functions::sysFilename

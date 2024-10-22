@@ -1,7 +1,6 @@
 {
   "name": "deb/ease-core",
   "description": "An Core of PHP Framework for Ease of writing Applications (debianized)",
-  "version": "1.44.0",
   "authors": [
     {
       "name": "Vítězslav Dvořák",
@@ -25,6 +24,5 @@
   },
   "type": "library",
   "homepage": "http://v.s.cz/ease.php",
-  "license": "GPL-2.0+",
-  "address": "1.11"
+  "license": "GPL-2.0+"
 }

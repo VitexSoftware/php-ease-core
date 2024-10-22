@@ -56,8 +56,6 @@ class Anonym extends Brick implements Person
      * User object name setting.
      *
      * @param string $objectName forced object name
-     *
-     * @return string
      */
     public function setObjectName($objectName = null): string
     {
@@ -88,8 +86,6 @@ class Anonym extends Brick implements Person
 
     /**
      * Anonymous has a level.
-     *
-     * @return int
      */
     public function getUserLevel(): int
     {
@@ -134,10 +130,14 @@ class Anonym extends Brick implements Person
 
     /**
      * Sets to: has no settings.
+     *
+     * @param mixed $settingName
+     * @param mixed $settingValue
      */
     public function setSettingValue($settingName, $settingValue): bool
     {
         $this->settings[$settingName] = $settingValue;
+
         return true;
     }
 
@@ -156,7 +156,7 @@ class Anonym extends Brick implements Person
      */
     public function getPermission(string $permKeyword): ?string
     {
-        return $permKeyword ? null : '' ;
+        return $permKeyword ? null : '';
     }
 
     /**

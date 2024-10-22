@@ -53,12 +53,12 @@ interface Person
      * @param string $settingName  klíčové slovo pro nastavení
      * @param mixed  $settingValue hodnota nastavení
      */
-    public function setSettingValue($settingName, $settingValue):bool;
+    public function setSettingValue($settingName, $settingValue): bool;
 
     /**
      * Anonym nemá mail.
      */
-    public function getUserEmail():string;
+    public function getUserEmail(): string;
 
     /**
      * Fake permissions.

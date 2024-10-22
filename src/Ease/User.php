@@ -48,6 +48,7 @@ class User extends Anonym
 
     /**
      * Pole uživatelských nastavení.
+     *
      * @var array<string, mixed>
      */
     public array $settings = [];
@@ -100,7 +101,7 @@ class User extends Anonym
     }
 
     /**
-     * Prepare for serialization
+     * Prepare for serialization.
      *
      * @return array
      */
@@ -111,12 +112,10 @@ class User extends Anonym
 
     /**
      * Give you user name.
-     *
-     * @return string
      */
     public function getUserName(): string
     {
-        return (string)$this->getDataValue($this->loginColumn);
+        return (string) $this->getDataValue($this->loginColumn);
     }
 
     /**
@@ -124,7 +123,7 @@ class User extends Anonym
      */
     public function getUserEmail(): string
     {
-        return (string)$this->getDataValue($this->mailColumn);
+        return (string) $this->getDataValue($this->mailColumn);
     }
 
     /**
@@ -197,8 +196,6 @@ class User extends Anonym
      * Try to Sign in.
      *
      * @param array $formData pole dat z přihlaš. formuláře např. $_REQUEST
-     *
-     * @return bool
      */
     public function tryToLogin(array $formData): bool
     {
@@ -300,7 +297,7 @@ class User extends Anonym
     public function loginSuccess()
     {
         $this->userID = (int) $this->getMyKey();
-        $this->setUserLogin((string)$this->getDataValue($this->loginColumn));
+        $this->setUserLogin((string) $this->getDataValue($this->loginColumn));
         $this->logged = true;
         $this->addStatusMessage(sprintf(_('Signed in as %s'), $this->userLogin), 'success');
         $this->setObjectName();
@@ -370,7 +367,7 @@ class User extends Anonym
      *
      * @return int ID uživatele
      */
-    public function getUserID() : int
+    public function getUserID(): int
     {
         return isset($this->userID) ? (int) $this->userID : (int) $this->getMyKey();
     }
@@ -378,9 +375,9 @@ class User extends Anonym
     /**
      * Vrací login uživatele.
      */
-    public function getUserLogin() : string
+    public function getUserLogin(): string
     {
-        return $this->userLogin ?? (string)$this->getDataValue($this->loginColumn);
+        return $this->userLogin ?? (string) $this->getDataValue($this->loginColumn);
     }
 
     /**
@@ -396,9 +393,9 @@ class User extends Anonym
     /**
      * Set user's permission value.
      */
-    public function getPermission(string $permKeyword = null): ?string
+    public function getPermission(?string $permKeyword = null): ?string
     {
-        return isset($this->permissions[$permKeyword]) ? $this->permissions[$permKeyword] : null ;
+        return $this->permissions[$permKeyword] ?? null;
     }
 
     /**
@@ -413,7 +410,9 @@ class User extends Anonym
     }
 
     /**
-     * Get Setting
+     * Get Setting.
+     *
+     * @param mixed $settingName
      */
     public function getSettingValue($settingName): string
     {
@@ -430,6 +429,7 @@ class User extends Anonym
     public function setSettings($settings): bool
     {
         $this->settings = array_merge($this->settings, $settings);
+
         return true;
     }
 
@@ -442,6 +442,7 @@ class User extends Anonym
     public function setSettingValue($settingName, $settingValue): bool
     {
         $this->settings[$settingName] = $settingValue;
+
         return true;
     }
 
@@ -456,8 +457,6 @@ class User extends Anonym
 
     /**
      * Vrací jméno objektu uživatele.
-     *
-     * @return string
      */
     public function getName(): string
     {
@@ -488,6 +487,8 @@ class User extends Anonym
 
     /**
      * Nastavení jména objektu uživatele.
+     *
+     * @param null|mixed $objectName
      */
     public function setObjectName($objectName = null): string
     {
