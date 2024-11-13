@@ -101,7 +101,7 @@ class Sand extends Molecule
      *
      * @return int
      */
-    public function getDataCount()
+    public function getDataCount(): int
     {
         return empty($this->data) ? 0 : \count($this->data);
     }
@@ -127,7 +127,7 @@ class Sand extends Molecule
      *
      * @return bool Success
      */
-    public function setDataValue(string $columnName, $value)
+    public function setDataValue(string $columnName, $value): bool
     {
         $this->data[$columnName] = $value;
 
@@ -141,7 +141,7 @@ class Sand extends Molecule
      *
      * @return bool success
      */
-    public function unsetDataValue(string $columnName)
+    public function unsetDataValue(string $columnName): bool
     {
         $result = false;
 
@@ -155,12 +155,8 @@ class Sand extends Molecule
 
     /**
      * Převezme data do aktuálního pole dat.
-     *
-     * @param array $data asociativní pole dat
-     *
-     * @return int
      */
-    public function takeData($data)
+    public function takeData(array $data): int
     {
         if (\is_array($this->data) && \is_array($data)) {
             $this->data = array_merge($this->data, $data);
@@ -168,6 +164,6 @@ class Sand extends Molecule
             $this->data = $data;
         }
 
-        return empty($data) ? null : \count($data);
+        return empty($data) ? 0 : \count($data);
     }
 }
