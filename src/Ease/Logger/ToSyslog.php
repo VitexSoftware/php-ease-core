@@ -20,6 +20,8 @@ declare(strict_types=1);
 
 namespace Ease\Logger;
 
+use Ease\Shared;
+
 /**
  * Log to syslog.
  *
@@ -48,8 +50,8 @@ class ToSyslog extends ToStd implements Loggingable
     public function __construct($logName = null)
     {
         parent::__construct($logName);
-        openlog(empty($this->logName) ? \Ease\Shared::appName() :
-            $this->logName, (int) \Ease\Shared::cfg('LOG_FLAG'), (int) \Ease\Shared::cfg('LOG_FACILITY'));
+        openlog(empty($this->logName) ? Shared::appName() :
+            $this->logName, (int) Shared::cfg('LOG_FLAG'), (int) Shared::cfg('LOG_FACILITY'));
     }
 
     /**
@@ -68,7 +70,7 @@ class ToSyslog extends ToStd implements Loggingable
     public static function singleton()
     {
         if (!isset(self::$instance)) {
-            self::$instance = new self(\Ease\Shared::appName() ?: 'EaseFramework');
+            self::$instance = new self(Shared::appName() ?: 'EaseFramework');
         }
 
         return self::$instance;
@@ -82,9 +84,10 @@ class ToSyslog extends ToStd implements Loggingable
      *
      * @return int written message length
      */
-    public function output($type, $logLine)
+    #[\Override]
+    public function output(string $type, $logLine)
     {
-        return syslog($type === 'error' ? \Ease\Shared::cfg('LOG_ERR') : \Ease\Shared::cfg('LOG_INFO'), $this->finalizeMessage($logLine)) ?
+        return syslog($type === 'error' ? Shared::cfg('LOG_ERR') : Shared::cfg('LOG_INFO'), $this->finalizeMessage($logLine)) ?
                 \strlen($logLine) : 0;
     }
 

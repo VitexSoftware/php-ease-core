@@ -69,6 +69,8 @@ class Sand extends Molecule
      * @param bool  $reset vyprazdnit pole před naplněním ?
      *
      * @return int počet načtených položek
+     *
+     * @phpstan-ignore missingType.iterableValue
      */
     public function setData(array $data, $reset = false)
     {
@@ -88,18 +90,14 @@ class Sand extends Molecule
 
     /**
      * Obtain data holded by object.
-     *
-     * @return array
      */
-    public function getData()
+    public function getData(): ?array
     {
         return $this->data;
     }
 
     /**
      * Vrací počet položek dat objektu.
-     *
-     * @return int
      */
     public function getDataCount(): int
     {

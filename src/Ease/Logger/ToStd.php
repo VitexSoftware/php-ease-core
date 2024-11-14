@@ -128,7 +128,7 @@ class ToStd extends ToMemory implements Loggingable
      *
      * @return int bytes written
      */
-    public function output($type, $logLine)
+    public function output(string $type, $logLine)
     {
         $written = 0;
 

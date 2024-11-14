@@ -57,7 +57,11 @@ class Brick extends Sand
 
                 break;
             case 'reuse':
-                $this->takeData($identifier->getData());
+                if ($identifier->getData()) {
+                    $this->takeData($identifier->getData());
+                } else {
+                    $this->dataReset();
+                }
 
                 break;
             case 'name':

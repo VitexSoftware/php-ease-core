@@ -132,7 +132,7 @@ class Mailer extends Sand
      *
      * @return bool|\Pear_Err
      */
-    public function setMailBody($text)
+    public function setMailBody(string $text)
     {
         $this->textBody = $text;
 

@@ -411,14 +411,10 @@ class User extends Anonym
 
     /**
      * Get Setting.
-     *
-     * @param mixed $settingName
      */
-    public function getSettingValue($settingName): string
+    public function getSettingValue(string $settingName): ?string
     {
-        if (isset($this->settings[$settingName])) {
-            return $this->settings[$settingName];
-        }
+        return \array_key_exists($settingName, $this->settings) ? (string) $this->settings[$settingName] : null;
     }
 
     /**

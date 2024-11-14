@@ -123,7 +123,8 @@ class Anonym extends Brick implements Person
      *
      * @param string $settingName settings-key name
      */
-    public function getSettingValue($settingName): ?string
+    #[\Override]
+    public function getSettingValue(string $settingName): ?string
     {
         return $settingName ? null : '';
     }
@@ -164,7 +165,7 @@ class Anonym extends Brick implements Person
      */
     public function tryToLogin(array $formData): bool
     {
-        return false;
+        return !\is_array($formData);
     }
 
     /**
