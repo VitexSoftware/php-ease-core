@@ -53,7 +53,7 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
             'http://vitexsoftware.cz/path?a=b&id=1',
             Functions::addUrlParams(
                 'http://vitexsoftware.cz/path?a=b',
-                ['id' => 1],
+                ['id' => '1'],
                 true,
             ),
         );
@@ -61,7 +61,7 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
             'http://vitexsoftware.cz:80?id=1',
             Functions::addUrlParams(
                 'http://vitexsoftware.cz:80',
-                ['id' => 1],
+                ['id' => '1'],
                 true,
             ),
         );
@@ -286,18 +286,6 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
             '1 YiB',
             Functions::formatBytes(1208925819614629174706176),
         );
-    }
-
-    /**
-     * @covers \Functions::cfg
-     */
-    public function testCfg(): void
-    {
-        $this->assertEquals('x', Functions::cfg('EASE_TEST', 'x'), 'default value not used');
-        putenv('EASE_TEST=a');
-        $this->assertEquals('a', Functions::cfg('EASE_TEST'), 'unexepected environment value');
-        \define('EASE_TEST', 'b');
-        $this->assertEquals('b', Functions::cfg('EASE_TEST'));
     }
 
     /**

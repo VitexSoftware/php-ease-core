@@ -39,6 +39,8 @@ class Sand extends Molecule
 
     /**
      * Common object data holder.
+     *
+     * @var array<string, mixed>
      */
     public ?array $data = null;
 
@@ -90,6 +92,8 @@ class Sand extends Molecule
 
     /**
      * Obtain data holded by object.
+     *
+     * @phpstan-ignore missingType.iterableValue
      */
     public function getData(): ?array
     {
@@ -153,10 +157,12 @@ class Sand extends Molecule
 
     /**
      * Převezme data do aktuálního pole dat.
+     *
+     * @var array<string, mixed>
      */
     public function takeData(array $data): int
     {
-        if (\is_array($this->data) && \is_array($data)) {
+        if (\is_array($this->data)) {
             $this->data = array_merge($this->data, $data);
         } else {
             $this->data = $data;

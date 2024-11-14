@@ -53,6 +53,8 @@ class Locale
 
     /**
      * All Language Codes => languages.
+     *
+     * @var array<string, string>
      */
     public static array $alllngs = [
         'af_NA' => 'Afrikaans (Namibia)',
@@ -523,7 +525,7 @@ class Locale
      *
      * @return string locale code
      */
-    public static function getPreferedLocale($allowCli = true)
+    public static function getPreferedLocale(bool $allowCli = true)
     {
         //        $locale = Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']);
         if (\PHP_SAPI === 'cli' && $allowCli) {

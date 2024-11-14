@@ -85,6 +85,7 @@ class User extends Anonym
 
     /**
      * Store of user permissions.
+     * @var array<string, string>
      */
     public array $permissions = [];
 
@@ -195,7 +196,7 @@ class User extends Anonym
     /**
      * Try to Sign in.
      *
-     * @param array $formData pole dat z přihlaš. formuláře např. $_REQUEST
+     * @param array<string> $formData data from form
      */
     public function tryToLogin(array $formData): bool
     {

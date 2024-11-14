@@ -158,7 +158,7 @@ class ToConsole extends ToMemory implements Loggingable
      *
      * @param string $type mail|warning|error|debug|success|info
      */
-    public static function getTypeColor($type)
+    public static function getTypeColor(string $type): string
     {
         switch ($type) {
             case 'mail':                       // Envelope

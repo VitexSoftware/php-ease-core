@@ -24,7 +24,7 @@ namespace Ease;
 
 class Brick extends Sand
 {
-    use RecordKey;
+    use recordkey;
 
     /**
      * @var string Name Column
@@ -169,6 +169,8 @@ class Brick extends Sand
 
     /**
      * Set/override object properties objectName and keyColumn.
+     *
+     * @phpstan-ignore missingType.iterableValue
      */
     public function setProperties(array $properties = []): void
     {

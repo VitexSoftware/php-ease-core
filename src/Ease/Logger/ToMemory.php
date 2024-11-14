@@ -73,7 +73,7 @@ class ToMemory extends \Ease\Atom implements Loggingable
     /**
      * Saves obejct instace (singleton...).
      */
-    private static $instance;
+    private static self $instance;
 
     /**
      * Pri vytvareni objektu pomoci funkce singleton (ma stejne parametry, jako

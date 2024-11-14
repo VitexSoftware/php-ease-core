@@ -28,12 +28,12 @@ interface Person
     /**
      * Anonym nema ID.
      */
-    public function getUserID();
+    public function getUserID(): ?int;
 
     /**
      * Anonym nemá login.
      */
-    public function getUserLogin();
+    public function getUserLogin(): ?string;
 
     /**
      * Anonym nemůže být přihlášený.

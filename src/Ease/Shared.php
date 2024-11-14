@@ -21,6 +21,8 @@ declare(strict_types=1);
 
 namespace Ease;
 
+use Composer\InstalledVersions;
+
 /**
  * Common shared object.
  *
@@ -31,6 +33,8 @@ class Shared extends Atom
 {
     /**
      * Pole konfigurací.
+     *
+     * @var array<string, string>
      */
     public array $configuration = [];
 
@@ -48,6 +52,8 @@ class Shared extends Atom
 
     /**
      * Status messeges lives here.
+     *
+     * @var array<string>
      */
     public static array $statusMessages = [];
 
@@ -322,9 +328,9 @@ class Shared extends Atom
      * @param string $configFile      Path to file with configuration
      * @param bool   $defineConstants false to do not define constants
      *
-     * @return array full configuration array
+     * @return array<string,string> full configuration array
      */
-    public function loadConfig($configFile, $defineConstants = false)
+    public function loadConfig(string $configFile, bool $defineConstants = false)
     {
         switch (strtolower(pathinfo($configFile, \constant('PATHINFO_EXTENSION')))) {
             case 'json':

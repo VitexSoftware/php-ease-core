@@ -44,6 +44,8 @@ class Anonym extends Brick implements Person
 
     /**
      * User Settings array.
+     *
+     * @phpstan-ignore missingType.iterableValue
      */
     public array $settings = [];
 
@@ -162,6 +164,8 @@ class Anonym extends Brick implements Person
 
     /**
      * Anonym cannot be signed in.
+     *
+     * @phpstan-ignore missingType.iterableValue
      */
     public function tryToLogin(array $formData): bool
     {

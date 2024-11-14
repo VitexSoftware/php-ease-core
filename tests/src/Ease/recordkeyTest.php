@@ -18,7 +18,7 @@ namespace Test\Ease;
  *
  * @author Vítězslav Dvořák <info@vitexsoftware.cz>
  */
-class RecordKeyTest extends \PHPUnit\Framework\TestCase
+class recordkeyTest extends \PHPUnit\Framework\TestCase
 {
     protected $object;
 

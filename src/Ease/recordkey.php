@@ -23,7 +23,7 @@ namespace Ease;
 /**
  * @author Vítězslav Dvořák <info@vitexsoftware.cz>
  */
-trait RecordKey
+trait recordkey
 {
     /**
      * Key Column for Current Record.
@@ -31,11 +31,9 @@ trait RecordKey
     public string $keyColumn = 'id';
 
     /**
-     * Obtain data holded by object.
-     *
-     * @return array
+     * Obtain data holden by object.
      */
-    abstract public function getData();
+    abstract public function getData(): ?array;
 
     /**
      * Set data filed value.
@@ -45,7 +43,7 @@ trait RecordKey
      *
      * @return bool Success
      */
-    abstract public function setDataValue(string $columnName, $value);
+    abstract public function setDataValue(string $columnName, $value): bool;
 
     /**
      * Gives you value of KEY Column.
@@ -54,11 +52,11 @@ trait RecordKey
      *
      * @return int key column value
      */
-    public function getMyKey($data = null)
+    public function getMyKey(?array $data = [])
     {
-        return null === $data ? $this->getDataValue($this->getKeyColumn()) :
-            (\array_key_exists($this->getKeyColumn(), $data) ?
-                $data[$this->getKeyColumn()] : null);
+        return empty($data) ? $this->getDataValue($this->getKeyColumn()) :
+               (\array_key_exists($this->getKeyColumn(), $data) ?
+                   $data[$this->getKeyColumn()] : null);
     }
 
     /**

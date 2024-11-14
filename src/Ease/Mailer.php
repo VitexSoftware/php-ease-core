@@ -128,8 +128,6 @@ class Mailer extends Sand
     /**
      * Sets mail's text body.
      *
-     * @param string $text
-     *
      * @return bool|\Pear_Err
      */
     public function setMailBody(string $text)

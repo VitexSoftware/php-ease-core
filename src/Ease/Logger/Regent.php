@@ -29,11 +29,15 @@ class Regent extends \Ease\Atom implements Loggingable
 {
     /**
      * Here to reach logger objects.
+     *
+     * @var array<Loggingable>
      */
     public array $loggers = [];
 
     /**
      * Hodnoty pro obarvování logu.
+     *
+     * @var array<string>
      */
     public array $logStyles = [
         'notice' => 'color: black;',

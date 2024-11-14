@@ -48,9 +48,9 @@ class Functions
     /**
      * Add params to url.
      *
-     * @param string $url       originall url
-     * @param array  $addParams value to add
-     * @param bool   $override  replace already existing values ?
+     * @param string                $url       originall url
+     * @param array<string, string> $addParams value to add
+     * @param bool                  $override  replace already existing values ?
      *
      * @return string url with parameters added
      */
@@ -89,11 +89,11 @@ class Functions
     /**
      * Move data field $columName from $sourceArray to $destinationArray.
      *
-     * @param array  $sourceArray      source
-     * @param array  $destinationArray destination
-     * @param string $columName        item to move
+     * @param array<mixed> $sourceArray      source
+     * @param array<mixed> $destinationArray destination
+     * @param string       $columName        item to move
      */
-    public static function divDataArray(&$sourceArray, &$destinationArray, $columName)
+    public static function divDataArray(array &$sourceArray, array &$destinationArray, $columName): bool
     {
         $result = false;
 
@@ -110,19 +110,17 @@ class Functions
     /**
      * Test for associative array.
      *
-     * @return bool
+     * @param array<mixed> $arr
      */
-    public static function isAssoc(array $arr)
+    public static function isAssoc(array $arr): bool
     {
         return array_keys($arr) !== range(0, \count($arr) - 1);
     }
 
     /**
      * Odstraní z textu diakritiku.
-     *
-     * @param string $text
      */
-    public static function rip($text)
+    public static function rip(string $text)
     {
         $convertTable = [
             'ä' => 'a',
@@ -273,12 +271,8 @@ class Functions
 
     /**
      * Vrací náhodný řetězec dané délky.
-     *
-     * @param int $length
-     *
-     * @return string
      */
-    public static function randomString($length = 6)
+    public static function randomString(int $length = 6): string
     {
         return substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, $length);
     }
@@ -340,12 +334,12 @@ class Functions
     /**
      * Reindex Array by given key.
      *
-     * @param array  $data    array to reindex
-     * @param string $indexBy one of columns in array
+     * @param array<mixed> $data    array to reindex
+     * @param string       $indexBy one of columns in array
      *
-     * @return array
+     * @return array<mixed> reindexed array
      */
-    public static function reindexArrayBy(array $data, ?string $indexBy = null)
+    public static function reindexArrayBy(array $data, string $indexBy)
     {
         $reindexedData = [];
 
@@ -456,21 +450,6 @@ class Functions
     }
 
     /**
-     * Get configuration from constant or environment.
-     *
-     * @deprecated since version 1.40.1 use \Ease\Shared::cfg() instead
-     *
-     * @param string $constant
-     * @param mixed  $cfg      Default value
-     *
-     * @return null|bool|int|string
-     */
-    public static function cfg(/* string */ $constant, $cfg = null)
-    {
-        return \Ease\Shared::cfg($constant, $cfg);
-    }
-
-    /**
      * Get All Classes in namespace.
      *
      * @param string $namespace
@@ -498,11 +477,9 @@ class Functions
      * Load all files found for given namespace
      * (based on composer files).
      *
-     * @param string $namespace
-     *
-     * @return array of loaded files className=>filePath
+     * @return array<string, string> of loaded files className=>filePath
      */
-    public static function loadClassesInNamespace($namespace)
+    public static function loadClassesInNamespace(string $namespace): array
     {
         $loaded = [];
         $autoloader = preg_grep('/autoload\.php$/', get_included_files());
@@ -540,10 +517,8 @@ class Functions
      * Generates RFC 4122 compliant Version 4 UUIDs.
      *
      * @param string $data
-     *
-     * @return string
      */
-    public static function guidv4($data = null)
+    public static function guidv4($data = null): string
     {
         // Generate 16 bytes (128 bits) of random data or use the data passed into the function.
         $data ??= random_bytes(16);

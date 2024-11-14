@@ -65,18 +65,18 @@ class Molecule extends Atom
     /**
      * Set up one of the properties by 1) array 2) ENV 3) Constant.
      *
-     * @param array  $options  array of given available properties
-     * @param string $name     name of property to set up
-     * @param string $constant load default property value from constant / ENV
+     * @param array<string, string> $options  array of given available properties
+     * @param string                $name     name of property to set up
+     * @param string                $constant load default property value from constant / ENV
      */
-    public function setupProperty($options, $name, $constant = ''): void
+    public function setupProperty(array $options, string $name, string $constant = ''): void
     {
         if (\array_key_exists($name, $options)) {
             $this->{$name} = $options[$name];
         } elseif (\array_key_exists($constant, $options)) {
             $this->{$name} = $options[$constant];
         } else { // If No values specified we must use constants or environment
-            $value = Functions::cfg($constant);
+            $value = Shared::cfg($constant);
 
             if ($constant && (empty($value) === false)) {
                 switch (\gettype($this->{$name})) {
@@ -92,19 +92,19 @@ class Molecule extends Atom
                                 break;
 
                             default:
-                                $this->{$name} = (bool) Functions::cfg($constant);
+                                $this->{$name} = (bool) Shared::cfg($constant);
 
                                 break;
                         }
 
                         break;
                     case 'string':
-                        $this->{$name} = (string) Functions::cfg($constant);
+                        $this->{$name} = (string) Shared::cfg($constant);
 
                         break;
 
                     default:
-                        $this->{$name} = Functions::cfg($constant);
+                        $this->{$name} = Shared::cfg($constant);
 
                         break;
                 }
@@ -115,19 +115,19 @@ class Molecule extends Atom
     /**
      * Set up one of the properties by 1) array 2) ENV 3) Constant to int value.
      *
-     * @param array  $options  array of given available properties
-     * @param string $name     name of property to set up
-     * @param string $constant load default property value from constant / ENV
+     * @param array<string, string> $options  array of given available properties
+     * @param string                $name     name of property to set up
+     * @param string                $constant load default property value from constant / ENV
      */
-    public function setupIntProperty($options, $name, $constant = ''): void
+    public function setupIntProperty(array $options, string $name, string $constant = ''): void
     {
         if (\array_key_exists($name, $options)) {
             $this->{$name} = (int) $options[$name];
         } elseif (\array_key_exists($constant, $options)) {
             $this->{$name} = (int) $options[$constant];
         } else { // If No values specified we must use constants or environment
-            if ($constant && (empty(Functions::cfg($constant)) === false)) {
-                $this->{$name} = (int) Functions::cfg($constant);
+            if ($constant && (empty(Shared::cfg($constant)) === false)) {
+                $this->{$name} = (int) Shared::cfg($constant);
             }
         }
     }
@@ -135,19 +135,19 @@ class Molecule extends Atom
     /**
      * Set up one of the properties by 1) array 2) ENV 3) Constant to bool value.
      *
-     * @param array  $options  array of given availble properties
-     * @param string $name     name of property to set up
-     * @param string $constant load default property value from constant / ENV
+     * @param array<string, string> $options  array of given availble properties
+     * @param string                $name     name of property to set up
+     * @param string                $constant load default property value from constant / ENV
      */
-    public function setupBoolProperty($options, $name, $constant = ''): void
+    public function setupBoolProperty(array $options, string $name, string $constant = ''): void
     {
         if (\array_key_exists($name, $options)) {
             $this->{$name} = (bool) $options[$name];
         } elseif (\array_key_exists($constant, $options)) {
             $this->{$name} = (bool) $options[$constant];
         } else { // If No values specified we must use constants or environment
-            if ($constant && (empty(Functions::cfg($constant)) === false)) {
-                $this->{$name} = (bool) Functions::cfg($constant);
+            if ($constant && (empty(Shared::cfg($constant)) === false)) {
+                $this->{$name} = (bool) Shared::cfg($constant);
             }
         }
     }
