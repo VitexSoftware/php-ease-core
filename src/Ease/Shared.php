@@ -41,7 +41,7 @@ class Shared extends Atom
     /**
      * Array of Status Messages.
      *
-     * @var array of Logger\Message
+     * @var array<Logger\Message> of Logger\Message
      */
     public array $messages = [];
 
@@ -156,7 +156,7 @@ class Shared extends Atom
     public static function appName()
     {
         if (method_exists('Composer\InstalledVersions', 'getRootPackage')) {
-            $package = \Composer\InstalledVersions::getRootPackage();
+            $package = InstalledVersions::getRootPackage();
         } else {
             $package['name'] = 'Unnamed';
         }
@@ -328,7 +328,7 @@ class Shared extends Atom
      * @param string $configFile      Path to file with configuration
      * @param bool   $defineConstants false to do not define constants
      *
-     * @return array<string,string> full configuration array
+     * @return array<string, string> full configuration array
      */
     public function loadConfig(string $configFile, bool $defineConstants = false)
     {

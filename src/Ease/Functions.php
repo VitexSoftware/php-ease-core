@@ -91,7 +91,7 @@ class Functions
      *
      * @param array<mixed> $sourceArray      source
      * @param array<mixed> $destinationArray destination
-     * @param string       $columName        item to move
+     * @param int|string   $columName        item to move
      */
     public static function divDataArray(array &$sourceArray, array &$destinationArray, $columName): bool
     {
@@ -120,7 +120,7 @@ class Functions
     /**
      * Odstraní z textu diakritiku.
      */
-    public static function rip(string $text)
+    public static function rip(string $text): string
     {
         $convertTable = [
             'ä' => 'a',
@@ -209,7 +209,7 @@ class Functions
             'Ź' => 'Z',
         ];
 
-        return iconv('UTF-8', 'ASCII//TRANSLIT', strtr($text, $convertTable));
+        return (string) iconv('UTF-8', 'ASCII//TRANSLIT', strtr($text, $convertTable));
     }
 
     /**
@@ -280,9 +280,9 @@ class Functions
     /**
      * Array content recusrsive recode.
      *
-     * @param array|string $arr original array
+     * @param array<mixed>|string $arr original array
      *
-     * @return array array recoded
+     * @return array<mixed> array recoded
      */
     public static function recursiveIconv(string $inCharset, string $outCharset, $arr)
     {

@@ -30,7 +30,7 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
     public function testsysFilename(): void
     {
         if (strtoupper(substr(\PHP_OS, 0, 3)) === 'WIN') {
-            $this->assertContains(
+            $this->assertStringContainsString(
                 '\\\\',
                 Functions::sysFilename('/'),
                 _('Windows Files conversion'),
@@ -301,6 +301,6 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
      */
     public function testguidv4(): void
     {
-        $this->assertEquals('74657374-7465-4374-b465-737474657374', \Ease\Functions::guidv4('testtesttesttest'));
+        $this->assertEquals('74657374-7465-4374-b465-737474657374', Functions::guidv4('testtesttesttest'));
     }
 }

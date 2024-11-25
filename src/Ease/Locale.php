@@ -583,9 +583,9 @@ class Locale
     /**
      * List of availble locales.
      *
-     * @return array locales availble
+     * @return array<string, string> locales availble
      */
-    public function availble()
+    public function availble(): array
     {
         $locales = [];
         $directory = dir(self::$i18n);

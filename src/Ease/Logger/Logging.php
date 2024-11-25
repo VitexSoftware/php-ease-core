@@ -53,9 +53,9 @@ trait Logging
     /**
      * Obtain global status messages.
      *
-     * @return array
+     * @return Message[] messages
      */
-    public function getStatusMessages()
+    public function getStatusMessages(): array
     {
         return $this->getLogger()->getMessages();
     }
@@ -73,11 +73,11 @@ trait Logging
     /**
      * Provide logger object.
      *
-     * @param array|string $options
+     * @param array<string, string> $options
      *
      * @return Regent
      */
-    public function getLogger($options = null)
+    public function getLogger(?array $options = null)
     {
         if (null === $this->logger) {
             $this->logger = Regent::singleton($options);

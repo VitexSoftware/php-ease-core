@@ -4,7 +4,7 @@
  * Record Key methods.
  *
  * @author    Vítězslav Dvořák <vitex@hippy.cz>
- * @copyright 2019 Vitex@hippy.cz (G)
+ * @copyright 2019-2024 Vitex@hippy.cz (G)
  */
 
 declare(strict_types=1);
@@ -48,7 +48,7 @@ trait recordkey
     /**
      * Gives you value of KEY Column.
      *
-     * @param array $data data z nichž se vrací hodnota klíče
+     * @param array<string, string> $data data z nichž se vrací hodnota klíče
      *
      * @return int key column value
      */

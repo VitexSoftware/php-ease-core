@@ -4,7 +4,7 @@
  * Log to stdout/stderr.
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2023 Vitex@hippy.cz (G)
+ * @copyright 2009-2024 Vitex@hippy.cz (G)
  */
 
 declare(strict_types=1);
@@ -30,6 +30,8 @@ class ToStd extends ToMemory implements Loggingable
 {
     /**
      * List of allready flushed messages.
+     *
+     * @var array<string>
      */
     public array $flushed = [];
 
@@ -48,7 +50,7 @@ class ToStd extends ToMemory implements Loggingable
     /**
      * Saves obejct instace (singleton...).
      */
-    private static $instance;
+    private static self $instance;
 
     /**
      * Logovací třída.
@@ -60,15 +62,7 @@ class ToStd extends ToMemory implements Loggingable
         $this->logName = empty($logName) ? \Ease\Shared::appName() : $logName;
     }
 
-    /**
-     * Pri vytvareni objektu pomoci funkce singleton (ma stejne parametry, jako
-     * konstruktor) se bude v ramci behu programu pouzivat pouze jedna jeho
-     * instance (ta prvni).
-     *
-     * @see http://docs.php.net/en/language.oop5.patterns.html Dokumentace a
-     * priklad
-     */
-    public static function singleton()
+    public static function singleton(): self
     {
         if (!isset(self::$instance)) {
             self::$instance = new self(\Ease\Shared::appName() ?: 'EaseFramework');

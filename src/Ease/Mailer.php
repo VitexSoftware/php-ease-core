@@ -48,6 +48,8 @@ class Mailer extends Sand
 
     /**
      * Processed Headers.
+     *
+     * @var array<string, string>
      */
     public array $mailHeadersDone = [];
 

@@ -38,7 +38,7 @@ class ToSyslog extends ToStd implements Loggingable
     /**
      * Saves obejct instace (singleton...).
      */
-    private static $instance;
+    private static self $instance;
 
     /**
      * Logovací třída.

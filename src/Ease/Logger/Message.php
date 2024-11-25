@@ -43,7 +43,11 @@ class Message
      * @var string info|succes|warning|error|mail|debug|event
      */
     public string $type;
-    public $caller;
+
+    /**
+     * Message producing Object.
+     */
+    public mixed $caller;
 
     /**
      * Message Timestamp.
@@ -170,10 +174,8 @@ class Message
      * Obtain object name from caller object.
      *
      * @param object|string $caller
-     *
-     * @return string
      */
-    public static function getCallerName($caller)
+    public static function getCallerName($caller): string
     {
         if (\is_object($caller)) {
             if (method_exists($caller, 'getObjectName')) {

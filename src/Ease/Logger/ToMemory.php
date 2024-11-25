@@ -41,11 +41,15 @@ class ToMemory extends \Ease\Atom implements Loggingable
 
     /**
      * Messages live here.
+     *
+     * @var array<string, array<string, string>>
      */
     public static array $statusMessages = [];
 
     /**
      * Hodnoty pro obarvování logu.
+     *
+     * @var array<string, string>
      */
     public array $logStyles = [
         'notice' => 'color: black;',
@@ -75,15 +79,7 @@ class ToMemory extends \Ease\Atom implements Loggingable
      */
     private static self $instance;
 
-    /**
-     * Pri vytvareni objektu pomoci funkce singleton (ma stejne parametry, jako
-     * konstruktor) se bude v ramci behu programu pouzivat pouze jedna jeho
-     * instance (ta prvni).
-     *
-     * @see http://docs.php.net/en/language.oop5.patterns.html Dokumentace a
-     * priklad
-     */
-    public static function singleton()
+    public static function singleton(): self
     {
         if (!isset(self::$instance)) {
             $class = __CLASS__;

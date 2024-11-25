@@ -85,6 +85,7 @@ class User extends Anonym
 
     /**
      * Store of user permissions.
+     *
      * @var array<string, string>
      */
     public array $permissions = [];
