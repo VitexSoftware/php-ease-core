@@ -55,7 +55,7 @@ class ToEventlog extends ToSyslog implements Loggingable
      *
      * @return ToSyslog
      */
-    public static function singleton()
+    public static function singleton(): self
     {
         return \is_object(self::$instance) ? self::$instance : new self(\Ease\Shared::appName());
     }

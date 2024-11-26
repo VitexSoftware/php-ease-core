@@ -207,7 +207,7 @@ class ToConsole extends ToMemory implements Loggingable
      * @see http://docs.php.net/en/language.oop5.patterns.html Dokumentace a
      * priklad
      */
-    public static function singleton()
+    public static function singleton(): self
     {
         if (!isset(self::$instance)) {
             self::$instance = new self();

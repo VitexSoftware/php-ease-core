@@ -67,7 +67,7 @@ class ToSyslog extends ToStd implements Loggingable
      *
      * @return ToSyslog
      */
-    public static function singleton()
+    public static function singleton(): self
     {
         if (!isset(self::$instance)) {
             self::$instance = new self(Shared::appName() ?: 'EaseFramework');
