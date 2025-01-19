@@ -484,8 +484,10 @@ class Functions
         $loaded = [];
         $autoloader = preg_grep('/autoload\.php$/', get_included_files());
 
-        if (!empty($autoloader)) {
-            $psr4dirs = include \dirname(current($autoloader)).'/composer/autoload_psr4.php';
+        $psr4load = \dirname(current($autoloader)).'/composer/autoload_psr4.php';
+        
+        if (!empty($autoloader) && file_exists($psr4load)) {
+            $psr4dirs = include $psr4load;
 
             if (\array_key_exists($namespace.'\\', $psr4dirs)) {
                 foreach ($psr4dirs[$namespace.'\\'] as $modulePath) {

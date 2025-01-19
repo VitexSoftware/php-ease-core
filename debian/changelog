@@ -1,8 +1,14 @@
-php-vitexsoftware-ease-core (1.45.0) UNRELEASED; urgency=medium
+php-vitexsoftware-ease-core (1.45.1) UNRELEASED; urgency=medium
+
+  * do not fail when psr4 autoloader not exist in loadClassesInNamespace
+
+ -- vitex <info@vitexsoftware.cz>  Mon, 20 Jan 2025 00:22:04 +0100
+
+php-vitexsoftware-ease-core (1.45.0) unstable; urgency=medium
 
   * Preparation for php8.4
 
- -- vitex <info@vitexsoftware.cz>  Fri, 15 Nov 2024 02:23:30 +0100
+ -- vitex <info@vitexsoftware.cz>  Mon, 20 Jan 2025 00:20:57 +0100
 
 php-vitexsoftware-ease-core (1.44.2) unstable; urgency=medium
 
