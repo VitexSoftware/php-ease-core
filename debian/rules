@@ -6,12 +6,12 @@ BUILD_DIR:=build
 %:
 	dh $@
 
-override_dh_prep:
-	phpdoc -d src --defaultpackagename=MainPackage
-	rm -rf docs
-	mkdir -p docs        
-	mv .phpdoc/build/* docs
-	dh_prep
+#override_dh_prep:
+#	phpdoc -d src --defaultpackagename=MainPackage
+#	rm -rf docs
+#	mkdir -p docs        
+#	mv .phpdoc/build/* docs
+#	dh_prep
 
 override_dh_auto_test:
 	composer update --no-ansi --no-interaction --no-progress --no-scripts --optimize-autoloader

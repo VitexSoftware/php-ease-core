@@ -6,7 +6,7 @@
  * @category Logging
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2019-2023 Vitex@hippy.cz (G)
+ * @copyright 2019-2025 Vitex@hippy.cz (G)
  * @license   https://opensource.org/licenses/MIT MIT
  *
  * PHP 7
@@ -47,7 +47,7 @@ class Message
     /**
      * Message producing Object.
      */
-    public mixed $caller;
+    public /*mixed*/ $caller;
 
     /**
      * Message Timestamp.
