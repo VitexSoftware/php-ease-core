@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Test\Ease\Local;
 
 /**
- * Description of SandTester.
+ * Description of MoleculeTester.
  *
  * @author vitex
  */

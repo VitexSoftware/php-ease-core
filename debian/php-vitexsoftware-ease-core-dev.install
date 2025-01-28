@@ -1,5 +1,6 @@
 tests/BrickTester.php  		usr/share/php/EaseCore/Test
 tests/SandTester.php  		usr/share/php/EaseCore/Test
+tests/MoleculeTester.php	usr/share/php/EaseCore/Test
 tests/configtest.json  		usr/share/php/EaseCore/Test
 tests/LoggingTester.php  	usr/share/php/EaseCore/Test
 tests/SandTester.php 		usr/share/php/EaseCore/Test
