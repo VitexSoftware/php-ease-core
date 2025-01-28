@@ -1,8 +1,15 @@
-php-vitexsoftware-ease-core (1.45.1) UNRELEASED; urgency=medium
+php-vitexsoftware-ease-core (1.46.0) UNRELEASED; urgency=medium
 
+  * setFloatProperty added
+
+ --  <vitezslav.dvorak@spojenet.cz>  Tue, 28 Jan 2025 20:08:22 +0100
+
+php-vitexsoftware-ease-core (1.45.1) unstable; urgency=medium
+
+  [ vitex ]
   * do not fail when psr4 autoloader not exist in loadClassesInNamespace
 
- -- vitex <info@vitexsoftware.cz>  Mon, 20 Jan 2025 00:22:04 +0100
+ --  <vitezslav.dvorak@spojenet.cz>  Tue, 28 Jan 2025 20:08:06 +0100
 
 php-vitexsoftware-ease-core (1.45.0) unstable; urgency=medium
 

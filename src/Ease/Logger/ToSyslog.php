@@ -64,8 +64,6 @@ class ToSyslog extends ToStd implements Loggingable
 
     /**
      * Obtain instance of Syslog loger.
-     *
-     * @return ToSyslog
      */
     public static function singleton(): self
     {

@@ -47,7 +47,8 @@ class Message
     /**
      * Message producing Object.
      */
-    public /*mixed*/ $caller;
+    /* mixed */
+    public $caller;
 
     /**
      * Message Timestamp.

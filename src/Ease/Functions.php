@@ -485,7 +485,7 @@ class Functions
         $autoloader = preg_grep('/autoload\.php$/', get_included_files());
 
         $psr4load = \dirname(current($autoloader)).'/composer/autoload_psr4.php';
-        
+
         if (!empty($autoloader) && file_exists($psr4load)) {
             $psr4dirs = include $psr4load;
 
