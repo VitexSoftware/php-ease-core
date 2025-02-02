@@ -103,6 +103,7 @@ class SharedTest extends AtomTest
     {
         $this->object->setConfigValue('test', true);
         $this->assertTrue($this->object->getConfigValue('test'));
+        unset($this->object->configuration['test']);
     }
 
     /**
@@ -127,9 +128,9 @@ class SharedTest extends AtomTest
         }
 
         $this->object->loadConfig($env, true);
-        $this->assertEquals(['KEY' => 'VALUE', 'FOO' => 'BAR', 'debug' => 'true', 'test' => true], $this->object->configuration);
+        $this->assertEquals(['KEY' => 'VALUE', 'FOO' => 'BAR', 'debug' => 'true'], $this->object->configuration, 'in '.$env);
         $this->object->loadConfig($json, true);
-        $this->assertArrayHasKey('opt', $this->object->configuration);
+        $this->assertArrayHasKey('opt', $this->object->configuration, 'in'.$json);
         $this->assertTrue(\defined('KEY'));
         $this->assertEquals('optvalue', $this->object->getConfigValue('opt'));
         $this->assertEquals('keyvalue', $this->object->getConfigValue('KEY'));
