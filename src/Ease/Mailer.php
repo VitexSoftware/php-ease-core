@@ -219,11 +219,13 @@ class Mailer extends Sand
             $this->mailer = $oMail->factory('mail');
         }
 
-        $this->sendResult = $this->mailer->send(
+        $sendResult = $this->mailer->send(
             $this->emailAddress,
             $this->mimer->headers($this->mailHeaders),
             $this->mimer->get(),
         );
+
+        $this->sendResult = \is_object($sendResult) ? false : $sendResult;
 
         if ($this->notify === true) {
             $mailStripped = str_replace(['<', '>'], '', $this->emailAddress);
@@ -243,7 +245,7 @@ class Mailer extends Sand
                         _('Message %s, for %s was not sent because of %s'),
                         $this->emailSubject,
                         $mailStripped,
-                        $this->sendResult->message,
+                        $sendResult->message,
                     ),
                     'warning',
                 );
