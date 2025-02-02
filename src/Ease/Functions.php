@@ -534,4 +534,20 @@ class Functions
         // Output the 36 character UUID.
         return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
     }
+
+    /**
+     * Write Result data to output file od stdout.
+     *
+     * @return type
+     */
+    public function writeResult(array $result, string $destination = 'php://stdout', ?\Ease\Sand $engine = null)
+    {
+        $written = file_put_contents($destination, json_encode($result, Shared::cfg('DEBUG') ? \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES : 0));
+
+        if ($engine) {
+            $engine->addStatusMessage(sprintf(_('Saving result to %s'), $destination), $written ? 'success' : 'error');
+        }
+
+        return $written;
+    }
 }
