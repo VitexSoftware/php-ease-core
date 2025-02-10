@@ -176,9 +176,9 @@ class Molecule extends Atom
     public function setupBoolProperty(array $options, string $name, string $constant = ''): void
     {
         if (\array_key_exists($name, $options)) {
-            $this->{$name} = (strtolower($options[$name]) === 'true') || ($options[$name] === '1') || (strtolower($options[$name]) === 'on');
+            $this->{$name} = \is_bool($options[$name]) ? $options[$name] : (strtolower($options[$name]) === 'true') || ($options[$name] === '1') || (strtolower($options[$name]) === 'on');
         } elseif (\array_key_exists($constant, $options)) {
-            $this->{$name} = (strtolower($options[$constant]) === 'true') || ($options[$constant] === '1') || (strtolower($options[$constant]) === 'on');
+            $this->{$name} = \is_bool($options[$constant]) ? $options[$constant] : (strtolower($options[$constant]) === 'true') || ($options[$constant] === '1') || (strtolower($options[$constant]) === 'on');
         } else { // If No values specified we must use constants or environment
             if ($constant && (empty(Shared::cfg($constant)) === false)) {
                 $val = Shared::cfg($constant);
