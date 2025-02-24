@@ -1,8 +1,15 @@
-php-vitexsoftware-ease-core (1.46.1) UNRELEASED; urgency=medium
+php-vitexsoftware-ease-core (1.47.0) UNRELEASED; urgency=medium
 
+  * isUuid() aded
+
+ -- vitex <info@vitexsoftware.cz>  Mon, 24 Feb 2025 16:13:22 +0100
+
+php-vitexsoftware-ease-core (1.46.1) noble; urgency=medium
+
+  [ Vitex ]
   * setupBoolProperty now can handle booleans
 
- -- Vitex <vitezslav.dvorak@spojenet.cz>  Mon, 10 Feb 2025 18:43:56 +0100
+ -- vitex <info@vitexsoftware.cz>  Mon, 24 Feb 2025 13:14:52 +0100
 
 php-vitexsoftware-ease-core (1.46.0) unstable; urgency=medium
 
