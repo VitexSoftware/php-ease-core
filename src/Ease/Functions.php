@@ -550,4 +550,19 @@ class Functions
 
         return $written;
     }
+    
+    /**
+     * Check if a string is a valid UUID.
+     *
+     * @param string $uuid
+     *
+     * @return bool
+     */
+    public static function isUuid(string $uuid): bool
+    {
+        return \preg_match('/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/', $uuid) === 1;
+    }
+
+    
+    
 }
