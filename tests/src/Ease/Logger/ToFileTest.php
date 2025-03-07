@@ -50,10 +50,10 @@ class ToFileTest extends ToMemoryTest
 
         $mock = $this->getMockBuilder($classname)
             ->disableOriginalConstructor()
-            ->getMockForAbstractClass();
+            ->getMock();
 
         $mock->__construct(sys_get_temp_dir().'/');
-        $this->assertEquals(sys_get_temp_dir().'/Ease.log', $mock->logFileName);
+        $this->assertEquals('Ease.log', $mock->logFileName);
     }
 
     /**

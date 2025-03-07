@@ -51,7 +51,7 @@ class UserTest extends AnonymTest
         // Get mock, without the constructor being called
         $mock = $this->getMockBuilder($classname)
             ->disableOriginalConstructor()
-            ->getMockForAbstractClass();
+            ->getMock();
         $mock->__construct(0, ['debug' => false]);
 
         $this->assertEmpty($mock->getData());

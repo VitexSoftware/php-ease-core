@@ -51,7 +51,7 @@ class ToConsoleTest extends ToMemoryTest
         // Get mock, without the constructor being called
         $mock = $this->getMockBuilder($classname)
             ->disableOriginalConstructor()
-            ->getMockForAbstractClass();
+            ->getMock();
 
         $mock->__construct();
 

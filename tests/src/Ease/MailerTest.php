@@ -52,7 +52,7 @@ class MailerTest extends SandTest
         // Get mock, without the constructor being called
         $mock = $this->getMockBuilder($classname)
             ->disableOriginalConstructor()
-            ->getMockForAbstractClass();
+            ->getMock();
         $mock->__construct('info@vitexsoftware.cz', 'Unit Test');
 
         $mock->__construct('vitex@hippy.cz', 'Hallo', 'PHPUnit works well!');

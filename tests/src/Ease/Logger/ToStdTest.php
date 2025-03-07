@@ -51,7 +51,7 @@ class ToStdTest extends ToMemoryTest
         // Get mock, without the constructor being called
         $mock = $this->getMockBuilder($classname)
             ->disableOriginalConstructor()
-            ->getMockForAbstractClass();
+            ->getMock();
 
         $mock->__construct();
         $this->assertEquals('unitTest', $mock->logName);

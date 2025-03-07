@@ -54,7 +54,7 @@ class ExceptionTest extends \PHPUnit\Framework\TestCase
         // Get mock, without the constructor being called
         $mock = $this->getMockBuilder($classname)
             ->disableOriginalConstructor()
-            ->getMockForAbstractClass();
+            ->getMock();
         $mock->__construct('test');
 
         throw new Exception('test');

@@ -55,7 +55,7 @@ class SharedTest extends AtomTest
         // Get mock, without the constructor being called
         $mock = $this->getMockBuilder($classname)
             ->disableOriginalConstructor()
-            ->getMockForAbstractClass();
+            ->getMock();
 
         $_SESSION['unitTest']['EaseMessages'] = [0 => 'a', 1 => 'b'];
         $mock->__construct();

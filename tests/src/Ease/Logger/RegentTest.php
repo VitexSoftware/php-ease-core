@@ -49,7 +49,7 @@ class RegentTest extends \Test\Ease\AtomTest
         // Get mock, without the constructor being called
         $mock = $this->getMockBuilder($classname)
             ->disableOriginalConstructor()
-            ->getMockForAbstractClass();
+            ->getMock();
         $mock->__construct();
         $mock->__construct('syslog');
         $mock->__construct('console');

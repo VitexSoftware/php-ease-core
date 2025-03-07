@@ -51,7 +51,7 @@ class MessageTest extends \PHPUnit\Framework\TestCase
         // Get mock, without the constructor being called
         $mock = $this->getMockBuilder($classname)
             ->disableOriginalConstructor()
-            ->getMockForAbstractClass();
+            ->getMock();
         $mock->__construct('test');
         $mock->__construct('test', 'test', new \Ease\Atom(), time());
         $this->assertEquals('test', $mock->body);

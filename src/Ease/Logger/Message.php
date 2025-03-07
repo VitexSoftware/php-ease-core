@@ -70,7 +70,7 @@ class Message
         $this->caller = $caller;
 
         if (null === $when) {
-            $this->when = time();
+            $this->when = \time();
         } else {
             $this->when = $when;
         }

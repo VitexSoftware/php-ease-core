@@ -538,7 +538,7 @@ class Functions
     /**
      * Write Result data to output file od stdout.
      *
-     * @return type
+     * @return int<0, max>|false
      */
     public static function writeResult(array $result, string $destination = 'php://stdout', ?\Ease\Sand $engine = null)
     {

@@ -57,7 +57,7 @@ class BrickTest extends SandTest
         // Get mock, without the constructor being called
         $mock = $this->getMockBuilder($classname)
             ->disableOriginalConstructor()
-            ->getMockForAbstractClass();
+            ->getMock();
         $mock->__construct(null, ['debug' => true]);
         $mock->__construct(1, ['autoload' => true, 'myTable' => 'test']);
         $this->assertNull($mock->getMyKey());

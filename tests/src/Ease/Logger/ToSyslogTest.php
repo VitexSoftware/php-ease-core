@@ -52,7 +52,7 @@ class ToSyslogTest extends ToMemoryTest
         // Get mock, without the constructor being called
         $mock = $this->getMockBuilder($classname)
             ->disableOriginalConstructor()
-            ->getMockForAbstractClass();
+            ->getMock();
 
         $_SESSION['testApp']['EaseMessages'] = [];
         $mock->__construct();
