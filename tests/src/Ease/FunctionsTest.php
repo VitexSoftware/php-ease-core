@@ -303,10 +303,18 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
     {
         $this->assertEquals('74657374-7465-4374-b465-737474657374', Functions::guidv4('testtesttesttest'));
     }
-    
-    public function testisUuid() {
+
+    public function testisUuid(): void
+    {
         $this->assertTrue(Functions::isUuid('25bced87-30df-4e42-b280-d4cdb1c85282'));
-        $this->assertFalse(Functions::isUuid("NOUID"));
+        $this->assertFalse(Functions::isUuid('NOUID'));
     }
-    
+
+    public function testisJson(): void
+    {
+        $this->assertTrue(Functions::isJson('{"key":"value"}'));
+        $this->assertFalse(Functions::isJson('{"key":"value"'));
+        $this->assertFalse(Functions::isJson('{"key":value}'));
+        $this->assertFalse(Functions::isJson('{"key":1.2.3}'));
+    }
 }

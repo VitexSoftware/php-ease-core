@@ -79,7 +79,7 @@ class Functions
             $urlParams = $addParams;
         }
 
-        if (!empty($urlParams)) {
+        if ($urlParams !== []) {
             $urlFinal .= '?'.http_build_query($urlParams);
         }
 
@@ -412,7 +412,7 @@ class Functions
      */
     public static function baseClassName($object)
     {
-        return \is_object($object) ? basename(str_replace('\\', '/', \get_class($object))) : null;
+        return \is_object($object) ? basename(str_replace('\\', '/', $object::class)) : null;
     }
 
     /**
@@ -486,7 +486,7 @@ class Functions
 
         $psr4load = \dirname(current($autoloader)).'/composer/autoload_psr4.php';
 
-        if (!empty($autoloader) && file_exists($psr4load)) {
+        if ($autoloader !== [] && $autoloader !== false && file_exists($psr4load)) {
             $psr4dirs = include $psr4load;
 
             if (\array_key_exists($namespace.'\\', $psr4dirs)) {
@@ -538,31 +538,55 @@ class Functions
     /**
      * Write Result data to output file od stdout.
      *
-     * @return int<0, max>|false
+     * @return false|int<0, max>
      */
     public static function writeResult(array $result, string $destination = 'php://stdout', ?\Ease\Sand $engine = null)
     {
         $written = file_put_contents($destination, json_encode($result, Shared::cfg('DEBUG') ? \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES : 0));
 
-        if ($engine) {
+        if ($engine instanceof \Ease\Sand) {
             $engine->addStatusMessage(sprintf(_('Saving result to %s'), $destination), $written ? 'success' : 'error');
         }
 
         return $written;
     }
-    
+
     /**
      * Check if a string is a valid UUID.
-     *
-     * @param string $uuid
-     *
-     * @return bool
      */
     public static function isUuid(string $uuid): bool
     {
         return \preg_match('/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/', $uuid) === 1;
     }
 
-    
-    
+    /**
+     * Validates a JSON string.
+     *
+     * @param string $json  the JSON string to validate
+     * @param int    $depth Maximum depth. Must be greater than zero.
+     * @param int    $flags bitmask of JSON decode options
+     *
+     * @return bool returns true if the string is a valid JSON, otherwise false
+     */
+    public static function isJson(?string $json, int $depth = 512, int $flags = 0): bool
+    {
+        $isJson = false;
+
+        if (\function_exists('json_validate')) {
+            $isJson = \json_validate($json);
+        } else {
+            if (!\is_string($json)) {
+                $isJson = false;
+            }
+
+            try {
+                json_decode($json, false, $depth, $flags | \JSON_THROW_ON_ERROR);
+                $isJson = true;
+            } catch (\JsonException $e) {
+                $isJson = false;
+            }
+        }
+
+        return $isJson;
+    }
 }

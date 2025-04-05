@@ -98,7 +98,7 @@ class Brick extends Sand
 
                 break;
             case 'string':
-                if (!empty($this->nameColumn)) {
+                if ($this->nameColumn !== '' && $this->nameColumn !== '0') {
                     $recognizedAs = 'name';
                 }
 

@@ -33,7 +33,6 @@ use PHPUnit\Framework\Attributes\CoversClass;
  * @copyright  2009-2024 Vitex@hippy.cz (G)
  */
 #[CoversClass(Atom::class)]
-
 class AtomTest extends \PHPUnit\Framework\TestCase
 {
     protected $object;

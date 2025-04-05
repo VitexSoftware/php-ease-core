@@ -49,7 +49,7 @@ class Sand extends Molecule
      *
      * @var mixed|Sand object
      */
-    public $parentObject;
+    public ?Atom $parentObject;
 
     /**
      * Sdílený objekt frameworku.
@@ -78,12 +78,12 @@ class Sand extends Molecule
     {
         $ret = 0;
 
-        if (!empty($data)) {
+        if ($data !== []) {
             if ($reset) {
                 $this->dataReset();
             }
 
-            $this->data = empty($this->data) ? $data : array_merge($this->data, $data);
+            $this->data = $this->data === null || $this->data === [] ? $data : array_merge($this->data, $data);
             $ret = \count($data);
         }
 
@@ -105,7 +105,7 @@ class Sand extends Molecule
      */
     public function getDataCount(): int
     {
-        return empty($this->data) ? 0 : \count($this->data);
+        return $this->data === null || $this->data === [] ? 0 : \count($this->data);
     }
 
     /**
@@ -162,12 +162,8 @@ class Sand extends Molecule
      */
     public function takeData(array $data): int
     {
-        if (\is_array($this->data)) {
-            $this->data = array_merge($this->data, $data);
-        } else {
-            $this->data = $data;
-        }
+        $this->data = \is_array($this->data) ? array_merge($this->data, $data) : $data;
 
-        return empty($data) ? 0 : \count($data);
+        return $data === [] ? 0 : \count($data);
     }
 }

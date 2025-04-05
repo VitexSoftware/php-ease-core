@@ -507,11 +507,7 @@ class Locale
         }
 
         if (empty($textDomain)) {
-            if (empty(self::$textDomain)) {
-                $textDomain = strtolower(\Ease\Shared::appName());
-            } else {
-                $textDomain = self::$textDomain;
-            }
+            $textDomain = self::$textDomain === '' || self::$textDomain === '0' ? strtolower(\Ease\Shared::appName()) : self::$textDomain;
         }
 
         self::initializeGetText($textDomain, $setLocale, $i18n);
@@ -537,11 +533,7 @@ class Locale
             if (null === $reqLocale) {
                 $sesLocale = self::sessionLocale();
 
-                if (null === $sesLocale) {
-                    $locale = self::browserLocale();
-                } else {
-                    $locale = $sesLocale;
-                }
+                $locale = null === $sesLocale ? self::browserLocale() : $sesLocale;
             } else {
                 $locale = $reqLocale;
             }
@@ -557,7 +549,7 @@ class Locale
      */
     public static function requestLocale()
     {
-        return \array_key_exists('locale', $_REQUEST) ? $_REQUEST['locale'] : null;
+        return $_REQUEST['locale'] ?? null;
     }
 
     /**
@@ -632,7 +624,7 @@ class Locale
         self::$i18n = $i18n;
         self::setTextDomain($appname);
 
-        return self::useLocale(empty((string) $defaultLocale) ? 'en_US' : (string) $defaultLocale);
+        return self::useLocale((string) $defaultLocale === '' || (string) $defaultLocale === '0' ? 'en_US' : (string) $defaultLocale);
     }
 
     /**
@@ -681,7 +673,7 @@ class Locale
         \setlocale(\LC_ALL, $localeCode);
         \bind_textdomain_codeset(self::$textDomain, 'UTF-8');
 
-        if (!empty(self::$textDomain)) {
+        if (self::$textDomain !== '' && self::$textDomain !== '0') {
             if (file_exists(self::$i18n)) {
                 \bindtextdomain(self::$textDomain, self::$i18n);
             }

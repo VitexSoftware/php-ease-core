@@ -128,7 +128,7 @@ class Anonym extends Brick implements Person
     #[\Override]
     public function getSettingValue(string $settingName): ?string
     {
-        return $settingName ? null : '';
+        return $settingName !== '' && $settingName !== '0' ? null : '';
     }
 
     /**
@@ -159,7 +159,7 @@ class Anonym extends Brick implements Person
      */
     public function getPermission(string $permKeyword): ?string
     {
-        return $permKeyword ? null : '';
+        return $permKeyword !== '' && $permKeyword !== '0' ? null : '';
     }
 
     /**

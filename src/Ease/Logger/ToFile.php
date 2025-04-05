@@ -146,16 +146,14 @@ class ToFile extends ToMemory implements Loggingable
             $type,
         ).' '.$message."\n";
 
-        if (!empty($this->logPrefix)) {
-            if ($this->logType === 'file' || $this->logType === 'both') {
-                if (!empty($this->logFileName)) {
-                    if (!$this->logFileHandle) {
-                        $this->logFileHandle = fopen($this->logFileName, 'a+b');
-                    }
+        if (!($this->logPrefix === '' || $this->logPrefix === '0') && ($this->logType === 'file' || $this->logType === 'both')) {
+            if ($this->logFileName !== '' && $this->logFileName !== '0') {
+                if (!$this->logFileHandle) {
+                    $this->logFileHandle = fopen($this->logFileName, 'a+b');
+                }
 
-                    if ($this->logFileHandle !== null) {
-                        $written += fwrite($this->logFileHandle, $logLine);
-                    }
+                if ($this->logFileHandle !== null) {
+                    $written += fwrite($this->logFileHandle, $logLine);
                 }
             }
         }

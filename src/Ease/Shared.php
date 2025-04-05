@@ -99,7 +99,7 @@ class Shared extends Atom
 
         $configured = true;
 
-        if ((array_search('DB_CONNECTION', $configKeys, true) !== false) && preg_match('/^sqlite/', self::cfg('DB_CONNECTION', ''))) {
+        if (\in_array('DB_CONNECTION', $configKeys, true) && preg_match('/^sqlite/', self::cfg('DB_CONNECTION', ''))) {
             unset($configKeys[array_search('DB_PASSWORD', $configKeys, true)], $configKeys[array_search('DB_USERNAME', $configKeys, true)], $configKeys[array_search('DB_HOST', $configKeys, true)], $configKeys[array_search('DB_PORT', $configKeys, true)]);
         }
 
@@ -275,7 +275,7 @@ class Shared extends Atom
      */
     public function getConfigValue($configName)
     {
-        return \array_key_exists($configName, $this->configuration) ? $this->configuration[$configName] : null;
+        return $this->configuration[$configName] ?? null;
     }
 
     /**
@@ -301,22 +301,20 @@ class Shared extends Atom
     {
         $efprefix = self::appName();
 
-        if (empty($user) && isset($_SESSION[$efprefix][self::$userSessionName])) {
+        if (!$user instanceof \Ease\Person && isset($_SESSION[$efprefix][self::$userSessionName])) {
             return $_SESSION[$efprefix][self::$userSessionName];
         }
 
-        if (!empty($userSessionName)) {
+        if ($userSessionName !== '' && $userSessionName !== '0') {
             self::$userSessionName = $userSessionName;
         }
 
         if (\is_object($user)) {
             $_SESSION[$efprefix][self::$userSessionName] = clone $user;
-        } else {
-            if (!empty($candidat)) {
-                $_SESSION[$efprefix][self::$userSessionName] = method_exists($candidat, 'singleton') ?
-                        $candidat::singleton() :
-                        new $candidat();
-            }
+        } elseif ($candidat !== '' && $candidat !== '0') {
+            $_SESSION[$efprefix][self::$userSessionName] = method_exists($candidat, 'singleton') ?
+                    $candidat::singleton() :
+                    new $candidat();
         }
 
         return $_SESSION[$efprefix][self::$userSessionName];
@@ -366,7 +364,7 @@ class Shared extends Atom
         if (\array_key_exists('debug', $this->configuration)) {
             $this->debug = (bool) $this->configuration['debug'];
 
-            if ($this->debug === true) {
+            if ($this->debug) {
                 $this->logger()->addToLog($this, 'Loaded configuration from '.$configFile, 'debug');
             }
         }

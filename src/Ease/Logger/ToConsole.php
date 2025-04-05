@@ -105,9 +105,7 @@ class ToConsole extends ToMemory implements Loggingable
             $ansiStr .= "\033[".self::$ansiCodes[$attr].'m';
         }
 
-        $ansiStr .= $str."\033[".self::$ansiCodes['off'].'m';
-
-        return $ansiStr;
+        return $ansiStr.($str."\033[".self::$ansiCodes['off'].'m');
     }
 
     /**
@@ -161,7 +159,8 @@ class ToConsole extends ToMemory implements Loggingable
     public static function getTypeColor(string $type): string
     {
         switch ($type) {
-            case 'mail':                       // Envelope
+            case 'mail':
+            case 'info':                    // Kytička
                 $color = 'blue';
 
                 break;
@@ -179,10 +178,6 @@ class ToConsole extends ToMemory implements Loggingable
                 break;
             case 'success':                    // Kytička
                 $color = 'green';
-
-                break;
-            case 'info':                    // Kytička
-                $color = 'blue';
 
                 break;
             case 'event':

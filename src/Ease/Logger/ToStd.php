@@ -90,13 +90,8 @@ class ToStd extends ToMemory implements Loggingable
 
         $user = \Ease\User::singleton();
 
-        if (\get_class($user) !== 'Ease\\Anonym') {
-            if (method_exists($user, 'getUserName')) {
-                $person = $user->getUserName();
-            } else {
-                $person = $user->getObjectName();
-            }
-
+        if ($user::class !== 'Ease\\Anonym') {
+            $person = method_exists($user, 'getUserName') ? $user->getUserName() : $user->getObjectName();
             $caller = $person.' '.Message::getCallerName($caller);
         }
 

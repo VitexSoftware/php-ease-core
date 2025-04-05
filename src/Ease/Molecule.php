@@ -43,11 +43,7 @@ class Molecule extends Atom
      */
     public function setObjectName($objectName = null)
     {
-        if (empty($objectName)) {
-            $this->objectName = \get_class($this);
-        } else {
-            $this->objectName = $objectName;
-        }
+        $this->objectName = empty($objectName) ? \get_class($this) : $objectName;
 
         return $this->objectName;
     }
@@ -125,10 +121,9 @@ class Molecule extends Atom
             $this->{$name} = (int) $options[$name];
         } elseif (\array_key_exists($constant, $options)) {
             $this->{$name} = (int) $options[$constant];
-        } else { // If No values specified we must use constants or environment
-            if ($constant && (empty(Shared::cfg($constant)) === false)) {
-                $this->{$name} = (int) Shared::cfg($constant);
-            }
+        } elseif ($constant && (empty(Shared::cfg($constant)) === false)) {
+            // If No values specified we must use constants or environment
+            $this->{$name} = (int) Shared::cfg($constant);
         }
     }
 
@@ -152,15 +147,12 @@ class Molecule extends Atom
         } elseif (\array_key_exists($constant, $options)) {
             $this->{$name} = (float) $options[$constant];
             $changed = true;
-        } else { // If No values specified we must use constants or environment
-            if ($constant && (empty(Shared::cfg($constant)) === false)) {
-                $this->{$name} = (float) Shared::cfg($constant);
-            } else {
-                if ((null === $default) === false) {
-                    $this->{$name} = $default;
-                    $changed = true;
-                }
-            }
+        } elseif ($constant && (empty(Shared::cfg($constant)) === false)) {
+            // If No values specified we must use constants or environment
+            $this->{$name} = (float) Shared::cfg($constant);
+        } elseif (null !== $default) {
+            $this->{$name} = $default;
+            $changed = true;
         }
 
         return $changed;
@@ -179,11 +171,10 @@ class Molecule extends Atom
             $this->{$name} = \is_bool($options[$name]) ? $options[$name] : (strtolower($options[$name]) === 'true') || ($options[$name] === '1') || (strtolower($options[$name]) === 'on');
         } elseif (\array_key_exists($constant, $options)) {
             $this->{$name} = \is_bool($options[$constant]) ? $options[$constant] : (strtolower($options[$constant]) === 'true') || ($options[$constant] === '1') || (strtolower($options[$constant]) === 'on');
-        } else { // If No values specified we must use constants or environment
-            if ($constant && (empty(Shared::cfg($constant)) === false)) {
-                $val = Shared::cfg($constant);
-                $this->{$name} = (strtolower($val) === 'true') || ($val === '1') || (strtolower($val) === 'on');
-            }
+        } elseif ($constant && (empty(Shared::cfg($constant)) === false)) {
+            // If No values specified we must use constants or environment
+            $val = Shared::cfg($constant);
+            $this->{$name} = (strtolower($val) === 'true') || ($val === '1') || (strtolower($val) === 'on');
         }
     }
 }

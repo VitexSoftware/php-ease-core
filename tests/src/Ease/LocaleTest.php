@@ -32,12 +32,10 @@ class LocaleTest extends \PHPUnit\Framework\TestCase
     {
         if (file_exists('i18n')) {
             $locales = 'i18n';
+        } elseif (file_exists('../i18n')) {
+            $locales = '../i18n';
         } else {
-            if (file_exists('../i18n')) {
-                $locales = '../i18n';
-            } else {
-                $locales = '/usr/share/locale';
-            }
+            $locales = '/usr/share/locale';
         }
 
         $this->object = new Locale('cs_CZ', $locales, 'php-vitexsoftware-ease-core');
@@ -61,9 +59,9 @@ class LocaleTest extends \PHPUnit\Framework\TestCase
         // Create a real instance of the Locale class
         $locale = new \Ease\Locale('cs_CZ', './i18n', 'php-vitexsoftware-ease-core');
         $this->assertEquals('cs_CZ', $locale->getLocaleUsed());
-        
+
         \Ease\Locale::$textDomain = '';
-        
+
         // Create another real instance of the Locale class
         $locale = new \Ease\Locale('cs_CZ', './i18n');
         $this->assertEquals('cs_CZ', $locale->getLocaleUsed());

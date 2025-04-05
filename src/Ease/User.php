@@ -145,7 +145,7 @@ class User extends Anonym
     {
         $email = $this->getUserEmail();
 
-        if ($email) {
+        if ($email !== '' && $email !== '0') {
             return self::getGravatar($email, 800, 'mm', 'g');
         }
 
@@ -201,8 +201,8 @@ class User extends Anonym
      */
     public function tryToLogin(array $formData): bool
     {
-        $login = \array_key_exists($this->loginColumn, $formData) ? $formData[$this->loginColumn] : null;
-        $password = \array_key_exists($this->plaintextField, $formData) ? $formData[$this->plaintextField] : null;
+        $login = $formData[$this->loginColumn] ?? null;
+        $password = $formData[$this->plaintextField] ?? null;
 
         if (empty($login)) {
             $this->addStatusMessage(_('missing login'), 'error');
@@ -246,7 +246,7 @@ class User extends Anonym
 
         $this->userID = null;
 
-        if (!empty($this->getData())) {
+        if (!\in_array($this->getData(), [null, []], true)) {
             $this->addStatusMessage(_('invalid password'), 'error');
         }
 
@@ -274,7 +274,7 @@ class User extends Anonym
      */
     public function isAccountEnabled()
     {
-        if (empty($this->disableColumn)) {
+        if ($this->disableColumn === null || $this->disableColumn === '' || $this->disableColumn === '0') {
             return true;
         }
 
@@ -371,7 +371,7 @@ class User extends Anonym
      */
     public function getUserID(): int
     {
-        return isset($this->userID) ? (int) $this->userID : (int) $this->getMyKey();
+        return $this->userID !== null ? $this->userID : (int) $this->getMyKey();
     }
 
     /**
@@ -478,9 +478,8 @@ class User extends Anonym
     {
         $url = 'http://www.gravatar.com/avatar/';
         $url .= md5(strtolower(trim($email)));
-        $url .= "?s={$size}&d={$default}&r={$maxRating}";
 
-        return $url;
+        return $url."?s={$size}&d={$default}&r={$maxRating}";
     }
 
     /**

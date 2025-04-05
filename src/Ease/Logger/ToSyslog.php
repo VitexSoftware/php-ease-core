@@ -50,7 +50,7 @@ class ToSyslog extends ToStd implements Loggingable
     public function __construct($logName = null)
     {
         parent::__construct($logName);
-        openlog(empty($this->logName) ? Shared::appName() :
+        openlog($this->logName === '' || $this->logName === '0' ? Shared::appName() :
             $this->logName, (int) Shared::cfg('LOG_FLAG'), (int) Shared::cfg('LOG_FACILITY'));
     }
 

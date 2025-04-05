@@ -106,7 +106,7 @@ class Mailer extends Sand
         $this->setMailHeaders(
             [
                 'To' => $emailAddress,
-                'From' => empty($this->fromEmailAddress) ? \Ease\Shared::cfg('EASE_FROM', \Ease\Shared::cfg('EMAIL_FROM')) : $this->fromEmailAddress,
+                'From' => $this->fromEmailAddress === '' || $this->fromEmailAddress === '0' ? \Ease\Shared::cfg('EASE_FROM', \Ease\Shared::cfg('EMAIL_FROM')) : $this->fromEmailAddress,
                 'Reply-To' => $this->fromEmailAddress,
                 'Subject' => $mailSubject,
                 'Content-Type' => 'text/plain; charset=utf-8',
@@ -148,7 +148,7 @@ class Mailer extends Sand
      */
     public function getMailHeader($headername)
     {
-        return \array_key_exists($headername, $this->mailHeaders) ? $this->mailHeaders[$headername] : null;
+        return $this->mailHeaders[$headername] ?? null;
     }
 
     /**
@@ -170,11 +170,9 @@ class Mailer extends Sand
             $this->fromEmailAddress = $this->mailHeaders['From'];
         }
 
-        if (isset($this->mailHeaders['Subject'])) {
-            if (!strstr($this->mailHeaders['Subject'], '=?UTF-8?B?')) {
-                $this->emailSubject = $this->mailHeaders['Subject'];
-                $this->mailHeaders['Subject'] = '=?UTF-8?B?'.base64_encode($this->mailHeaders['Subject']).'?=';
-            }
+        if (isset($this->mailHeaders['Subject']) && !strstr($this->mailHeaders['Subject'], '=?UTF-8?B?')) {
+            $this->emailSubject = $this->mailHeaders['Subject'];
+            $this->mailHeaders['Subject'] = '=?UTF-8?B?'.base64_encode($this->mailHeaders['Subject']).'?=';
         }
 
         $this->finalized = false;
@@ -213,11 +211,7 @@ class Mailer extends Sand
         $this->setMailBody($this->textBody);
         $oMail = new \Mail();
 
-        if (\count($this->parameters)) {
-            $this->mailer = $oMail->factory('smtp', $this->parameters);
-        } else {
-            $this->mailer = $oMail->factory('mail');
-        }
+        $this->mailer = \count($this->parameters) ? $oMail->factory('smtp', $this->parameters) : $oMail->factory('mail');
 
         $sendResult = $this->mailer->send(
             $this->emailAddress,
@@ -227,10 +221,10 @@ class Mailer extends Sand
 
         $this->sendResult = \is_object($sendResult) ? false : $sendResult;
 
-        if ($this->notify === true) {
+        if ($this->notify) {
             $mailStripped = str_replace(['<', '>'], '', $this->emailAddress);
 
-            if ($this->sendResult === true) {
+            if ($this->sendResult) {
                 $this->addStatusMessage(
                     sprintf(
                         _('Message %s was sent to %s'),

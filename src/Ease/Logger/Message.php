@@ -69,11 +69,7 @@ class Message
         $this->type = $type;
         $this->caller = $caller;
 
-        if (null === $when) {
-            $this->when = \time();
-        } else {
-            $this->when = $when;
-        }
+        $this->when = null === $when ? \time() : $when;
     }
 
     /**
@@ -179,11 +175,7 @@ class Message
     public static function getCallerName($caller): string
     {
         if (\is_object($caller)) {
-            if (method_exists($caller, 'getObjectName')) {
-                $callerName = $caller->getObjectName();
-            } else {
-                $callerName = \get_class($caller);
-            }
+            $callerName = method_exists($caller, 'getObjectName') ? $caller->getObjectName() : $caller::class;
         } else {
             $callerName = (string) $caller;
         }

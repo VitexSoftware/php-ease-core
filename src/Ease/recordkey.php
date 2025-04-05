@@ -54,9 +54,8 @@ trait recordkey
      */
     public function getMyKey(?array $data = [])
     {
-        return empty($data) ? $this->getDataValue($this->getKeyColumn()) :
-               (\array_key_exists($this->getKeyColumn(), $data) ?
-                   $data[$this->getKeyColumn()] : null);
+        return $data === null || $data === [] ? $this->getDataValue($this->getKeyColumn()) :
+               ($data[$this->getKeyColumn()] ?? null);
     }
 
     /**
