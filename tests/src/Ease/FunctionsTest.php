@@ -317,4 +317,13 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse(Functions::isJson('{"key":value}'));
         $this->assertFalse(Functions::isJson('{"key":1.2.3}'));
     }
+
+    public function testtoCamelCase(): void
+    {
+        $this->assertEquals('testTest', Functions::toCamelCase('test_test'));
+        $this->assertEquals('testTest', Functions::toCamelCase('test-test'));
+        $this->assertEquals('testTest', Functions::toCamelCase('test test'));
+        $this->assertEquals('testTestTest', Functions::toCamelCase('test test test'));
+        $this->assertEquals('testTestTest', Functions::toCamelCase('test test-test'));
+    }
 }

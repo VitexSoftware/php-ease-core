@@ -589,4 +589,14 @@ class Functions
 
         return $isJson;
     }
+
+    /**
+     * Convert a string to camelCase.
+     *
+     * @param string $string The string to convert
+     */
+    public static function toCamelCase(string $string): string
+    {
+        return lcfirst(str_replace(' ', '', ucwords(str_replace(['-', '_', ':'], ' ', $string))));
+    }
 }
