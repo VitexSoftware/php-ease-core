@@ -51,6 +51,6 @@ class Exception extends \Exception
             \Ease\Shared::logger()->addStatusObject(new Logger\Message($message, 'error', $caller));
         }
 
-        parent::__construct($message,(int) $code, $previous);
+        parent::__construct($message, (int) $code, $previous);
     }
 }

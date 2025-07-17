@@ -1,8 +1,15 @@
 php-vitexsoftware-ease-core (1.49.0) UNRELEASED; urgency=medium
 
+  * datescope trait update
+
+ -- Vitex <vitezslav.dvorak@spojenet.cz>  Thu, 17 Jul 2025 15:06:27 +0200
+
+php-vitexsoftware-ease-core (1.49.0) noble; urgency=medium
+
+  [ vitex ]
   * FromToDate trait added
 
- -- vitex <info@vitexsoftware.cz>  Sun, 27 Apr 2025 22:20:46 +0200
+ -- Vitex <vitezslav.dvorak@spojenet.cz>  Thu, 17 Jul 2025 15:05:20 +0200
 
 php-vitexsoftware-ease-core (1.48.0) noble; urgency=medium
 
