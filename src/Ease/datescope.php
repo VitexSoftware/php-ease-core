@@ -86,25 +86,12 @@ trait datescope
             case 'June':     // 6
             case 'July':     // 7
             case 'August':   // 8
-            case 'September': // 9
+            case 'September':// 9
             case 'October':  // 10
             case 'November': // 11
             case 'December': // 12
                 $this->since = new \DateTime('first day of '.$scope.' '.date('Y'));
                 $this->until = new \DateTime('last day of '.$scope.' '.date('Y'));
-
-                break;
-            case 'auto':
-                $latestRecord = $this->getColumnsFromPohoda(['id', 'lastUpdate'], ['limit' => 1, 'order' => 'lastUpdate@A', 'source' => $this->sourceString(), 'bank' => $this->bankIDS]);
-
-                if (\array_key_exists(0, $latestRecord) && \array_key_exists('lastUpdate', $latestRecord[0])) {
-                    $this->since = $latestRecord[0]['lastUpdate'];
-                } else {
-                    $this->addStatusMessage('Previous record for "auto since" not found. Defaulting to today\'s 00:00', 'warning');
-                    $this->since = (new \DateTime())->setTime(0, 0);
-                }
-
-                $this->until = new \DateTime(); // Now
 
                 break;
 
@@ -121,7 +108,7 @@ trait datescope
                         break;
                     }
 
-                    throw new \Exception('Unknown scope '.$scope);
+                    throw new \InvalidArgumentException('Unknown scope '.$scope);
                 }
 
                 break;
