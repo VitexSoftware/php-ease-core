@@ -38,6 +38,11 @@ trait datescope
     public function setScope(string $scope): \DatePeriod
     {
         switch ($scope) {
+            case 'today':
+                $this->since = (new \DateTime('today'))->setTime(0, 0);
+                $this->until = (new \DateTime('today'))->setTime(23, 59, 59, 999);
+
+                break;
             case 'yesterday':
                 $this->since = (new \DateTime('yesterday'))->setTime(0, 0);
                 $this->until = (new \DateTime('yesterday'))->setTime(23, 59, 59, 999);

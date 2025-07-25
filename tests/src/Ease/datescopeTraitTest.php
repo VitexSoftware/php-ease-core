@@ -31,6 +31,9 @@ class datescopeTraitTest extends TestCase
         return $this->until;
     }
 
+    /**
+     * @covers \Ease\datescope::setScope
+     */
     public function testYesterdayScope(): void
     {
         $period = $this->setScope('yesterday');
@@ -41,6 +44,9 @@ class datescopeTraitTest extends TestCase
         $this->assertInstanceOf(\DatePeriod::class, $period);
     }
 
+    /**
+     * @covers \Ease\datescope::setScope
+     */
     public function testCurrentMonthScope(): void
     {
         $period = $this->setScope('current_month');
@@ -51,6 +57,9 @@ class datescopeTraitTest extends TestCase
         $this->assertInstanceOf(\DatePeriod::class, $period);
     }
 
+    /**
+     * @covers \Ease\datescope::setScope
+     */
     public function testLastMonthScope(): void
     {
         $period = $this->setScope('last_month');
@@ -61,6 +70,9 @@ class datescopeTraitTest extends TestCase
         $this->assertInstanceOf(\DatePeriod::class, $period);
     }
 
+    /**
+     * @covers \Ease\datescope::setScope
+     */
     public function testMonthNameScope(): void
     {
         $period = $this->setScope('July');
@@ -71,6 +83,9 @@ class datescopeTraitTest extends TestCase
         $this->assertInstanceOf(\DatePeriod::class, $period);
     }
 
+    /**
+     * @covers \Ease\datescope::setScope
+     */
     public function testDateStringScope(): void
     {
         $date = '2025-07-17';
@@ -82,6 +97,9 @@ class datescopeTraitTest extends TestCase
         $this->assertInstanceOf(\DatePeriod::class, $period);
     }
 
+    /**
+     * @covers \Ease\datescope::setScope
+     */
     public function testCustomRangeScope(): void
     {
         $period = $this->setScope('2025-07-01>2025-07-17');
@@ -92,6 +110,9 @@ class datescopeTraitTest extends TestCase
         $this->assertInstanceOf(\DatePeriod::class, $period);
     }
 
+    /**
+     * @covers \Ease\datescope::setScope
+     */
     public function testUnknownScopeThrowsException(): void
     {
         $this->expectException(\Exception::class);
