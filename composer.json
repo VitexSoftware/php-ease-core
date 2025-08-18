@@ -39,7 +39,7 @@
         "phpstan/phpstan": "*",
         "friendsofphp/php-cs-fixer": "^3.85",
         "ergebnis/composer-normalize": "^2.47",
-        "ergebnis/php-cs-fixer-config": "^6.51",
+        "ergebnis/php-cs-fixer-config": "^6.52",
         "rector/rector": "^2.1"
     },
     "type": "library",
