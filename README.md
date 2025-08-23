@@ -27,6 +27,112 @@ Object oriented PHP Framework for easy&fast writing small/middle sized apps.
 
 ---
 
+Overview
+--------
+
+EasePHP Framework Core is a small, dependency-light runtime library for building CLI and web applications in PHP. It provides:
+- a set of base classes for your domain objects (Atom ➝ Molecule ➝ Sand ➝ Brick),
+- a flexible, multi-sink logging pipeline (memory, console, file, syslog, std, eventlog),
+- a simple but powerful configuration layer (constants/ENV/.env/.json) via Ease\\Shared,
+- gettext-based internationalization helpers (Ease\\Locale),
+- user abstractions (Ease\\Anonym, Ease\\User), and
+- pragmatic utilities (Ease\\Functions) and a Mailer built on PEAR Mail/Mail_mime.
+
+Works standalone or as the core of the broader EasePHP ecosystem. Autoloading follows PSR-4:
+- "Ease\\" ➝ src/Ease
+- "Ease\\Logger\\" ➝ src/Ease/Logger
+
+Key features
+------------
+- Base object model
+  - Atom: minimal base with object naming and draw().
+  - Molecule: property setup helpers from options/ENV/constants.
+  - Sand: data holder with typed helpers; integrates logging via trait.
+  - Brick: adds record identity (id/name/array/reuse) through recordkey trait.
+- Logging
+  - Regent aggregator dispatches to memory/console/file/syslog/std/eventlog; configure via EASE_LOGGER (pipe-separated).
+- Internationalization (i18n)
+  - Gettext domain binding, locale selection (request/session/browser/ENV), and helper APIs.
+- Configuration
+  - Shared::cfg reads constants then ENV; loadConfig supports .json and .env.
+- Users and identity
+  - Anonymous and User implementations with login/password helpers and Gravatar.
+- Utilities
+  - URL helpers, transliteration, AES-256-CBC encrypt/decrypt, randoms, human-readable sizes, UUIDv4, JSON/serialization checks, namespace class loader, etc.
+
+Requirements
+------------
+- PHP >= 7.0 (tested up to PHP 8.4)
+- ext-intl
+- PEAR packages: pear/mail, pear/mail_mime (Mailer)
+
+Quick start
+-----------
+```php
+<?php
+require __DIR__.'/vendor/autoload.php';
+
+// Minimal config
+define('EASE_APPNAME', 'MyApp');
+// Send logs to console and syslog (combine with "|")
+define('EASE_LOGGER', 'console|syslog');
+
+$logger = new \Ease\Sand();
+$logger->addStatusMessage('MyApp started', 'info');
+
+// i18n (optional): bind domain in ./i18n or /usr/share/locale
+new \Ease\Locale('en_US', './i18n', 'php-vitexsoftware-ease-core');
+$logger->addStatusMessage(_('Ready to work'), 'success');
+
+// Mail (optional): configure sender via constants or ENV
+// define('EASE_FROM', 'no-reply@example.com');
+// define('EASE_SMTP', json_encode([
+//     'host' => 'smtp.example.com', 'auth' => true, 'username' => '...','password' => '...'
+// ]));
+// $mailer = new \Ease\Mailer('user@example.com', 'Hello', 'Message body');
+// $mailer->send();
+```
+
+Configuration
+-------------
+Common ways to configure EaseCore:
+
+- PHP constants (highest precedence)
+
+  ```php
+  <?php
+  define('EASE_APPNAME', 'MyApp');
+  define('EASE_LOGGER', 'console|syslog');
+  define('EASE_FROM', 'no-reply@example.com');
+  define('EASE_SMTP', json_encode([
+      'host' => 'smtp.example.com',
+      'auth' => true,
+      'username' => 'smtp-user',
+      'password' => 'secret',
+  ]));
+  ```
+
+- Environment variables
+
+  ```bash
+  export EASE_APPNAME=MyApp
+  export EASE_LOGGER=console|syslog
+  export EASE_FROM=no-reply@example.com
+  export EASE_SMTP='{"host":"smtp.example.com","auth":true,"username":"smtp-user","password":"secret"}'
+  ```
+
+- .env or JSON file
+
+  ```php
+  <?php
+  // Load .env and define UPPERCASE constants from it:
+  \Ease\Shared::singleton()->loadConfig(__DIR__.'/.env', true);
+  // Or load JSON without defining constants (values accessible via Shared::cfg()):
+  \Ease\Shared::singleton()->loadConfig(__DIR__.'/config.json', false);
+  ```
+
+Frequently used keys: EASE_APPNAME, EASE_LOGGER, EASE_FROM, EASE_SMTP, LOG_DIRECTORY, LOG_FLAG, LOG_FACILITY.
+
 Installation
 ============
 
@@ -39,9 +145,13 @@ Composer:
 Docker:
 -------
 
-To get Docker image:
+This repository includes a minimal Docker build primarily for packaging/distribution (it places the library under /usr/share/php/Ease*). For application development, prefer installing via Composer.
 
-    docker pull vitexsoftware/ease-core
+- Build image locally:
+
+    make dimage
+
+- Note: The image is not intended as a full runtime base; it contains the library files for packaging purposes.
 
 
 Framework Constants
@@ -81,12 +191,18 @@ Logging
 Testing
 -------
 
-At first you need initialise create sql user & database with login and password 
-from testing/phinx.yml and initialise testing database by **phinx migrate** 
-command:
+Run the PHPUnit test suite locally:
 
 ```
+composer install
 make phpunit
+```
+
+When installed from the Debian dev package, tests (including i18n assets) can be executed with:
+
+```
+phpunit --bootstrap /usr/share/php/EaseCore/Test/Bootstrap.php \
+  --configuration /usr/share/php/EaseCore/Test/phpunit.xml
 ```
 
 Building
