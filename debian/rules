@@ -6,6 +6,14 @@ BUILD_DIR:=build
 %:
 	dh $@
 
+override_dh_auto_build:
+	dh_auto_build
+	# Build compiled message catalogs for test i18n
+	if which msgfmt >/dev/null 2>&1; then \
+	  find i18n -type f -name 'php-vitexsoftware-ease-core.po' -print0 \
+	    | xargs -0 -r -I{} sh -c 'dest="$$(dirname "{}")/php-vitexsoftware-ease-core.mo"; msgfmt -o "$$dest" "{}"'; \
+	fi
+
 #override_dh_prep:
 #	phpdoc -d src --defaultpackagename=MainPackage
 #	rm -rf docs
