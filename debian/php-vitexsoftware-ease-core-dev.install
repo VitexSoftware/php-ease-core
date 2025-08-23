@@ -21,3 +21,7 @@ debian/ease-mailer-test 	usr/bin
 i18n/cs_CZ/LC_MESSAGES/php-vitexsoftware-ease-core.po  usr/share/php/EaseCore/Test/i18n/cs_CZ/LC_MESSAGES
 i18n/en_US/LC_MESSAGES/php-vitexsoftware-ease-core.po  usr/share/php/EaseCore/Test/i18n/en_US/LC_MESSAGES
 i18n/eo/LC_MESSAGES/php-vitexsoftware-ease-core.po  usr/share/php/EaseCore/Test/i18n/eo/LC_MESSAGES
+# ship precompiled .mo too if available (fallback to postinst compilation)
+i18n/cs_CZ/LC_MESSAGES/php-vitexsoftware-ease-core.mo  usr/share/php/EaseCore/Test/i18n/cs_CZ/LC_MESSAGES
+i18n/en_US/LC_MESSAGES/php-vitexsoftware-ease-core.mo  usr/share/php/EaseCore/Test/i18n/en_US/LC_MESSAGES
+i18n/eo/LC_MESSAGES/php-vitexsoftware-ease-core.mo  usr/share/php/EaseCore/Test/i18n/eo/LC_MESSAGES

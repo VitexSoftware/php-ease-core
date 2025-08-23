@@ -26,7 +26,15 @@ set -e
 case "$1" in
     configure)
         composer-debian php-vitexsoftware-ease-core-dev
-	su - `composer-webuser` -s /bin/bash -c 'cd /usr/share/php/EaseCore/Test && phpunit --bootstrap /usr/share/php/EaseCore/Test/Bootstrap.php --configuration /usr/share/php/EaseCore/Test/phpunit.xml'
+        # Ensure test i18n .mo files exist (compile from .po if necessary)
+        if [ -d /usr/share/php/EaseCore/Test/i18n ]; then
+            if command -v msgfmt >/dev/null 2>&1; then
+                find /usr/share/php/EaseCore/Test/i18n -type f -name 'php-vitexsoftware-ease-core.po' -print0 \
+                    | xargs -0 -r -I{} sh -c 'dest="$(dirname "{}")/php-vitexsoftware-ease-core.mo"; msgfmt -o "$dest" "{}" || true'
+            fi
+        fi
+        # Run test suite as web/composer user
+        su -s /bin/bash `composer-webuser` -c 'cd /usr/share/php/EaseCore/Test && phpunit --bootstrap /usr/share/php/EaseCore/Test/Bootstrap.php --configuration /usr/share/php/EaseCore/Test/phpunit.xml'
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
