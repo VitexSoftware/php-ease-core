@@ -81,7 +81,7 @@ distributions.each { distro ->
                         }
                         // Cleanup: remove any produced files named in debian/files
                         // Try both the dist location and any potential original locations referenced by debian/files
-                        sh """
+                        sh '''
                             set -e
                             if [ -f debian/files ]; then
                               while read -r f _; do
@@ -91,7 +91,7 @@ distributions.each { distro ->
                                 rm -f "$WORKSPACE/$f" || true
                               done < debian/files
                             fi
-                        """
+                        '''
                     }
                 }
             }
