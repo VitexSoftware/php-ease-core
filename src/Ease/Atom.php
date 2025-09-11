@@ -17,6 +17,11 @@ namespace Ease;
  * Basic Class of EasePHP.
  *
  * @author Vítězslav Dvořák <info@vitexsoftware.cz>
+ *
+ * @property bool $debug Debug mode flag
+ *
+ * @method string draw()          Default draw method
+ * @method string getObjectName() Returns object name
  */
 class Atom
 {
@@ -26,11 +31,9 @@ class Atom
     public bool $debug = false;
 
     /**
-     * Magical function for all descendants (childern).
-     *
-     * @return string
+     * Magic string conversion for all descendants.
      */
-    public function __toString()
+    public function __toString(): string
     {
         return '';
     }
@@ -38,19 +41,17 @@ class Atom
     /**
      * Returns object name.
      *
-     * @return string
+     * @return string Fully qualified class name
      */
-    public function getObjectName()
+    public function getObjectName(): string
     {
         return \get_class($this);
     }
 
     /**
      * Default draw method.
-     *
-     * @return string
      */
-    public function draw()
+    public function draw(): string
     {
         return $this->__toString();
     }

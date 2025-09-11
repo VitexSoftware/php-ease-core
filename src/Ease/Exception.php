@@ -27,15 +27,26 @@ namespace Ease;
  *
  * @author vitex
  */
+/**
+ * Exceptional use of EaseLogger to keep the message.
+ *
+ * @author vitex
+ *
+ * @method void __construct(string $message, int $code = 0, ?\Ease\Exception $previous = null)
+ *
+ * @property int    $code    Exception code
+ * @property string $message Exception message
+ */
 class Exception extends \Exception
 {
     /**
-     * Ease Framework Exception.
+     * Ease Framework Exception constructor.
      *
-     * @param string $message of exception
-     * @param int    $code    error code
+     * @param string               $message  Exception message
+     * @param int                  $code     Exception code
+     * @param null|\Ease\Exception $previous Previous exception for chaining
      */
-    public function __construct($message, $code = 0, ?self $previous = null)
+    public function __construct(string $message, int $code = 0, ?self $previous = null)
     {
         if (\Ease\Shared::cfg('DEBUG', false)) {
             $trace = $this->getTrace();
