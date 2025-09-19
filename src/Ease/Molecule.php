@@ -50,8 +50,6 @@ class Molecule extends Atom
 
     /**
      * Returns the name of the object.
-     *
-     * @return string
      */
     public function getObjectName(): string
     {

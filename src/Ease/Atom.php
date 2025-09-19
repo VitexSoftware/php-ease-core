@@ -51,8 +51,8 @@ class Atom
     /**
      * Default draw method.
      */
-    public function draw(): string
+    public function draw(): void
     {
-        return $this->__toString();
+        echo $this->__toString();
     }
 }
