@@ -129,14 +129,6 @@ class User extends Anonym
     }
 
     /**
-     * Vykreslí GrAvatara uživatele.
-     */
-    public function draw(): void
-    {
-        echo '<img class="avatar" src="'.$this->getIcon().'">';
-    }
-
-    /**
      * Vrací odkaz na url ikony.
      *
      * @return string url ikony
