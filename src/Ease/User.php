@@ -131,9 +131,9 @@ class User extends Anonym
     /**
      * Vykreslí GrAvatara uživatele.
      */
-    public function draw(): string
+    public function draw(): void
     {
-        return '<img class="avatar" src="'.$this->getIcon().'">';
+        echo '<img class="avatar" src="'.$this->getIcon().'">';
     }
 
     /**
