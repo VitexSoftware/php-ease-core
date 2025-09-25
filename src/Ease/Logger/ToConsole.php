@@ -128,8 +128,14 @@ class ToConsole extends ToMemory implements Loggingable
             'MM/dd/yyyy HH:mm:ss',
         );
 
+        // Fallback to default format if IntlDateFormatter creation fails
+        $dateTime = new \DateTime();
+        $formattedDate = ($fmt !== false) 
+            ? datefmt_format($fmt, $dateTime) 
+            : $dateTime->format('m/d/Y H:i:s');
+
         $ansiMessage = $this->set(strip_tags((string) $message), self::getTypeColor($type));
-        $logLine = datefmt_format($fmt, new \DateTime()).' '.
+        $logLine = $formattedDate.' '.
                 Message::getTypeUnicodeSymbol($type).' ❲'.
                 \Ease\Shared::appName().'⦒'.
                 Message::getCallerName($caller).'❳ '.
