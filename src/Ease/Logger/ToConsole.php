@@ -25,7 +25,13 @@ declare(strict_types=1);
 namespace Ease\Logger;
 
 /**
- * Description of ToConsole.
+ * Console logger that outputs formatted log messages to stdout/stderr with ANSI color codes.
+ *
+ * Provides internationalized date formatting with graceful fallback to standard PHP
+ * date formatting when IntlDateFormatter is unavailable or misconfigured.
+ *
+ * Output format:
+ * [date] [time] [severity icon] ❲AppName⦒ObjectNamespace\Object@ID❳ message in severity color
  *
  * @author vitex
  */
@@ -34,7 +40,7 @@ class ToConsole extends ToMemory implements Loggingable
     /**
      * Standard Output handle.
      *
-     * @var false|resource
+     * @var resource
      */
     public $stdout;
 
@@ -46,7 +52,9 @@ class ToConsole extends ToMemory implements Loggingable
     public $stderr;
 
     /**
-     * Ansi Codes.
+     * ANSI escape codes for terminal colors and formatting.
+     *
+     * @var array<string, int> mapping of color/format names to ANSI codes
      */
     protected static array $ansiCodes = [
         'off' => 0,
@@ -75,17 +83,32 @@ class ToConsole extends ToMemory implements Loggingable
     ];
 
     /**
-     * Saves obejct instace (singleton...).
+     * Saves object instance (singleton...).
+     *
+     * @var ?ToConsole
      */
-    private static $instance;
+    private static ?ToConsole $instance = null;
 
     /**
      * Log Status messages to console.
+     * 
+     * @throws \RuntimeException if stdout or stderr cannot be opened
      */
     public function __construct()
     {
-        $this->stdout = fopen('php://stdout', 'wb');
-        $this->stderr = fopen('php://stderr', 'wb');
+        $stdout = fopen('php://stdout', 'wb');
+        $stderr = fopen('php://stderr', 'wb');
+        
+        if ($stdout === false) {
+            throw new \RuntimeException('Cannot open stdout for writing');
+        }
+        
+        if ($stderr === false) {
+            throw new \RuntimeException('Cannot open stderr for writing');
+        }
+        
+        $this->stdout = $stdout;
+        $this->stderr = $stderr;
     }
 
     /**
@@ -109,30 +132,50 @@ class ToConsole extends ToMemory implements Loggingable
     }
 
     /**
-     * Zapise zapravu do logu.
+     * Write message to console with internationalized date formatting and fallback.
+     * 
+     * Uses IntlDateFormatter for localized date formatting when possible,
+     * with graceful fallback to standard PHP date formatting if the
+     * internationalization extension fails or is misconfigured.
      *
-     * @param object|string $caller  název volajícího objektu
-     * @param string        $message zpráva
-     * @param string        $type    typ zprávy (success|info|error|warning|*)
+     * @param object|string $caller  object or string identification of logging class
+     * @param string        $message message to log
+     * @param string        $type    severity level (success|info|error|warning|debug|*)
      *
-     * @return int written message length
+     * @return int number of bytes written to output
+     * 
+     * @throws \Exception if output streams are not available
      */
     public function addToLog($caller, $message, $type = 'message')
     {
-        $fmt = datefmt_create(
-            \Ease\Locale::$localeUsed,
-            \IntlDateFormatter::FULL,
-            \IntlDateFormatter::FULL,
-            date_default_timezone_get(),
-            \IntlDateFormatter::GREGORIAN,
-            'MM/dd/yyyy HH:mm:ss',
-        );
-
         // Fallback to default format if IntlDateFormatter creation fails
         $dateTime = new \DateTime();
-        $formattedDate = ($fmt !== false) 
-            ? datefmt_format($fmt, $dateTime) 
-            : $dateTime->format('m/d/Y H:i:s');
+        $formattedDate = $dateTime->format('m/d/Y H:i:s'); // Default fallback
+        
+        try {
+            $fmt = datefmt_create(
+                \Ease\Locale::$localeUsed,
+                \IntlDateFormatter::FULL,
+                \IntlDateFormatter::FULL,
+                date_default_timezone_get(),
+                \IntlDateFormatter::GREGORIAN,
+                'MM/dd/yyyy HH:mm:ss',
+            );
+
+            if ($fmt instanceof \IntlDateFormatter) {
+                try {
+                    $intlFormatted = datefmt_format($fmt, $dateTime);
+
+                    if ($intlFormatted !== false) {
+                        $formattedDate = $intlFormatted;
+                    }
+                } catch (\Error $e) {
+                    // Keep the default fallback format if IntlDateFormatter fails
+                }
+            }
+        } catch (\ValueError | \Error $e) {
+            // Keep the default fallback format if datefmt_create fails
+        }
 
         $ansiMessage = $this->set(strip_tags((string) $message), self::getTypeColor($type));
         $logLine = $formattedDate.' '.

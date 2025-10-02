@@ -21,63 +21,86 @@ declare(strict_types=1);
 namespace Ease\Logger;
 
 /**
- * @method methodName(type $paramName) Description
+ * File logger that writes log messages to specified files with automatic directory management.
+ *
+ * Provides reliable file-based logging with comprehensive directory validation,
+ * automatic file creation, and proper resource management. Supports configurable
+ * log directories and graceful error handling for file system issues.
+ *
+ * @author vitex
  */
 class ToFile extends ToMemory implements Loggingable
 {
     /**
-     * Adresář do kterého se zapisují logy.
+     * Directory path prefix where log files are written.
      *
-     * @var string dirpath
+     * @var string directory path
      */
     public string $logPrefix = '';
 
     /**
-     * Soubor s do kterého se zapisuje log.
+     * Log file name with full path.
+     *
+     * @var string log file path
      */
     public string $logFileName = 'Ease.log';
 
     /**
-     * Odkaz na vlastnící objekt.
+     * Reference to parent object.
+     *
+     * @var \Ease\Sand parent object instance
      */
     public \Ease\Sand $parentObject;
 
     /**
-     * Obecné konfigurace frameworku.
+     * Framework configuration object.
+     *
+     * @var \Ease\Shared configuration instance
      */
     public \Ease\Shared $easeShared;
 
     /**
-     * Filedescriptor Logu.
+     * Log file descriptor handle.
      *
-     * @var bool|resource
+     * @var resource|false|null file handle or false on failure
      */
     private $logFileHandle;
 
     /**
-     * ID naposledy ulozene zpravy.
+     * ID of last stored message.
      *
-     * @var int unsigned
+     * @var int message counter
      */
     private int $messageID = 0;
 
     /**
-     * Saves obejct instace (singleton...).
+     * Singleton instance storage.
+     *
+     * @var ?ToFile singleton instance
      */
-    private static self $instance;
+    private static ?ToFile $instance = null;
 
     /**
-     * Logovací třída.
+     * File logger constructor.
      *
-     * @param string $baseLogDir
+     * Initializes the file logger with specified base directory or uses
+     * LOG_DIRECTORY configuration. Automatically sets up log file paths
+     * and validates directory accessibility.
+     *
+     * @param ?string $baseLogDir Base directory for log files, null to use LOG_DIRECTORY config
+     *
+     * @throws \Exception if directory is not accessible or writable
      */
-    public function __construct($baseLogDir = null)
+    public function __construct(?string $baseLogDir = null)
     {
         $this->setupLogFiles($baseLogDir);
     }
 
     /**
-     * Uzavře chybové soubory.
+     * Closes log file handles on object destruction.
+     *
+     * Ensures proper resource cleanup by closing any open file handles
+     * when the logger object is destroyed.
      */
     public function __destruct()
     {
@@ -87,7 +110,14 @@ class ToFile extends ToMemory implements Loggingable
     }
 
     /**
-     * Get instanece of File Logger.
+     * Get singleton instance of File Logger.
+     *
+     * Returns existing instance or creates new one with specified log directory.
+     * Ensures only one file logger instance exists per application.
+     *
+     * @param string $logdir Log directory path, empty string to use default
+     *
+     * @return ToFile singleton instance
      */
     public static function singleton(string $logdir = ''): self
     {
@@ -99,11 +129,19 @@ class ToFile extends ToMemory implements Loggingable
     }
 
     /**
-     * Nastaví cesty logovacích souborů.
+     * Set up log file paths and validate directory accessibility.
      *
-     * @param string $baseLogDir
+     * Configures log file paths based on provided directory or LOG_DIRECTORY
+     * configuration. Validates directory exists, is readable and writable.
+     * Disables logging if directory setup fails.
+     *
+     * @param string $baseLogDir Base directory for log files, empty to use config
+     *
+     * @return void
+     *
+     * @throws \Exception if directory validation fails
      */
-    public function setupLogFiles($baseLogDir = ''): void
+    public function setupLogFiles(string $baseLogDir = ''): void
     {
         $baseLogDir = empty($baseLogDir) ? \Ease\Shared::cfg('LOG_DIRECTORY') : $baseLogDir;
 
@@ -113,24 +151,38 @@ class ToFile extends ToMemory implements Loggingable
             $this->logFileName = '';
         } else {
             $this->logPrefix = \Ease\Functions::sysFilename($baseLogDir);
+            
+            // Ensure trailing directory separator
+            if (!empty($this->logPrefix) && !str_ends_with($this->logPrefix, \DIRECTORY_SEPARATOR)) {
+                $this->logPrefix .= \DIRECTORY_SEPARATOR;
+            }
 
             if ($this->testDirectory($this->logPrefix)) {
-                $this->logFileName = $this->logPrefix.$this->logFileName;
+                $baseLogName = 'Ease.log';
+                $this->logFileName = $this->logPrefix . $baseLogName;
+                $this->logType = 'file';
             } else {
                 $this->logPrefix = '';
                 $this->logFileName = '';
+                $this->logType = 'none';
             }
         }
     }
 
     /**
-     * Zapise zapravu do logu.
+     * Write message to log file with timestamp and caller information.
      *
-     * @param string $caller  název volajícího objektu
-     * @param string $message zpráva
-     * @param string $type    typ zprávy (success|info|error|warning|*)
+     * Formats and writes log messages to the configured log file. Messages include
+     * ISO 8601 timestamp, caller identification, message type symbols, and content.
+     * Automatically opens log file if not already open.
      *
-     * @return int bytes written
+     * @param mixed  $caller  Object or string identification of logging class
+     * @param string $message Message content to log
+     * @param string $type    Message type (success|info|error|warning|notice|debug|*)
+     *
+     * @return int Number of bytes written to file
+     *
+     * @throws \Exception if file operations fail
      */
     public function addToLog($caller, $message, $type = 'notice')
     {
@@ -162,16 +214,22 @@ class ToFile extends ToMemory implements Loggingable
     }
 
     /**
-     * Zkontroluje stav adresáře a upozorní na případné nesnáze.
+     * Test directory status and report any issues.
      *
-     * @param string $directoryPath cesta k adresáři
-     * @param bool   $isDir         detekovat existenci adresáře
-     * @param bool   $isReadable    testovat čitelnost
-     * @param bool   $isWritable    testovat zapisovatelnost
+     * Validates directory existence, readability, and writability based on
+     * specified parameters. Throws exceptions with detailed error messages
+     * if validation fails.
      *
-     * @return bool konečný výsledek testu
+     * @param string $directoryPath Path to directory to test
+     * @param bool   $isDir         Test if path is a directory
+     * @param bool   $isReadable    Test if directory is readable
+     * @param bool   $isWritable    Test if directory is writable
+     *
+     * @return bool True if all tests pass
+     *
+     * @throws \Exception with localized error message if any test fails
      */
-    public static function testDirectory($directoryPath, $isDir = true, $isReadable = true, $isWritable = true)
+    public static function testDirectory(string $directoryPath, bool $isDir = true, bool $isReadable = true, bool $isWritable = true): bool
     {
         if ($isDir && !is_dir($directoryPath)) {
             throw new \Exception($directoryPath._(' is not an folder. Current directory:').' '.getcwd());

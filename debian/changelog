@@ -1,3 +1,12 @@
+php-vitexsoftware-ease-core (1.49.1) UNRELEASED; urgency=medium
+
+  * Fixed IntlDateFormatter error in Logger\ToConsole with graceful fallback
+  * Added comprehensive error handling for locale and date formatting issues
+  * Updated PHPDoc documentation to English with detailed method descriptions
+  * Added unit tests for edge cases and error scenarios
+
+ -- Vitex <vitezslav.dvorak@spojenet.cz>  Wed, 02 Oct 2025 07:53:30 +0200
+
 php-vitexsoftware-ease-core (1.49.0) UNRELEASED; urgency=medium
 
   * datescope trait update

@@ -51,6 +51,8 @@ Key features
   - Brick: adds record identity (id/name/array/reuse) through recordkey trait.
 - Logging
   - Regent aggregator dispatches to memory/console/file/syslog/std/eventlog; configure via EASE_LOGGER (pipe-separated).
+  - Console logger features internationalized date formatting with graceful fallback for maximum reliability.
+  - Comprehensive error handling ensures logging never crashes your application.
 - Internationalization (i18n)
   - Gettext domain binding, locale selection (request/session/browser/ENV), and helper APIs.
 - Configuration
@@ -63,8 +65,10 @@ Key features
 Requirements
 ------------
 - PHP >= 7.0 (tested up to PHP 8.4)
-- ext-intl
+- ext-intl (optional but recommended for internationalized date formatting)
 - PEAR packages: pear/mail, pear/mail_mime (Mailer)
+
+**Note:** The framework gracefully handles missing or misconfigured internationalization extensions.
 
 Quick start
 -----------
@@ -173,13 +177,18 @@ Logging
 
  You can use any combination of this logging modules:
 
-   * memory     - log to array in memory
-   * console    - log to ansi sequence capable console
-   * file       - log to specified file
-   * syslog     - log to linux syslog service
-   * email      - send all messages to constant('EASE_EMAILTO') at end
-   * std        - write messages to stdout/stderr
-   * eventlog   - log to Windows eventlog 
+  - memory     - log to array in memory
+  - console    - log to ansi sequence capable console with internationalized timestamps
+  - file       - log to specified file
+  - syslog     - log to linux syslog service
+  - email      - send all messages to constant('EASE_EMAILTO') at end
+  - std        - write messages to stdout/stderr
+  - eventlog   - log to Windows eventlog
+
+**Reliability Features:**
+- Console logger automatically falls back to standard PHP date formatting if IntlDateFormatter fails
+- Comprehensive error handling prevents logging failures from crashing your application
+- All loggers are extensively tested with edge cases and error scenarios 
 
   ```php
     define('EASE_LOGGER', 'console|syslog');
@@ -209,6 +218,23 @@ Building
 --------
 
 Simply run **make deb**
+
+Recent Updates
+==============
+
+### Version 1.49.1 (October 2025)
+
+**Logger Reliability Improvements:**
+- **Fixed IntlDateFormatter Fatal Error**: Resolved `"Found unconstructed IntlDateFormatter"` crashes in console logger
+- **Graceful Fallback**: Console logger now automatically falls back to standard PHP date formatting when internationalization fails
+- **Enhanced Error Handling**: Added comprehensive exception handling for `ValueError` and `Error` cases
+- **Improved Type Safety**: Full PHPStan level 8 compliance with proper type annotations
+- **Extended Test Coverage**: Added tests for edge cases including invalid locales, null values, and error scenarios
+
+**Documentation Updates:**
+- Updated PHPDoc comments from Czech to English
+- Added detailed method and property documentation
+- Enhanced code examples and usage patterns
 
 Links
 =====
