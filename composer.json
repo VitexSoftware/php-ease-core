@@ -40,7 +40,7 @@
         "friendsofphp/php-cs-fixer": "^3.87",
         "ergebnis/composer-normalize": "^2.48",
         "ergebnis/php-cs-fixer-config": "^6.54",
-        "rector/rector": "^2.1"
+        "rector/rector": "^2.2"
     },
     "type": "library",
     "homepage": "http://v.s.cz/ease.php",
