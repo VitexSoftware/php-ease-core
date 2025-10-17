@@ -495,6 +495,15 @@ class Functions
 
                     while (false !== ($entry = $d->read())) {
                         if (is_file($modulePath.'/'.$entry) && (pathinfo($entry, \PATHINFO_EXTENSION) === 'php')) {
+                            // Extract potential class name from the file name and avoid double-loading
+                            $className = $namespace.'\\'.pathinfo($entry, \PATHINFO_FILENAME);
+
+                            // If class already exists (possibly loaded via a different path), skip including to prevent redeclaration
+                            if (class_exists($className, false)) {
+                                $loaded[$className] = $modulePath.'/'.$entry;
+                                continue;
+                            }
+
                             $classesBefore = get_declared_classes();
 
                             include_once $modulePath.'/'.$entry;

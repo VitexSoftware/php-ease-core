@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.49.2] - 2025-10-17
+
+### Fixed
+
+- **Class Redeclaration Issue**: Fixed fatal error in `Functions::loadClassesInNamespace()` that could cause "Cannot redeclare class" errors when loading classes from multiple paths
+- **Duplicate Class Detection**: Added class existence check before including files to prevent redeclaration issues
+- **Enhanced Namespace Loading**: Improved namespace loading mechanism to be more resilient when working with complex class hierarchies
+
 ## [1.49.1] - 2025-10-02
 
 ### Fixed
