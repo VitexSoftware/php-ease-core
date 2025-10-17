@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Class Redeclaration Issue**: Fixed fatal error in `Functions::loadClassesInNamespace()` that could cause "Cannot redeclare class" errors when loading classes from multiple paths
 - **Duplicate Class Detection**: Added class existence check before including files to prevent redeclaration issues
 - **Enhanced Namespace Loading**: Improved namespace loading mechanism to be more resilient when working with complex class hierarchies
+- **PHP 8.2 Compatibility**: Fixed `User::getName()` method to work correctly on PHP 8.2 and avoid uninitialized property access
+- **Test Suite Stability**: Ensured `loadClassesInNamespace()` correctly reports already loaded classes
 
 ## [1.49.1] - 2025-10-02
 

@@ -486,32 +486,44 @@ class Functions
 
         $psr4load = \dirname(current($autoloader)).'/composer/autoload_psr4.php';
 
+        // First, check for already loaded classes in this namespace to include them in the result
+        $alreadyLoaded = get_declared_classes();
+        $existingClasses = preg_grep('/^'.preg_quote($namespace, '/').'\\\w+$/', $alreadyLoaded);
+        
         if ($autoloader !== [] && $autoloader !== false && file_exists($psr4load)) {
             $psr4dirs = include $psr4load;
 
             if (\array_key_exists($namespace.'\\', $psr4dirs)) {
                 foreach ($psr4dirs[$namespace.'\\'] as $modulePath) {
                     $d = dir($modulePath);
+                    $processedFiles = [];
 
                     while (false !== ($entry = $d->read())) {
                         if (is_file($modulePath.'/'.$entry) && (pathinfo($entry, \PATHINFO_EXTENSION) === 'php')) {
-                            // Extract potential class name from the file name and avoid double-loading
+                            $filePath = $modulePath.'/'.$entry;
+                            // Record that we've processed this file to avoid duplicates
+                            if (isset($processedFiles[$filePath])) {
+                                continue;
+                            }
+                            $processedFiles[$filePath] = true;
+                            
+                            // Extract potential class name from the file name
                             $className = $namespace.'\\'.pathinfo($entry, \PATHINFO_FILENAME);
 
-                            // If class already exists (possibly loaded via a different path), skip including to prevent redeclaration
-                            if (class_exists($className, false)) {
-                                $loaded[$className] = $modulePath.'/'.$entry;
+                            // If class already exists, add it to loaded without re-including
+                            if (class_exists($className, false) || in_array($className, $existingClasses)) {
+                                $loaded[$className] = $filePath;
                                 continue;
                             }
 
                             $classesBefore = get_declared_classes();
 
-                            include_once $modulePath.'/'.$entry;
+                            include_once $filePath;
                             $diff = array_diff(get_declared_classes(), $classesBefore);
                             $load = preg_grep('/'.addslashes($namespace).'/', $diff);
 
                             foreach ($load as $class) {
-                                $loaded[$class] = $modulePath.'/'.$entry;
+                                $loaded[$class] = $filePath;
                             }
                         }
                     }
