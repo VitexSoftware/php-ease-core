@@ -450,6 +450,18 @@ class User extends Anonym
      */
     public function getName(): string
     {
+        // For PHP 8.2 compatibility, make sure we handle the case when objectName isn't fully initialized
+        // Check if the objectName is just the class name without user info
+        $className = get_class($this);
+        
+        if (!isset($this->objectName) || $this->objectName === $className) {
+            // Force re-initialization of object name
+            if (isset($_SERVER['REMOTE_ADDR'])) {
+                return $className.':@'.$_SERVER['REMOTE_ADDR'].
+                    (isset($_SERVER['REMOTE_USER']) ? ' ['.$_SERVER['REMOTE_USER'].']' : '');
+            }
+        }
+        
         return $this->getObjectName();
     }
 
