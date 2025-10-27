@@ -158,7 +158,9 @@ class Sand extends Molecule
     /**
      * Převezme data do aktuálního pole dat.
      *
-     * @var array<string, mixed>
+     * @param array<string, mixed> $data
+     *
+     * @return int Number of items taken
      */
     public function takeData(array $data): int
     {
