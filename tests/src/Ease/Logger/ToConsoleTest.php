@@ -108,10 +108,10 @@ class ToConsoleTest extends ToMemoryTest
     {
         // Save original locale
         $originalLocale = \Ease\Locale::$localeUsed;
-        
+
         // Set invalid locale to trigger formatter failure
         \Ease\Locale::$localeUsed = 'invalid_locale';
-        
+
         try {
             // This should not throw an exception despite invalid locale
             $result = $this->object->addToLog($this, 'test message with invalid locale');
@@ -132,18 +132,18 @@ class ToConsoleTest extends ToMemoryTest
         // Test with null locale
         $originalLocale = \Ease\Locale::$localeUsed;
         \Ease\Locale::$localeUsed = null;
-        
+
         try {
             $result = $this->object->addToLog($this, 'test with null locale');
             $this->assertIsInt($result, 'addToLog should handle null locale');
         } finally {
             \Ease\Locale::$localeUsed = $originalLocale;
         }
-        
+
         // Test with empty message
         $result = $this->object->addToLog($this, '');
         $this->assertIsInt($result, 'addToLog should handle empty message');
-        
+
         // Test with numeric message
         $result = $this->object->addToLog($this, 123);
         $this->assertIsInt($result, 'addToLog should handle numeric message');

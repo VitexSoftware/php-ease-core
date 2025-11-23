@@ -252,7 +252,7 @@ class Functions
      * @param int $minimal
      * @param int $maximal
      *
-     * @return float
+     * @return int
      */
     public static function randomNumber($minimal = null, $maximal = null)
     {
@@ -486,21 +486,22 @@ class Functions
 
         // Pre-populate with known existing classes in this namespace
         $alreadyLoaded = get_declared_classes();
+
         foreach ($alreadyLoaded as $className) {
-            if (strpos($className, $namespace.'\\') === 0) {
+            if (str_starts_with($className, $namespace.'\\')) {
                 // We don't know the file path, but we'll set it to a placeholder
                 // This ensures we at least return the classes we know exist
-                $loaded[$className] = 'preloaded'; 
+                $loaded[$className] = 'preloaded';
             }
         }
-        
+
         // If no autoloader is found, we'll still return any preloaded classes
         if (empty($autoloader)) {
             return $loaded;
         }
-        
+
         $psr4load = \dirname(current($autoloader)).'/composer/autoload_psr4.php';
-        
+
         if (file_exists($psr4load)) {
             $psr4dirs = include $psr4load;
 
@@ -509,29 +510,33 @@ class Functions
                     if (!is_dir($modulePath)) {
                         continue; // Skip if the directory doesn't exist
                     }
-                    
+
                     $d = dir($modulePath);
+
                     if (!$d) {
                         continue; // Skip if we can't read the directory
                     }
-                    
+
                     $processedFiles = [];
 
                     while (false !== ($entry = $d->read())) {
                         if (is_file($modulePath.'/'.$entry) && (pathinfo($entry, \PATHINFO_EXTENSION) === 'php')) {
                             $filePath = $modulePath.'/'.$entry;
+
                             // Record that we've processed this file to avoid duplicates
                             if (isset($processedFiles[$filePath])) {
                                 continue;
                             }
+
                             $processedFiles[$filePath] = true;
-                            
+
                             // Extract potential class name from the file name
                             $className = $namespace.'\\'.pathinfo($entry, \PATHINFO_FILENAME);
 
                             // If class already exists, add it to loaded without re-including
                             if (class_exists($className, false)) {
                                 $loaded[$className] = $filePath;
+
                                 continue;
                             }
 
@@ -552,9 +557,9 @@ class Functions
                 }
             }
         }
-        
+
         // Make sure we return at least something if we're testing
-        if (empty($loaded) && strpos($namespace, 'Test\\') === 0) {
+        if (empty($loaded) && str_starts_with($namespace, 'Test\\')) {
             // Add a dummy entry for testing purposes
             $loaded[$namespace.'\\DummyClass'] = 'dummy_path_for_testing';
         }

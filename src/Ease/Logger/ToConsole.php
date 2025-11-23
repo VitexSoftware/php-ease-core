@@ -84,29 +84,27 @@ class ToConsole extends ToMemory implements Loggingable
 
     /**
      * Saves object instance (singleton...).
-     *
-     * @var ?ToConsole
      */
     private static ?ToConsole $instance = null;
 
     /**
      * Log Status messages to console.
-     * 
+     *
      * @throws \RuntimeException if stdout or stderr cannot be opened
      */
     public function __construct()
     {
         $stdout = fopen('php://stdout', 'wb');
         $stderr = fopen('php://stderr', 'wb');
-        
+
         if ($stdout === false) {
             throw new \RuntimeException('Cannot open stdout for writing');
         }
-        
+
         if ($stderr === false) {
             throw new \RuntimeException('Cannot open stderr for writing');
         }
-        
+
         $this->stdout = $stdout;
         $this->stderr = $stderr;
     }
@@ -133,7 +131,7 @@ class ToConsole extends ToMemory implements Loggingable
 
     /**
      * Write message to console with internationalized date formatting and fallback.
-     * 
+     *
      * Uses IntlDateFormatter for localized date formatting when possible,
      * with graceful fallback to standard PHP date formatting if the
      * internationalization extension fails or is misconfigured.
@@ -142,16 +140,16 @@ class ToConsole extends ToMemory implements Loggingable
      * @param string        $message message to log
      * @param string        $type    severity level (success|info|error|warning|debug|*)
      *
-     * @return int number of bytes written to output
-     * 
      * @throws \Exception if output streams are not available
+     *
+     * @return int number of bytes written to output
      */
     public function addToLog($caller, $message, $type = 'message')
     {
         // Fallback to default format if IntlDateFormatter creation fails
         $dateTime = new \DateTime();
         $formattedDate = $dateTime->format('m/d/Y H:i:s'); // Default fallback
-        
+
         try {
             $fmt = datefmt_create(
                 \Ease\Locale::$localeUsed,
@@ -173,7 +171,7 @@ class ToConsole extends ToMemory implements Loggingable
                     // Keep the default fallback format if IntlDateFormatter fails
                 }
             }
-        } catch (\ValueError | \Error $e) {
+        } catch (\Error|\ValueError $e) {
             // Keep the default fallback format if datefmt_create fails
         }
 

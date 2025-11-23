@@ -40,3 +40,4 @@ When writing code, always ensure that it is maintainable and follows best practi
 
 When create new class or update existing class, always create or update its phpunit test files.
 
+After every single edit to a PHP file, always run `php -l` on the edited file to lint it and ensure code sanity before proceeding further. This is mandatory for all PHP code changes.

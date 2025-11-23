@@ -62,7 +62,7 @@ class ToFile extends ToMemory implements Loggingable
     /**
      * Log file descriptor handle.
      *
-     * @var resource|false|null file handle or false on failure
+     * @var null|false|resource file handle or false on failure
      */
     private $logFileHandle;
 
@@ -137,8 +137,6 @@ class ToFile extends ToMemory implements Loggingable
      *
      * @param string $baseLogDir Base directory for log files, empty to use config
      *
-     * @return void
-     *
      * @throws \Exception if directory validation fails
      */
     public function setupLogFiles(string $baseLogDir = ''): void
@@ -151,7 +149,7 @@ class ToFile extends ToMemory implements Loggingable
             $this->logFileName = '';
         } else {
             $this->logPrefix = \Ease\Functions::sysFilename($baseLogDir);
-            
+
             // Ensure trailing directory separator
             if (!empty($this->logPrefix) && !str_ends_with($this->logPrefix, \DIRECTORY_SEPARATOR)) {
                 $this->logPrefix .= \DIRECTORY_SEPARATOR;
@@ -159,7 +157,7 @@ class ToFile extends ToMemory implements Loggingable
 
             if ($this->testDirectory($this->logPrefix)) {
                 $baseLogName = 'Ease.log';
-                $this->logFileName = $this->logPrefix . $baseLogName;
+                $this->logFileName = $this->logPrefix.$baseLogName;
                 $this->logType = 'file';
             } else {
                 $this->logPrefix = '';
@@ -180,9 +178,9 @@ class ToFile extends ToMemory implements Loggingable
      * @param string $message Message content to log
      * @param string $type    Message type (success|info|error|warning|notice|debug|*)
      *
-     * @return int Number of bytes written to file
-     *
      * @throws \Exception if file operations fail
+     *
+     * @return int Number of bytes written to file
      */
     public function addToLog($caller, $message, $type = 'notice')
     {
@@ -225,9 +223,9 @@ class ToFile extends ToMemory implements Loggingable
      * @param bool   $isReadable    Test if directory is readable
      * @param bool   $isWritable    Test if directory is writable
      *
-     * @return bool True if all tests pass
-     *
      * @throws \Exception with localized error message if any test fails
+     *
+     * @return bool True if all tests pass
      */
     public static function testDirectory(string $directoryPath, bool $isDir = true, bool $isReadable = true, bool $isWritable = true): bool
     {

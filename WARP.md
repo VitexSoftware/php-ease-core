@@ -1,96 +1,78 @@
-# WARP.md
+# WARP.md - Working AI Reference for php-vitexsoftware-ease-core
 
-This file provides guidance to WARP (warp.dev) when working with code in this repository.
+## Project Overview
+**Type**: PHP Project/Debian Package
+**Purpose**: ![EasePHP Framework Logo](ease-core-social-preview.png?raw=true "Project Logo")
+**Status**: Active
+**Repository**: git@github.com:VitexSoftware/php-ease-core.git
 
-## Repository Overview
+## Key Technologies
+- PHP
+- Composer
+- Debian Packaging
+- Docker
 
-EasePHP Core is a small, dependency-light runtime library for building CLI and web applications in PHP. It serves as the foundation for the broader EasePHP ecosystem, providing essential functionality like logging, configuration management, user abstraction, and internationalization.
+## Architecture & Structure
+```
+php-vitexsoftware-ease-core/
+├── src/           # Source code
+├── tests/         # Test files
+├── docs/          # Documentation
+└── ...
+```
 
-## Code Architecture
+## Development Workflow
 
-### Core Classes Hierarchy
+### Prerequisites
+- Development environment setup
+- Required dependencies
 
-The framework follows an atom-to-complex hierarchy pattern:
-
-1. **Atom** (`Ease\Atom`) - The minimal base class with object naming and draw() capability
-2. **Molecule** (`Ease\Molecule`) - Extends Atom with property setup helpers from options/ENV/constants
-3. **Sand** (`Ease\Sand`) - Data holder with typed helpers; integrates logging via trait
-4. **Brick** (`Ease\Brick`) - Adds record identity (id/name/array/reuse) through recordkey trait
-
-### Key Modules
-
-1. **Logging** (`Ease\Logger\*`) - Multiple sink logging system
-   - `Regent` - Aggregator that dispatches to various output destinations
-   - Destinations: memory, console, file, syslog, std, eventlog
-
-2. **Configuration** (`Ease\Shared`) - Configuration layer supporting constants, ENV, .env, and .json
-
-3. **Internationalization** (`Ease\Locale`) - Gettext-based i18n with locale selection
-
-4. **User Management** (`Ease\Anonym`, `Ease\User`) - User abstraction with authentication helpers
-
-5. **Utilities** (`Ease\Functions`, `Ease\Mailer`) - Common utilities and mail functionality built on PEAR Mail
-
-## Development Commands
-
-### Environment Setup
-
+### Setup Instructions
 ```bash
+# Clone the repository
+git clone git@github.com:VitexSoftware/php-ease-core.git
+cd php-vitexsoftware-ease-core
+
 # Install dependencies
 composer install
 ```
 
+### Build & Run
+```bash
+dpkg-buildpackage -b -uc\ndocker build -t php-vitexsoftware-ease-core .
+```
+
 ### Testing
-
 ```bash
-# Run PHPUnit tests
-vendor/bin/phpunit --bootstrap tests/Bootstrap.php --configuration phpunit.xml
-
-# Alternative (using Makefile)
-make phpunit
+composer test
 ```
 
-### Code Quality
+## Key Concepts
+- **Main Components**: Core functionality and modules
+- **Configuration**: Configuration files and environment variables
+- **Integration Points**: External services and dependencies
 
-```bash
-# Fix code style with PHP CS Fixer
-vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --diff --verbose
+## Common Tasks
 
-# Alternative (using Makefile)
-make cs
+### Development
+- Review code structure
+- Implement new features
+- Fix bugs and issues
 
-# Run static analysis with PHPStan (level 6)
-vendor/bin/phpstan analyse --configuration=phpstan-default.neon.dist --memory-limit=-1
+### Deployment
+- Build and package
+- Deploy to target environment
+- Monitor and maintain
 
-# Alternative (using Makefile)
-make static-code-analysis
+## Troubleshooting
+- **Common Issues**: Check logs and error messages
+- **Debug Commands**: Use appropriate debugging tools
+- **Support**: Check documentation and issue tracker
 
-# Run Rector to improve code quality
-vendor/bin/rector process --dry-run
-```
-
-### Documentation
-
-```bash
-# Generate documentation with phpDocumentor
-make phpdoc
-
-# Generate documentation with ApiGen
-make apigen
-```
-
-### Package Building
-
-```bash
-# Build Debian package
-make deb
-
-# Build RPM package
-make rpm
-
-# Build Docker image
-make dimage
-```
+## Additional Notes
+- Project-specific conventions
+- Development guidelines
+- Related documentation
 
 ## Configuration
 

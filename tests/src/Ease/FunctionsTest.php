@@ -326,7 +326,7 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('testTestTest', Functions::toCamelCase('test test test'));
         $this->assertEquals('testTestTest', Functions::toCamelCase('test test-test'));
     }
-    
+
     /**
      * @covers \Functions::loadClassesInNamespace
      */
@@ -335,7 +335,7 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
         $loaded = Functions::loadClassesInNamespace('Ease\\Logger');
         $this->assertIsArray($loaded);
         $this->assertNotEmpty($loaded);
-        
+
         // Try loading the namespace again - this would previously cause issues with class redeclaration
         // but our fix should prevent that
         $loaded2 = Functions::loadClassesInNamespace('Ease\\Logger');

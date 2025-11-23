@@ -30,10 +30,10 @@ class ToFileTest extends ToMemoryTest
      */
     protected function setUp(): void
     {
-        $this->testLogDir = sys_get_temp_dir() . '/ease_test_logs_' . uniqid();
-        mkdir($this->testLogDir, 0755, true);
+        $this->testLogDir = sys_get_temp_dir().'/ease_test_logs_'.uniqid();
+        mkdir($this->testLogDir, 0o755, true);
         $this->object = new ToFile($this->testLogDir);
-        $this->testLogFile = $this->testLogDir . '/Ease.log';
+        $this->testLogFile = $this->testLogDir.'/Ease.log';
     }
 
     /**
@@ -45,6 +45,7 @@ class ToFileTest extends ToMemoryTest
         if (file_exists($this->testLogFile)) {
             unlink($this->testLogFile);
         }
+
         if (is_dir($this->testLogDir)) {
             rmdir($this->testLogDir);
         }
@@ -58,7 +59,7 @@ class ToFileTest extends ToMemoryTest
     public function testConstructor(): void
     {
         $this->assertInstanceOf(ToFile::class, $this->object);
-        $this->assertEquals($this->testLogDir . '/', $this->object->logPrefix);
+        $this->assertEquals($this->testLogDir.'/', $this->object->logPrefix);
         $this->assertEquals($this->testLogFile, $this->object->logFileName);
         $this->assertEquals('file', $this->object->logType);
         $this->assertEquals('file', $this->object->logType);
@@ -85,13 +86,14 @@ class ToFileTest extends ToMemoryTest
     public function testAddToLog(): void
     {
         $result = $this->object->addToLog($this, 'test message', 'info');
-        
+
         // Check that method completes without error
         $this->assertIsInt($result);
-        
+
         // If file was created and has content, verify it
         if (file_exists($this->testLogFile)) {
             $logContent = file_get_contents($this->testLogFile);
+
             if ($logContent !== false && !empty($logContent)) {
                 $this->assertStringContainsString('test message', $logContent);
             }
@@ -106,12 +108,12 @@ class ToFileTest extends ToMemoryTest
     public function testAddToLogWithDifferentTypes(): void
     {
         $types = ['error', 'warning', 'success', 'info', 'debug', 'notice'];
-        
+
         foreach ($types as $type) {
-            $result = $this->object->addToLog($this, "test $type message", $type);
+            $result = $this->object->addToLog($this, "test {$type} message", $type);
             $this->assertIsInt($result);
         }
-        
+
         // Basic functionality test - ensure no exceptions thrown
         $this->assertTrue(true);
     }
@@ -123,15 +125,15 @@ class ToFileTest extends ToMemoryTest
      */
     public function testSetupLogFiles(): void
     {
-        $newTestDir = sys_get_temp_dir() . '/ease_test_logs_new_' . uniqid();
-        mkdir($newTestDir, 0755, true);
-        
+        $newTestDir = sys_get_temp_dir().'/ease_test_logs_new_'.uniqid();
+        mkdir($newTestDir, 0o755, true);
+
         try {
             // Create a fresh object to test setupLogFiles independently
             $testObject = new ToFile('');
             $testObject->setupLogFiles($newTestDir);
-            $this->assertEquals($newTestDir . '/', $testObject->logPrefix);
-            $this->assertEquals($newTestDir . '/Ease.log', $testObject->logFileName);
+            $this->assertEquals($newTestDir.'/', $testObject->logPrefix);
+            $this->assertEquals($newTestDir.'/Ease.log', $testObject->logFileName);
             $this->assertEquals('file', $testObject->logType);
         } finally {
             rmdir($newTestDir);
@@ -169,7 +171,7 @@ class ToFileTest extends ToMemoryTest
     {
         $instance1 = ToFile::singleton($this->testLogDir);
         $instance2 = ToFile::singleton($this->testLogDir);
-        
+
         $this->assertSame($instance1, $instance2);
         $this->assertInstanceOf(ToFile::class, $instance1);
     }
@@ -183,10 +185,10 @@ class ToFileTest extends ToMemoryTest
     {
         $logger = new ToFile($this->testLogDir);
         $logger->addToLog($this, 'test message for destructor');
-        
+
         // Force destructor call
         unset($logger);
-        
+
         // If we reach here without errors, destructor worked properly
         $this->assertTrue(true);
     }
@@ -199,19 +201,19 @@ class ToFileTest extends ToMemoryTest
     public function testLogFileFormat(): void
     {
         $this->object->addToLog($this, 'format test message', 'info');
-        
+
         $this->assertFileExists($this->testLogFile);
         $logContent = file_get_contents($this->testLogFile);
         $this->assertNotEmpty($logContent, 'Log file should not be empty');
         $lines = explode("\n", trim($logContent));
         $logLine = $lines[0];
-        
+
         // Check ISO 8601 timestamp format
         $this->assertMatchesRegularExpression('/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/', $logLine);
-        
+
         // Check caller information (actual format includes full namespace)
         $this->assertStringContainsString('(Test\\Ease\\Logger\\ToFileTest)', $logLine);
-        
+
         // Check message content
         $this->assertStringContainsString('format test message', $logLine);
     }

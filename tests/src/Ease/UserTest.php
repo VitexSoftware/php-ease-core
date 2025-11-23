@@ -257,16 +257,16 @@ class UserTest extends AnonymTest
         $savedServer = $_SERVER;
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $_SERVER['REMOTE_USER'] = 'tester';
-        
+
         // Force re-initialization of object name
         $this->object->setObjectName();
-        
+
         // Test getName() which returns getObjectName()
         $result = $this->object->getName();
-        
+
         // Restore original $_SERVER
         $_SERVER = $savedServer;
-        
+
         // Check with flexible assertion that works across PHP versions
         $this->assertStringContainsString('Ease\\User', $result);
         $this->assertStringContainsString('127.0.0.1', $result);
