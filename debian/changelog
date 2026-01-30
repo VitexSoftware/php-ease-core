@@ -1,11 +1,21 @@
-php-vitexsoftware-ease-core (1.49.1) UNRELEASED; urgency=medium
+php-vitexsoftware-ease-core (1.50.0) UNRELEASED; urgency=medium
 
+  * EaseURI functions added
+
+ -- vitex <info@vitexsoftware.cz>  Fri, 30 Jan 2026 22:46:09 +0100
+
+php-vitexsoftware-ease-core (1.49.1) unstable; urgency=medium
+
+  [ Vitex ]
   * Fixed IntlDateFormatter error in Logger\ToConsole with graceful fallback
   * Added comprehensive error handling for locale and date formatting issues
   * Updated PHPDoc documentation to English with detailed method descriptions
   * Added unit tests for edge cases and error scenarios
 
- -- Vitex <vitezslav.dvorak@spojenet.cz>  Wed, 02 Oct 2025 07:53:30 +0200
+  [ vitex ]
+  * 1.50.0
+
+ -- vitex <info@vitexsoftware.cz>  Fri, 30 Jan 2026 22:45:49 +0100
 
 php-vitexsoftware-ease-core (1.49.0) UNRELEASED; urgency=medium
 

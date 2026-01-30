@@ -23,7 +23,7 @@ namespace Ease;
  * @method string draw()          Default draw method
  * @method string getObjectName() Returns object name
  */
-class Atom
+class Atom implements \Stringable
 {
     /**
      * Debug mode flag.
