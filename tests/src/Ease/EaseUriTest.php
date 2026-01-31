@@ -21,7 +21,7 @@ class DummyBrick extends Brick
     }
 }
 
-final class EuriTest extends TestCase
+final class EaseEuriTest extends TestCase
 {
     public function testFromObjectToUriAndBack(): void
     {
