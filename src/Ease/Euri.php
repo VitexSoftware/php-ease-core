@@ -55,7 +55,7 @@ final class Euri
 
         // Path may be in "opaque" (ease:...) or "path" (ease://...)
         $path = $parsed['opaque']
-            ?? ltrim($parsed['path'] ?? '', '/');
+            ?? $parsed['host'].'/'.ltrim($parsed['path'] ?? '', '/');
 
         if ($path === '') {
             throw new \InvalidArgumentException('Missing object path');
@@ -145,7 +145,8 @@ final class Euri
         $path = $path ? $path.'/'.$class : $class;
 
         // Path unencoded (readable); query values URL-encoded
-        $base = 'ease:'.$path;
+        $base = 'ease://'.$path;
+
         if ($args) {
             $base .= '?'.http_build_query($args, '', '&', \PHP_QUERY_RFC3986);
         }
@@ -167,6 +168,7 @@ final class Euri
          *   new ClassName(string $identifier, array $args = [])
          */
         $object = new $meta['class']($meta['id'], $meta['args']);
+
         if (method_exists($object, 'setMyKey')) {
             $object->setMyKey($meta['id']);
         }
@@ -204,11 +206,8 @@ final class Euri
         string $id,
         array $args = [],
     ): string {
-        $lastNs = strrpos($class, '\\');
-        $shortName = $lastNs !== false ? substr($class, $lastNs + 1) : $class;
+        $base = 'ease://'.str_replace('\\', '/', $class);
 
-        // Path unencoded (readable); query values URL-encoded
-        $base = 'ease:'.$shortName;
         if ($args) {
             $base .= '?'.http_build_query($args, '', '&', \PHP_QUERY_RFC3986);
         }

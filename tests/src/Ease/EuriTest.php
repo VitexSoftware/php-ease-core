@@ -11,6 +11,8 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
+namespace Test\Ease;
+
 use Ease\Euri;
 use PHPUnit\Framework\TestCase;
 
@@ -24,7 +26,7 @@ class DummyBrick extends \Ease\Brick
 /**
  * @covers \Ease\Euri
  */
-final class EaseUriTest extends TestCase
+final class EuriTest extends TestCase
 {
     public function testFromObjectToUriAndBack(): void
     {
@@ -82,22 +84,22 @@ final class EaseUriTest extends TestCase
 
     public function testInvalidScheme(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         Euri::validate('http://example.com/Foo#1');
     }
 
     public function testMissingIdentifier(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
-        Euri::validate('ease:DummyBrick');
+        Euri::validate('ease://Test/Ease/DummyBrick');
     }
 
     public function testIsValid(): void
     {
         $this->assertTrue(
-            Euri::isValid('ease:DummyBrick#1'),
+            Euri::isValid('ease://Test/Ease/DummyBrick#1'),
         );
 
         $this->assertFalse(
@@ -107,12 +109,12 @@ final class EaseUriTest extends TestCase
 
     public function testNormalize(): void
     {
-        $uri = 'ease:DummyBrick#001?b=2&a=1';
+        $uri = 'ease://Test/Ease/DummyBrick#001?b=2&a=1';
 
         $normalized = Euri::normalize($uri);
 
         $this->assertSame(
-            'ease:DummyBrick?a=1&b=2#001',
+            'ease://Test/Ease/DummyBrick?a=1&b=2#001',
             $normalized,
         );
     }
@@ -126,7 +128,7 @@ final class EaseUriTest extends TestCase
         );
 
         $this->assertSame(
-            'ease:Brick?x=y#uuid-123',
+            'ease://Ease/Brick?x=y#uuid-123',
             $uri,
         );
     }

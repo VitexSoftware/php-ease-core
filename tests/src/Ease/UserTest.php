@@ -290,6 +290,7 @@ class UserTest extends AnonymTest
         $remoteUser = $_SERVER['REMOTE_USER'] ?? null;
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
         $_SERVER['REMOTE_USER'] = 'tester';
+
         try {
             $this->assertEquals('Ease\User:@127.0.0.1 [tester]', $this->object->setObjectName());
         } finally {
@@ -298,6 +299,7 @@ class UserTest extends AnonymTest
             } else {
                 unset($_SERVER['REMOTE_ADDR']);
             }
+
             if ($remoteUser !== null) {
                 $_SERVER['REMOTE_USER'] = $remoteUser;
             } else {
