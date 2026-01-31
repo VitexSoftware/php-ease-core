@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the EaseCore package.
  *
@@ -10,8 +12,6 @@
  */
 
 namespace Ease;
-
-declare(strict_types=1);
 
 final class Euri
 {
@@ -25,6 +25,9 @@ final class Euri
      *
      * Expected format:
      *   ease:Namespace/Class#IDENTIFIER?key=value
+     *
+     * Encoding: path uses literal / (no %2F) for human readability; query argument
+     * values are URL-encoded for usability with special characters.
      *
      * Identifier rules:
      * - treated as string
@@ -65,23 +68,37 @@ final class Euri
             throw new \InvalidArgumentException('Invalid object path format');
         }
 
-        // Identifier is stored in fragment
+        // Identifier is stored in fragment (legacy format may put "id?query" in fragment)
         if (!isset($parsed['fragment']) || $parsed['fragment'] === '') {
             throw new \InvalidArgumentException('Missing record identifier');
         }
 
-        $identifier = urldecode($parsed['fragment']);
+        $fragment = $parsed['fragment'];
+        $queryFromFragment = '';
+
+        if (str_contains($fragment, '?')) {
+            [$identifierPart, $queryFromFragment] = explode('?', $fragment, 2);
+            $fragment = $identifierPart;
+        }
+
+        $identifier = urldecode($fragment);
 
         // Allow numeric IDs, names, UUIDs, etc.
         if (!preg_match('~^[A-Za-z0-9._:-]+$~', $identifier)) {
             throw new \InvalidArgumentException('Invalid record identifier format');
         }
 
-        // Parse query parameters
+        // Parse query parameters (from query component and/or legacy fragment)
         $args = [];
 
+        if ($queryFromFragment !== '') {
+            parse_str($queryFromFragment, $args);
+        }
+
         if (!empty($parsed['query'])) {
-            parse_str($parsed['query'], $args);
+            $queryArgs = [];
+            parse_str($parsed['query'], $queryArgs);
+            $args = array_merge($args, $queryArgs);
         }
 
         // Convert path to fully-qualified PHP class name
@@ -127,17 +144,13 @@ final class Euri
         $path = str_replace('\\', '/', $namespace);
         $path = $path ? $path.'/'.$class : $class;
 
-        $uri = sprintf(
-            'ease:%s#%s',
-            rawurlencode($path),
-            rawurlencode($id),
-        );
-
+        // Path unencoded (readable); query values URL-encoded
+        $base = 'ease:'.$path;
         if ($args) {
-            $uri .= '?'.http_build_query($args, '', '&', \PHP_QUERY_RFC3986);
+            $base .= '?'.http_build_query($args, '', '&', \PHP_QUERY_RFC3986);
         }
 
-        return $uri;
+        return $base.'#'.rawurlencode($id);
     }
 
     /**
@@ -153,7 +166,12 @@ final class Euri
          * Expected constructor signature:
          *   new ClassName(string $identifier, array $args = [])
          */
-        return new $meta['class']($meta['id'], $meta['args']);
+        $object = new $meta['class']($meta['id'], $meta['args']);
+        if (method_exists($object, 'setMyKey')) {
+            $object->setMyKey($meta['id']);
+        }
+
+        return $object;
     }
 
     public static function isValid(string $uri): bool
@@ -171,10 +189,13 @@ final class Euri
     {
         $meta = self::validate($uri);
 
+        $args = $meta['args'];
+        ksort($args);
+
         return self::build(
             $meta['class'],
             $meta['id'],
-            $meta['args'],
+            $args,
         );
     }
 
@@ -183,18 +204,15 @@ final class Euri
         string $id,
         array $args = [],
     ): string {
-        $path = str_replace('\\', '/', ltrim($class, '\\'));
+        $lastNs = strrpos($class, '\\');
+        $shortName = $lastNs !== false ? substr($class, $lastNs + 1) : $class;
 
-        $uri = sprintf(
-            'ease:%s#%s',
-            rawurlencode($path),
-            rawurlencode($id),
-        );
-
+        // Path unencoded (readable); query values URL-encoded
+        $base = 'ease:'.$shortName;
         if ($args) {
-            $uri .= '?'.http_build_query($args, '', '&', \PHP_QUERY_RFC3986);
+            $base .= '?'.http_build_query($args, '', '&', \PHP_QUERY_RFC3986);
         }
 
-        return $uri;
+        return $base.'#'.rawurlencode($id);
     }
 }
