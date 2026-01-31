@@ -286,6 +286,23 @@ class UserTest extends AnonymTest
      */
     public function testSetObjectName(): void
     {
-        $this->assertEquals('Ease\User:@127.0.0.1 [tester]', $this->object->setObjectName());
+        $remoteAddr = $_SERVER['REMOTE_ADDR'] ?? null;
+        $remoteUser = $_SERVER['REMOTE_USER'] ?? null;
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $_SERVER['REMOTE_USER'] = 'tester';
+        try {
+            $this->assertEquals('Ease\User:@127.0.0.1 [tester]', $this->object->setObjectName());
+        } finally {
+            if ($remoteAddr !== null) {
+                $_SERVER['REMOTE_ADDR'] = $remoteAddr;
+            } else {
+                unset($_SERVER['REMOTE_ADDR']);
+            }
+            if ($remoteUser !== null) {
+                $_SERVER['REMOTE_USER'] = $remoteUser;
+            } else {
+                unset($_SERVER['REMOTE_USER']);
+            }
+        }
     }
 }

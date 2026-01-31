@@ -21,6 +21,9 @@ class DummyBrick extends \Ease\Brick
 {
 }
 
+/**
+ * @covers \Ease\Euri
+ */
 final class EaseUriTest extends TestCase
 {
     public function testFromObjectToUriAndBack(): void
