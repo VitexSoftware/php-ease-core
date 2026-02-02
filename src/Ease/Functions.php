@@ -449,13 +449,13 @@ class Functions
     }
 
     /**
-     * Get All Classes in namespace.
+     * Get All Classes in namespace with their file paths.
      *
      * @param string $namespace
      *
-     * @return array<string>
+     * @return array<string, string> array where keys are file paths and values are class names
      */
-    public static function classesInNamespace($namespace)
+    public static function classesInNamespace(string $namespace, bool $addNamespacePrefix = false): array
     {
         $namespace .= '\\';
 
@@ -465,8 +465,17 @@ class Functions
         $theClasses = [];
 
         foreach ($myClasses as $class) {
+            $reflection = new \ReflectionClass($class);
+            $filePath = $reflection->getFileName();
             $theParts = explode('\\', $class);
-            $theClasses[] = end($theParts);
+            $className = end($theParts);
+            
+            if ($filePath !== false) {
+                $theClasses[$filePath] = $addNamespacePrefix ? $class : $className;
+            } else {
+                // For classes without file (built-in classes), use class name as key
+                $theClasses[$class] = $className;
+            }
         }
 
         return $theClasses;
