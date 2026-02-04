@@ -182,4 +182,13 @@ class Message
 
         return $callerName;
     }
+    
+    /**
+     * Type of message
+     * @return string info|warning|error|debug| etc ..
+     */
+    public function getType(): string {
+        return $this->type;
+    }
+    
 }
