@@ -16,6 +16,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Test Suite Stability**: Ensured `loadClassesInNamespace()` correctly reports already loaded classes
 - **Cross-Environment Compatibility**: Made `loadClassesInNamespace()` more robust in different environments (development vs. installed package)
 - **Error Handling**: Added proper error checking for directory access and regex pattern construction
+- **I18n Directory Creation**: Added directory creation to ensure internationalization message files can be properly compiled and accessed
+- **Test Infrastructure**: Fixed issues with the test suite when run from the Debian package
+- **Case Sensitivity Handling**: Enhanced class loading to handle file and class name case sensitivity issues that caused "Cannot redeclare class" errors
+- **Class Detection**: Improved detection of already-loaded classes with different case variations
 
 ## [1.49.1] - 2025-10-02
 

@@ -10,6 +10,15 @@ override_dh_auto_build:
 	dh_auto_build
 	# Build compiled message catalogs for test i18n
 	if which msgfmt >/dev/null 2>&1; then \
+	  # First ensure the target directories exist in debian package structure
+	  mkdir -p debian/php-vitexsoftware-ease-core-dev/usr/share/php/EaseCore/Test/i18n/cs_CZ/LC_MESSAGES/; \
+	  mkdir -p debian/php-vitexsoftware-ease-core-dev/usr/share/php/EaseCore/Test/i18n/en_US/LC_MESSAGES/; \
+	  mkdir -p debian/php-vitexsoftware-ease-core-dev/usr/share/php/EaseCore/Test/i18n/eo/LC_MESSAGES/; \
+	  # Also ensure local build directories exist
+	  mkdir -p i18n/cs_CZ/LC_MESSAGES/; \
+	  mkdir -p i18n/en_US/LC_MESSAGES/; \
+	  mkdir -p i18n/eo/LC_MESSAGES/; \
+	  # Then compile the message catalogs
 	  find i18n -type f -name 'php-vitexsoftware-ease-core.po' -print0 \
 	    | xargs -0 -r -I{} sh -c 'dest="$$(dirname "{}")/php-vitexsoftware-ease-core.mo"; msgfmt -o "$$dest" "{}"'; \
 	fi

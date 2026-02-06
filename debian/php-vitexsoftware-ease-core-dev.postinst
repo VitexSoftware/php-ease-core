@@ -26,11 +26,21 @@ set -e
 case "$1" in
     configure)
         composer-debian php-vitexsoftware-ease-core-dev
+        # Ensure test i18n directories exist
+        mkdir -p /usr/share/php/EaseCore/Test/i18n/cs_CZ/LC_MESSAGES/
+        mkdir -p /usr/share/php/EaseCore/Test/i18n/en_US/LC_MESSAGES/
+        mkdir -p /usr/share/php/EaseCore/Test/i18n/eo/LC_MESSAGES/
+        
         # Ensure test i18n .mo files exist (compile from .po if necessary)
         if [ -d /usr/share/php/EaseCore/Test/i18n ]; then
             if command -v msgfmt >/dev/null 2>&1; then
-                find /usr/share/php/EaseCore/Test/i18n -type f -name 'php-vitexsoftware-ease-core.po' -print0 \
-                    | xargs -0 -r -I{} sh -c 'dest="$(dirname "{}")/php-vitexsoftware-ease-core.mo"; msgfmt -o "$dest" "{}" || true'
+                # First create any missing parent directories
+                find /usr/share/php/EaseCore/Test/i18n -type f -name 'php-vitexsoftware-ease-core.po' -print0 | \
+                    xargs -0 -r -I{} mkdir -p $(dirname "{}")
+                
+                # Then compile .po files to .mo
+                find /usr/share/php/EaseCore/Test/i18n -type f -name 'php-vitexsoftware-ease-core.po' -print0 | \
+                    xargs -0 -r -I{} sh -c 'dest="$(dirname "{}")/php-vitexsoftware-ease-core.mo"; msgfmt -o "$dest" "{}" || true'
             fi
         fi
         # Run test suite as web/composer user
