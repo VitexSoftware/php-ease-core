@@ -132,4 +132,34 @@ final class EuriTest extends TestCase
             $uri,
         );
     }
+
+    public function testGetClass(): void
+    {
+        $uri = 'ease://Test/Ease/DummyBrick#123';
+        $class = Euri::getClass($uri);
+
+        $this->assertSame('Test\\Ease\\DummyBrick', $class);
+    }
+
+    public function testGetClassWithQueryParams(): void
+    {
+        $uri = 'ease://Ease/Brick?limit=10&detail=full#42';
+        $class = Euri::getClass($uri);
+
+        $this->assertSame(\Ease\Brick::class, $class);
+    }
+
+    public function testGetClassInvalidUri(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        Euri::getClass('http://invalid/uri');
+    }
+
+    public function testGetClassMissingIdentifier(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        Euri::getClass('ease://Test/Ease/DummyBrick');
+    }
 }

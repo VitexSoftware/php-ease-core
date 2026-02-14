@@ -155,6 +155,18 @@ final class Euri
     }
 
     /**
+     * Exctract Class part only.
+     *
+     * @return string Class
+     */
+    public static function getClass(string $uri)
+    {
+        $meta = self::validate($uri);
+
+        return $meta['class'];
+    }
+
+    /**
      * Instantiate object from EaseURI.
      *
      * @throws \InvalidArgumentException

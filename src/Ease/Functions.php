@@ -451,8 +451,6 @@ class Functions
     /**
      * Get All Classes in namespace with their file paths.
      *
-     * @param string $namespace
-     *
      * @return array<string, string> array where keys are file paths and values are class names
      */
     public static function classesInNamespace(string $namespace, bool $addNamespacePrefix = false): array
@@ -469,7 +467,7 @@ class Functions
             $filePath = $reflection->getFileName();
             $theParts = explode('\\', $class);
             $className = end($theParts);
-            
+
             if ($filePath !== false) {
                 $theClasses[$filePath] = $addNamespacePrefix ? $class : $className;
             } else {
