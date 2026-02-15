@@ -35,7 +35,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 #[CoversClass(Atom::class)]
 class AtomTest extends \PHPUnit\Framework\TestCase
 {
-    protected $object;
+    protected \Ease\Atom $object;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
