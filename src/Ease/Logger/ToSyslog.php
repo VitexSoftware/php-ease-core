@@ -4,7 +4,7 @@
  * Syslog logger handler.
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2021 Vitex@hippy.cz (G)
+ * @copyright 2009-2026 Vitex@hippy.cz (G)
  */
 
 declare(strict_types=1);
@@ -26,7 +26,7 @@ use Ease\Shared;
  * Log to syslog.
  *
  * @author    Vitex <vitex@hippy.cz>
- * @copyright 2009-2023 Vitex@hippy.cz (G)
+ * @copyright 2009-2026 Vitex@hippy.cz (G)
  */
 class ToSyslog extends ToStd implements Loggingable
 {

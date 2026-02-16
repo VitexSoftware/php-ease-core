@@ -161,7 +161,16 @@ class Regent extends \Ease\Atom implements Loggingable
         $logged = 0;
 
         foreach ($this->loggers as $logger) {
-            $logged += $logger->addToLog($message->caller, $message->body, $message->type);
+            switch ($message->type) {
+                case 'debug':
+                    if ((bool) \Ease\Shared::cfg('DEBUG', false) === false) {
+                        break;
+                    }
+
+                    // no break
+                default:
+                    $logged += $logger->addToLog($message->caller, $message->body, $message->type);
+            }
         }
 
         return $logged;
