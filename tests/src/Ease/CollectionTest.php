@@ -126,4 +126,12 @@ final class CollectionTest extends TestCase
         $this->assertCount(1, $items);
         $this->assertSame(['a' => 1, 'b' => 2], $items[0]->data);
     }
+
+    public function testConstructorInvalidClass(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Class NonExistingClass does not exist');
+
+        new Collection('NonExistingClass');
+    }
 }

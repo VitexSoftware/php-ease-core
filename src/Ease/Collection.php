@@ -49,6 +49,20 @@ class Collection implements \Countable, \IteratorAggregate
      */
     public function __construct(string $class)
     {
+        if (!\class_exists($class)) {
+            throw new \InvalidArgumentException(sprintf('Class %s does not exist', $class));
+        }
+
+        try {
+            $ref = new \ReflectionClass($class);
+        } catch (\ReflectionException $e) {
+            throw new \InvalidArgumentException(sprintf('Class %s does not exist', $class));
+        }
+
+        if (!$ref->isInstantiable()) {
+            throw new \InvalidArgumentException(sprintf('Class %s is not instantiable', $class));
+    }
+
         $this->class = $class;
     }
 
