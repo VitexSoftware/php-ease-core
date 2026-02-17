@@ -1,8 +1,14 @@
-php-vitexsoftware-ease-core (1.50.0) UNRELEASED; urgency=medium
+php-vitexsoftware-ease-core (1.50.1) UNRELEASED; urgency=medium
+
+  * enhance Collection class with addArray method
+
+ -- vitex <info@vitexsoftware.cz>  Tue, 17 Feb 2026 18:39:40 +0100
+
+php-vitexsoftware-ease-core (1.50.0) unstable; urgency=medium
 
   * EaseURI functions added
 
- -- vitex <info@vitexsoftware.cz>  Fri, 30 Jan 2026 22:46:09 +0100
+ -- vitex <info@vitexsoftware.cz>  Tue, 17 Feb 2026 18:39:21 +0100
 
 php-vitexsoftware-ease-core (1.49.1) unstable; urgency=medium
 

@@ -54,8 +54,10 @@ class Collection implements \Countable, \IteratorAggregate
 
     /**
      * @param T $item
+     * 
+     * @return self
      */
-    public function add(object $item): void
+    public function add(object $item): self
     {
         if (!$item instanceof $this->class) {
             throw new \InvalidArgumentException(
@@ -64,6 +66,19 @@ class Collection implements \Countable, \IteratorAggregate
         }
 
         $this->items[] = $item;
+        return $this;
+    }
+
+    /**
+     * Add New item defined by its pure data
+     * 
+     * @param array $data
+     * 
+     * @return self
+     */
+    public function addArray(array $data): self {
+        $this->add(new $this->class($data));
+        return $this;
     }
 
     /**

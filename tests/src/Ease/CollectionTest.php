@@ -67,7 +67,7 @@ final class CollectionTest extends TestCase
 
         // Invalid type should throw exception
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Item must be an instance of stdClass');
+        $this->expectExceptionMessage('Item must be instance of stdClass, Exception given');
 
         $bus->add(new \Exception());
     }
@@ -101,5 +101,29 @@ final class CollectionTest extends TestCase
         $this->assertCount(2, $items);
         $this->assertSame($item1, $items[0]);
         $this->assertSame($item2, $items[1]);
+    }
+
+    public function testAddArray(): void
+    {
+        // Anonymous class that accepts an array in constructor
+        $proto = new class(['a' => 1]) {
+            public array $data;
+
+            public function __construct(array $data)
+            {
+                $this->data = $data;
+            }
+        };
+
+        $className = \get_class($proto);
+
+        $collection = new Collection($className);
+
+        $collection->addArray(['a' => 1, 'b' => 2]);
+
+        $items = $collection->getItems();
+
+        $this->assertCount(1, $items);
+        $this->assertSame(['a' => 1, 'b' => 2], $items[0]->data);
     }
 }
