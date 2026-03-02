@@ -1,8 +1,12 @@
-php-vitexsoftware-ease-core (1.50.1) UNRELEASED; urgency=medium
+php-vitexsoftware-ease-core (1.51.0) unstable; urgency=medium
 
   * enhance Collection class with addArray method
+  * Modernize Debian packaging: debhelper-compat 13, pkg-php-tools,
+    phpab autoloader, autopkgtest, DEP-5 copyright
+  * Remove composer-debian dependency (no longer used)
+  * Add phpab-generated autoload.php and pkg-php-tools registration
 
- -- vitex <info@vitexsoftware.cz>  Tue, 17 Feb 2026 18:39:40 +0100
+ -- vitex <info@vitexsoftware.cz>  Mon, 02 Mar 2026 17:04:00 +0100
 
 php-vitexsoftware-ease-core (1.50.0) unstable; urgency=medium
 

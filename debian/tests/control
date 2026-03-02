@@ -1,0 +1,3 @@
+Test-Command: php -r "require_once '/usr/share/php/EaseCore/autoload.php'; new Ease\Atom();"
+Depends: php-vitexsoftware-ease-core, php-cli
+Restrictions: superficial

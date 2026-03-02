@@ -1,38 +1,49 @@
 Source: php-vitexsoftware-ease-core
-Build-Depends: debhelper (>= 10), moreutils, jq, composer, phpdocumentor, php-mbstring, php-dom, php-xml, php-intl, php-cli, gettext
-Section: web
-Standards-Version: 3.9.8
+Section: php
+Priority: optional
 Maintainer: Vítězslav Dvořák <info@vitexsoftware.cz>
 Uploaders: Vitex <vitex@hippy.cz>
-Priority: optional
+Build-Depends:
+ debhelper-compat (= 13),
+ pkg-php-tools (>= 1.7~),
+ phpab,
+ moreutils,
+ jq,
+ composer,
+ php-mbstring,
+ php-dom,
+ php-xml,
+ php-intl,
+ php-cli,
+ gettext,
+Standards-Version: 4.7.0
 Homepage: https://github.com/VitexSoftware/php-ease-core
+Rules-Requires-Root: no
 
 Package: php-vitexsoftware-ease-core
-Depends: ${misc:Depends}, php-mail, php-mail-mime, composer-debian, php-intl
-Conflicts: ease-framework
 Architecture: all
+Depends:
+ ${misc:Depends},
+ ${phpcomposer:Debian-require},
+ php-intl,
+Conflicts: ease-framework
 Suggests: php-vitexsoftware-ease-html, php-vitexsoftware-ease-bootstrap, php-vitexsoftware-ease-bootstrap4
-Section: web
-Priority: optional
+Section: php
 Description: EasePHP Framework Core
  common classes for Ease Framework.
 
 Package: php-vitexsoftware-ease-core-dev
-Pre-Depends: default-mta | postfix | exim4 | ssmtp | mail-transport-agent
-Depends: ${misc:Depends}, php-mail, php-mail-mime, php-vitexsoftware-ease-core, phpunit, gettext
 Architecture: all
+Pre-Depends: default-mta | postfix | exim4 | ssmtp | mail-transport-agent
+Depends:
+ ${misc:Depends},
+ php-mail,
+ php-mail-mime,
+ php-vitexsoftware-ease-core,
+ phpunit,
+ gettext,
 Suggests: php-vitexsoftware-ease-html, php-vitexsoftware-ease-bootstrap, php-vitexsoftware-ease-bootstrap4
-Section: web
-Priority: optional
+Section: php
 Description: EasePHP Framework Unit Tests
  Ease Framework Core unit Test classes.
-
-#Package: php-vitexsoftware-ease-core-doc
-#Depends: ${misc:Depends}
-#Architecture: all
-#Suggests: www-browser
-#Section: doc
-#Priority: optional
-#Description: EasePHP Framework Documentation
-# Ease Framework core documentation generate phpDocumentor
 
