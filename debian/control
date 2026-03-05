@@ -9,7 +9,6 @@ Build-Depends:
  phpab,
  moreutils,
  jq,
- composer,
  php-mbstring,
  php-dom,
  php-xml,
@@ -26,7 +25,6 @@ Depends:
  ${misc:Depends},
  ${phpcomposer:Debian-require},
  php-intl,
-Conflicts: ease-framework
 Suggests: php-vitexsoftware-ease-html, php-vitexsoftware-ease-bootstrap, php-vitexsoftware-ease-bootstrap4
 Section: php
 Description: EasePHP Framework Core
