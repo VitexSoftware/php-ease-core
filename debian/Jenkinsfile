@@ -77,6 +77,7 @@ distributions.each { distro ->
                         sh 'echo "deb [trusted=yes] file://///$WORKSPACE/dist/debian/ ./" | sudo tee /etc/apt/sources.list.d/local.list'
                         sh 'sudo apt-get update --allow-releaseinfo-change'
                         sh 'echo "INSTALATION"'
+			sh 'sudo apt install -y php-mbstring procps'
                       
                         def installOrder = [
 //                        '',
