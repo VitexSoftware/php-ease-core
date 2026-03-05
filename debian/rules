@@ -55,3 +55,9 @@ override_dh_install:
 		debian/php-vitexsoftware-ease-core/usr/share/php/EaseCore
 	install -m0755 -d debian/php-vitexsoftware-ease-core/usr/share/pkg-php-tools/autoloaders
 	echo 'deb ease-core EaseCore/autoload.php' > debian/php-vitexsoftware-ease-core/usr/share/pkg-php-tools/autoloaders/php-vitexsoftware-ease-core
+
+override_dh_phpcomposer:
+	mv composer.json composer.json.bak
+	jq 'del(.require["composer-runtime-api"])' composer.json.bak > composer.json
+	dh_phpcomposer
+	mv composer.json.bak composer.json

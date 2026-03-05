@@ -1,3 +1,4 @@
 pear.php.net Mail php-mail none
 pear.php.net Mail_mime php-mail-mime none
 composer composer-runtime-api none
+packagist.org composer-runtime-api none none
