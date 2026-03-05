@@ -61,15 +61,13 @@ class Collection implements \Countable, \IteratorAggregate
 
         if (!$ref->isInstantiable()) {
             throw new \InvalidArgumentException(sprintf('Class %s is not instantiable', $class));
-    }
+        }
 
         $this->class = $class;
     }
 
     /**
      * @param T $item
-     * 
-     * @return self
      */
     public function add(object $item): self
     {
@@ -80,18 +78,17 @@ class Collection implements \Countable, \IteratorAggregate
         }
 
         $this->items[] = $item;
+
         return $this;
     }
 
     /**
-     * Add New item defined by its pure data
-     * 
-     * @param array $data
-     * 
-     * @return self
+     * Add New item defined by its pure data.
      */
-    public function addArray(array $data): self {
+    public function addArray(array $data): self
+    {
         $this->add(new $this->class($data));
+
         return $this;
     }
 

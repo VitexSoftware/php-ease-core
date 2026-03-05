@@ -115,7 +115,7 @@ final class CollectionTest extends TestCase
             }
         };
 
-        $className = \get_class($proto);
+        $className = $proto::class;
 
         $collection = new Collection($className);
 
