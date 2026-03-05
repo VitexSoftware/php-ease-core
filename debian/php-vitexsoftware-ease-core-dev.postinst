@@ -42,8 +42,7 @@ case "$1" in
                     xargs -0 -r -I{} sh -c 'dest="$(dirname "{}")/php-vitexsoftware-ease-core.mo"; msgfmt -o "$dest" "{}" || true'
             fi
         fi
-        # Run test suite as web/composer user
-        su -s /bin/bash `composer-webuser` -c 'cd /usr/share/php/EaseCore/Test && phpunit --bootstrap /usr/share/php/EaseCore/Test/Bootstrap.php --configuration /usr/share/php/EaseCore/Test/phpunit.xml'
+        fi
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
