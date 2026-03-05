@@ -16,8 +16,7 @@
   },
   "minimum-stability": "dev",
   "require": {
-    "php": ">=7",
-    "composer-runtime-api": "*"
+    "php": ">=7"
   },
   "type": "library",
   "homepage": "http://v.s.cz/ease.php",
