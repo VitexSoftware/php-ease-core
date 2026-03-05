@@ -9,6 +9,7 @@ Build-Depends:
  phpab,
  moreutils,
  jq,
+ composer,
  php-mbstring,
  php-dom,
  php-xml,
