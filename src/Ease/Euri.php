@@ -121,8 +121,6 @@ final class Euri
      * @param object               $object Object exposing getMyKey()
      * @param array<string, mixed> $args   Optional query parameters
      *
-     * @throws \InvalidArgumentException
-     *
      * @return string EaseURI
      */
     public static function fromObject(object $object, array $args = []): string
@@ -137,10 +135,6 @@ final class Euri
         $class = $ref->getShortName();
         $id = (string) $object->getMyKey();
 
-        if ($id === '') {
-            throw new \InvalidArgumentException('Object identifier is empty');
-        }
-
         $path = str_replace('\\', '/', $namespace);
         $path = $path ? $path.'/'.$class : $class;
 
@@ -151,11 +145,11 @@ final class Euri
             $base .= '?'.http_build_query($args, '', '&', \PHP_QUERY_RFC3986);
         }
 
-        return $base.'#'.rawurlencode($id);
+        return $base.(\strlen($id) ? '#'.rawurlencode($id) : '');
     }
 
     /**
-     * Exctract Class part only.
+     * Extract Class part only.
      *
      * @return string Class
      */
