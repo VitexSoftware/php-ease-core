@@ -93,8 +93,8 @@ class Mailer extends Sand
     /**
      * Ease Mail - builds and sends.
      *
-     * @deprecated since version 1.50
-     * 
+     * @deprecated since version 1.50 - use https://symfony.com/doc/current/mailer.html instead
+     *
      * @param string $emailAddress  address
      * @param string $mailSubject   subject
      * @param mixed  $emailContents body - any text mix and EaseObjects
