@@ -10,9 +10,9 @@ override_dh_auto_build:
 	dh_auto_build
 	# Build compiled message catalogs for test i18n
 	if which msgfmt >/dev/null 2>&1; then \
-	  mkdir -p debian/php-vitexsoftware-ease-core-dev/usr/share/php/EaseCore/Test/i18n/cs_CZ/LC_MESSAGES/; \
-	  mkdir -p debian/php-vitexsoftware-ease-core-dev/usr/share/php/EaseCore/Test/i18n/en_US/LC_MESSAGES/; \
-	  mkdir -p debian/php-vitexsoftware-ease-core-dev/usr/share/php/EaseCore/Test/i18n/eo/LC_MESSAGES/; \
+	  mkdir -p debian/php-vitexsoftware-ease-core-dev/usr/share/php/Ease/Test/i18n/cs_CZ/LC_MESSAGES/; \
+	  mkdir -p debian/php-vitexsoftware-ease-core-dev/usr/share/php/Ease/Test/i18n/en_US/LC_MESSAGES/; \
+	  mkdir -p debian/php-vitexsoftware-ease-core-dev/usr/share/php/Ease/Test/i18n/eo/LC_MESSAGES/; \
 	  mkdir -p i18n/cs_CZ/LC_MESSAGES/; \
 	  mkdir -p i18n/en_US/LC_MESSAGES/; \
 	  mkdir -p i18n/eo/LC_MESSAGES/; \
@@ -37,22 +37,22 @@ override_dh_auto_test:
 
 override_dh_install:
 	dh_install
-	echo "require_once 'Mail.php';"  >> debian/php-vitexsoftware-ease-core/usr/share/php/EaseCore/Mailer.php
-	echo "require_once 'Mail/mime.php';" >> debian/php-vitexsoftware-ease-core/usr/share/php/EaseCore/Mailer.php
+	echo "require_once 'Mail.php';"  >> debian/php-vitexsoftware-ease-core/usr/share/php/Ease/Mailer.php
+	echo "require_once 'Mail/mime.php';" >> debian/php-vitexsoftware-ease-core/usr/share/php/Ease/Mailer.php
 	sed -i -e 's/..\/vendor/\/var\/lib\/php-vitexsoftware-ease-core/g' 	debian/php-vitexsoftware-ease-core-dev/usr/share/doc/php-vitexsoftware-ease-core-dev/SendTestMail.php
-	sed -i -e 's/..\/i18n/\/usr\/share\/locale/g'            	        debian/php-vitexsoftware-ease-core/usr/share/php/EaseCore/Locale.php
-	sed -i -e 's/.\/i18n/\/usr\/share\/php\/EaseCore\/Test\/i18n/g' debian/php-vitexsoftware-ease-core-dev/usr/share/php/EaseCore/Test/Ease/LocaleTest.php
-	sed -i -e 's/tests\/.env/\/usr\/share\/php\/EaseCore\/Test\/.env/g' debian/php-vitexsoftware-ease-core-dev/usr/share/php/EaseCore/Test/Ease/SharedTest.php
-	sed -i -e 's/tests\/configtest.json/\/usr\/share\/php\/EaseCore\/Test\/configtest.json/g' debian/php-vitexsoftware-ease-core-dev/usr/share/php/EaseCore/Test/Ease/SharedTest.php
-	sed -i 's/vitexsoftware/deb/' debian/php-vitexsoftware-ease-core/usr/share/php/EaseCore/Logger/Logging.php
+	sed -i -e 's/..\/i18n/\/usr\/share\/locale/g'            	        debian/php-vitexsoftware-ease-core/usr/share/php/Ease/Locale.php
+	sed -i -e 's/.\/i18n/\/usr\/share\/php\/EaseCore\/Test\/i18n/g' debian/php-vitexsoftware-ease-core-dev/usr/share/php/Ease/Test/Ease/LocaleTest.php
+	sed -i -e 's/tests\/.env/\/usr\/share\/php\/EaseCore\/Test\/.env/g' debian/php-vitexsoftware-ease-core-dev/usr/share/php/Ease/Test/Ease/SharedTest.php
+	sed -i -e 's/tests\/configtest.json/\/usr\/share\/php\/EaseCore\/Test\/configtest.json/g' debian/php-vitexsoftware-ease-core-dev/usr/share/php/Ease/Test/Ease/SharedTest.php
+	sed -i 's/vitexsoftware/deb/' debian/php-vitexsoftware-ease-core/usr/share/php/Ease/Logger/Logging.php
 	PKG_VERSION=`dpkg-parsechangelog | sed -n 's/^Version: //p'| sed 's/~.*//'`; \
-	jq ".version = \"$$PKG_VERSION\"" debian/composer.json |sponge debian/php-vitexsoftware-ease-core/usr/share/php/EaseCore/composer.json; \
-	sed -i -e "s/'0.0.0'/'$$PKG_VERSION'/g" debian/php-vitexsoftware-ease-core/usr/share/php/EaseCore/Shared.php; \
-	sed -i -e "s/'n\/a'/'$$PKG_VERSION'/g" debian/php-vitexsoftware-ease-core/usr/share/php/EaseCore/Logger/Logging.php
-	phpab --output debian/php-vitexsoftware-ease-core/usr/share/php/EaseCore/autoload.php \
-		--basedir debian/php-vitexsoftware-ease-core/usr/share/php/EaseCore \
+	jq ".version = \"$$PKG_VERSION\"" debian/composer.json |sponge debian/php-vitexsoftware-ease-core/usr/share/php/Ease/composer.json; \
+	sed -i -e "s/'0.0.0'/'$$PKG_VERSION'/g" debian/php-vitexsoftware-ease-core/usr/share/php/Ease/Shared.php; \
+	sed -i -e "s/'n\/a'/'$$PKG_VERSION'/g" debian/php-vitexsoftware-ease-core/usr/share/php/Ease/Logger/Logging.php
+	phpab --output debian/php-vitexsoftware-ease-core/usr/share/php/Ease/autoload.php \
+		--basedir debian/php-vitexsoftware-ease-core/usr/share/php/Ease \
 		--tolerant \
-		debian/php-vitexsoftware-ease-core/usr/share/php/EaseCore
+		debian/php-vitexsoftware-ease-core/usr/share/php/Ease
 	install -m0755 -d debian/php-vitexsoftware-ease-core/usr/share/pkg-php-tools/autoloaders
 	echo 'deb ease-core EaseCore/autoload.php' > debian/php-vitexsoftware-ease-core/usr/share/pkg-php-tools/autoloaders/php-vitexsoftware-ease-core
 

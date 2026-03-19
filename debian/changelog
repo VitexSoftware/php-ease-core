@@ -1,3 +1,9 @@
+php-vitexsoftware-ease-core (1.51.1) UNRELEASED; urgency=medium
+
+  * default installation path changed to /usr/share/php/Ease/
+
+ -- vitex <info@vitexsoftware.cz>  Thu, 19 Mar 2026 10:44:17 +0100
+
 php-vitexsoftware-ease-core (1.51.0) unstable; urgency=medium
 
   * enhance Collection class with addArray method
@@ -6,7 +12,7 @@ php-vitexsoftware-ease-core (1.51.0) unstable; urgency=medium
   * Remove composer-debian dependency (no longer used)
   * Add phpab-generated autoload.php and pkg-php-tools registration
 
- -- vitex <info@vitexsoftware.cz>  Mon, 02 Mar 2026 17:04:00 +0100
+ -- vitex <info@vitexsoftware.cz>  Thu, 19 Mar 2026 10:44:11 +0100
 
 php-vitexsoftware-ease-core (1.50.0) unstable; urgency=medium
 
