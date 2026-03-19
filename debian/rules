@@ -41,9 +41,9 @@ override_dh_install:
 	echo "require_once 'Mail/mime.php';" >> debian/php-vitexsoftware-ease-core/usr/share/php/Ease/Mailer.php
 	sed -i -e 's/..\/vendor/\/var\/lib\/php-vitexsoftware-ease-core/g' 	debian/php-vitexsoftware-ease-core-dev/usr/share/doc/php-vitexsoftware-ease-core-dev/SendTestMail.php
 	sed -i -e 's/..\/i18n/\/usr\/share\/locale/g'            	        debian/php-vitexsoftware-ease-core/usr/share/php/Ease/Locale.php
-	sed -i -e 's/.\/i18n/\/usr\/share\/php\/EaseCore\/Test\/i18n/g' debian/php-vitexsoftware-ease-core-dev/usr/share/php/Ease/Test/Ease/LocaleTest.php
-	sed -i -e 's/tests\/.env/\/usr\/share\/php\/EaseCore\/Test\/.env/g' debian/php-vitexsoftware-ease-core-dev/usr/share/php/Ease/Test/Ease/SharedTest.php
-	sed -i -e 's/tests\/configtest.json/\/usr\/share\/php\/EaseCore\/Test\/configtest.json/g' debian/php-vitexsoftware-ease-core-dev/usr/share/php/Ease/Test/Ease/SharedTest.php
+	sed -i -e 's/.\/i18n/\/usr\/share\/php\/Ease\/Test\/i18n/g' debian/php-vitexsoftware-ease-core-dev/usr/share/php/Ease/Test/Ease/LocaleTest.php
+	sed -i -e 's/tests\/.env/\/usr\/share\/php\/Ease\/Test\/.env/g' debian/php-vitexsoftware-ease-core-dev/usr/share/php/Ease/Test/Ease/SharedTest.php
+	sed -i -e 's/tests\/configtest.json/\/usr\/share\/php\/Ease\/Test\/configtest.json/g' debian/php-vitexsoftware-ease-core-dev/usr/share/php/Ease/Test/Ease/SharedTest.php
 	sed -i 's/vitexsoftware/deb/' debian/php-vitexsoftware-ease-core/usr/share/php/Ease/Logger/Logging.php
 	PKG_VERSION=`dpkg-parsechangelog | sed -n 's/^Version: //p'| sed 's/~.*//'`; \
 	jq ".version = \"$$PKG_VERSION\"" debian/composer.json |sponge debian/php-vitexsoftware-ease-core/usr/share/php/Ease/composer.json; \
@@ -54,7 +54,7 @@ override_dh_install:
 		--tolerant \
 		debian/php-vitexsoftware-ease-core/usr/share/php/Ease
 	install -m0755 -d debian/php-vitexsoftware-ease-core/usr/share/pkg-php-tools/autoloaders
-	echo 'deb ease-core EaseCore/autoload.php' > debian/php-vitexsoftware-ease-core/usr/share/pkg-php-tools/autoloaders/php-vitexsoftware-ease-core
+	echo 'deb ease-core Ease/autoload.php' > debian/php-vitexsoftware-ease-core/usr/share/pkg-php-tools/autoloaders/php-vitexsoftware-ease-core
 
 override_dh_phpcomposer:
 	mv composer.json composer.json.bak
