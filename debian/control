@@ -23,6 +23,7 @@ Rules-Requires-Root: no
 Package: php-vitexsoftware-ease-core
 Architecture: all
 Depends:
+ composer,
  ${misc:Depends},
  ${phpcomposer:Debian-require},
  php-intl,
