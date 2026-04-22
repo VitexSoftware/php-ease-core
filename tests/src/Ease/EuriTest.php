@@ -98,13 +98,9 @@ final class EuriTest extends TestCase
 
     public function testIsValid(): void
     {
-        $this->assertTrue(
-            Euri::isValid('ease://Test/Ease/DummyBrick#1'),
-        );
+        $this->assertTrue(Euri::isValid('ease://Test/Ease/DummyBrick#1'));
 
-        $this->assertFalse(
-            Euri::isValid('http://DummyBrick/1'),
-        );
+        $this->assertFalse(Euri::isValid('http://DummyBrick/1'));
     }
 
     public function testNormalize(): void

@@ -105,16 +105,14 @@ class Mailer extends Sand
             $this->parameters = json_decode(\Ease\Shared::cfg('EASE_SMTP'), true);
         }
 
-        $this->setMailHeaders(
-            [
-                'To' => $emailAddress,
-                'From' => $this->fromEmailAddress === '' || $this->fromEmailAddress === '0' ? \Ease\Shared::cfg('EASE_FROM', \Ease\Shared::cfg('EMAIL_FROM')) : $this->fromEmailAddress,
-                'Reply-To' => $this->fromEmailAddress,
-                'Subject' => $mailSubject,
-                'Content-Type' => 'text/plain; charset=utf-8',
-                'Content-Transfer-Encoding' => '8bit',
-            ],
-        );
+        $this->setMailHeaders([
+            'To' => $emailAddress,
+            'From' => $this->fromEmailAddress === '' || $this->fromEmailAddress === '0' ? \Ease\Shared::cfg('EASE_FROM', \Ease\Shared::cfg('EMAIL_FROM')) : $this->fromEmailAddress,
+            'Reply-To' => $this->fromEmailAddress,
+            'Subject' => $mailSubject,
+            'Content-Type' => 'text/plain; charset=utf-8',
+            'Content-Transfer-Encoding' => '8bit',
+        ],);
 
         $mimerParams = [
             'html_charset' => 'utf-8',

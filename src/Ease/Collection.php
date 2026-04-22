@@ -72,9 +72,7 @@ class Collection implements \Countable, \IteratorAggregate
     public function add(object $item): self
     {
         if (!$item instanceof $this->class) {
-            throw new \InvalidArgumentException(
-                sprintf('Item must be instance of %s, %s given', $this->class, $item::class),
-            );
+            throw new \InvalidArgumentException(sprintf('Item must be instance of %s, %s given', $this->class, $item::class));
         }
 
         $this->items[] = $item;
