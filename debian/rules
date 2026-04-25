@@ -57,10 +57,8 @@ override_dh_install:
 		debian/php-vitexsoftware-ease-core/usr/share/php/Ease
 	cat debian/installedversions.php >> \
 		debian/php-vitexsoftware-ease-core/usr/share/php/Ease/autoload.php
-	sed -i "s|: 'unknown'|: '$(PKG_SOURCE)'|" \
-		debian/php-vitexsoftware-ease-core/usr/share/php/Ease/autoload.php
-	sed -i "s|: '0.0.0'|: '$(PKG_VERSION)'|" \
-		debian/php-vitexsoftware-ease-core/usr/share/php/Ease/autoload.php
+	sed -i "s|'unknown'|'$(PKG_SOURCE)'|" debian/php-vitexsoftware-ease-core/usr/share/php/Ease/autoload.php
+	sed -i "s|'0.0.0'|'$(PKG_VERSION)'|"  debian/php-vitexsoftware-ease-core/usr/share/php/Ease/autoload.php
 	install -m0755 -d debian/php-vitexsoftware-ease-core/usr/share/pkg-php-tools/autoloaders
 	echo 'deb ease-core Ease/autoload.php' > debian/php-vitexsoftware-ease-core/usr/share/pkg-php-tools/autoloaders/php-vitexsoftware-ease-core
 
