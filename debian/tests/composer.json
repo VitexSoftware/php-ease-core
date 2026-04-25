@@ -1,5 +1,5 @@
 {
-  "name": "deb/ease-core-dev",
+  "name": "vitexsoftware/ease-core-dev",
   "description": "An Core of PHP Framework for Ease of writing Applications test files (debianized)",
   "version": "1.19",
   "authors": [
@@ -24,7 +24,7 @@
         }
     },
     "require": {
-        "deb/ease-core": "*"
+        "vitexsoftware/ease-core": "*"
     },
     "repositories": [
         {

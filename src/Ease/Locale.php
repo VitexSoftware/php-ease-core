@@ -668,7 +668,7 @@ class Locale
     public static function useLocale(string $localeCode)
     {
         \putenv("LC_ALL={$localeCode}");
-        \putenv("LANGUAGUE={$localeCode}");
+        \putenv("LANGUAGE={$localeCode}");
         \putenv("LANG={$localeCode}");
         \setlocale(\LC_ALL, $localeCode);
         \bind_textdomain_codeset(self::$textDomain, 'UTF-8');

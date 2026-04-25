@@ -16,28 +16,7 @@ sudo apt install php-vitexsoftware-ease-core
 
 You can also install optional packages **php-vitexsoftware-ease-core-dev** and **php-vitexsoftware-ease-core-doc**
 
-In this case please add this to your app composer.json:
-
-```json
-    "require": {
-        "deb/ease-core": "*"
-    },
-    "repositories": [
-        {
-            "type": "path",
-            "url": "/usr/share/php/EaseCore",
-            "options": {
-                "symlink": true
-            }
-        }
-    ]
-```
-
-
-
-
-    Is installed by standard way in /usr/share/php/EaseCore
-
+Is installed by standard way in /usr/share/php/Ease
 
 After installing package php-vitexsoftware-ease-core-dev you can test EaseMailer function:
 

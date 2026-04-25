@@ -180,6 +180,9 @@ class LocaleTest extends \PHPUnit\Framework\TestCase
     {
         Locale::useLocale('en_US');
         $this->assertEquals('en_US', Locale::getLocaleUsed());
+        $this->assertEquals('en_US', getenv('LANGUAGE'), 'LANGUAGE env var must be set (not LANGUAGUE)');
+        $this->assertEquals('en_US', getenv('LC_ALL'));
+        $this->assertEquals('en_US', getenv('LANG'));
     }
 
     /**
