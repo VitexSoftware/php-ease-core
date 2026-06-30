@@ -583,7 +583,7 @@ class Locale
         $directory = dir(self::$i18n);
 
         while (false !== ($entry = $directory->read())) {
-            if (($entry[0] !== '.') && file_exists(self::$i18n.'/'.$entry.'/LC_MESSAGES/'.self::$textDomain.'.mo')) {
+            if (($entry[0] !== '.') && is_dir(self::$i18n.'/'.$entry) && file_exists(self::$i18n.'/'.$entry.'/LC_MESSAGES/'.self::$textDomain.'.mo')) {
                 if (strstr(self::$alllngs[$entry], ' (')) {
                     [$lang, $country] = explode(' (', self::$alllngs[$entry]);
                     $locales[$entry] = _($lang).' ('._(substr($country, 0, -1)).')';
