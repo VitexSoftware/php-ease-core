@@ -12,7 +12,7 @@ build:
                         sendmail_path: 'cat - >> /tmp/mailfile'
             dependencies:
                 before:
-                    - composer self-update
+                    - composer self-update --2
                     - composer install --no-interaction
                     - sudo mkdir -p /home/scrutinizer/buildfile 
                     - sudo chown scrutinizer /home/scrutinizer/buildfile
@@ -27,7 +27,7 @@ build:
                         sendmail_path: 'cat - >> /tmp/mailfile'
             dependencies:
                 before:
-                    - composer self-update
+                    - composer self-update --2
                     - composer install --no-interaction
                     - sudo mkdir -p /home/scrutinizer/buildfile 
                     - sudo chown scrutinizer /home/scrutinizer/buildfile
