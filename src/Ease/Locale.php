@@ -636,7 +636,7 @@ class Locale
      */
     public static function langToLocale($lang)
     {
-        $defaultLocale = 'C';
+        $defaultLocale = 'en_US';
         $langs = [];
 
         foreach (self::$alllngs as $langCode => $language) {
