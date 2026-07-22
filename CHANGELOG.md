@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.50.0] - 2026-07-22
+
+### Added
+
+- **`DocumentUri`**: New static-only utility class `Ease\DocumentUri` for identifying documents in external source systems using the `ease:` URI scheme.
+  Format: `ease://{sourceSystem}/{documentType}?{instanceArgs}#{recordId}`
+  - `DocumentUri::build(string $sourceSystem, string $documentType, string $recordId, array $args): string`
+  - `DocumentUri::validate(string $uri): array` — returns `source_system`, `document_type`, `record_id`, `args`
+  - `DocumentUri::getSourceSystem()`, `getDocumentType()`, `getRecordId()`, `getArgs()`, `isValid()`
+  - Designed for heterogeneous adapter ecosystems (AbraFlexi, Pohoda, Money S3, …); adapters write `document_uri` into their `changes_cache`, consumers parse it without knowing the source system.
+  - 24 unit tests covering build, validate, round-trip, all error paths, and edge cases.
+
+### Changed
+
+- **`Euri`**: Removed `final` modifier and changed constructor visibility from `private` to `protected` to allow `DocumentUri` (and future subclasses) to coexist cleanly in the same namespace.
+
 ### Fixed
 
 - **Locale typo**: Fixed `LANGUAGUE` env var name to `LANGUAGE` in `Locale::useLocale()`
