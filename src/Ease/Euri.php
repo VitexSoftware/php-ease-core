@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Ease;
 
-final class Euri
+class Euri
 {
-    private function __construct()
+    protected function __construct()
     {
         // Static-only utility class
     }
