@@ -1,3 +1,6 @@
+![Packaging: deb](https://img.shields.io/badge/packaging-.deb-red?logo=debian&logoColor=white)
+
+
 ![EasePHP Framework Logo](ease-core-social-preview.png?raw=true "Project Logo")
 
 EasePHP Framework Core
