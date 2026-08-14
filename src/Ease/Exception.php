@@ -48,7 +48,7 @@ class Exception extends \Exception
      */
     public function __construct(string $message, int $code = 0, ?self $previous = null)
     {
-        if (\Ease\Shared::cfg('DEBUG', false)) {
+        if (\Ease\Shared::isDebug()) {
             $trace = $this->getTrace();
             $caller = new Molecule();
             $where = $trace[0]['class'].'::'.$trace[0]['function'];

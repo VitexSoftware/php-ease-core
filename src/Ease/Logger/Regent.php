@@ -163,7 +163,7 @@ class Regent extends \Ease\Atom implements Loggingable
         foreach ($this->loggers as $logger) {
             switch ($message->type) {
                 case 'debug':
-                    if ((bool) \Ease\Shared::cfg('DEBUG', false) === false) {
+                    if (\Ease\Shared::isDebug() === false) {
                         break;
                     }
 

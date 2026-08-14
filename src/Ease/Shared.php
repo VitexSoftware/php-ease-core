@@ -149,6 +149,20 @@ class Shared extends Atom
     }
 
     /**
+     * Whether debug mode is on.
+     *
+     * cfg() reads constants/env vars, both of which surface as strings —
+     * PHP's (bool) cast treats any non-empty string (including "false" or
+     * "0") as true, so callers comparing cfg('DEBUG') truthiness directly
+     * flip on debug output for a literal `DEBUG=false` in the environment.
+     * Compare the normalized string instead.
+     */
+    public static function isDebug(): bool
+    {
+        return strtolower((string) self::cfg('DEBUG', 'false')) === 'true';
+    }
+
+    /**
      * Application name or "Composer project Name" fallback.
      *
      * @return string

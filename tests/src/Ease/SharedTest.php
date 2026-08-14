@@ -169,4 +169,27 @@ class SharedTest extends AtomTest
     {
         $this->assertInstanceOf('\Ease\User', \Ease\Shared::user(null, '\Ease\User'));
     }
+
+    /**
+     * Regression test: cfg('DEBUG') always surfaces env vars as strings, so a
+     * literal DEBUG=false in the environment must NOT be treated as enabled —
+     * PHP's (bool) cast on a non-empty string like "false" is true, which is
+     * the bug isDebug() exists to avoid.
+     *
+     * @covers \Ease\Shared::isDebug
+     */
+    public function testIsDebug(): void
+    {
+        putenv('DEBUG=false');
+        $this->assertFalse(\Ease\Shared::isDebug(), 'DEBUG=false (string) must not enable debug mode');
+
+        putenv('DEBUG=true');
+        $this->assertTrue(\Ease\Shared::isDebug(), 'DEBUG=true (string) must enable debug mode');
+
+        putenv('DEBUG=TRUE');
+        $this->assertTrue(\Ease\Shared::isDebug(), 'DEBUG value must be compared case-insensitively');
+
+        putenv('DEBUG');
+        $this->assertFalse(\Ease\Shared::isDebug(), 'Unset DEBUG must default to disabled');
+    }
 }

@@ -94,7 +94,7 @@ trait Logging
      */
     public function logBanner($prefix = '', $suffix = ''): void
     {
-        if (\Ease\Shared::cfg('DEBUG') === true) {
+        if (\Ease\Shared::isDebug()) {
             $suffix .= ' Loggers: '.\Ease\Shared::cfg('EASE_LOGGER');
         }
 
