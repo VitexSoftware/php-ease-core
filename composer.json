@@ -31,7 +31,7 @@
         "php": ">=7",
         "ext-intl": "*",
         "pear/mail": ">=2.0.0",
-        "pear/mail_mime": ">=1.10.12",
+        "pear/mail_mime": ">=1.10.13",
         "composer-runtime-api": "*"
     },
     "require-dev": {
